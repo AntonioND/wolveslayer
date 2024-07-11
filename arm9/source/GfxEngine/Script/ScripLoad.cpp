@@ -37,7 +37,7 @@ void ucase (char character[256],char *New)
 	uint a;
 	
 	strcpy(New,character);
-	
+	return; // TODO: Check that this is only used for filesystem files
 	for(a=0;a<strlen(character);a++){
 		if ((character[a] > 0x60) && (character[a]< 0x7B))
 			New[a] = character[a] - 0x20;

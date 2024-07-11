@@ -456,15 +456,16 @@ void E3D_StartRender(){
 	extern float CamPosSX,CamPosSY;
 	extern float PlHeight;
 
-	gluLookAt(CamPosSX, (PlHeight*1.25)+3, 3.4+CamPosSY-(PlHeight*.28),// Camera possition 
-		CamPosSX, .4+(PlHeight*.67), CamPosSY+.1-(PlHeight*.28),// Look at
-			0, 1, 0);// Up
-
-				
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
 			
 	glMatrixMode(GL_MODELVIEW);
+
+	glLoadIdentity();
+	gluLookAt(CamPosSX, (PlHeight*1.25)+3, 3.4+CamPosSY-(PlHeight*.28),// Camera possition 
+		CamPosSX, .4+(PlHeight*.67), CamPosSY+.1-(PlHeight*.28),// Look at
+			0, 1, 0);// Up
+
 	// Move away from the camera
 	glTranslate3f32 (0, 0, floattov16(-0.1));
 					

@@ -1,0 +1,31 @@
+<map file="haus1.bmp" music="town-inside.mod" env="inside">
+	<ground colorkey="49,42,25" file="bump/holz2b.bmp" bump-mapping="true"/>
+	<ground colorkey="86,58,26" file="bump/holzschatten.bmp" bump-mapping="true"/>
+	<doortexture file="door/door1.bmp"/>
+	<terrainborder file="other/rand.bmp"/>
+
+	<object mesh="[wall]" 			colorkey="131,175,235"		textureid="0"			/>
+	<object mesh="furniture/saeule1-mdm.mdm" 		colorkey="210,158,32"		textureid="1"			/>
+	<object mesh="building/decke-mdm.mdm" 		colorkey="196,22,22"		textureid="2"	radius="0"	/>
+	<object mesh="furniture/Tisch1-mdm.mdm" 		colorkey="214,152,122"		textureid="3"	scale="50"	/>
+	<object mesh="furniture/Tisch2-mdm.mdm" 		colorkey="123,71,33"		textureid="3"	scale="50"	/>
+	<object mesh="furniture/bild1-mdm.mdm" 		colorkey="98,173,69"		textureid="4"			/>
+	<object mesh="furniture/pflanze2-mdm.mdm" 	colorkey="237,25,230"		textureid="6"			/>
+	<object mesh="building/treppe-mdm.mdm" 		colorkey="90,49,22"		textureid="7"			 radius="0"/>
+	<object mesh="building/rehling1-mdm.mdm" 	colorkey="216,144,144"		textureid="8"			/>
+	<object mesh="building/rehling-ecke-mdm.mdm" 	colorkey="228,90,90"		textureid="8"			/>
+	<object mesh="building/rehling2-mdm.mdm" 	colorkey="212,130,130"		textureid="8"			/>
+
+	<texture id="0" file="wall/wand1.bmp"/>
+	<texture id="1" file="furniture/saeule1.bmp"/>
+	<texture id="2" file="building/decke.bmp"/>
+	<texture id="3" file="furniture/tisch1.bmp"/>
+	<texture id="4" file="furniture/bild1.bmp"/>
+	<texture id="6" file="furniture/pflanze2.bmp"/>
+	<texture id="7" file="building/treppe.bmp"/>
+	<texture id="8" file="building/rehling.bmp"/>
+	<texture id="9" file="other/invibox.bmp"/>
+	
+	<door id="0" pos="8,5" targetmap="stadt.txt" targetpos="9,11"/>
+        <mapchange pos="3,7" targetmap="etage1.txt" targetpos="2,2"/>
+</map>

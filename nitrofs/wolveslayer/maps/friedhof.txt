@@ -1,0 +1,59 @@
+<map file="friedhof.bmp" music="Scary.mod" env="inside">
+	<ground colorkey="127,237,37" file="ground/trockengras1.bmp"/>
+	<ground colorkey="105,215,15" file="ground/trockengras2.bmp"/>
+	<ground colorkey="79,162,12" file="ground/trockengras3.bmp"/>
+	<ground colorkey="62,125,11" file="ground/trockengras4.bmp"/>
+	<ground colorkey="85,88,68" file="ground/grasschatten1.bmp"/>
+	<ground colorkey="49,92,14" file="ground/grasloch.bmp"/>
+	<ground colorkey="179,102,208" file="ground/bergwand1.bmp"/>
+	<ground colorkey="187,160,13" file="ground/gsand-o.bmp"/>
+	<ground colorkey="255,218,11" file="ground/gsand-ro.bmp"/>
+	<ground colorkey="180,163,68" file="ground/gsand-r.bmp"/>
+	<ground colorkey="219,178,55" file="ground/gsand-ru.bmp"/>
+	<ground colorkey="232,202,110" file="ground/gsand-u.bmp"/>
+	<ground colorkey="231,211,43" file="ground/stufenboden.bmp"/>
+	
+	<autoground colorkey="178,99,22" file="autotiles/friedhof.bmp"/>
+	<terrainborder file="Other/rand2.bmp"/>
+
+	<object mesh="nature/toterbaum-mdm.mdm" colorkey="211,162,13" textureid="5" scale="40"/>
+	<object mesh="nature/toterbaum-mdm.mdm" colorkey="120,130,140" textureid="3" scale="40"/>
+	<object mesh="other/hoehle-mdm.mdm" colorkey="14,208,210" textureid="4" radius="0" scale="80"/>
+	<object mesh="other/zaun1-links-mdm.mdm" colorkey="68,162,92" textureid="8" scale="45" />
+	<object mesh="nature/graskreis1-mdm.mdm" colorkey="200,216,94" textureid="6" scale="60" radius="0"/>
+	<object mesh="nature/gras1hoch-mdm.mdm" colorkey="154,173,27" textureid="7" scale="60" radius="0"/>	
+	<object mesh="other/zaun1-unten-mdm.mdm" colorkey="192,144,76" textureid="8" scale="45"/>
+	<object mesh="other/holzstatue-mdm.mdm" colorkey="34,126,240" textureid="9" scale="50"/>
+	<object mesh="other/Kuerbis-mdm.mdm" colorkey="67,63,229" textureid="1" scale="35"/>
+	<object mesh="other/grabstein1-mdm.mdm" colorkey="177,127,41" textureid="13" scale="40"/>
+	<object mesh="other/pfeil-ani-mdm.mdm" colorkey="195,3,166" textureid="12" scale="50" radius="0" selfilluminated="true"/>
+	<object mesh="other/grabstein2-mdm.mdm" colorkey="245,20,70" textureid="13" scale="40" />
+	
+	<texture id="1" file="other/kuerbis.bmp"/>
+	<texture id="3" file="nature/toterbaum.bmp"/>
+	<texture id="4" file="other/hoehle.bmp"/>
+	<texture id="5" file="nature/toterbaum2.bmp"/>
+	<texture id="6" file="nature/graskreis1.bmp"/>
+	<texture id="7" file="nature/gras1hoch.bmp"/>
+	<texture id="8" file="other/zaun1.bmp"/>
+	<texture id="9" file="other/holzstatue.bmp"/>
+	<texture id="10" file="other/laterne-neu.bmp"/>
+	<texture id="12" file="other/pfeil.bmp"/>	
+	<texture id="13" file="other/grabstein.bmp"/>
+	
+
+	<mapchange pos="2,3" targetmap="zentrum.txt" targetpos="18,9"/>
+	<mapchange pos="13,1" targetmap="dungeon1.txt" targetpos="4,24"/>	
+
+	<enemydef name="Wolve1">
+		<mesh 		file="enemys/wolf.md2" 	scale="30"	radius=".8"/>
+		<texture 	file="enemys/wolf2.bmp"			/>
+		<atributes 	healthpower="10" 	attackpower="2"	/>
+	</enemydef>
+
+
+
+	<enemy name="Wolve1" pos="9,5"/>
+	<enemy name="Wolve1" pos="10,5"/>
+	<enemy name="Wolve1" pos="8,5"/>
+</map>

@@ -1,0 +1,24 @@
+<map file="etage1.bmp" music="town-inside.mod" env="inside">
+	<ground colorkey="49,42,25" file="bump/holz2b.bmp" bump-mapping="true" mirrowing="true"/>
+	<ground colorkey="86,58,26" file="bump/holzschatten.bmp" bump-mapping="true" mirrowing="true"/>
+
+	<comment>Mit Tab-Stop kann man nett einrücken....muss man aber nich!</comment>
+	<object mesh="[wall]" 			colorkey="131,175,235"		textureid="0"			/>
+	<object mesh="furniture/pflanze2-mdm.mdm" 	colorkey="237,25,230"		textureid="1"			/>
+	<object mesh="building/treppeetage-mdm.mdm" 	colorkey="90,49,22"		textureid="2"   scale="55" mirrowable="false" renderground="false"	radius="0"/>
+	<object mesh="building/tuer1-mdm.mdm" 		colorkey="70,201,67"		textureid="3"			/>
+	<object mesh="other/pfeil-ani-mdm.mdm" colorkey="195,3,166" textureid="4" scale="50" radius="0" selfilluminated="true"/>	
+	<object mesh="furniture/schrank1-mdm.mdm"         colorkey="227,47,47"		textureid="5"	scale="30"	/>
+	
+	<texture id="0" file="wall/wand1.bmp"/>
+	<texture id="1" file="furniture/pflanze2.bmp"/>
+	<texture id="2" file="building/treppe.bmp"/>
+	<texture id="3" file="building/tuer1.bmp"/>
+	<texture id="4" file="other/pfeil.bmp"/>
+	<texture id="5" file="furniture/schrank1.bmp"/>
+	
+	<mapchange pos="2,3" targetmap="Haus1.txt" targetpos="4,6"/>
+
+
+	<terrainborder file="other/rand.bmp"/>
+</map>

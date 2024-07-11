@@ -1,0 +1,70 @@
+<map file="stadt.bmp" music="Village-Day.mod" env="inside">
+	<ground colorkey="52,171,210" file="bump/stadtboden1.bmp" bump-mapping="true"/>
+	<ground colorkey="208,94,72" file="ground/mauerschatten.bmp"/>
+	<ground colorkey="87,177,47" file="ground/treppelinks.bmp" />
+	<ground colorkey="127,237,37" file="ground/grasteil1.bmp"/>	
+	<ground colorkey="199,128,93" file="ground/steingras1.bmp"/>		
+	<ground colorkey="226,119,66" file="ground/steingras2.bmp"/>
+	<ground colorkey="233,166,133" file="ground/steingras3.bmp"/>
+	<ground colorkey="241,197,175" file="ground/steingras4.bmp"/>
+	<ground colorkey="196,60,172" file="bump/gehweglinks.bmp" bump-mapping="true"/>
+	<ground colorkey="142,38,124" file="bump/gehwegrechts.bmp" bump-mapping="true"/>
+	<ground colorkey="104,134,66" file="bump/gehwegoben.bmp" bump-mapping="true"/>
+	<ground colorkey="29,245,90" file="bump/gehwegunten.bmp" bump-mapping="true"/>
+	<ground colorkey="29,177,71" file="bump/gehwegeckelinks.bmp" bump-mapping="true"/>
+	<ground colorkey="32,80,46" file="bump/gehwegeckerechts.bmp" bump-mapping="true"/>	
+
+	<autoground colorkey="178,99,22" file="autotiles/autotile1-3.bmp"/>
+	<terrainborder file="other/stadtstufe.bmp"/>
+
+<object mesh="furniture/bank1-links-mdm.mdm" colorkey="219,123,123" textureid="0" scale="50"/>
+<object mesh="furniture/bank1-rechts-mdm.mdm" colorkey="164,16,16" textureid="0" scale="50"/>
+<object mesh="other/mauer-links-mdm.mdm" colorkey="210,52,205" textureid="5" scale="51" culling="true"/>
+<object mesh="other/mauer-unten-mdm.mdm" colorkey="217,31,31" textureid="5" scale="51" culling="true"/>
+<object mesh="nature/Tanne2kvorne-mdm.mdm" colorkey="35,220,10" textureid="6" scale="80"/>
+<object mesh="nature/gras1hoch-mdm.mdm" colorkey="154,173,27" textureid="7" scale="60" radius="0"/>
+<object mesh="other/stadtlaterne1-mdm.mdm" colorkey="46,58,222" textureid="9" scale="65" radius="1" />
+<object mesh="building/stadt-glocke-ani2-mdm.mdm" colorkey="87,232,16" textureid="10" scale="50" noground="true"/>
+<object mesh="other/bottich-links-mdm.mdm" colorkey="171,71,71" textureid="11" scale="50" />
+<object mesh="other/bottich-rechts-mdm.mdm" colorkey="222,70,70" textureid="11" scale="50" />
+<object mesh="other/maueruntenklein-mdm.mdm" colorkey="215,33,144" textureid="5" scale="51" culling="true"/>
+<object mesh="other/mauerlinksklein-mdm.mdm" colorkey="239,9,150" textureid="5" scale="51" culling="true"/>
+<object mesh="other/mauerrechtsklein-mdm.mdm" colorkey="243,131,200" textureid="5" scale="51" culling="true"/>
+<object mesh="other/shopkiste1-mdm.mdm" colorkey="25,241,243" textureid="12" scale="48"/>
+<object mesh="other/hotelschild-mdm.mdm" colorkey="120,118,218" textureid="13" scale="50"/>
+<object mesh="other/pfeil-ani-mdm.mdm" colorkey="195,3,166" textureid="14" scale="50" radius="0" selfilluminated="true"/>
+<object mesh="building/h1_t.mdm" colorkey="100,100,50" textureid="8" scale="50" noground="true" culling="true"/>
+<object mesh="building/h1_e.mdm" colorkey="100,100,100" textureid="8" scale="50" noground="true" culling="true"/>
+<object mesh="building/h1_w.mdm" colorkey="100,100,150" textureid="8" scale="50" noground="true" culling="true"/>
+<object mesh="building/h1_s.mdm" colorkey="150,150,150" textureid="8" scale="50" noground="true" culling="true"/>
+<object mesh="other/gulli-mdm.mdm" colorkey="222,33,44" textureid="15" scale="50" radius="0" />
+
+<texture id="0" file="furniture/bank1.bmp"/>
+<texture id="5" file="other/mauer.bmp"/>
+<texture id="6" file="nature/tanne-new.bmp"/>
+<texture id="7" file="nature/gras1hoch.bmp"/>
+<texture id="8" file="building/H1.bmp"/>
+<texture id="9" file="other/stadtlaterne2.bmp"/>
+<texture id="10" file="building/stadt-glocke.bmp"/>
+<texture id="11" file="other/blumen1.bmp"/>
+<texture id="12" file="other/shopkisten.bmp"/>
+<texture id="13" file="other/hotelschild.bmp"/>
+<texture id="14"  file="other/pfeil.bmp"/>
+<texture id="15"  file="other/gulli.bmp"/>
+
+
+<mapchange pos="9,18" targetmap="zentrum.txt" targetpos="16,2"/>
+<mapchange pos="10,18" targetmap="zentrum.txt" targetpos="16,2"/>
+
+<mapchange pos="8,11" targetmap="haus1.txt" targetpos="7,5"/>
+
+<dynamiclight>
+		<firefly pos="2,6" color="175,37,37"/>
+		<firefly pos="3,3" color="228,150,28"/>
+		<firefly pos="4,6" color="142,30,4"/>
+		<firefly pos="3,3" color="213,78,47"/>
+		<firefly pos="6,4" color="213,78,47"/>
+</dynamiclight>
+
+
+</map>

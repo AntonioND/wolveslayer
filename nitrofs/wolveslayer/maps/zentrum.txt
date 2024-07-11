@@ -1,0 +1,78 @@
+<map file="zentrum.bmp" music="Forest.mod" env="inside">
+	<ground colorkey="127,237,37" file="ground/grasteil1.bmp"/>
+	<ground colorkey="105,215,15" file="ground/grasteil2.bmp"/>
+	<ground colorkey="79,162,12" file="ground/grasteil3.bmp"/>
+	<ground colorkey="62,125,11" file="ground/grasteil4.bmp"/>
+	<ground colorkey="85,88,68" file="ground/grasschatten1.bmp"/>
+	<ground colorkey="49,92,14" file="ground/grasloch.bmp"/>
+	<ground colorkey="179,102,208" file="ground/bergwand1.bmp"/>
+	<ground colorkey="187,160,13" file="ground/gsand-o.bmp"/>
+	<ground colorkey="255,218,11" file="ground/gsand-ro.bmp"/>
+	<ground colorkey="180,163,68" file="ground/gsand-r.bmp"/>
+	<ground colorkey="219,178,55" file="ground/gsand-ru.bmp"/>
+	<ground colorkey="232,202,110" file="ground/gsand-u.bmp"/>
+	<ground colorkey="231,211,43" file="ground/stufenboden.bmp"/>
+	
+	<autoground colorkey="178,99,22" file="autotiles/autotile1-3.bmp"/>
+	<terrainborder file="OtheR/rand2.bmp"/>
+
+	<object mesh="nature/Tanne2-mdm.mdm" colorkey="35,220,10" textureid="0" scale="4"/>
+	<object mesh="building/huette1-mdm.mdm" colorkey="211,162,13" textureid="1" scale="45"/>
+	<object mesh="other/brunnen-mdm.mdm" colorkey="82,71,36" textureid="2" scale="45"/>
+	<object mesh="other/blumen1-mdm.mdm" colorkey="14,208,210" textureid="4" scale="35"/>
+	<object mesh="nature/grasberg1-mdm.mdm" colorkey="68,162,92" textureid="5" scale="60" radius="0"/>
+	<object mesh="nature/graskreis1-mdm.mdm" colorkey="200,216,94" textureid="6" scale="60" radius="0"/>
+	<object mesh="nature/gras1hoch-mdm.mdm" colorkey="154,173,27" textureid="7" scale="60" radius="0"/>	
+	<object mesh="building/huette1-tiled-1-mdm.mdm" colorkey="37,33,197" textureid="1" scale="60"/>
+	<object mesh="other/zaun1-unten-mdm.mdm" colorkey="192,144,76" textureid="8" scale="45"/>
+	<object mesh="other/holzstatue-mdm.mdm" colorkey="34,126,240" textureid="9" scale="50"/>
+	<object mesh="building/huette1-anbau-mdm.mdm" colorkey="67,63,229" textureid="1" scale="60"/>
+	<object mesh="other/laterne-neu-mdm.mdm" colorkey="177,127,41" textureid="10" scale="50"/>
+	<object mesh="other/pfeil-ani-mdm.mdm" colorkey="195,3,166" textureid="12" scale="50" radius="0" selfilluminated="true"/>
+	<object mesh="other/Kiste1-mdm.mdm"           colorkey="245,20,70"            textureid="13" scale="30" />
+	
+	<texture id="0" file="nature/tanne-new.bmp"/>
+	<texture id="1" file="building/huette1.bmp"/>
+	<texture id="2" file="other/brunnen.bmp"/>
+	<texture id="4" file="other/blumen1.bmp"/>
+	<texture id="5" file="nature/grasberg1.bmp"/>
+	<texture id="6" file="nature/graskreis1.bmp"/>
+	<texture id="7" file="nature/gras1hoch.bmp"/>
+	<texture id="8" file="other/zaun1.bmp"/>
+	<texture id="9" file="other/holzstatue.bmp"/>
+	<texture id="10" file="other/laterne-neu.bmp"/>
+	<texture id="12" file="other/pfeil.bmp"/>	
+	<texture id="13" file="other/invibox.bmp"/>
+
+	<mapchange pos="16,1" targetmap="stadt.txt" targetpos="9,17"/>
+	<mapchange pos="19,8" targetmap="friedhof.txt" targetpos="3,3"/>
+
+	<enemydef name="Wolve1">
+		<mesh 		file="enemys/wolf.md2" 	scale="30"	radius=".8"/>
+		<texture 	file="enemys/wolf2.bmp"			/>
+		<atributes 	healthpower="10" 	attackpower="2"	/>
+	</enemydef>
+
+
+
+	<enemy name="Wolve1" pos="16,5"/>
+	<enemy name="Wolve1" pos="13,6"/>
+	<enemy name="Wolve1" pos="8,7"/>
+	<enemy name="Wolve1" pos="10,13"/>
+	<enemy name="Wolve1" pos="9,19"/>
+
+	
+<dynamiclight>
+		<firefly pos="2,6" color="175,37,37"/>
+		<firefly pos="3,3" color="228,150,28"/>
+		<firefly pos="4,6" color="142,30,4"/>
+		<firefly pos="3,3" color="213,78,47"/>
+		<firefly pos="6,4" color="213,78,47"/>
+		<firefly pos="2,6" color="175,37,37"/>
+		<firefly pos="3,3" color="228,150,28"/>
+		<firefly pos="4,6" color="142,30,4"/>
+		<firefly pos="3,3" color="213,78,47"/>
+		<firefly pos="6,4" color="213,78,47"/>	
+</dynamiclight>
+
+</map>

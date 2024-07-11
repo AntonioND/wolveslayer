@@ -17,8 +17,6 @@ circle CircleLUT[6];
 
 //This precalulated circles maight be usefull for hitdetection :D
 void makecircle(int rad){
-    // TODO: Replace SIN[] and COS[] by sinLerp() and cosLerp()
-#if 0
 	int X,Y;int ox=0,oy=0;int deg=0;
 	int count=0;
 	X=-1;Y=-1;
@@ -26,8 +24,8 @@ void makecircle(int rad){
 	//ok first we count the pixels which will be used...
 	f32 radius=inttof32(rad+1);
 	do {
-		X=round(f32tofloat(mulf32(radius,COS[deg])));
-		Y=round(f32tofloat(mulf32(radius,SIN[deg])));
+		X=round(f32tofloat(mulf32(radius,cosLerp(deg*64)))); // TODO: Check
+		Y=round(f32tofloat(mulf32(radius,sinLerp(deg*64)))); // TODO: Check
 		
 		if(ox!=X || oy!=Y){
 			count++;
@@ -42,8 +40,8 @@ void makecircle(int rad){
 	CircleLUT[rad].count=count;
 	count=0;deg=0;ox=0,oy=0;X=-1;Y=-1;
 	do {
-		X=round(f32tofloat(mulf32(radius,COS[deg])));
-		Y=round(f32tofloat(mulf32(radius,SIN[deg])));
+		X=round(f32tofloat(mulf32(radius,cosLerp(deg*64)))); // TODO: Check
+		Y=round(f32tofloat(mulf32(radius,sinLerp(deg*64)))); // TODO: Check
 		
 		if(ox!=X || oy!=Y){
 			CircleLUT[rad].Pix[count].X=X;
@@ -76,7 +74,6 @@ void makecircle(int rad){
 		deg+=1;
 	}
 	while (deg <= 511);
-#endif
 }
 
 void InitCircles(void){

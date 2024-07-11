@@ -1,5 +1,8 @@
 #include "3D.h"
 
+// TODO: Remove this
+#include <nds/registers_alt.h>
+
 void vblank_handler (void);
 void SetMainBg(unsigned short int *pic);
 void E3D_Init(void);
@@ -365,10 +368,7 @@ void WaitForFreeVblank(void){
 }//important for multitask buffering and loading to vram 
 
 void E3D_Init(void){
-    irqInit();
-    irqSet(IRQ_VBLANK,0);
-    irqEnable(IRQ_VBLANK);
- 	powerON (POWER_ALL);
+ 	powerOn (POWER_ALL);
 	InitFS();	
 	Splash();
 
@@ -396,11 +396,10 @@ void E3D_Init(void){
 	ScreenMode();
    
 	// OpenGL init
-    irqInit();
 	irqSet(IRQ_VBLANK,vBlank);
 	glInit();
 
-	glViewPort (0, 0, 255, 191);
+	glViewport (0, 0, 255, 191);
 	glClearColor(0,0,0,31); // BG must be opaque for AA to work
 	glClearPolyID(63); // BG must have a unique polygon ID for AA to work
 	glClearDepth(0x7FFF);
@@ -445,7 +444,7 @@ void E3D_Init(void){
 	InitTableOfNormal();
 	swiWaitForVBlank();
 //	glReset ();
-	glMatrixMode(GL_PROJECTION); glIdentity(); 
+	glMatrixMode(GL_PROJECTION); glLoadIdentity(); 
  
 	gluPerspective (25, 1, .1, 100);//<---LATER THATS RIGHT ONE
 
@@ -463,7 +462,7 @@ void E3D_StartRender(){
 
 				
 	glMatrixMode(GL_TEXTURE);
-	glIdentity();
+	glLoadIdentity();
 			
 	glMatrixMode(GL_MODELVIEW);
 	// Move away from the camera

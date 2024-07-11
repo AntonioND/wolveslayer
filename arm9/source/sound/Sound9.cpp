@@ -2,11 +2,11 @@
 // 05/09/05 - Created.
 // ----------------------
 
-#include <NDS.h>
+#include <nds.h>
 #include <string.h>
 
 #include "Sound9.h"
-#include "../../SoundCommon.h"
+#include "SoundCommon.h"
 
 inline void ASSERT(bool x) { }
 

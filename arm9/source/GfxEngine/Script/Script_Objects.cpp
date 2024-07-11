@@ -1,4 +1,4 @@
-#include "script.h"
+#include "Script.h"
 
 extern int TextureWidthHeight[Object_Count];
 extern bool TexturehasBump[Object_Count];

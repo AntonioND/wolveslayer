@@ -100,7 +100,8 @@ void LoadAutotileTexture(char filename[],int num)
 	
 	fclose(bmp) ;
 	swiWaitForVBlank();
-	AutotilePal[num]= gluTexLoadPal( pal, 256, GL_RGB256 );
+    // TODO: Uncomment
+	//AutotilePal[num]= gluTexLoadPal( pal, 256, GL_RGB256 );
 	
 	//OK here we now have loaded pal and we got 36 fields a 32x32
 	part = new u8[128*129];

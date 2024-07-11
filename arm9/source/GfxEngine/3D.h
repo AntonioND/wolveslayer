@@ -1,6 +1,6 @@
 #include <nds.h>
 #include <string.h>
-#include <nds/arm9/trig_lut.h> 
+#include <nds/arm9/trig_lut.h>
 #include <nds/arm9/image.h>
 #include <stdarg.h>
 #include <stdlib.h>

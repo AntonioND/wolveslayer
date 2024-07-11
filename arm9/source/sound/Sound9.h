@@ -5,9 +5,9 @@
 #ifndef SOUND9_H
 #define SOUND9_H
 
-#include <NDS.h>
+#include <nds.h>
 #include "main.h"
-#include "../../../SoundCommon.h"
+#include "SoundCommon.h"
 
 #ifdef __cplusplus
 extern "C" {

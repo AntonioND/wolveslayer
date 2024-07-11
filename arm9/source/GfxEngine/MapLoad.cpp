@@ -132,7 +132,7 @@ void MapDoorHandle(void){
 					UpdateDynamic();
 					Refresh3D();
 					glPopMatrix (1);
-					glFlush();
+					glFlush(0);
 				}
 				
 				LoadScrip(Filename);
@@ -146,7 +146,7 @@ void MapDoorHandle(void){
 					UpdateDynamic();
 					Refresh3D();
 					glPopMatrix (1);
-					glFlush();
+					glFlush(0);
 				}
 				
 			}	

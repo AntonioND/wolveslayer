@@ -1,4 +1,4 @@
-#include "script.h"
+#include "Script.h"
 
 int Counter;
 void ResetCounter(void)	{Counter=0;}

@@ -106,7 +106,8 @@ void LoadBodenTexture(char filename[],int num)
 	fclose(bmp) ;
  
 	WaitForFreeVblank();
-	BodenPal[num]= gluTexLoadPal( pal, 256, GL_RGB256 );
+    // TODO: Uncomment
+	//BodenPal[num]= gluTexLoadPal( pal, 256, GL_RGB256 );
 	glBindTexture (0, BodenTexture[num]);
 	
 	BodenSize[num]=width;
@@ -160,7 +161,8 @@ void RenderBoden ( int x, int y, int z,int textnum)
 	
 	glPushMatrix ();
 	glTranslatef32 (inttof32(x), inttof32(0), inttof32(z));
-	glColorTable(GL_RGB256, BodenPal[textnum]);
+    // TODO: Uncomment
+	//glColorTable(GL_RGB256, BodenPal[textnum]);
 	
 	int b;
 	bool doit;

@@ -5,7 +5,7 @@
 #ifndef SOUNDCOMMON_H
 #define SOUNDCOMMON_H
 
-#include <NDS.h>
+#include <nds.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -30,6 +30,12 @@ typedef u8 BOOL;
 #ifndef FALSE
 #define FALSE 0
 #endif
+
+
+
+// TODO: Replace this by FIFO commands, this will only work in DS mode
+#define IPC 0x02FFF040
+
 
 
 // ----- Constants -----
@@ -77,7 +83,7 @@ typedef struct _SND_CONTROL
 // ----- Global variables -----
 
 	// Magic address, after IPC struct
-#define sndControl		((SND_CONTROL*)((u32)(IPC) + sizeof(TransferRegion)))
+#define sndControl		((SND_CONTROL*)((u32)(IPC)))
 		
 // ----------
 

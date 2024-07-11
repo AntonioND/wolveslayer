@@ -284,7 +284,8 @@ void LoadModelTexture(char filename[],int* Target,int* TargetPal,int num,int* w)
 	fclose(bmp) ;
  
 	WaitForFreeVblank();
-	TargetPal[num]= gluTexLoadPal( pal, 256, GL_RGB256 );
+    // TODO: Uncomment
+	//TargetPal[num]= gluTexLoadPal( pal, 256, GL_RGB256 );
 	glBindTexture (0, Target[num]);
 	if(width==64)glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_64, TEXTURE_SIZE_64, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffer8);
 	if(width==128)glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_128, TEXTURE_SIZE_128, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffer8);

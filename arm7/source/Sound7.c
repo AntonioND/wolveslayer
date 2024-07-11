@@ -15,9 +15,12 @@
 #include <nds.h>
 #include <string.h>
 
+// TODO: Remove header
+#include <nds/registers_alt.h>
+
 #include "ModFile.h"
 #include "Sound7.h"
-#include "../../SoundCommon.h"
+#include "SoundCommon.h"
 
 
 // ----- Constants -----
@@ -672,7 +675,7 @@ static void MODHandleUpdateFlags(MOD_UPDATE_VARS *vars)
 			SOUND_VOL(vars->sndChn->vol) | 
 			SOUND_PAN(vars->sndChn->pan) | 
 			(vars->sndChn->loopLength == 0 ? SOUND_ONE_SHOT : SOUND_REPEAT) | 
-			SOUND_8BIT | 
+			SOUND_FORMAT_8BIT | 
 			schnEnable;
 	}
 

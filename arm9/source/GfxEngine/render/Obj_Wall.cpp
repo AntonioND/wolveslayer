@@ -85,10 +85,12 @@ void RenderWallBorder (int mode,int dirrection ,f32 x, f32 y, f32 z,int textnum)
 	for(int a=0;a<=layers;a++){
 
 		if(a==1)glBindTexture (GL_TEXTURE_2D, ObjektTexB[textnum]);
-		if(a==1)glColorTable(GL_RGB256, ObjektPal[textnum]);		
+        // TODO: Uncomment
+		//if(a==1)glColorTable(GL_RGB256, ObjektPal[textnum]);		
 	
 		if(a==2)glBindTexture (GL_TEXTURE_2D, ObjektTexC[textnum]);
-		if(a==2)glColorTable(GL_RGB256, ObjektPal[textnum]);		
+        // TODO: Uncomment
+		//if(a==2)glColorTable(GL_RGB256, ObjektPal[textnum]);		
 
 		//Wand Down
 		glBegin (GL_QUADS); 

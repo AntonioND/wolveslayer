@@ -24,7 +24,7 @@ void DisplCapture(void)
 	value |= (bank & 0x3) << 16; // vram bank select is 16-17
 	value |= (srcBlend & 0xF) << 8; // graphics blend evb is 8..12
 	value |= (destBlend & 0xF) << 0; // ram blend EVA is bits 0..4
-	DISP_CAPTURE = value;
+	REG_DISPCAPCNT = value;
 	frcapture=frameCounter+3;
 	if(frcapture>60)frcapture-=60;
 }
@@ -65,7 +65,7 @@ int main()
 		Refresh3D();
 		
 		glPopMatrix (1);
-		glFlush();//Stop render
+		glFlush(0);//Stop render
 		loopCounter++;			
 		#ifdef ShowPolyCount
 		if(loopCounter==2)glGetInt(GL_GET_POLYGON_RAM_COUNT,&polycount);

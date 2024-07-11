@@ -17,6 +17,8 @@ circle CircleLUT[6];
 
 //This precalulated circles maight be usefull for hitdetection :D
 void makecircle(int rad){
+    // TODO: Replace SIN[] and COS[] by sinLerp() and cosLerp()
+#if 0
 	int X,Y;int ox=0,oy=0;int deg=0;
 	int count=0;
 	X=-1;Y=-1;
@@ -74,6 +76,7 @@ void makecircle(int rad){
 		deg+=1;
 	}
 	while (deg <= 511);
+#endif
 }
 
 void InitCircles(void){

@@ -118,7 +118,8 @@ void LoadMBump3Texture(char filename[],int num,int* targetp,int* target,int* tar
 	
  
 	WaitForFreeVblank();
-	targetp[num]= gluTexLoadPal( pal, 256, GL_RGB256 );
+    // TODO: Uncomment
+	//targetp[num]= gluTexLoadPal( pal, 256, GL_RGB256 );
 
 	glBindTexture (0, target[num]);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_32, TEXTURE_SIZE_64, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffNorm);
@@ -263,7 +264,8 @@ void LoadMBump5Texture(char filename[],int num)
 	BodenSize[num]=height;
 	
 	WaitForFreeVblank();
-	BodenPal[num]= gluTexLoadPal( pal, 256, GL_RGB256 );
+    // TODO: Uncomment
+	//BodenPal[num]= gluTexLoadPal( pal, 256, GL_RGB256 );
 		
 	glBindTexture (0, BodenTexture[num]);
 	if(height==32)glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_32, TEXTURE_SIZE_32, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffNorm);

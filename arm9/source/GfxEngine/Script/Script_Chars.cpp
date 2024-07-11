@@ -1,4 +1,4 @@
-#include "script.h"
+#include "Script.h"
 
 extern int Figuren[10];
 extern int FigurenPal[10];

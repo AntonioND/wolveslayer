@@ -209,7 +209,8 @@ void LoadSpriteTexture(char filename[],char palname[],int* Target,int* TargetPal
     while (!feof(pal))fread((void*)palette, size, 1, pal); 
 	fclose(pal) ;
  
-	TargetPal[num]= gluTexLoadPal( (u16*)palette, 256, GL_RGB256 );
+    // TODO: Uncomment
+	//TargetPal[num]= gluTexLoadPal( (u16*)palette, 256, GL_RGB256 );
 	glBindTexture (0, Target[num]);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_128, TEXTURE_SIZE_256, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffer);
 	free(buffer);

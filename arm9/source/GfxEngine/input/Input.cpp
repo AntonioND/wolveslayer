@@ -115,8 +115,8 @@ void Interact(void){
 		
 	//Lets start interact
 			extern int GegnerCount;
-			extern int GegnerX[15],GegnerY[15];
-			extern float GegnerSX[15],GegnerSY[15];
+			extern int GegnerX[10],GegnerY[10];
+			extern float GegnerSX[10],GegnerSY[10];
 			extern int GegnerStatus[10];
 			extern int GegnerFrame[10];
 			extern int GegnerHP[10];
@@ -582,7 +582,7 @@ void inputs(void){
 				UpdateDynamic();
 				Refresh3D();
 				glPopMatrix (1);
-				glFlush();
+				glFlush(0);
 			}
 			
 			LoadScrip(Filename);
@@ -596,7 +596,7 @@ void inputs(void){
 				UpdateDynamic();
 				Refresh3D();
 				glPopMatrix (1);
-				glFlush();
+				glFlush(0);
 			}
 			
 		}

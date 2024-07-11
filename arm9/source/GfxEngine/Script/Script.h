@@ -1,5 +1,5 @@
 #include "../3D.h"
-#include "xml/tinyxml.h"
+#include "XML/tinyxml.h"
 #include <malloc.h>
 
 //>>>>>>>>>>>>>>>>Script

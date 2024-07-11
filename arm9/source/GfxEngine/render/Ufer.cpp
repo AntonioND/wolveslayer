@@ -56,7 +56,8 @@ void WallUfer(int x, int y,f32 xx, f32 yy){
 		br=GetTerrain(x-1,y,3);tbr=heightot16down(br);
 		
 		for(a=-b;a<=b;a++){
-			glColorTable(GL_RGB256, UferPal[0]);
+            // TODO: Uncomment
+			//glColorTable(GL_RGB256, UferPal[0]);
 			if(a==-1)glBindTexture (GL_TEXTURE_2D, UferC[0]);
 //			if(a==0 && b!=0)glBindTexture (GL_TEXTURE_2D, UferA[0]);
 			if(a==0)glBindTexture (GL_TEXTURE_2D, Ufer[0]);
@@ -64,7 +65,7 @@ void WallUfer(int x, int y,f32 xx, f32 yy){
 			
 			glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0|POLY_ID(2));
 			glPushMatrix ();
-			glTranslatef32 (xx, 0, yy); 
+			glTranslatef32 ((int32_t)xx, (int32_t)0, (int32_t)yy);
 			glBegin (GL_QUADS); 
 				// Bottom left
 				GrapLight(x,y+a);
@@ -94,13 +95,14 @@ void WallUfer(int x, int y,f32 xx, f32 yy){
 		br=GetTerrain(x+1,y,2);tbr=heightot16down(br);
 
 		for(a=-b;a<=b;a++){
-			glColorTable(GL_RGB256, UferPal[0]);
+            // TODO: Uncomment
+			//glColorTable(GL_RGB256, UferPal[0]);
 			if(a==-1)glBindTexture (GL_TEXTURE_2D, UferC[0]);
 //			if(a==0 && b!=0)glBindTexture (GL_TEXTURE_2D, UferA[0]);
 			if(a==0)glBindTexture (GL_TEXTURE_2D, Ufer[0]);
 			if(a==1)glBindTexture (GL_TEXTURE_2D, UferB[0]);		
 			glPushMatrix ();
-			glTranslatef32 (xx, 0, yy); 
+			glTranslatef32 ((int32_t)xx, (int32_t)0, (int32_t)yy);
 			glBegin (GL_QUADS); 
 				// Bottom left
 				GrapLight(x+1,y+a);
@@ -130,14 +132,15 @@ void WallUfer(int x, int y,f32 xx, f32 yy){
 		br=GetTerrain(x,y+1,2);tbr=heightot16down(br);
 				
 		for(a=-b;a<=b;a++){
-			glColorTable(GL_RGB256, UferPal[0]);
+            // TODO: Uncomment
+			//glColorTable(GL_RGB256, UferPal[0]);
 			if(a==-1)glBindTexture (GL_TEXTURE_2D, UferC[0]);
 //			if(a==0 && b!=0)glBindTexture (GL_TEXTURE_2D, UferA[0]);
 			if(a==0)glBindTexture (GL_TEXTURE_2D, Ufer[0]);
 			if(a==1)glBindTexture (GL_TEXTURE_2D, UferB[0]);
 	
 			glPushMatrix ();
-			glTranslatef32 (xx, 0, yy); 
+			glTranslatef32 ((int32_t)xx, (int32_t)0, (int32_t)yy);
 			glBegin (GL_QUADS); 
 				// Bottom left
 				GrapLight(x+a,y+1);
@@ -178,14 +181,15 @@ void HalfWallUferA(int x, int y,f32 xx, f32 yy){
 		br=GetTerrain(x-1,y,3);tbr=heightot16down(br);
 
 		for(a=-b;a<=b;a++){
-			glColorTable(GL_RGB256, UferPal[0]);
+            // TODO: Uncomment
+			//glColorTable(GL_RGB256, UferPal[0]);
 			if(a==-1)glBindTexture (GL_TEXTURE_2D, UferC[0]);
 			//if(a==0 && b!=0)glBindTexture (GL_TEXTURE_2D, UferA[0]);
 			if(a==0)glBindTexture (GL_TEXTURE_2D, Ufer[0]);
 			if(a==1)glBindTexture (GL_TEXTURE_2D, UferB[0]);
 
 			glPushMatrix ();
-			glTranslatef32 (xx, 0, yy); 
+			glTranslatef32 ((int32_t)xx, (int32_t)0, (int32_t)yy);
 			glBegin (GL_TRIANGLES); 
 				// Bottom left
 				GrapLight(x,y+a);
@@ -212,14 +216,15 @@ void HalfWallUferA(int x, int y,f32 xx, f32 yy){
 		br=GetTerrain(x+1,y,2);tbr=heightot16down(br);
 
 		for(a=-b;a<=b;a++){
-			glColorTable(GL_RGB256, UferPal[0]);
+            // TODO: Uncomment
+			//glColorTable(GL_RGB256, UferPal[0]);
 			if(a==-1)glBindTexture (GL_TEXTURE_2D, UferC[0]);
 //			if(a==0 && b!=0)glBindTexture (GL_TEXTURE_2D, UferA[0]);
 			if(a==0)glBindTexture (GL_TEXTURE_2D, Ufer[0]);
 			if(a==1)glBindTexture (GL_TEXTURE_2D, UferB[0]);
 	
 			glPushMatrix ();
-			glTranslatef32 (xx, 0, yy); 
+			glTranslatef32 ((int32_t)xx, (int32_t)0, (int32_t)yy);
 			glBegin (GL_TRIANGLES); 
 				// Bottom left
 				GrapLight(x+1,y+a);
@@ -246,14 +251,15 @@ void HalfWallUferA(int x, int y,f32 xx, f32 yy){
 		br=GetTerrain(x,y+1,2);tbr=heightot16down(br);
 
 		for(a=-b;a<=b;a++){
-			glColorTable(GL_RGB256, UferPal[0]);
+            // TODO: Uncomment
+			//glColorTable(GL_RGB256, UferPal[0]);
 			if(a==-1)glBindTexture (GL_TEXTURE_2D, UferC[0]);
 //			if(a==0 && b!=0)glBindTexture (GL_TEXTURE_2D, UferA[0]);
 			if(a==0)glBindTexture (GL_TEXTURE_2D, Ufer[0]);
 			if(a==1)glBindTexture (GL_TEXTURE_2D, UferB[0]);
 
 			glPushMatrix ();
-			glTranslatef32 (xx, 0, yy); 
+			glTranslatef32 ((int32_t)xx, (int32_t)0, (int32_t)yy);
 			glBegin (GL_TRIANGLES); 
 				// Bottom left
 				GrapLight(x+a,y+1);
@@ -291,14 +297,15 @@ void HalfWallUferB(int x, int y,f32 xx, f32 yy){
 		br=GetTerrain(x-1,y,3);tbr=heightot16down(br);
 
 		for(a=-b;a<=b;a++){
-			glColorTable(GL_RGB256, UferPal[0]);
+            // TODO: Uncomment
+			//glColorTable(GL_RGB256, UferPal[0]);
 			if(a==-1)glBindTexture (GL_TEXTURE_2D, UferC[0]);
 			//if(a==0 && b!=0)glBindTexture (GL_TEXTURE_2D, UferA[0]);
 			if(a==0)glBindTexture (GL_TEXTURE_2D, Ufer[0]);
 			if(a==1)glBindTexture (GL_TEXTURE_2D, UferB[0]);
 
 			glPushMatrix ();
-			glTranslatef32 (xx, 0, yy); 
+			glTranslatef32 ((int32_t)xx, (int32_t)0, (int32_t)yy);
 			glBegin (GL_TRIANGLES); 
 				// Bottom left
 				GrapLight(x,y+a);
@@ -325,14 +332,15 @@ void HalfWallUferB(int x, int y,f32 xx, f32 yy){
 		br=GetTerrain(x+1,y,2);tbr=heightot16down(br);
 
 		for(a=-b;a<=b;a++){
-			glColorTable(GL_RGB256, UferPal[0]);
+            // TODO: Uncomment
+			//glColorTable(GL_RGB256, UferPal[0]);
 			if(a==-1)glBindTexture (GL_TEXTURE_2D, UferC[0]);
 //			if(a==0 && b!=0)glBindTexture (GL_TEXTURE_2D, UferA[0]);
 			if(a==0)glBindTexture (GL_TEXTURE_2D, Ufer[0]);
 			if(a==1)glBindTexture (GL_TEXTURE_2D, UferB[0]);
 	
 			glPushMatrix ();
-			glTranslatef32 (xx, 0, yy); 
+			glTranslatef32 ((int32_t)xx, (int32_t)0, (int32_t)yy);
 			glBegin (GL_TRIANGLES); 
 				// Bottom left
 				GrapLight(x+1,y+a);
@@ -359,14 +367,15 @@ void HalfWallUferB(int x, int y,f32 xx, f32 yy){
 		br=GetTerrain(x,y+1,2);tbr=heightot16down(br);
 
 		for(a=-b;a<=b;a++){
-			glColorTable(GL_RGB256, UferPal[0]);
+            // TODO: Uncomment
+			//glColorTable(GL_RGB256, UferPal[0]);
 			if(a==-1)glBindTexture (GL_TEXTURE_2D, UferC[0]);
 //			if(a==0 && b!=0)glBindTexture (GL_TEXTURE_2D, UferA[0]);
 			if(a==0)glBindTexture (GL_TEXTURE_2D, Ufer[0]);
 			if(a==1)glBindTexture (GL_TEXTURE_2D, UferB[0]);
 	
 			glPushMatrix ();
-			glTranslatef32 (xx, 0, yy); 
+			glTranslatef32 ((int32_t)xx, (int32_t)0, (int32_t)yy);
 			glBegin (GL_TRIANGLES); 
 				// Bottom left
 				GrapLight(x+a,y+1);
@@ -488,7 +497,8 @@ void LoadUferTexture(char filename[],int* Target,int* TargetPal,int num)
 	fclose(bmp) ;
  
 	WaitForFreeVblank();
-	TargetPal[num]= gluTexLoadPal( pal, 256, GL_RGB256 );
+    // TODO: Uncomment
+	//TargetPal[num]= gluTexLoadPal( pal, 256, GL_RGB256 );
 	glBindTexture (0, Target[num]);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_32, TEXTURE_SIZE_64, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffer8);
 	free(buffer8);

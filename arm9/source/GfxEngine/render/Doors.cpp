@@ -127,7 +127,8 @@ void LoadDoorTexture(char filename[])
 	
 	fclose(bmp) ;
  
-	DoorPal[0]= gluTexLoadPal( pal, 256, GL_RGB256 );
+    // TODO: Uncomment
+	//DoorPal[0]= gluTexLoadPal( pal, 256, GL_RGB256 );
 	WaitForFreeVblank();
 	glBindTexture (0, Door[0]);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_32, TEXTURE_SIZE_64, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffer8);
@@ -140,7 +141,8 @@ void RenderDoorOutside(int mode,float angle,f32 x, f32 y, f32 z,bool trans){
 	else glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0|POLY_ID(3));
 
 	glBindTexture (GL_TEXTURE_2D, Door[0]);
-	glColorTable(GL_RGB256, DoorPal[0]);		
+    // TODO: Uncomment
+	//glColorTable(GL_RGB256, DoorPal[0]);		
 	int alpha=7;
 	
 	if(!walltrans || mode==1)alpha=31;

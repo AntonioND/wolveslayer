@@ -41,7 +41,7 @@ void CheckEndGame(void){
 				UpdateDynamic();
 				Refresh3D();
 				glPopMatrix (1);
-				glFlush();
+				glFlush(0);
 		}
 
 		ReadSettings();	
@@ -53,7 +53,7 @@ void CheckEndGame(void){
 				UpdateDynamic();
 				Refresh3D();
 				glPopMatrix (1);
-				glFlush();
+				glFlush(0);
 		}
 			
 	}

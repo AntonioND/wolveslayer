@@ -186,7 +186,7 @@ void LoadSpriteTexture(char filename[],char palname[],int* Target,int* TargetPal
 	//Reading the 8bit image to an array
 	FILE *bmp = fopen(filename,"r") ;
 	if (bmp==0) {
-		printf("%s not found\n",filename);
+		fprintf(stderr,"%s not found\n",filename);
 		return ;
 	} ;
   	fseek (bmp , 0 , SEEK_END);
@@ -199,7 +199,7 @@ void LoadSpriteTexture(char filename[],char palname[],int* Target,int* TargetPal
 	//reading the pallete to an array
 	FILE *pal = fopen(palname,"r") ;
 	if (pal==0) {
-		printf("%s not found\n",palname);
+		fprintf(stderr,"%s not found\n",palname);
 		return ;
 	} ;
   	fseek (pal, 0 , SEEK_END);

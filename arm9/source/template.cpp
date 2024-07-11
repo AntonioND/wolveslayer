@@ -29,8 +29,10 @@ void DisplCapture(void)
 	if(frcapture>60)frcapture-=60;
 }
 
-int main()
-{	
+int main(int argc, char *argv[])
+{
+    consoleDebugInit(DebugDevice_NOCASH);
+
 	extern int EquipedWeapon;
 	
 	E3D_Init();

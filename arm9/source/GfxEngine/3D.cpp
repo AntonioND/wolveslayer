@@ -255,7 +255,7 @@ void Splash(void){
 	
 	LoadBmptoBuffer("/wolveslayer/pic/loading.bmp",scrL_bin);
 	LoadBmptoBuffer("/wolveslayer/pic/touch.bmp",touch_bin);
-	LoadBmptoBuffer8("/wolveslayer/pic/Font1.bmp",Font1,textbox_pal);
+	LoadBmptoBuffer8("/wolveslayer/pic/font1.bmp",Font1,textbox_pal);
 
 //	LoadBmptoBuffer8("/rd/pic/box.bmp",textbox_bin,textbox_pal);
 	

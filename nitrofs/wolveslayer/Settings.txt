@@ -4,5 +4,5 @@ EmuSpeed false
 //This defines how new-game will start
 StartMap etage1.txt
 StartPos 7 2
-StartChar Charmain.md2 Charmain.bmp
+StartChar charmain.md2 charmain.bmp
 StartWaffe sword1.md2 sword1.bmp

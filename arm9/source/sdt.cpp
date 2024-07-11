@@ -1,21 +1,13 @@
+#include <filesystem.h>
+
 #include "sdt.h"
 
-
 void InitFS(void){
-#ifdef KOS
-		REG_IME=0;	
-		sysSetCartOwner( BUS_OWNER_ARM9 );
-		fs_init(); 
-		fs_romdisk_mount("/wolveslayer", (uint8*)find_first_romfs_file((uint8*)0x08000000), 0); 
-#endif
-
-#ifdef libfat
-		fatInitDefault();
-#endif
+    nitroFSInit(NULL);
 }
 
 int Dummy_fprintf(FILE *kf, const char *fmt, ...)
-{		
+{
 	return 255;
 }
 

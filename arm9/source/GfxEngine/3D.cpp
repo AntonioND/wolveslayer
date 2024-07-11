@@ -77,7 +77,7 @@ void LoadBmptoBuffer(char* filename,u16* picbuff){
 		
 	FILE *bmp = fopen(filename,"r") ;
 	if (bmp==NULL) {
-		iprintf("%s not found \n",filename);
+		printf("%s not found \n",filename);
 		while(1){} ;
 	} ;
 	
@@ -145,7 +145,7 @@ void LoadBmptoBuffer8(char* filename,u8* picbuff,u16* palbuff){
 		
 	FILE *bmp = fopen(filename,"r") ;
 	if (bmp==NULL) {
-		iprintf("%s not found \n",filename);
+		printf("%s not found \n",filename);
 		while(1){} ;
 	} ;
 	

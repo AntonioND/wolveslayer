@@ -123,7 +123,7 @@ void MapDoorHandle(void){
 			if(Filename[0]!='.'){
 				newx=MapChangeTOPosX[i]-6;
 				newy=MapChangeTOPosY[i]-8;
-				iprintf("\x1b[2J");
+				printf("\x1b[2J");
 				
 				for(int b=8;b>=0;b--){
 					Blend=b;

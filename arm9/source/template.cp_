@@ -45,7 +45,7 @@ int main(void)
 	
 	KOS_FILE *bmp = KOS_fopen("/rd/SUNDANCE.MOD","rb") ;
 	if (bmp==NULL) {
-		iprintf("File not found\n");
+		printf("File not found\n");
 		while(1){}
 	}
 	
@@ -54,13 +54,13 @@ int main(void)
 	KOS_rewind(bmp) ;
 	Modfile = (u8*)malloc (Modfilesize * sizeof(u8));	
 	if (Modfile == NULL) {
-		iprintf("Memory alloctaion wasnt succesfull\n");
+		printf("Memory alloctaion wasnt succesfull\n");
 		while(1){}
 	}
-	iprintf("Filesize: %d Bytes\nMemory: grapped\n",Modfilesize);
+	printf("Filesize: %d Bytes\nMemory: grapped\n",Modfilesize);
 	
 	for(int a=0;a<Modfilesize;a++)KOS_fread(&Modfile[a],1,1,bmp);
-	iprintf("Succesfully loaded");
+	printf("Succesfully loaded");
 	
 	SndSetMemPool(&Modfile, Modfilesize);
 	SndPlayMOD(Modfile);

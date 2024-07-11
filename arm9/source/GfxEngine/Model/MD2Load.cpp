@@ -57,7 +57,7 @@ void LoadMD2Model(char Filename[],int num,int widthheight,int scale){
       (Models[num].header.version != 8))
     {
       /* error! */
-      iprintf("error: bad version!");
+      printf("error: bad version!");
 	  while(1==1){}//Can't go on so lets hang arround
     }
   /* memory allocation */

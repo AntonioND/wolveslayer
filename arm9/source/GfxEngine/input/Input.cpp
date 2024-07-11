@@ -573,7 +573,7 @@ void inputs(void){
 		if(Filename[0]!='.'){
 			newx=GetMapChangePOSX(GetPX(),GetPY())-6;
 			newy=GetMapChangePOSY(GetPX(),GetPY())-8;
-			iprintf("\x1b[2J");
+			printf("\x1b[2J");
 			
 			for(int b=8;b>=0;b--){
 				Blend=b;

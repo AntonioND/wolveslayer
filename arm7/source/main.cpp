@@ -1,73 +1,80 @@
+// SPDX-License-Identifier: Zlib
+//
+// Copyright (C) 2005 Michael Noland (joat)
+// Copyright (C) 2005 Jason Rogers (Dovoto)
+// Copyright (C) 2005-2015 Dave Murphy (WinterMute)
+// Copyright (C) 2023 Antonio Niño Díaz
+
+// Default ARM7 core
+
 #include <nds.h>
+
 #include "Sound7.h"
 
-void handleVBlank() 
+volatile bool exit_loop = false;
+
+void power_button_callback(void)
 {
-//	static int heartbeat = 0;
-	uint16 but=0, x=0, y=0, xpx=0, ypx=0, z1=0, z2=0, batt=0, aux=0;
-	int t1=0, t2=0;
-	uint32 temp=0;
-//	uint8 ct[sizeof(IPC->curtime)];
-		
-//	++heartbeat;
-		
-	but = REG_KEYXY;
-	if (~but & 0x40) {
-			// Read the touch screen
-		x = touchReadXY().x;
-		y = touchReadXY().y;
-		xpx = touchReadXY().px;
-		ypx =touchReadXY().py;
-		z1 = touchRead(TSC_MEASURE_Z1);
-		z2 = touchRead(TSC_MEASURE_Z2);
-	}
-		
-	batt = touchRead(TSC_MEASURE_BATTERY);
-	aux  = touchRead(TSC_MEASURE_AUX);
-		
-//    rtcGetTime((uint8 *)ct);
-  //  BCDToInteger((uint8 *)&(ct[1]), 7);
-		
-	temp = touchReadTemperature(&t1, &t2);
-		
-	IPC->buttons   = but;
-	IPC->touchX    = x;
-	IPC->touchY    = y;
-	IPC->touchXpx  = xpx;
-	IPC->touchYpx  = ypx;
-	IPC->touchZ1   = z1;
-	IPC->touchZ2   = z2;
-	IPC->battery   = batt;
-	IPC->aux       = aux;
-		
-//	for(u32 i=0; i<sizeof(ct); i++) {
-//		IPC->curtime[i] = ct[i];
-//	}
-		
-	IPC->temperature = temp;
-	IPC->tdiode1 = t1;
-	IPC->tdiode2 = t2;
-		
-	SndVblIrq();
+    exit_loop = true;
 }
 
-int main(int argc, char ** argv)
+void vblank_handler(void)
 {
-	rtcReset();
-		
-	irqInit();
-	irqSet(IRQ_VBLANK, handleVBlank);
-	irqEnable(IRQ_VBLANK);
-	irqSet(IRQ_TIMER0, SndTimerIrq);
-	irqEnable(IRQ_TIMER0);
-		
-	SndInit7();
-		
-	while (1) {
-			
-			
-		swiWaitForVBlank();
-	}
-		
-	return 0;
+    inputGetAndSend();
+    SndVblIrq();
+}
+
+int main(int argc, char *argv[])
+{
+    // Initialize sound hardware
+    enableSound();
+
+    // Read user information from the firmware (name, birthday, etc)
+    readUserSettings();
+
+    // Stop LED blinking
+    ledBlink(0);
+
+    // Using the calibration values read from the firmware with
+    // readUserSettings(), calculate some internal values to convert raw
+    // coordinates into screen coordinates.
+    touchInit();
+
+    irqInit();
+    irqSet(IRQ_VBLANK, vblank_handler);
+
+    fifoInit();
+
+    installSoundFIFO();
+    installSystemFIFO(); // Sleep mode, storage, firmware...
+
+    // This sets a callback that is called when the power button in a DSi
+    // console is pressed. It has no effect in a DS.
+    setPowerButtonCB(power_button_callback);
+
+    // Read current date from the RTC and setup an interrupt to update the time
+    // regularly. The interrupt simply adds one second every time, it doesn't
+    // read the date. Reading the RTC is very slow, so it's a bad idea to do it
+    // frequently.
+    initClockIRQTimer(3);
+
+    irqEnable(IRQ_VBLANK);
+
+    irqSet(IRQ_TIMER0, SndTimerIrq);
+    irqEnable(IRQ_TIMER0);
+
+    SndInit7();
+
+    while (!exit_loop)
+    {
+        const uint16_t key_mask = KEY_SELECT | KEY_START | KEY_L | KEY_R;
+        uint16_t keys_pressed = ~REG_KEYINPUT;
+
+        if ((keys_pressed & key_mask) == key_mask)
+            exit_loop = true;
+
+        swiWaitForVBlank();
+    }
+
+    return 0;
 }

@@ -1,0 +1,68 @@
+#include <nds.h>
+
+#include <stdlib.h>
+#include <ctype.h>
+#include <math.h>
+#include <string.h>
+#include "sound/Sound9.h"
+#include "sdt.h"
+
+u8* Modfile;
+int Modfilesize=0;
+
+void vBlank(void){
+
+	
+}
+
+int main(void)
+{	
+    irqInit();
+    irqSet(IRQ_VBLANK,0);
+    irqEnable(IRQ_VBLANK);
+ 	powerON (POWER_ALL);
+	//romdiskfs, ported by GPF
+	REG_IME=0;	
+	sysSetCartOwner( BUS_OWNER_ARM9 );
+	fs_init(); 
+	fs_romdisk_mount("/rd", (uint8*)find_first_romfs_file((uint8*)0x08000000), 0); 
+	//basic printout
+	videoSetModeSub(MODE_0_2D | DISPLAY_BG0_ACTIVE);	
+	vramSetBankC(VRAM_C_SUB_BG);
+	SUB_BG0_CR = BG_MAP_BASE(31);
+	BG_PALETTE_SUB[255] = RGB15(31,31,31);	
+	consoleInitDefault((u16*)SCREEN_BASE_BLOCK_SUB(31), (u16*)CHAR_BASE_BLOCK_SUB(0), 16);
+ 
+	//modplayer starts right here
+	
+	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+	irqInit();
+	irqSet(IRQ_VBLANK,vBlank);
+	irqEnable(IRQ_VBLANK);
+	powerON (POWER_ALL);
+	SndInit9();
+	
+	KOS_FILE *bmp = KOS_fopen("/rd/SUNDANCE.MOD","rb") ;
+	if (bmp==NULL) {
+		iprintf("File not found\n");
+		while(1){}
+	}
+	
+	KOS_fseek(bmp,0,SEEK_END) ;
+	Modfilesize=KOS_ftell(bmp);
+	KOS_rewind(bmp) ;
+	Modfile = (u8*)malloc (Modfilesize * sizeof(u8));	
+	if (Modfile == NULL) {
+		iprintf("Memory alloctaion wasnt succesfull\n");
+		while(1){}
+	}
+	iprintf("Filesize: %d Bytes\nMemory: grapped\n",Modfilesize);
+	
+	for(int a=0;a<Modfilesize;a++)KOS_fread(&Modfile[a],1,1,bmp);
+	iprintf("Succesfully loaded");
+	
+	SndSetMemPool(&Modfile, Modfilesize);
+	SndPlayMOD(Modfile);
+}
+

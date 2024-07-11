@@ -1,0 +1,420 @@
+#include "script.h"
+
+uint16 keyPress2;
+
+bool LOADINGNOw;
+
+extern bool outside;
+
+extern int Door[1],DoorPal[1];
+extern float PlPosSX,PlPosSY;
+extern float CamPosSX,CamPosSY;
+
+void LineToCommand(char Com[]);//This line compares string with a command list
+//and if it is a command it gives that to the next function
+
+void LoadSong(char *Com);//Gives song name to soundengine
+
+void AddEvent(char* com);//Adds a event which will be turn on on starting map
+void AddDoorTXT(char* com);
+
+extern void LoadCharCommand(char* Com,int num);//Gets the filename out of the command ,for loading a chartexture
+extern void LoadVillager(char* Com);//Adds the attributes for Villagers
+extern void AddText(char* com,int num);//Adds a text to a specific villiager(npc)
+
+extern void LoadEnemy(char* Com);
+
+extern void LoadObjectCommand(char* Com,int num);//Gets the filename out of the command ,for loading trees walls and all other objects
+extern void LoadSecondObjectCommand(char* Com,int num);//Used for an overlaymesh
+extern void AddObjectScale(char* Com,int num);
+void AddObjectUnpass(char* Com,int num);//Its the unpassable radius (from 0.0 to 0.5)
+void SetOffObjectGround(int num);
+void SetOffObjectMirrow(int num);
+
+void AddFirefly(char* Com);//Adds a randomy-flying-arround-dynamic-light(with given color)
+
+extern void LoadMapCommand(char* Com);//Gets the filename out of the command ,for loading the map
+extern void LoadMapChange(char* Com);//adds the attributes for exits of map
+extern void LoadMapChangeDoor(char* Com);//adds the attributes for exits of map through a door which could need a key
+extern void LoadDoorCommand(char* Com);
+void LoadUferCommand(char* Com);
+
+extern void LoadBodenCommand(char* Com,int index);//Gets the filename and colorkey out of the command ,for loading a bodentexture
+extern void LoadWasserCommand(char* Com);//Gets the filename and colorkey out of the command ,for loading a wassertexture
+extern void LoadAutotileCommand(char* Com,int num);
+extern void AddAutotileIgnoreCommand(char* Com,int num);
+
+extern u32 AutotileColorKeyMaster[4];
+extern int AutotileIgnorecolorsNum[4];
+extern u32 BodenColorKey[16];
+extern u32 ObjektColorKey[Object_Count];
+extern char ObjektTyp[Object_Count][13];
+extern float ObjectRadius[Object_Count];
+extern bool BodenTransEnable[16];
+
+int aut=-1;
+int obj=-1;
+int npc=-1;
+int door=-1;
+int ene=-1;
+
+char SongFile[40];
+
+char Script[256][256];
+
+void ucase (char character[256],char *New)
+{
+	uint a;
+	
+	strcpy(New,character);
+	
+	for(a=0;a<strlen(character);a++){
+		if ((character[a] > 0x60) && (character[a]< 0x7B))
+			New[a] = character[a] - 0x20;
+	}
+	
+}
+
+void LoadMainChar(void){
+	extern char MaincharMd2[20];
+	extern char MaincharText[20];
+	extern int Figuren[10];
+	extern int FigurenPal[10];
+	extern int ModelScale[20];
+	extern int EquipedWeapon;
+	extern int Inventory[100];	
+	
+	LoadModelTexture(MaincharText,&Figuren[0],&FigurenPal[0],0);
+	LoadMD2Model(MaincharMd2,0);
+	ModelScale[0]=40;
+	
+	if(EquipedWeapon>-1){
+		LoadModelTexture(GiveItemSrcB(Inventory[EquipedWeapon]),&Figuren[0],&FigurenPal[0],1);
+		LoadMD2Model(GiveItemSrcA(Inventory[EquipedWeapon]),1);
+		//Print(GiveItemSrcA(Inventory[EquipedWeapon]),5,10);
+		//Print(GiveItemSrcB(Inventory[EquipedWeapon]),5,20);	
+		ModelScale[1]=40;
+	}
+}
+
+void LoadScrip(char filename[]){
+	int a;
+	//LOADINGNOw=true;
+    irqSet(IRQ_VBLANK,0); 
+	
+	ScreenModeLOADING();
+	//Reset all datas
+	ResetMapChange();
+	glResetTextures();
+	ResetVillagers();
+	ResetEnemys();
+	ResetEvent();
+	for(a=0;a<16;a++)BodenColorKey[a]=0;
+	for(a=0;a<16;a++)BodenTransEnable[a]=false;
+	for(a=0;a<4;a++){AutotileColorKeyMaster[a]=0;AutotileIgnorecolorsNum[a]=-1;}
+	for(a=0;a<10;a++)ObjektColorKey[a]=0;
+	for(a=0;a<10;a++)strcpy(ObjektTyp[a],".");
+	for(a=0;a<10;a++)ObjectRadius[a]=0;
+	FreeModels();
+	ResetDynamic();
+	
+	PlPosSX=0;PlPosSY=0;
+	CamPosSX=0;CamPosSY=0;
+	outside=true;
+	srand ( -(~IPC->curtime[7]) - 1);
+	
+	strcpy(SongFile,"");
+	
+	KOS_FILE *ScriptFile = KOS_fopen(filename,"r") ;
+	if (ScriptFile==NULL) {
+		PrintOUT(filename,5,5,false,strlen(filename));
+		PrintOUT("wasnt found",5,15,false,strlen("wasnt found"));
+		while(!(keysDown() & KEY_A))scanKeys();
+		ScreenModeLOADING();
+		return;
+	}
+  
+    char text[256]; 	
+	int count=0;
+	
+	int x;
+	for(x=0;x<256;x++)strcpy(Script[x],"");
+	char mem[20] ;
+	
+	while (!KOS_feof(ScriptFile)){
+		KOS_fgets(text, 255, ScriptFile); 
+		
+		if(text[0]!='/'){
+			if(count<256)strcpy(Script[count],text);
+			count++;
+		}
+		
+		strcpy(text,"");
+	}
+	KOS_fclose(ScriptFile);	
+	
+	int b=0;
+	for(int a=0;a<=count;a++){
+		PercentBar(a,count);
+		//Print(Script[a],5,10);
+		LineToCommand(Script[a]);
+		b++;
+		if(b>6)b=0;
+		
+		sprintf(mem,"Dynamic memory: %dKB/%dKB",mallinfo().uordblks/1024,mallinfo().arena/1024) ;
+		Print(mem,0,172);
+		PrintOUT(mem,1,173,false,strlen(mem));
+	}
+		
+	PreCalcAll();
+	LoadMainChar();
+	ScreenMode();
+	
+	StartSong(SongFile);
+
+	extern char EventSpeech[10][256];//to hold 10 textes for event with 256 chars
+	extern int EventSpeechCount;//Holds the Number of speeches a event has...
+	TextBoxmode(EventSpeech,EventSpeechCount,-1);
+	//LOADINGNOw=false;
+	irqSet(IRQ_VBLANK,vBlank);
+
+}
+
+void LineToCommand(char Com[]){
+	int ok=0;
+	char Temp[50];
+	char UcaseCom[256];
+	
+	ucase(Com,(char*)&UcaseCom);//make command uppercaes for non-casesensetive
+	
+	//Ok check that string and del out SPACEs etc.
+
+
+	//Compare the string with known commands and call them
+		//Map-commands
+		if(strncmp ("LOADMAP ",UcaseCom,8) == 0){LoadMapCommand(UcaseCom);ok=1;aut=-1;obj=-1;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("MUSIC ",UcaseCom,6) == 0){LoadSong(UcaseCom);ok=1;aut=-1;obj=-1;npc=-1;door=-1;ene=-1;}
+		
+		//Texture-commands
+		if((strncmp ("GROUNDA ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDA ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,1);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDB ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDB ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,2);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDC ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDC ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,3);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDD ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDD ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,4);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDE ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDE ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,5);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDF ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDF ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,6);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDG ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDG ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,7);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDH ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDH ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,8);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDI ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDI ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,9);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDJ ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDJ ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,10);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDK ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDK ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,11);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDL ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDL ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,12);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDM ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDM ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,13);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDN ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDN ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,14);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDO ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDO ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,15);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDP ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDP ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,16);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDQ ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDQ ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,17);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDR ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDR ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,18);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDS ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDS ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,19);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDT ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDT ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,20);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDU ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDU ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,21);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDV ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDV ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,22);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDW ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDW ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,23);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDX ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDX ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,24);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDY ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDY ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,25);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		if((strncmp ("GROUNDZ ",UcaseCom,8) == 0)||(strncmp ("TRANSGROUNDZ ",UcaseCom,13) == 0)){LoadBodenCommand(UcaseCom,26);ok=1;aut=-1;obj=-1; npc=-1;door=-1;ene=-1;}
+		
+		if(strncmp ("AUTOTILEA ",UcaseCom,10) == 0){LoadAutotileCommand(UcaseCom,0);ok=1;aut=0;obj=-1;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("AUTOTILEB ",UcaseCom,10) == 0){LoadAutotileCommand(UcaseCom,1);ok=1;aut=1;obj=-1;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("AUTOTILEC ",UcaseCom,10) == 0){LoadAutotileCommand(UcaseCom,2);ok=1;aut=2;obj=-1;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("AUTOTILED ",UcaseCom,10) == 0){LoadAutotileCommand(UcaseCom,3);ok=1;aut=3;obj=-1;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("^^AUTOIGNORE ",UcaseCom,13) == 0){AddAutotileIgnoreCommand(UcaseCom,aut);ok=1;obj=-1;npc=-1;door=-1;ene=-1;}
+		 
+		if(strncmp ("OBJECTA ",UcaseCom,8) == 0 || strncmp ("2XOBJECTA ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,0);ok=1;aut=-1;obj=0;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTB ",UcaseCom,8) == 0 || strncmp ("2XOBJECTB ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,1);ok=1;aut=-1;obj=1;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTC ",UcaseCom,8) == 0 || strncmp ("2XOBJECTC ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,2);ok=1;aut=-1;obj=2;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTD ",UcaseCom,8) == 0 || strncmp ("2XOBJECTD ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,3);ok=1;aut=-1;obj=3;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTE ",UcaseCom,8) == 0 || strncmp ("2XOBJECTE ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,4);ok=1;aut=-1;obj=4;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTF ",UcaseCom,8) == 0 || strncmp ("2XOBJECTF ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,5);ok=1;aut=-1;obj=5;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTG ",UcaseCom,8) == 0 || strncmp ("2XOBJECTG ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,6);ok=1;aut=-1;obj=6;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTH ",UcaseCom,8) == 0 || strncmp ("2XOBJECTH ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,7);ok=1;aut=-1;obj=7;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTI ",UcaseCom,8) == 0 || strncmp ("2XOBJECTI ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,8);ok=1;aut=-1;obj=8;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTJ ",UcaseCom,8) == 0 || strncmp ("2XOBJECTJ ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,9);ok=1;aut=-1;obj=9;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTK ",UcaseCom,8) == 0 || strncmp ("2XOBJECTK ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,10);ok=1;aut=-1;obj=9;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTL ",UcaseCom,8) == 0 || strncmp ("2XOBJECTL ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,11);ok=1;aut=-1;obj=9;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTM ",UcaseCom,8) == 0 || strncmp ("2XOBJECTM ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,12);ok=1;aut=-1;obj=9;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTN ",UcaseCom,8) == 0 || strncmp ("2XOBJECTN ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,13);ok=1;aut=-1;obj=9;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTO ",UcaseCom,8) == 0 || strncmp ("2XOBJECTO ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,14);ok=1;aut=-1;obj=9;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTP ",UcaseCom,8) == 0 || strncmp ("2XOBJECTP ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,15);ok=1;aut=-1;obj=9;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTQ ",UcaseCom,8) == 0 || strncmp ("2XOBJECTQ ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,16);ok=1;aut=-1;obj=9;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTR ",UcaseCom,8) == 0 || strncmp ("2XOBJECTR ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,17);ok=1;aut=-1;obj=9;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTS ",UcaseCom,8) == 0 || strncmp ("2XOBJECTS ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,18);ok=1;aut=-1;obj=9;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTT ",UcaseCom,8) == 0 || strncmp ("2XOBJECTT ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,19);ok=1;aut=-1;obj=9;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTU ",UcaseCom,8) == 0 || strncmp ("2XOBJECTU ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,20);ok=1;aut=-1;obj=9;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTV ",UcaseCom,8) == 0 || strncmp ("2XOBJECTV ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,21);ok=1;aut=-1;obj=9;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTW ",UcaseCom,8) == 0 || strncmp ("2XOBJECTW ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,22);ok=1;aut=-1;obj=9;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTX ",UcaseCom,8) == 0 || strncmp ("2XOBJECTX ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,23);ok=1;aut=-1;obj=9;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTY ",UcaseCom,8) == 0 || strncmp ("2XOBJECTY ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,24);ok=1;aut=-1;obj=9;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("OBJECTZ ",UcaseCom,8) == 0 || strncmp ("2XOBJECTZ ",UcaseCom,10) == 0){LoadObjectCommand(UcaseCom,25);ok=1;aut=-1;obj=9;npc=-1;door=-1;ene=-1;}
+
+		if(strncmp ("^^OBJ_SCALE ",UcaseCom,12) == 0){AddObjectScale(UcaseCom,obj);ok=1;aut=-1;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("^^SECONDMESH ",UcaseCom,13) == 0){LoadSecondObjectCommand(UcaseCom,obj);ok=1;aut=-1;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("^^NOGROUND",UcaseCom,10) == 0){SetOffObjectGround(obj);ok=1;aut=-1;npc=-1;door=-1;ene=-1;}	
+		if(strncmp ("^^NOMIRROW",UcaseCom,10) == 0){SetOffObjectMirrow(obj);ok=1;aut=-1;npc=-1;door=-1;ene=-1;}	
+		if(strncmp ("^^UNPASS ",UcaseCom,9) == 0){AddObjectUnpass(UcaseCom,obj);ok=1;aut=-1;npc=-1;door=-1;ene=-1;}	
+			
+		if(strncmp ("WASSER ",UcaseCom,7) == 0){LoadWasserCommand(UcaseCom);ok=1;aut=-1;obj=-1;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("DOOR ",UcaseCom,5) == 0)  {LoadDoorCommand(UcaseCom)  ;ok=1;aut=-1;obj=-1;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("UFER ",UcaseCom,5) == 0)  {LoadUferCommand(UcaseCom)  ;ok=1;aut=-1;obj=-1;npc=-1;door=-1;ene=-1;}
+
+		if(strncmp ("CHARA ",UcaseCom,6) == 0){LoadCharCommand(UcaseCom,0);ok=1;aut=-1;obj=-1;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("CHARB ",UcaseCom,6) == 0){LoadCharCommand(UcaseCom,0);ok=1;aut=-1;obj=-1;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("CHARC ",UcaseCom,6) == 0){LoadCharCommand(UcaseCom,0);ok=1;aut=-1;obj=-1;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("CHARD ",UcaseCom,6) == 0){LoadCharCommand(UcaseCom,0);ok=1;aut=-1;obj=-1;npc=-1;door=-1;ene=-1;}
+		
+		if(strncmp ("MAPCHANGE ",UcaseCom,10) == 0){LoadMapChange(UcaseCom);ok=1;aut=-1;obj=-1;npc=-1;door=-1;ene=-1;}
+		if(strncmp ("MAPCHANGEDOOR ",UcaseCom,14) == 0){LoadMapChangeDoor(UcaseCom);ok=1;aut=-1;obj=-1;npc=-1;door=1;ene=-1;}
+		if(strncmp ("^^CLOSEDEVENT ",UcaseCom,14) == 0)if(door!=-1){AddDoorTXT(Com);ok=1;aut=-1;obj=-1;npc=-1;door=1;ene=-1;}
+		
+		if(strncmp ("ADDEVENT ",UcaseCom,9) == 0){AddEvent(Com);ok=1;aut=-1;obj=-1;npc=-1;door=-11;ene=-1;}
+		
+		//Dorfbewhoner
+		if(strncmp ("VILLAGER ",UcaseCom,8) == 0){LoadVillager(UcaseCom);ok=1;aut=-1;obj=-1;npc=0;door=-1;ene=-1;}
+		if(strncmp ("^^ADDTEXT ",UcaseCom,10) == 0){AddText(Com,npc);ok=1;aut=-1;door=-1;}	
+		
+		//Enemys 	
+		if(strncmp ("ENEMY ",UcaseCom,6) == 0){LoadEnemy(UcaseCom);ok=1;aut=-1;obj=-1;npc=-1;door=-1;ene=0;}
+			
+		//Fireflys
+		if(strncmp ("FIREFLY ",UcaseCom,8) == 0){AddFirefly(UcaseCom);ok=1;aut=-1;obj=-1;npc=-1;door=-1;ene=-1;}
+	//if it was unknown print that out and hang
+	if(ok==0){
+		char unknowncom[256];
+		sscanf(UcaseCom,"%s",unknowncom);
+		
+		if(unknowncom[1]!=128 && unknowncom[0]!='/' && strlen(unknowncom)>3){
+			if ((unknowncom[1] > 0x60- 0x20) && (unknowncom[1]< 0x7B- 0x20)){
+				sprintf(Temp,"Err: unknown command '%s'\n",unknowncom);
+				Print(Temp,5,150);
+				Print("Press Start to skip",5,161);
+				
+				keyPress2=~(REG_KEYINPUT);
+				while(!(keyPress2 & KEY_START))keyPress2=~(REG_KEYINPUT);//Can't go on so lets hang arround	
+			}
+		}
+	}
+}
+
+void LoadMapCommand(char* Com){
+	char FileName[20];
+	char FileNameCom[40];
+	char out[20];
+	
+	//scan out Map-FileName
+	sscanf(Com,"%*s %s",FileName);
+	sscanf(Com,"%*s %*s %s",out);
+	
+	//Make a hole path with that
+	strcpy(FileNameCom,"/wolveslayer/maps/");
+	strcat(FileNameCom,FileName);
+
+	//Check if file exists
+	KOS_FILE *Script = KOS_fopen(FileNameCom,"r") ;
+	if (Script==0) {
+		char Temp[50];
+		sprintf(Temp,"'%s' not found         ",FileNameCom);
+		Print(Temp,5,0);
+		while(1==1){}//Can't go on so lets hang arround
+	}
+ 	KOS_fclose(Script);
+	
+	//Here is that final call to load that map
+	LoadMap(FileNameCom);
+	
+	if(strncmp ("OUTSIDE",out,7) == 0)outside=true;
+	if(strncmp ("INSIDE",out,6) == 0)outside=false;
+}
+
+void LoadSong(char *Com){
+	char FileName[20];
+	char FileNameCom[40];
+
+	//scan out Song-FileName
+	sscanf(Com,"%*s %s",FileName);
+	
+	//Make a hole path with that
+	strcpy(FileNameCom,"/wolveslayer/bgfx/");
+	strcat(FileNameCom,FileName);
+	
+	strcpy(SongFile,FileNameCom);
+}
+
+void LoadMapChange(char* Com){
+	char FileName[20];
+	char FileNameCom[40];
+	int x=0,y=0;
+	int tox=0,toy=0;
+	
+	//scan out Map-FileName
+	sscanf(Com,"%*s %*i %*i %s",FileName);
+	
+	//scan out positions
+	sscanf(Com,"%*s %i %i",&x,&y);
+
+	//scan out GotTOpositions
+	sscanf(Com,"%*s %*i %*i %*s %i %i",&tox,&toy);
+	
+	//Make a hole path with that
+	strcpy(FileNameCom,"/wolveslayer/maps/");
+	strcat(FileNameCom,FileName);
+
+	//Here is that final call add the exit
+	AddMapChange(x,y, FileNameCom,tox,toy);
+}
+
+void LoadMapChangeDoor(char* Com){
+	char FileName[20];
+	char FileNameCom[40];
+	int x=0,y=0;
+	int tox=0,toy=0;
+	int Keynum;
+	//MapChangeDoor Key0 25 5 Map2.txt 1 6
+	
+	//scan out Map-FileName
+	sscanf(Com,"%*s KEY%*i %*i %*i %s %*i %*i",FileName);
+
+	//scan out Keynumber
+	sscanf(Com,"%*s KEY%i %*i %*i %*s %*i %*i",&Keynum);
+	if(Keynum>100 || Keynum<0)Keynum=0;
+	
+	//scan out positions
+	sscanf(Com,"%*s KEY%*i %i %i %*s %*i %*i",&x,&y);
+
+	//scan out GotTOpositions
+	sscanf(Com,"%*s KEY%*i %*i %*i %*s %i %i",&tox,&toy);
+	
+	//Make a hole path with that
+	strcpy(FileNameCom,"/wolveslayer/maps/");
+	strcat(FileNameCom,FileName);
+	
+	//Here is that final call add the exit
+	AddMapDoor(x,y, FileNameCom,tox,toy,Keynum);
+}
+
+void AddEvent(char* com){	
+	//If it is 0 we know that AddText was called after Loading a NPC
+		char* pch;
+		pch = strtok (com," ");//First was command "^^addtext"
+		pch = strtok (NULL,"\"");//next is a "
+
+		AddTexttoEvent(pch);
+}
+
+void AddDoorTXT(char* com){	
+	//If it is 0 we know that AddText was called after Loading a NPC
+		char* pch;
+		pch = strtok (com," ");//First was command "^^addtext"
+		pch = strtok (NULL,"\"");//next is a "
+
+		AddTexttoDoor(pch);
+}
+

@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
 		Refresh3D();
 		
 		glPopMatrix (1);
-		glFlush(0);//Stop render
+		glFlush(2);//Stop render
 		loopCounter++;			
 		#ifdef ShowPolyCount
 		if(loopCounter==2)glGetInt(GL_GET_POLYGON_RAM_COUNT,&polycount);

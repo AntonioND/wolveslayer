@@ -582,7 +582,7 @@ void inputs(void){
 				UpdateDynamic();
 				Refresh3D();
 				glPopMatrix (1);
-				glFlush(0);
+				glFlush(2);
 			}
 			
 			LoadScrip(Filename);
@@ -596,7 +596,7 @@ void inputs(void){
 				UpdateDynamic();
 				Refresh3D();
 				glPopMatrix (1);
-				glFlush(0);
+				glFlush(2);
 			}
 			
 		}

@@ -17,7 +17,7 @@
 	<texture id="4" file="other/pfeil.bmp"/>
 	<texture id="5" file="furniture/schrank1.bmp"/>
 	
-	<mapchange pos="2,3" targetmap="Haus1.txt" targetpos="4,6"/>
+	<mapchange pos="2,3" targetmap="haus1.txt" targetpos="4,6"/>
 
 
 	<terrainborder file="other/rand.bmp"/>

@@ -14,9 +14,9 @@
 	<ground colorkey="231,211,43" file="ground/stufenboden.bmp"/>
 	
 	<autoground colorkey="178,99,22" file="autotiles/autotile1-3.bmp"/>
-	<terrainborder file="OtheR/rand2.bmp"/>
+	<terrainborder file="other/rand2.bmp"/>
 
-	<object mesh="nature/Tanne2-mdm.mdm" colorkey="35,220,10" textureid="0" scale="4"/>
+	<object mesh="nature/tanne2-mdm.mdm" colorkey="35,220,10" textureid="0" scale="4"/>
 	<object mesh="building/huette1-mdm.mdm" colorkey="211,162,13" textureid="1" scale="45"/>
 	<object mesh="other/brunnen-mdm.mdm" colorkey="82,71,36" textureid="2" scale="45"/>
 	<object mesh="other/blumen1-mdm.mdm" colorkey="14,208,210" textureid="4" scale="35"/>
@@ -29,7 +29,7 @@
 	<object mesh="building/huette1-anbau-mdm.mdm" colorkey="67,63,229" textureid="1" scale="60"/>
 	<object mesh="other/laterne-neu-mdm.mdm" colorkey="177,127,41" textureid="10" scale="50"/>
 	<object mesh="other/pfeil-ani-mdm.mdm" colorkey="195,3,166" textureid="12" scale="50" radius="0" selfilluminated="true"/>
-	<object mesh="other/Kiste1-mdm.mdm"           colorkey="245,20,70"            textureid="13" scale="30" />
+	<object mesh="other/kiste1-mdm.mdm"           colorkey="245,20,70"            textureid="13" scale="30" />
 	
 	<texture id="0" file="nature/tanne-new.bmp"/>
 	<texture id="1" file="building/huette1.bmp"/>

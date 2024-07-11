@@ -21,7 +21,7 @@
 <object mesh="furniture/bank1-rechts-mdm.mdm" colorkey="164,16,16" textureid="0" scale="50"/>
 <object mesh="other/mauer-links-mdm.mdm" colorkey="210,52,205" textureid="5" scale="51" culling="true"/>
 <object mesh="other/mauer-unten-mdm.mdm" colorkey="217,31,31" textureid="5" scale="51" culling="true"/>
-<object mesh="nature/Tanne2kvorne-mdm.mdm" colorkey="35,220,10" textureid="6" scale="80"/>
+<object mesh="nature/tanne2kvorne-mdm.mdm" colorkey="35,220,10" textureid="6" scale="80"/>
 <object mesh="nature/gras1hoch-mdm.mdm" colorkey="154,173,27" textureid="7" scale="60" radius="0"/>
 <object mesh="other/stadtlaterne1-mdm.mdm" colorkey="46,58,222" textureid="9" scale="65" radius="1" />
 <object mesh="building/stadt-glocke-ani2-mdm.mdm" colorkey="87,232,16" textureid="10" scale="50" noground="true"/>
@@ -43,7 +43,7 @@
 <texture id="5" file="other/mauer.bmp"/>
 <texture id="6" file="nature/tanne-new.bmp"/>
 <texture id="7" file="nature/gras1hoch.bmp"/>
-<texture id="8" file="building/H1.bmp"/>
+<texture id="8" file="building/h1.bmp"/>
 <texture id="9" file="other/stadtlaterne2.bmp"/>
 <texture id="10" file="building/stadt-glocke.bmp"/>
 <texture id="11" file="other/blumen1.bmp"/>

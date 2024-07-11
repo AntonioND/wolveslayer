@@ -7,8 +7,8 @@
 	<object mesh="[wall]" 			colorkey="131,175,235"		textureid="0"			/>
 	<object mesh="furniture/saeule1-mdm.mdm" 		colorkey="210,158,32"		textureid="1"			/>
 	<object mesh="building/decke-mdm.mdm" 		colorkey="196,22,22"		textureid="2"	radius="0"	/>
-	<object mesh="furniture/Tisch1-mdm.mdm" 		colorkey="214,152,122"		textureid="3"	scale="50"	/>
-	<object mesh="furniture/Tisch2-mdm.mdm" 		colorkey="123,71,33"		textureid="3"	scale="50"	/>
+	<object mesh="furniture/tisch1-mdm.mdm" 		colorkey="214,152,122"		textureid="3"	scale="50"	/>
+	<object mesh="furniture/tisch2-mdm.mdm" 		colorkey="123,71,33"		textureid="3"	scale="50"	/>
 	<object mesh="furniture/bild1-mdm.mdm" 		colorkey="98,173,69"		textureid="4"			/>
 	<object mesh="furniture/pflanze2-mdm.mdm" 	colorkey="237,25,230"		textureid="6"			/>
 	<object mesh="building/treppe-mdm.mdm" 		colorkey="90,49,22"		textureid="7"			 radius="0"/>

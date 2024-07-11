@@ -25,7 +25,7 @@
 	<object mesh="other/zacken-linkso-mdm.mdm" colorkey="140,224,80" textureid="4" scale="50"/>
 	<object mesh="other/zacken-linksoh-mdm.mdm" colorkey="160,224,80" textureid="4" scale="50"/>
 	<object mesh="other/pfeil-ani-mdm.mdm" colorkey="195,3,166" textureid="5" scale="50" radius="0" selfilluminated="true"/>
-	<object mesh="other/Kiste1-mdm.mdm" colorkey="245,20,70" textureid="6" scale="30" culling="true"/>
+	<object mesh="other/kiste1-mdm.mdm" colorkey="245,20,70" textureid="6" scale="30" culling="true"/>
 	<object mesh="building/dwand-ulinks-mdm.mdm" colorkey="180,90,120" textureid="2" scale="49"/>	
 	<object mesh="building/dwand-urechts-mdm.mdm" colorkey="200,50,180" textureid="2" scale="49"/>
 	<object mesh="other/leiter-mdm.mdm" colorkey="90,120,130" textureid="7" scale="50" radius="0" />

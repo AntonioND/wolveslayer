@@ -127,7 +127,7 @@ void RenderBoden ( int x, int y, int z,int textnum)
 {
 	extern int BodenTexture[Ground_Count];
 //	extern int BodenTextureA[Ground_Count];
-	extern int BodenTextureN[Ground_Count];
+//	extern int BodenTextureN[Ground_Count];
 	extern int BodenTextureS[Ground_Count];
 	extern int BodenTextureW[Ground_Count];
 	extern int BodenTextureE[Ground_Count];
@@ -314,8 +314,6 @@ void RenderLevelBorderBoden ( int x, int y, int z)
 
 	t16 cx=0,cy=0;
 	
-	extern t16 BodenTextPosStart[4];
-	extern t16 BodenTextPosEnd[4];
 	v16 BodenVert1=floattov16(-.5);
 	v16 BodenVert2=floattov16(.5);
 

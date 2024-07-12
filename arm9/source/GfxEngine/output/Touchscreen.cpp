@@ -22,7 +22,7 @@ void ScreenModeLOADING(void){
 	screenmode=-1;
 	
 	WaitForFreeVblank();
-	for(int i = 0; i < 256*256; i++)
+	for(int i = 0; i < 256*192; i++)
 	BG_GFX_SUB[i] = scrL_bin[i]; 
 }
 
@@ -127,8 +127,11 @@ void PrintOUT(const char* Text,int x,int y,bool color,int n){
 				if(Font1[xx+yy*668]==0){
 					i=x+xx-Char*sw+Counter*(sw+1);
 					j=y+yy;
-					if(i<256 && j<192)if(i>-1 && j>-1)if(color)BG_GFX_SUB[i+(j*256)]=RGB15(31,31,31) | BIT(15);				
-					else BG_GFX_SUB[i+(j*256)]=RGB15(0,0,0) | BIT(15);
+					if((i<256 && j<192) && (i>-1 && j>-1))
+					{
+						if(color) BG_GFX_SUB[i+(j*256)]=RGB15(31,31,31) | BIT(15);
+						else BG_GFX_SUB[i+(j*256)]=RGB15(0,0,0) | BIT(15);
+					}
 				}//Writes Font in black
 			} 
 		if(Text[Counter+1]=='\0')Counter=255; 

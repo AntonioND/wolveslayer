@@ -31,7 +31,7 @@ void RunTime(void){
 	if(!outside)Time=0;
 		
 	int r,g,b,r2,g2,b2;
-	int interpol;
+	int interpol=0;
 	
 	if(Time>=0 && Time<=600){
 		r=64,g=64,b=128;
@@ -142,7 +142,7 @@ void GrapLight(int x,int y){
 	//u8 col[3];
 	//GiveLight(x,y,col);
 	//glColor3b(col[0],col[1],col[2]);	
-	int xx,yy;
+	//int xx,yy;
 	extern int CamPosX,CamPosY;
 	extern u16 ViewportMapLights[20][20];
 	//xx=x-CamPosX;yy=y-CamPosY;

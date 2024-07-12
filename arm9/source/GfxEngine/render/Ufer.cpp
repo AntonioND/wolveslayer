@@ -160,8 +160,10 @@ void WallUfer(int x, int y,f32 xx, f32 yy){
 }
 
 void HalfWallUferA(int x, int y,f32 xx, f32 yy){
-	v16 bl,tl,br,tr;
-	t16 tbl,ttl,tbr,ttr;
+	v16 bl,tl,br;
+	//v16 tr;
+	t16 tbl,ttl,tbr;
+	//t16 ttr;
 	int a;
 	int b=0;
 	extern bool ViewportMapBumpWallS[20][20];
@@ -273,8 +275,10 @@ void HalfWallUferA(int x, int y,f32 xx, f32 yy){
 }
 
 void HalfWallUferB(int x, int y,f32 xx, f32 yy){
-	v16 bl,tl,br,tr;
-	t16 tbl,ttl,tbr,ttr;
+	v16 bl,br,tr;
+	//v16 tl;
+	t16 tbl,tbr,ttr;
+	//t16 ttl;
 	int a;
 	int b=0;
 	extern bool ViewportMapBumpWallS[20][20];

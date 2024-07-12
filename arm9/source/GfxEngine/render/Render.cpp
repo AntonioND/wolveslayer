@@ -73,7 +73,7 @@ void RefreshMap(void){
 	//RefreshWelt();
 	//return;
 	int x=0,y=0;
-	extern bool BodenTransEnable[Ground_Count];
+	//extern bool BodenTransEnable[Ground_Count];
 	extern u8 Precalcdata[128][128];
 	
 	extern bool ObjectNoGround[Object_Count];
@@ -155,16 +155,16 @@ void RefreshWelt(void){
 	int Housedoor= Obj_HouseDoor;
 	
 	int Wallbor=Obj_WallBor;
-	int WallAlone=Obj_WallAlone;
+	//int WallAlone=Obj_WallAlone;
 	int WallDoor=Obj_WallDoor;
 	bool seeable;
 	int minx,maxx;
 
 	SetRot(0);
 	
-	float spos[2];
+	//float spos[2];
 	int pos[2];
-	spos[0]=1;spos[1]=.5;
+	//spos[0]=1;spos[1]=.5;
 	
 	v16 height;
 	f32 posx,posy;

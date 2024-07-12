@@ -108,7 +108,7 @@ void PreCalcABod(void){
 
 	u32 Obj;
 	int texturecounter=0;
-	int choose2,texturecounter2;
+	int choose2 __attribute__((unused)),texturecounter2;
 	
 	for(int yy=0;yy<MapGetHr();yy++){
 		for(int xx=0;xx<MapGetWr();xx++){

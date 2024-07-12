@@ -37,8 +37,11 @@ void FreeModels(void){
 
 void LoadMD2Model(char Filename[],int num,int widthheight,int scale){
 	bool texturereverse=true;
-	if(Filename[strlen(Filename)-1]=='M')texturereverse=false;
-	
+
+	// If the last character of the name is m, reverse the texture. This is done
+    // to tell apart models with the extension md2 and mdm.
+	if(Filename[strlen(Filename)-1]=='m')texturereverse=false;
+
 	FILE *fp = fopen(Filename,"rb") ;
 	if (fp==NULL) {
 		PrintOUT(Filename,5,5,false,strlen(Filename));

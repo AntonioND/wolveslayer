@@ -115,7 +115,7 @@ void LoadAutotileTexture(char filename[],int num)
 		for (bx=0;bx<128;bx++)for(by=0;by<128;by++)//each pixel
 			part[bx+(by*128)]=buffer8[(bx+(ax*128))+(by*384)];
 
-		glGenTextures(0, &AutotileTextur[num][ax]);
+		glGenTextures(1, &AutotileTextur[num][ax]);
 		glBindTexture(0, AutotileTextur[num][ax]);
 
 		WaitForFreeVblank();

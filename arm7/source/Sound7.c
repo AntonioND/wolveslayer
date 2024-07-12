@@ -22,12 +22,6 @@
 
 // ----- Constants -----
 
-	// Switch this on if your IRQ stack isn't big enough, and you can't 
-	// make it any bigger. It will use some assembly code to switch the 
-	// CPU into system mode during the MOD updating interrupt, thus 
-	// working on the large user stack rather than the small IRQ stack.
-#define SWITCH_TO_USER_STACK	FALSE
-
 	// For patterns to specify that there is no note. We have 5 octaves, 
 	// so only notes 0-59 are used, and 63 is the highest that still fits 
 	// in the same number of bits
@@ -342,19 +336,7 @@ void SndVblIrq()
 
 void SndTimerIrq()
 {
-#if !SWITCH_TO_USER_STACK
 	MODUpdate();
-#else
-	asm volatile("	stmfd	sp!, {r0-r2}			");	// Save regs on IRQ stack.
-	asm volatile("	mrs		r0, cpsr				");	// Grab CPSR, which is in IRQ mode right now.
-	asm volatile("	orr		r1, r0, #0x1f			");	// 0x1f = SYS mode. No need to clear first since all bits are set.
-	asm volatile("	msr		cpsr, r1				");	// Switch to SYS mode.
-	asm volatile("	stmfd	sp!, {r0-r3, r12, lr}	");	// Save regs as per APCS, on user stack.
-	asm volatile("	bl		MODUpdate				");	// Call the function.
-	asm volatile("	ldmfd	sp!, {r0-r3, r12, lr}	");	// Load regs back from user stack.
-	asm volatile("	msr		cpsr, r0				");	// Switch back to IRQ mode.
-	asm volatile("	ldmfd	sp!, {r0-r1}			");	// Restore regs from IRQ stack.
-#endif
 }
 
 

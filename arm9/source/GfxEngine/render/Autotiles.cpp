@@ -11,7 +11,6 @@ extern int BodenX,BodenY;
 void LoadAutotileTexture(char filename[],int num) 
 {
 	extern int AutotileTextur[4][3];
-	extern int AutotilePal[4];
 	u8* buffer8 = NULL;
 	u8* part;
 	u16 pal[256];

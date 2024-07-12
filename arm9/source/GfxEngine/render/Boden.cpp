@@ -15,7 +15,6 @@ BodenY=y;
 void LoadBodenTexture(char filename[],int num)
 {
 	extern int BodenTexture[Ground_Count];
-	extern int BodenPal[Ground_Count];
 	extern u8 BodenSize[Ground_Count];
 
 	u8* buffer8 = NULL;
@@ -132,7 +131,6 @@ void RenderBoden ( int x, int y, int z,int textnum)
 	extern int BodenTextureS[Ground_Count];
 	extern int BodenTextureW[Ground_Count];
 	extern int BodenTextureE[Ground_Count];
-	extern int BodenPal[Ground_Count];
 	extern bool BodenBumpEnable[Ground_Count];	
 	extern t16 BodenTextPosStart[4];
 	extern t16 BodenTextPosEnd[4];

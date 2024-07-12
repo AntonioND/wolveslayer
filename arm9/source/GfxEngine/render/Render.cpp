@@ -10,11 +10,9 @@ extern int PlRichtung;
 
 //Texturen zum anzeigen
 extern int AutotileTextur[4][3];
-extern int AutotilePal[4];
 extern char AutotileColorKeyA[4][7];
 extern char AutotileColorKeyB[4][7];
 extern int BodenTexture[Ground_Count];
-extern int BodenPal[Ground_Count];
 extern bool BodenEnable[Ground_Count];
 extern char BodenColorKey[Ground_Count][7];
 extern int Wasser[1];

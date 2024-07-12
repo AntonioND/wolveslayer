@@ -6,7 +6,7 @@ extern int Blend;
 extern int WallX,WallY;
 extern bool walltrans;
 
-extern int Door[1],DoorPal[1];
+extern int Door[1];
 
 extern t16 walltex1;
 extern t16 walltex1e;
@@ -41,7 +41,7 @@ void AddTexttoDoor(char txt[256]){
 
 void LoadDoorTexture(char filename[]) 
 {
-	extern int Door[1],DoorPal[1];
+	extern int Door[1];
 	u8* buffer8 = NULL;
 	u16 pal[256];
 	int width=0;

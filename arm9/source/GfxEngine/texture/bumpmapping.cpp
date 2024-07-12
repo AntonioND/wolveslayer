@@ -148,7 +148,6 @@ void LoadMBump5Texture(char filename[],int num)
 	extern int BodenTextureS[Ground_Count];
 	extern int BodenTextureW[Ground_Count];
 	extern int BodenTextureE[Ground_Count];
-	extern int BodenPal[Ground_Count];
 	extern u8 BodenSize[Ground_Count];
 
 	u8* buffer8 = NULL;

@@ -6,7 +6,7 @@ bool LOADINGNOw;
 
 extern bool outside;
 
-extern int Door[1],DoorPal[1];
+extern int Door[1];
 extern float PlPosSX,PlPosSY;
 extern float CamPosSX,CamPosSY;
 

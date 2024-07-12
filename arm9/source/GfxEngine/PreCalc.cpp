@@ -28,7 +28,6 @@ extern uint16 keyPress;
 
 //Texturen zum anzeigen
 extern int AutotileTextur[4];
-extern int AutotilePal[4];
 extern u32 AutotileColorKeyMaster[4];
 extern u32 AutotileIgnorecolors[10][4];
 extern int AutotileIgnorecolorsNum[4];

@@ -7,7 +7,6 @@ extern bool BodenTransEnable[Ground_Count];
 extern bool BodenBumpEnable[Ground_Count];
 
 extern int AutotileTextur[4];
-extern int AutotilePal[4];
 extern u32 AutotileColorKeyMaster[4];
 extern int AutotileIgnorecolorsNum[4];
 

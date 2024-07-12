@@ -17,7 +17,6 @@ int BodenTextureS[Ground_Count];
 int BodenTextureW[Ground_Count];
 int BodenTextureE[Ground_Count];
 
-int BodenPal[Ground_Count];
 bool BodenEnable[Ground_Count];
 u32 BodenColorKey[Ground_Count];
 bool BodenTransEnable[Ground_Count];
@@ -25,7 +24,6 @@ bool BodenBumpEnable[Ground_Count];
 u8 BodenSize[Ground_Count];
 
 int AutotileTextur[4][3];
-int AutotilePal[4];
 u32 AutotileColorKeyMaster[4];
 u32 AutotileIgnorecolors[10][4];
 int AutotileIgnorecolorsNum[4];
@@ -60,7 +58,7 @@ bool ObjectIllumination[Object_Count];
 bool ObjectNoGround[Object_Count];
 bool ObjectCulling[Object_Count];
 
-int Door[1],DoorPal[1];
+int Door[1];
 
 int Waffe[1],WaffePal[1];
 

@@ -38,9 +38,9 @@ Run `make` in the root of this repository.
 
 ## Credits
 
-Developed by [Firehazard Studio](www.firehazard-studio.com)
+Developed by [Firehazard Studio](http://www.firehazard-studio.com)
 
-- Code: Christian Hoffmann ([Payk](www.payk.drunkencoders.com))
+- Code: Christian Hoffmann ([Payk](http://www.payk.drunkencoders.com))
 - Textures & Objects: Christian Moor (Garel)
 - Menus GFX: Abel Santos (Alfatreze)
 - Editor: Marcus Schebesta

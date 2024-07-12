@@ -61,8 +61,6 @@ void LoadObjectCommand(TiXmlElement *map){
 		strcpy(FileNameCom,"/wolveslayer/obj/");
 		if (object->Attribute("mesh")){
 			strcat(FileNameCom,object->Attribute("mesh"));
-			ucase(FileNameCom,FileNameCom);
-			
 
 			if(strncmp ("[wall]",object->Attribute("mesh"),6) == 0){
 				if(!TexturehasBump[id])strcpy(ObjTyp,"WALL");

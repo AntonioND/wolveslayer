@@ -212,8 +212,8 @@ void RefreshWelt(void){
 							if(ObjectCulling[TexObj[x][y]])glPolyFmt(POLY_ALPHA(31) |POLY_CULL_FRONT | POLY_FORMAT_LIGHT0|POLY_ID(ObjectTextureID[TexObj[x][y]]+11+3) );
 							else glPolyFmt(POLY_ALPHA(31) |POLY_CULL_NONE | POLY_FORMAT_LIGHT0|POLY_ID(ObjectTextureID[TexObj[x][y]]+11+3) );
 							glTranslatef32 ((int32_t)posx, (int32_t)height, (int32_t)posy);
-							glRotateXi(-128);
-							glRotateZi(-128+(DirObj[x][y]*-64));
+							glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
+							glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128+(DirObj[x][y]*-64)));
 							RenderMD2Model(stackt11,TexObj[x][y]+10);
 							glPopMatrix(1);
 						}
@@ -222,8 +222,8 @@ void RefreshWelt(void){
 							glPushMatrix ();
 							glPolyFmt(POLY_ALPHA(31) |POLY_CULL_NONE | POLY_FORMAT_LIGHT0|POLY_ID(ObjectTextureID[TexObj[x][y]]+11+3));
 							glTranslatef32 ((int32_t)posx, (int32_t)-height, (int32_t)posy);
-							glRotateXi(-128);
-							glRotateZi(-128+(DirObj[x][y]*-64));
+							glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
+							glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128+(DirObj[x][y]*-64)));
 							RenderMD2ModelMirrowed(stackt11,TexObj[x][y]+10);
 							glPopMatrix(1);
 						}
@@ -344,8 +344,8 @@ void RefreshPlayer(void){
 	glPushMatrix ();
 	glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(1));
 	glTranslatef (CamPosSX, hpos,CamPosSY); 
-	glRotateXi(-128);
-	glRotateZi(-128+PlRichtung*-64);
+	glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
+	glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128+PlRichtung*-64));
 	Precalcmd2light(aniwaffe, 0);RenderMD2Model(aniwaffe, 0);
 	glPopMatrix(1);
 
@@ -355,8 +355,8 @@ void RefreshPlayer(void){
 		glPushMatrix ();
 		glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
 		glTranslatef (CamPosSX, -.1-hpos, CamPosSY); 
-		glRotateXi(-128);
-		glRotateZi(-128+PlRichtung*-64);
+		glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
+		glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128+PlRichtung*-64));
 		RenderMD2ModelMirrowed(aniwaffe, 0);
 		glPopMatrix(1);
 	}
@@ -368,8 +368,8 @@ void RefreshPlayer(void){
 		glPushMatrix ();
 		glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
 		glTranslatef (CamPosSX, hpos, CamPosSY); 
-		glRotateXi(-128);
-		glRotateZi(-128+PlRichtung*-64);
+		glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
+		glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128+PlRichtung*-64));
 		Precalcmd2light(aniwaffe, 1);RenderMD2Model(aniwaffe, 1);
 		glPopMatrix(1);
 
@@ -378,8 +378,8 @@ void RefreshPlayer(void){
 			glPushMatrix ();
 			glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
 			glTranslatef (CamPosSX, -.1-hpos, CamPosSY); 
-			glRotateXi(-128);
-			glRotateZi(-128+PlRichtung*-64);
+			glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
+			glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128+PlRichtung*-64));
 			RenderMD2ModelMirrowed(aniwaffe, 1);
 			glPopMatrix(1);
 		}	
@@ -465,8 +465,8 @@ void RefreshDorfis(void){
 			glPushMatrix ();
 			glPolyFmt(POLY_ALPHA(31) |POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(DorfiTextNum[a]+1));
 			glTranslatef ((DorfiX[a]-6)+DorfiSX[a]-(CamPosX), hpos, (DorfiY[a]-8)+DorfiSY[a]-(CamPosY)); 
-			glRotateXi(-128);
-			glRotateZi(-128+dir*-64);
+			glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
+			glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128+dir*-64));
 			if((screenmode!=2 || a!=npctalk) && screenmode<=2){Precalcmd2light(stackt11+11, DorfiTextNum[a]);RenderMD2Model(stackt11+11, DorfiTextNum[a]);}
 			else {Precalcmd2light(stackt11, DorfiTextNum[a]);RenderMD2Model(stackt11, DorfiTextNum[a]);}
 			glPopMatrix(1);
@@ -476,8 +476,8 @@ void RefreshDorfis(void){
 				glPushMatrix ();
 				glPolyFmt(POLY_ALPHA(31) |POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
 				glTranslatef ((DorfiX[a]-6)+DorfiSX[a]-(CamPosX), -hpos, (DorfiY[a]-8)+DorfiSY[a]-(CamPosY)); 
-				glRotateXi(-128);
-				glRotateZi(-128+dir*-64);
+				glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
+				glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128+dir*-64));
 				if((screenmode!=2 || a!=npctalk) && screenmode<=2)RenderMD2ModelMirrowed(stackt11+11,DorfiTextNum[a]);
 				else RenderMD2ModelMirrowed(stackt11,DorfiTextNum[a]);
 				glPopMatrix(1);
@@ -557,8 +557,8 @@ void RefreshEnemys(void){
 			glPushMatrix ();
 			glPolyFmt(POLY_ALPHA(blend) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(GegnerTextNum[a]+1));
 			glTranslatef ((GegnerX[a]-6)+GegnerSX[a]-(CamPosX), hpos, (GegnerY[a]-8)+GegnerSY[a]-(CamPosY)); 
-			glRotateXi(-128);
-			glRotateZi(-128+dir*-64);
+			glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
+			glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128+dir*-64));
 			Precalcmd2light(aniset, GegnerTextNum[a]);RenderMD2Model(aniset, GegnerTextNum[a]);
 			glPopMatrix(1);
 			
@@ -567,8 +567,8 @@ void RefreshEnemys(void){
 				glPushMatrix ();
 				glPolyFmt(POLY_ALPHA(blend) |POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
 				glTranslatef ((GegnerX[a]-6)+GegnerSX[a]-(CamPosX), -hpos, (GegnerY[a]-8)+GegnerSY[a]-(CamPosY)); 
-				glRotateXi(-128);
-				glRotateZi(-128+dir*-64);
+				glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
+				glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128+dir*-64));
 				RenderMD2ModelMirrowed(aniset,GegnerTextNum[a]);
 				glPopMatrix(1);
 			}

@@ -208,7 +208,7 @@ void RenderHouseBorderDoor (int mode,int doorangle,int dirrection ,f32 x, f32 y,
 	glPushMatrix ();
 
 	glTranslatef32 (x, y, z); 
-	glRotateYi(dirrection*-128);
+	glRotateYi((DEGREES_IN_CIRCLE / 512) * (dirrection*-128));
 	u8 r=EnvR,g=EnvG,b=EnvB;
 
 	int LightX1=0,LightY1=0;
@@ -406,7 +406,7 @@ void RenderWallBorderDoor (int mode,int doorangle,int dirrection ,f32 x, f32 y, 
 		glPushMatrix ();
 
 		glTranslatef32 (x, y, z); 
-		glRotateYi(dirrection*-128);	
+		glRotateYi((DEGREES_IN_CIRCLE / 512) * (dirrection*-128));
 			//Wand Oben
 			glBegin (GL_QUADS); 
 				// Bottom left

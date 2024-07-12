@@ -79,7 +79,7 @@ void RenderWallBorder (int mode,int dirrection ,f32 x, f32 y, f32 z,int textnum)
 
 	glTranslatef32 (x, y, z); 
 	
-	glRotateYi(dirrection*-128);
+	glRotateYi((DEGREES_IN_CIRCLE / 512) * (dirrection*-128));
 	
 	//int a=0;
 	for(int a=0;a<=layers;a++){

@@ -80,7 +80,7 @@ void RenderHouseBorder (int mode,int dirrection ,f32 x, f32 y, f32 z)
 	glPushMatrix ();
 
 	glTranslatef32 (x, y, z); 
-	glRotateYi(dirrection*-128);
+	glRotateYi((DEGREES_IN_CIRCLE / 512) * (dirrection*-128));
 	u8 r=EnvR,g=EnvG,b=EnvB;
 
 	int LightX1=0,LightY1=0;
@@ -168,7 +168,7 @@ void RenderHouseCorner (int mode,int dirrection ,f32 x, f32 y, f32 z)
 
 	glPushMatrix ();
 	glTranslatef32 (x, y, z); 
-	glRotateYi(dirrection*-128);
+	glRotateYi((DEGREES_IN_CIRCLE / 512) * (dirrection*-128));
 
 	u8 r=EnvR,g=EnvG,b=EnvB;
 	

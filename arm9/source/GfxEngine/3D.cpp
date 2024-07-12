@@ -258,6 +258,7 @@ void Splash(void){
 		REG_BLDY_SUB = u;
 		swiWaitForVBlank();
 	}
+
 	InitCircles();
 	
 	LoadBmptoBuffer("/wolveslayer/pic/loading.bmp",scrL_bin);
@@ -266,6 +267,7 @@ void Splash(void){
 
 //	LoadBmptoBuffer8("/rd/pic/box.bmp",textbox_bin,textbox_pal);
 	
+
 	int pressed;
 	for(int u=0;u<360;u++){
 		scanKeys();

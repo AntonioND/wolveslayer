@@ -256,8 +256,6 @@ void RefreshWelt(void){
 						if(yy>-1)RenderHouseBorderDoor(0,GetMapDoorAngle(xx+CamPosX,yy+CamPosY),DirObj[x][y],posx, floattof32(1.0+GetHight(x,y)), posy);//Türslot Normal
 						if((Precalcdata[x][y]&(1<<mirrow))){
 							glBindTexture (GL_TEXTURE_2D, ObjektTex[TexObj[x][y]]);//We need that to set again...after rendering houspart with doorslot it
-                            // TODO: Uncomment
-							//glColorTable(GL_RGB256, ObjektPal[TexObj[x][y]]); //swaps texture to doorimage and renders door...for mirrowing we need to change back again
 							RenderHouseBorderDoor(1,GetMapDoorAngle(xx+CamPosX,yy+CamPosY),DirObj[x][y],posx, floattof32(-.9-GetHight(x,y)), posy);//Türslot Gespiegelt
 						}
 					}
@@ -278,8 +276,6 @@ void RefreshWelt(void){
 						if(yy>-1)RenderWallBorderDoor(0,GetMapDoorAngle(xx+CamPosX,yy+CamPosY),DirObj[x][y],posx, floattof32(1+GetHight(x,y)), posy);//Türslot Normal
 						if((Precalcdata[x][y]&(1<<mirrow))){
 							glBindTexture (GL_TEXTURE_2D, ObjektTex[TexObj[x][y]]);//We need that to set again...after rendering houspart with doorslot it
-                            // TODO: Uncomment
-							//glColorTable(GL_RGB256, ObjektPal[TexObj[x][y]]); //swaps texture to doorimage and renders door...for mirrowing we need to change back again
 							RenderWallBorderDoor(1,GetMapDoorAngle(xx+CamPosX,yy+CamPosY),DirObj[x][y],posx, floattof32(-1.02-GetHight(x,y)), posy);//Türslot Gespiegelt
 						}
 					}

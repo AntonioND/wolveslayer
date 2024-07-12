@@ -13,7 +13,7 @@ void Putpixel (int x, int y,int modelnum){
 }
 
 bool GetModelCollsisionXY(int num,int x,int y,int rot){
-	int X = 0, Y = 0; // TODO: Check this
+	int X = 0, Y = 0;
 	if(rot==0){
 		X=x;
 		Y=y;

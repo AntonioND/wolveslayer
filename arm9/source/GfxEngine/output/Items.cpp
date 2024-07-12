@@ -193,7 +193,7 @@ bool BoolCheck_Set(const char* UcaseCom){
 	//When it reaches here...something was made wrong...:(
 	return false;
 */
-	return false; // TODO: Is this OK?
+	return false;
 }
 
 bool ItemCheck_Set(const char* Com){
@@ -215,6 +215,6 @@ bool ItemCheck_Set(const char* Com){
 	return false;
 	*/
 
-	return false; // TODO: Is this OK?
+	return false;
 }
 

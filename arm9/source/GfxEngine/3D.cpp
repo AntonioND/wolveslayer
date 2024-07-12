@@ -434,11 +434,10 @@ void E3D_Init(void){
 	InitTableOfNormal();
 	swiWaitForVBlank();
 //	glReset ();
-	glMatrixMode(GL_PROJECTION); glLoadIdentity(); 
- 
-	gluPerspective (25, 1, .1, 100);//<---LATER THATS RIGHT ONE
 
-
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective (45, 256.0 / 192.0, .1, 40);
 }
 
 

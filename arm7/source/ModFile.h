@@ -11,14 +11,12 @@
 extern "C" {
 #endif
 
-
-
 // ----- Functions -----
 
-struct _MOD;	// Forward declaration
+struct _MOD; // Forward declaration
 
 u32 ModFileLoad(const void *modFile, struct _MOD *dest, void *memPool, u32 memPoolSize);
 
 // ----------
 
-#endif	// MODFILE_H
+#endif // MODFILE_H

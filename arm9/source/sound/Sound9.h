@@ -6,6 +6,7 @@
 #define SOUND9_H
 
 #include <nds.h>
+
 #include "SoundCommon.h"
 
 #ifdef __cplusplus
@@ -21,8 +22,8 @@ extern void SndStopMOD();
 extern void SndPauseMOD(bool bPaused);
 extern void SndSetMODCallback(MOD_CALLBACK callback);
 extern void SoundSendCmd(SND_COMMAND_TYPE cmdType, u32 param32);
-//extern bool checkMusicFade(LEVELS lvlIdx);
-//extern void updateMusic(LEVELS lvlIdx);
+// extern bool checkMusicFade(LEVELS lvlIdx);
+// extern void updateMusic(LEVELS lvlIdx);
 
 // ----------
 
@@ -30,4 +31,4 @@ extern void SoundSendCmd(SND_COMMAND_TYPE cmdType, u32 param32);
 }
 #endif
 
-#endif	// SOUND9_H
+#endif // SOUND9_H

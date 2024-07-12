@@ -2,7 +2,7 @@
 
 #include "3D.h"
 
-void vblank_handler (void);
+void vblank_handler(void);
 void SetMainBg(unsigned short int *pic);
 void E3D_Init(void);
 void E3D_StartRender(int mode);
@@ -10,11 +10,11 @@ void E3D_StartRender(int mode);
 //*******************Globale variablen
 t16 BodenTextPosStart[4];
 t16 BodenTextPosEnd[4];
-v16 BodenVertex1=floattov16(.508);
-v16 BodenVertex2=floattov16(-.508);
+v16 BodenVertex1 = floattov16(.508);
+v16 BodenVertex2 = floattov16(-.508);
 
 int BodenTexture[Ground_Count];
-//int BodenTextureN[Ground_Count];
+// int BodenTextureN[Ground_Count];
 int BodenTextureS[Ground_Count];
 int BodenTextureW[Ground_Count];
 int BodenTextureE[Ground_Count];
@@ -43,14 +43,14 @@ bool UferBump[10];
 int Figuren[10];
 int FigurenPal[10];
 
-//26 textureslots for objects
-int ObjektTex[Object_Count];//Standard slot for objects
-int ObjektTexB[Object_Count];//Advanced slot for objects(bumpmapping)
-int ObjektTexC[Object_Count];//Advanced slot for objects(bumpmapping)
+// 26 textureslots for objects
+int ObjektTex[Object_Count];  // Standard slot for objects
+int ObjektTexB[Object_Count]; // Advanced slot for objects(bumpmapping)
+int ObjektTexC[Object_Count]; // Advanced slot for objects(bumpmapping)
 
 int ObjectTextureID[Object_Count];
 
-//and 26 objects...but u can map textures twice....
+// and 26 objects...but u can map textures twice....
 char ObjektTyp[Object_Count][13];
 u32 ObjektColorKey[Object_Count];
 int ObjektPal[Object_Count];
@@ -62,399 +62,414 @@ bool ObjectCulling[Object_Count];
 
 int Door[1];
 
-int Waffe[1],WaffePal[1];
+int Waffe[1], WaffePal[1];
 
-u16 scrL_bin[256*192];
-u16 touch_bin[256*192];
+u16 scrL_bin[256 * 192];
+u16 touch_bin[256 * 192];
 u16 textbox_pal[256];
-u8 Font1[668*11];
+u8 Font1[668 * 11];
 
-void LoadBmptoBuffer(const char* filename,u16* picbuff){
-	u8* buffer8 = NULL;
-	u16 pal[256];
-	int width=0;
-	int height=0;
-		
-	FILE *bmp = fopen(filename,"r") ;
-	if (bmp==NULL) {
-		fprintf(stderr,"%s not found \n",filename);
-		while(1){} ;
-	} ;
-	
-	fseek(bmp,18,SEEK_SET) ;
+void LoadBmptoBuffer(const char *filename, u16 *picbuff)
+{
+    u8 *buffer8 = NULL;
+    u16 pal[256];
+    int width  = 0;
+    int height = 0;
 
-	fread(&width,4,1,bmp) ;
-	fread(&height,4,1,bmp) ;
-	
-	unsigned long colorCoding ;
-	fread(&colorCoding,4,1,bmp) ;
-	
-	fseek(bmp,34,SEEK_SET) ;
-	unsigned long dataLength ;
-	fread(&dataLength,4,1,bmp) ;
+    FILE *bmp = fopen(filename, "r");
+    if (bmp == NULL) {
+        fprintf(stderr, "%s not found \n", filename);
+        while (1) {
+        };
+    };
 
-	fseek(bmp,46,SEEK_SET) ;
-	unsigned long impcol ;
-	fread(&impcol,4,1,bmp) ;
+    fseek(bmp, 18, SEEK_SET);
 
-	int i,q ;
+    fread(&width, 4, 1, bmp);
+    fread(&height, 4, 1, bmp);
 
-	switch ((colorCoding & 0xFFFF0000) >> 16) {
-		
-		case 8:
-			//First read the pal
-			fseek(bmp,54,SEEK_SET) ;
-			for (i=0;i<256;i++){
-					unsigned char r,g,b ;
-					unsigned long color ;
-					fread(&color,4,1,bmp) ;
-					b = (color & 0x0FF) ;
-					g = ((color >> 8) & 0x0FF) ;
-					r = ((color >> 16) & 0x0FF) ;				
-					//BG_GFX[i]= RGB15(r>>3,g>>3,b>>3)| BIT(15);
-					//BG_GFX[i+256]= RGB15(r>>3,g>>3,b>>3)| BIT(15);
-					pal[i]=RGB15(r>>3,g>>3,b>>3)| BIT(15);
-			}
-			buffer8 = (u8*)malloc(width*height) ;
-			for (i=0;i<height;i++){
-				for (q=0;q<width;q++){
-					u8 color;
-					fread(&color,1,1,bmp) ;
-					//BG_GFX[q+(((height-1)-i)*256)]=pal[color];
-					buffer8[q+(((height-1)-i)*width)]=color;
-				}
-				unsigned long abuf ;
-				if ((width) & 1)
-					fread(&abuf,4-((width) & 1),1,bmp) ;
-			}
-		break ;
-		default:
-			fprintf(stderr, "Invalid BMP format: %s", filename);
-			while (1);
-		break;
-	} ;
-	
-	fclose(bmp) ;
+    unsigned long colorCoding;
+    fread(&colorCoding, 4, 1, bmp);
 
-	swiWaitForVBlank();
-	for(int i = 0; i < width*height; i++)
-	picbuff[i] = pal[buffer8[i]]; 
-	free(buffer8);
+    fseek(bmp, 34, SEEK_SET);
+    unsigned long dataLength;
+    fread(&dataLength, 4, 1, bmp);
+
+    fseek(bmp, 46, SEEK_SET);
+    unsigned long impcol;
+    fread(&impcol, 4, 1, bmp);
+
+    int i, q;
+
+    switch ((colorCoding & 0xFFFF0000) >> 16) {
+        case 8:
+            // First read the pal
+            fseek(bmp, 54, SEEK_SET);
+            for (i = 0; i < 256; i++) {
+                unsigned char r, g, b;
+                unsigned long color;
+                fread(&color, 4, 1, bmp);
+                b = (color & 0x0FF);
+                g = ((color >> 8) & 0x0FF);
+                r = ((color >> 16) & 0x0FF);
+                // BG_GFX[i] = RGB15(r >> 3, g >> 3, b >> 3) | BIT(15);
+                // BG_GFX[i + 256] = RGB15(r >> 3, g >> 3, b >> 3) | BIT(15);
+                pal[i] = RGB15(r >> 3, g >> 3, b >> 3) | BIT(15);
+            }
+            buffer8 = (u8 *)malloc(width * height);
+            for (i = 0; i < height; i++) {
+                for (q = 0; q < width; q++) {
+                    u8 color;
+                    fread(&color, 1, 1, bmp);
+                    // BG_GFX[q + (((height - 1) - i) * 256)] = pal[color];
+                    buffer8[q + (((height - 1) - i) * width)] = color;
+                }
+                unsigned long abuf;
+                if ((width) & 1)
+                    fread(&abuf, 4 - ((width) & 1), 1, bmp);
+            }
+            break;
+        default:
+            fprintf(stderr, "Invalid BMP format: %s", filename);
+            while (1)
+                ;
+            break;
+    };
+
+    fclose(bmp);
+
+    swiWaitForVBlank();
+    for (int i = 0; i < width * height; i++)
+        picbuff[i] = pal[buffer8[i]];
+    free(buffer8);
 }
 
-void LoadBmptoBuffer8(const char* filename,u8* picbuff,u16* palbuff){
-	u8* buffer8 = NULL;
-	u16 pal[256];
-	int width=0;
-	int height=0;
-		
-	FILE *bmp = fopen(filename,"r") ;
-	if (bmp==NULL) {
-		fprintf(stderr,"%s not found \n",filename);
-		while(1){} ;
-	} ;
-	
-	fseek(bmp,18,SEEK_SET) ;
+void LoadBmptoBuffer8(const char *filename, u8 *picbuff, u16 *palbuff)
+{
+    u8 *buffer8 = NULL;
+    u16 pal[256];
+    int width  = 0;
+    int height = 0;
 
-	fread(&width,4,1,bmp) ;
-	fread(&height,4,1,bmp) ;
-	
-	unsigned long colorCoding ;
-	fread(&colorCoding,4,1,bmp) ;
-	
-	fseek(bmp,34,SEEK_SET) ;
-	unsigned long dataLength ;
-	fread(&dataLength,4,1,bmp) ;
+    FILE *bmp = fopen(filename, "r");
+    if (bmp == NULL) {
+        fprintf(stderr, "%s not found \n", filename);
+        while (1) {
+        };
+    };
 
-	fseek(bmp,46,SEEK_SET) ;
-	unsigned long impcol ;
-	fread(&impcol,4,1,bmp) ;
+    fseek(bmp, 18, SEEK_SET);
 
-	int i,q ;
+    fread(&width, 4, 1, bmp);
+    fread(&height, 4, 1, bmp);
 
-	switch ((colorCoding & 0xFFFF0000) >> 16) {
-		
-		case 8:
-			//First read the pal
-			fseek(bmp,54,SEEK_SET) ;
-			for (i=0;i<256;i++){
-					unsigned char r,g,b ;
-					unsigned long color ;
-					fread(&color,4,1,bmp) ;
-					b = (color & 0x0FF) ;
-					g = ((color >> 8) & 0x0FF) ;
-					r = ((color >> 16) & 0x0FF) ;				
-					//BG_GFX[i]= RGB15(r>>3,g>>3,b>>3)| BIT(15);
-					//BG_GFX[i+256]= RGB15(r>>3,g>>3,b>>3)| BIT(15);
-					pal[i]=RGB15(r>>3,g>>3,b>>3)| BIT(15);
-			}
-			buffer8 = (u8*)malloc(width*height) ;
-			for (i=0;i<height;i++){
-				for (q=0;q<width;q++){
-					u8 color;
-					fread(&color,1,1,bmp) ;
-					//BG_GFX[q+(((height-1)-i)*256)]=pal[color];
-					buffer8[q+(((height-1)-i)*width)]=color;
-				}
-				unsigned long abuf ;
-				if ((width) & 1)
-					fread(&abuf,4-((width) & 1),1,bmp) ;
-			}
-		break ;
-		default:
-			fprintf(stderr, "Invalid BMP format: %s", filename);
-			while (1);
-		break;
-	} ;
-	
-	fclose(bmp) ;
+    unsigned long colorCoding;
+    fread(&colorCoding, 4, 1, bmp);
 
-	swiWaitForVBlank();
-	for(i = 0; i < width*height; i++)picbuff[i] = buffer8[i]; 
-	for(i = 0; i < 256; i++)palbuff[i]=pal[i];
-	free(buffer8);
+    fseek(bmp, 34, SEEK_SET);
+    unsigned long dataLength;
+    fread(&dataLength, 4, 1, bmp);
+
+    fseek(bmp, 46, SEEK_SET);
+    unsigned long impcol;
+    fread(&impcol, 4, 1, bmp);
+
+    int i, q;
+
+    switch ((colorCoding & 0xFFFF0000) >> 16) {
+        case 8:
+            // First read the pal
+            fseek(bmp, 54, SEEK_SET);
+            for (i = 0; i < 256; i++) {
+                unsigned char r, g, b;
+                unsigned long color;
+                fread(&color, 4, 1, bmp);
+                b = (color & 0x0FF);
+                g = ((color >> 8) & 0x0FF);
+                r = ((color >> 16) & 0x0FF);
+                // BG_GFX[i] = RGB15(r >> 3, g >> 3, b >> 3) | BIT(15);
+                // BG_GFX[i + 256] = RGB15(r >> 3, g >> 3, b >> 3) | BIT(15);
+                pal[i] = RGB15(r >> 3, g >> 3, b >> 3) | BIT(15);
+            }
+            buffer8 = (u8 *)malloc(width * height);
+            for (i = 0; i < height; i++) {
+                for (q = 0; q < width; q++) {
+                    u8 color;
+                    fread(&color, 1, 1, bmp);
+                    // BG_GFX[q + (((height - 1) - i) * 256)] = pal[color];
+                    buffer8[q + (((height - 1) - i) * width)] = color;
+                }
+                unsigned long abuf;
+                if ((width) & 1)
+                    fread(&abuf, 4 - ((width) & 1), 1, bmp);
+            }
+            break;
+        default:
+            fprintf(stderr, "Invalid BMP format: %s", filename);
+            while (1)
+                ;
+            break;
+    };
+
+    fclose(bmp);
+
+    swiWaitForVBlank();
+    for (i = 0; i < width * height; i++)
+        picbuff[i] = buffer8[i];
+    for (i = 0; i < 256; i++)
+        palbuff[i] = pal[i];
+    free(buffer8);
 }
 
+void Splash(void)
+{
+    srand(0xDEADBEEF);
 
-void Splash(void){
-	srand(0xDEADBEEF);
+    InitSound();
+    StartSong("/wolveslayer/bgfx/title.mod");
 
-	InitSound();
-	StartSong("/wolveslayer/bgfx/title.mod");
+    vramSetBankA(VRAM_A_MAIN_BG);
+    vramSetBankC(VRAM_C_SUB_BG);
 
- 	vramSetBankA (VRAM_A_MAIN_BG);
-	vramSetBankC(VRAM_C_SUB_BG);
-	
-	videoSetMode(MODE_5_2D | DISPLAY_BG3_ACTIVE);
-	lcdSwap();
-	REG_BLDCNT = BLEND_FADE_BLACK | BLEND_SRC_BG3 | BLEND_DST_BACKDROP;
-	REG_BG3CNT = BG_BMP16_256x256;
-	REG_BG3PA = 1 << 8;
-	REG_BG3PB = 0;
-	REG_BG3PC = 0;
-	REG_BG3PD = 1 << 8;
-	REG_BG3X = 0;
-	REG_BG3Y = 0;
+    videoSetMode(MODE_5_2D | DISPLAY_BG3_ACTIVE);
+    lcdSwap();
 
-	videoSetModeSub(MODE_5_2D | DISPLAY_BG3_ACTIVE);
+    REG_BLDCNT = BLEND_FADE_BLACK | BLEND_SRC_BG3 | BLEND_DST_BACKDROP;
+    REG_BG3CNT = BG_BMP16_256x256;
+    REG_BG3PA  = 1 << 8;
+    REG_BG3PB  = 0;
+    REG_BG3PC  = 0;
+    REG_BG3PD  = 1 << 8;
+    REG_BG3X   = 0;
+    REG_BG3Y   = 0;
 
-	REG_BLDCNT_SUB = BLEND_FADE_BLACK | BLEND_SRC_BG3 | BLEND_DST_BACKDROP;
-	REG_BG3CNT_SUB = BG_BMP16_256x256;
-	REG_BG3PA_SUB = 1 << 8;
-	REG_BG3PB_SUB = 0;
-	REG_BG3PC_SUB = 0;
-	REG_BG3PD_SUB = 1 << 8;
-	REG_BG3X_SUB = 0;
-	REG_BG3Y_SUB = 0;
+    videoSetModeSub(MODE_5_2D | DISPLAY_BG3_ACTIVE);
 
-	REG_BLDY = 15;
-	REG_BLDY_SUB = 15;
-	LoadBmptoBuffer("/wolveslayer/pic/scr1.bmp",BG_GFX);
-	LoadBmptoBuffer("/wolveslayer/pic/scr2.bmp",BG_GFX_SUB);
+    REG_BLDCNT_SUB = BLEND_FADE_BLACK | BLEND_SRC_BG3 | BLEND_DST_BACKDROP;
+    REG_BG3CNT_SUB = BG_BMP16_256x256;
+    REG_BG3PA_SUB  = 1 << 8;
+    REG_BG3PB_SUB  = 0;
+    REG_BG3PC_SUB  = 0;
+    REG_BG3PD_SUB  = 1 << 8;
+    REG_BG3X_SUB   = 0;
+    REG_BG3Y_SUB   = 0;
 
+    REG_BLDY     = 15;
+    REG_BLDY_SUB = 15;
 
-	for(int u=15;u>=0;u--){	
-		REG_BLDY = u;
-		REG_BLDY_SUB = u;
-		swiWaitForVBlank();
-	}
+    LoadBmptoBuffer("/wolveslayer/pic/scr1.bmp", BG_GFX);
+    LoadBmptoBuffer("/wolveslayer/pic/scr2.bmp", BG_GFX_SUB);
 
-	InitCircles();
-	
-	LoadBmptoBuffer("/wolveslayer/pic/loading.bmp",scrL_bin);
-	LoadBmptoBuffer("/wolveslayer/pic/touch.bmp",touch_bin);
-	LoadBmptoBuffer8("/wolveslayer/pic/font1.bmp",Font1,textbox_pal);
+    for (int u = 15; u >= 0; u--) {
+        REG_BLDY     = u;
+        REG_BLDY_SUB = u;
+        swiWaitForVBlank();
+    }
 
-//	LoadBmptoBuffer8("/rd/pic/box.bmp",textbox_bin,textbox_pal);
-	
+    InitCircles();
 
-	int pressed;
-	for(int u=0;u<360;u++){
-		scanKeys();
-		pressed = keysDown();
-		swiWaitForVBlank();
-		if((pressed & KEY_TOUCH)||(pressed & KEY_START))u=360;
-	}
-	
-	for(int u=15;u>=0;u--){	
-		REG_BLDY = 15-u;
-		REG_BLDY_SUB = 15-u;
-		swiWaitForVBlank();
-	}
-	
-	LoadBmptoBuffer("/wolveslayer/pic/scr3.bmp",BG_GFX);
-	LoadBmptoBuffer("/wolveslayer/pic/scr4.bmp",BG_GFX_SUB);
+    LoadBmptoBuffer("/wolveslayer/pic/loading.bmp", scrL_bin);
+    LoadBmptoBuffer("/wolveslayer/pic/touch.bmp", touch_bin);
+    LoadBmptoBuffer8("/wolveslayer/pic/font1.bmp", Font1, textbox_pal);
 
-	for(int u=15;u>=0;u--){	
-		REG_BLDY = u;
-		REG_BLDY_SUB = u;
-		swiWaitForVBlank();
-	}
-	
-	scanKeys();
-	pressed = keysDown();
+    // LoadBmptoBuffer8("/rd/pic/box.bmp", textbox_bin, textbox_pal);
 
-	while( !((pressed & KEY_START) || (pressed & KEY_TOUCH)) ){
-		swiWaitForVBlank();
-		scanKeys();
-		pressed = keysDown();
-	}
+    int pressed;
+    for (int u = 0; u < 360; u++) {
+        scanKeys();
+        pressed = keysDown();
+        swiWaitForVBlank();
+        if ((pressed & KEY_TOUCH) || (pressed & KEY_START))
+            u = 360;
+    }
+
+    for (int u = 15; u >= 0; u--) {
+        REG_BLDY     = 15 - u;
+        REG_BLDY_SUB = 15 - u;
+        swiWaitForVBlank();
+    }
+
+    LoadBmptoBuffer("/wolveslayer/pic/scr3.bmp", BG_GFX);
+    LoadBmptoBuffer("/wolveslayer/pic/scr4.bmp", BG_GFX_SUB);
+
+    for (int u = 15; u >= 0; u--) {
+        REG_BLDY     = u;
+        REG_BLDY_SUB = u;
+        swiWaitForVBlank();
+    }
+
+    scanKeys();
+    pressed = keysDown();
+
+    while (!((pressed & KEY_START) || (pressed & KEY_TOUCH))) {
+        swiWaitForVBlank();
+        scanKeys();
+        pressed = keysDown();
+    }
 }
 
-int frameCounter=0; 
-int loopCounter=0; 
-int elapsedFrames=0;
-int frameold=0;
-int polycount=0;
-int capcount=0;
+int frameCounter  = 0;
+int loopCounter   = 0;
+int elapsedFrames = 0;
+int frameold      = 0;
+int polycount     = 0;
+int capcount      = 0;
 
-void vBlank(void){
-	extern void DisplCapture(void);
+void vBlank(void)
+{
+    extern void DisplCapture(void);
 
-	extern int screenmode;
-	//extern int frcapture;
+    extern int screenmode;
+    // extern int frcapture;
 
-	++elapsedFrames; 
-	++frameCounter;
-	
-	if(frameCounter%2==1)tackt();
-	
-	if (frameCounter>=60){ 
-		frameold=loopCounter;
-		frameCounter=0; 
-		loopCounter=0;
-	}
-	
-	if(screenmode==2 && frameCounter%2==1 && (keysHeld() & KEY_A))TextBoxmodeHandler();
-	if(screenmode==2 && frameCounter%6==1 && !(keysHeld() & KEY_A))TextBoxmodeHandler();
-		
-	if(screenmode!=2 && frameCounter%59==0 && (keysHeld() & KEY_R)){
-		extern float PlPosX;
-		extern float PlPosY;
-		int px,py;
-		px=PlPosX;
-		py=PlPosY;
-		
-		char Tmp[50];
-		
-		#ifdef ShowPosition
-		sprintf(Tmp,"PX: %d  PY: %d  ",px+6,py+8);
-		Print(Tmp,80,105);
-		#endif
-		
-		sprintf(Tmp,"Frames   : %d  ",frameold);//we print it all 15 vblanks so 4 times per second
-		Print(Tmp,80,115);
-		
-		#ifdef ShowPolyCount
-		sprintf(Tmp,"Polys   : %d  ",polycount);//we print it all 15 vblanks so 4 times per second
-		Print(Tmp,80,125);
-		#endif
-	}
+    ++elapsedFrames;
+    ++frameCounter;
 
-/*
-	if((keysHeld() & KEY_L))DisplCapture();
+    if (frameCounter % 2 == 1)
+        tackt();
 
-	if(frcapture!=-1 && frameCounter==frcapture){
-		frcapture=-1;
-		vramSetBankC(VRAM_C_SUB_BG);
-		capcount++;
-		
-		char filename[20];
-		sprintf(filename,"/%d.raw",capcount);
-		FILE *bmp = fopen(filename,"w") ;
-		//if (bmp==NULL) {
-		//	return;
-		//} ;
-		fwrite(BG_GFX_SUB,256*256*2,1,bmp) ;
-		fclose(bmp) ;
-	}
-*/
+    if (frameCounter >= 60) {
+        frameold     = loopCounter;
+        frameCounter = 0;
+        loopCounter  = 0;
+    }
+
+    if (screenmode == 2 && frameCounter % 2 == 1 && (keysHeld() & KEY_A))
+        TextBoxmodeHandler();
+    if (screenmode == 2 && frameCounter % 6 == 1 && !(keysHeld() & KEY_A))
+        TextBoxmodeHandler();
+
+    if (screenmode != 2 && frameCounter % 59 == 0 && (keysHeld() & KEY_R)) {
+        extern float PlPosX;
+        extern float PlPosY;
+        int px, py;
+        px = PlPosX;
+        py = PlPosY;
+
+        char Tmp[50];
+
+#ifdef ShowPosition
+        sprintf(Tmp, "PX: %d  PY: %d  ", px + 6, py + 8);
+        Print(Tmp, 80, 105);
+#endif
+
+        sprintf(Tmp, "Frames   : %d  ", frameold); // we print it all 15 vblanks so 4 times per second
+        Print(Tmp, 80, 115);
+
+#ifdef ShowPolyCount
+        sprintf(Tmp, "Polys   : %d  ", polycount); // we print it all 15 vblanks so 4 times per second
+        Print(Tmp, 80, 125);
+#endif
+    }
+
+#if 0
+    if ((keysHeld() & KEY_L))
+        DisplCapture();
+
+    if (frcapture != -1 && frameCounter == frcapture) {
+        frcapture = -1;
+        vramSetBankC(VRAM_C_SUB_BG);
+        capcount++;
+
+        char filename[20];
+        sprintf(filename, "/%d.raw", capcount);
+        FILE *bmp = fopen(filename, "w");
+        // if (bmp == NULL) {
+        //     return;
+        // }
+        fwrite(BG_GFX_SUB, 256 * 256 * 2, 1, bmp);
+        fclose(bmp);
+    }
+#endif
 }
 
-void WaitForFreeVblank(void){
-	swiWaitForVBlank();	
-	if(frameCounter%59==0)swiWaitForVBlank();
-}//important for multitask buffering and loading to vram 
-
-void E3D_Init(void){
- 	powerOn (POWER_ALL);
-	nitroFSInit(NULL);
-	Splash();
-
-
-	// Set mode 0 and set it to 3D
-	videoSetMode (MODE_0_3D);
-
-	// Texture setup
-	vramSetBankA (VRAM_A_TEXTURE);
-	vramSetBankB (VRAM_B_TEXTURE);
-	vramSetBankC(VRAM_C_SUB_BG);
-	vramSetBankD (VRAM_D_TEXTURE);
-	vramSetBankE (VRAM_E_TEX_PALETTE);
-
-	lcdSwap();	
-	videoSetModeSub(MODE_5_2D | DISPLAY_BG3_ACTIVE);
-	
-	REG_BG3CNT_SUB = BG_BMP16_256x256;
-	REG_BG3PA_SUB = 1 << 8;
-	REG_BG3PB_SUB = 0;
-	REG_BG3PC_SUB = 0;
-	REG_BG3PD_SUB = 1 << 8;
-	REG_BG3X_SUB = 0;
-	REG_BG3Y_SUB = 0;
-	
-	ScreenMode();
-   
-	// OpenGL init
-	irqSet(IRQ_VBLANK,vBlank);
-	glInit();
-
-	glViewport (0, 0, 255, 191);
-	glClearColor(0,0,0,31); // BG must be opaque for AA to work
-	glClearPolyID(63); // BG must have a unique polygon ID for AA to work
-	glClearDepth(0x7FFF);
-
-	glEnable(GL_TEXTURE);
-	glEnable(GL_ANTIALIAS);
-	glEnable(GL_BLEND);
-
-	//Speeds up a bit when thoose values are used (which are used often and are fixed)
-	BodenTextPosStart[0]=inttot16(0);
-	BodenTextPosStart[1]=inttot16(32);
-	BodenTextPosStart[2]=inttot16(64);
-	BodenTextPosStart[3]=inttot16(96);
-	
-	BodenTextPosEnd[0]=inttot16(32);
-	BodenTextPosEnd[1]=inttot16(64);
-	BodenTextPosEnd[2]=inttot16(96);
-	BodenTextPosEnd[3]=inttot16(128);
-
-	InitTableOfNormal();
-	swiWaitForVBlank();
-//	glReset ();
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective (45, 256.0 / 192.0, .1, 40);
+void WaitForFreeVblank(void)
+{
+    // important for multitask buffering and loading to vram
+    swiWaitForVBlank();
+    if (frameCounter % 59 == 0)
+        swiWaitForVBlank();
 }
 
+void E3D_Init(void)
+{
+    powerOn(POWER_ALL);
+    nitroFSInit(NULL);
+    Splash();
 
-void E3D_StartRender(){
-	extern float CamPosSX,CamPosSY;
-	extern float PlHeight;
+    // Set mode 0 and set it to 3D
+    videoSetMode(MODE_0_3D);
 
-	glMatrixMode(GL_TEXTURE);
-	glLoadIdentity();
-			
-	glMatrixMode(GL_MODELVIEW);
+    // Texture setup
+    vramSetBankA(VRAM_A_TEXTURE);
+    vramSetBankB(VRAM_B_TEXTURE);
+    vramSetBankC(VRAM_C_SUB_BG);
+    vramSetBankD(VRAM_D_TEXTURE);
+    vramSetBankE(VRAM_E_TEX_PALETTE);
 
-	glLoadIdentity();
-	gluLookAt(CamPosSX, (PlHeight*1.25)+3, 3.4+CamPosSY-(PlHeight*.28),// Camera possition 
-		CamPosSX, .4+(PlHeight*.67), CamPosSY+.1-(PlHeight*.28),// Look at
-			0, 1, 0);// Up
+    lcdSwap();
+    videoSetModeSub(MODE_5_2D | DISPLAY_BG3_ACTIVE);
 
-	// Move away from the camera
-	glTranslate3f32 (0, 0, floattov16(-0.1));
-					
-	glPushMatrix();	
+    REG_BG3CNT_SUB = BG_BMP16_256x256;
+    REG_BG3PA_SUB  = 1 << 8;
+    REG_BG3PB_SUB  = 0;
+    REG_BG3PC_SUB  = 0;
+    REG_BG3PD_SUB  = 1 << 8;
+    REG_BG3X_SUB   = 0;
+    REG_BG3Y_SUB   = 0;
+
+    ScreenMode();
+
+    // OpenGL init
+    irqSet(IRQ_VBLANK, vBlank);
+    glInit();
+
+    glViewport(0, 0, 255, 191);
+    glClearColor(0, 0, 0, 31); // BG must be opaque for AA to work
+    glClearPolyID(63);         // BG must have a unique polygon ID for AA to work
+    glClearDepth(0x7FFF);
+
+    glEnable(GL_TEXTURE);
+    glEnable(GL_ANTIALIAS);
+    glEnable(GL_BLEND);
+
+    // Speeds up a bit when thoose values are used (which are used often and are fixed)
+    BodenTextPosStart[0] = inttot16(0);
+    BodenTextPosStart[1] = inttot16(32);
+    BodenTextPosStart[2] = inttot16(64);
+    BodenTextPosStart[3] = inttot16(96);
+
+    BodenTextPosEnd[0] = inttot16(32);
+    BodenTextPosEnd[1] = inttot16(64);
+    BodenTextPosEnd[2] = inttot16(96);
+    BodenTextPosEnd[3] = inttot16(128);
+
+    InitTableOfNormal();
+    swiWaitForVBlank();
+    // glReset ();
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(45, 256.0 / 192.0, .1, 40);
+}
+
+void E3D_StartRender()
+{
+    extern float CamPosSX, CamPosSY;
+    extern float PlHeight;
+
+    glMatrixMode(GL_TEXTURE);
+    glLoadIdentity();
+
+    glMatrixMode(GL_MODELVIEW);
+
+    glLoadIdentity();
+    gluLookAt(CamPosSX, (PlHeight * 1.25) + 3, 3.4 + CamPosSY - (PlHeight * .28), // Camera possition
+              CamPosSX, .4 + (PlHeight * .67), CamPosSY + .1 - (PlHeight * .28),  // Look at
+              0, 1, 0);                                                           // Up
+
+    // Move away from the camera
+    glTranslate3f32(0, 0, floattov16(-0.1));
+
+    glPushMatrix();
 }

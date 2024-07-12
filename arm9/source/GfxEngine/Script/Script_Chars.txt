@@ -3,91 +3,110 @@
 extern int Figuren[10];
 extern int FigurenPal[10];
 
-void LoadCharCommand(char* Com,int num){
-	char FileName[60];
-	char FileNameCom[60];
-	char TextureName[60];
-	char TextureNameCom[60];
-	char Texturemode[60];
-	char CharImage[60];
-	int Num=-1;
-	
-	bool mode=true;
-	sscanf(Com,"%*s %*s %*s %*s %s",Texturemode);
-	if(strncmp ("FlipT",Texturemode,5) == 0)mode=false;
+void LoadCharCommand(char *Com, int num)
+{
+    char FileName[60];
+    char FileNameCom[60];
+    char TextureName[60];
+    char TextureNameCom[60];
+    char Texturemode[60];
+    char CharImage[60];
+    int Num = -1;
 
-	//scan out Map-FileName
-	sscanf(Com,"%*s %s",FileName);
-	sscanf(Com,"%*s %*s %s",TextureName);
+    bool mode = true;
+    sscanf(Com, "%*s %*s %*s %*s %s", Texturemode);
+    if (strncmp("FlipT", Texturemode, 5) == 0)
+        mode = false;
 
-	//scan out CharImage
-	sscanf(Com,"%s %*s %*s",CharImage);
-	if(strncmp ("CHARA",CharImage,5) == 0)Num=2;
-	if(strncmp ("CHARB",CharImage,5) == 0)Num=3;
-	if(strncmp ("CHARC",CharImage,5) == 0)Num=4;
-	if(strncmp ("CHARD",CharImage,5) == 0)Num=5;
+    // scan out Map-FileName
+    sscanf(Com, "%*s %s", FileName);
+    sscanf(Com, "%*s %*s %s", TextureName);
 
-	//Make a hole path with that
-	strcpy(FileNameCom,"/wolveslayer/chars/");
-	strcat(FileNameCom,FileName);
-	strcpy(TextureNameCom,"/wolveslayer/chars/");
-	strcat(TextureNameCom,TextureName);
-	
-	//Here is that final call to load that texture
-	LoadModelTexture(TextureNameCom,&Figuren[0],&FigurenPal[0],Num);
-	LoadMD2Model(FileNameCom,Num);
-	
-	//Add a scale info for standard size
-	extern int ModelScale[20];
-	ModelScale[Num]=40;
+    // scan out CharImage
+    sscanf(Com, "%s %*s %*s", CharImage);
+    if (strncmp("CHARA", CharImage, 5) == 0)
+        Num = 2;
+    if (strncmp("CHARB", CharImage, 5) == 0)
+        Num = 3;
+    if (strncmp("CHARC", CharImage, 5) == 0)
+        Num = 4;
+    if (strncmp("CHARD", CharImage, 5) == 0)
+        Num = 5;
+
+    // Make a hole path with that
+    strcpy(FileNameCom, "/wolveslayer/chars/");
+    strcat(FileNameCom, FileName);
+    strcpy(TextureNameCom, "/wolveslayer/chars/");
+    strcat(TextureNameCom, TextureName);
+
+    // Here is that final call to load that texture
+    LoadModelTexture(TextureNameCom, &Figuren[0], &FigurenPal[0], Num);
+    LoadMD2Model(FileNameCom, Num);
+
+    // Add a scale info for standard size
+    extern int ModelScale[20];
+    ModelScale[Num] = 40;
 }
 
-void LoadVillager(char* Com){
-	char ImageName[60];
-	int imagenum=-1;
-	int x=0,y=0;
-	//Villager CharA 25 13
-		
-	//scan out Map-FileName
-	sscanf(Com,"%*s %s",ImageName);
-	if(strncmp ("CHARA",ImageName,5) == 0)imagenum=2;
-	if(strncmp ("CHARB",ImageName,5) == 0)imagenum=3;
-	if(strncmp ("CHARC",ImageName,5) == 0)imagenum=4;
-	if(strncmp ("CHARD",ImageName,5) == 0)imagenum=5;
-	
-	//scan out positions
-	sscanf(Com,"%*s %*s %i %i",&x,&y);
-	
-	//Here is that final call add the exit
-	if(imagenum!=-1)AddDorfi(x,y,imagenum);
+void LoadVillager(char *Com)
+{
+    char ImageName[60];
+    int imagenum = -1;
+    int x = 0, y = 0;
+    // Villager CharA 25 13
+
+    // scan out Map-FileName
+    sscanf(Com, "%*s %s", ImageName);
+    if (strncmp("CHARA", ImageName, 5) == 0)
+        imagenum = 2;
+    if (strncmp("CHARB", ImageName, 5) == 0)
+        imagenum = 3;
+    if (strncmp("CHARC", ImageName, 5) == 0)
+        imagenum = 4;
+    if (strncmp("CHARD", ImageName, 5) == 0)
+        imagenum = 5;
+
+    // scan out positions
+    sscanf(Com, "%*s %*s %i %i", &x, &y);
+
+    // Here is that final call add the exit
+    if (imagenum != -1)
+        AddDorfi(x, y, imagenum);
 }
 
-void AddText(char* com,int num){	
-	if(num==0){//If it is 0 we know that AddText was called after Loading a NPC
-		char* pch;
-		pch = strtok (com," ");//First was command "^^addtext"
-		pch = strtok (NULL,"\"");//next is a "
+void AddText(char *com, int num)
+{
+    if (num == 0) { // If it is 0 we know that AddText was called after Loading a NPC
+        char *pch;
+        pch = strtok(com, " ");   // First was command "^^addtext"
+        pch = strtok(NULL, "\""); // next is a "
 
-		AddTexttoDorfi(pch);
-	}
+        AddTexttoDorfi(pch);
+    }
 }
 
-void LoadEnemy(char* Com){
-	char ImageName[60];
-	int imagenum=-1;
-	int x=0,y=0;
-	//Villager CharA 25 13
-		
-	//scan out Map-FileName
-	sscanf(Com,"%*s %s",ImageName);
-	if(strncmp ("CHARA",ImageName,5) == 0)imagenum=2;
-	if(strncmp ("CHARB",ImageName,5) == 0)imagenum=3;
-	if(strncmp ("CHARC",ImageName,5) == 0)imagenum=4;
-	if(strncmp ("CHARD",ImageName,5) == 0)imagenum=5;
-	
-	//scan out positions
-	sscanf(Com,"%*s %*s %i %i",&x,&y);
-	
-	//Here is that final call add the exit
-	if(imagenum!=-1)AddEnemy(x,y,imagenum);
+void LoadEnemy(char *Com)
+{
+    char ImageName[60];
+    int imagenum = -1;
+    int x = 0, y = 0;
+    // Villager CharA 25 13
+
+    // scan out Map-FileName
+    sscanf(Com, "%*s %s", ImageName);
+    if (strncmp("CHARA", ImageName, 5) == 0)
+        imagenum = 2;
+    if (strncmp("CHARB", ImageName, 5) == 0)
+        imagenum = 3;
+    if (strncmp("CHARC", ImageName, 5) == 0)
+        imagenum = 4;
+    if (strncmp("CHARD", ImageName, 5) == 0)
+        imagenum = 5;
+
+    // scan out positions
+    sscanf(Com, "%*s %*s %i %i", &x, &y);
+
+    // Here is that final call add the exit
+    if (imagenum != -1)
+        AddEnemy(x, y, imagenum);
 }

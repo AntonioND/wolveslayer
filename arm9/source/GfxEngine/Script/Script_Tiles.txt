@@ -16,101 +16,105 @@ extern int WasserPal[1];
 extern int Ufer[1];
 extern int UferPal[1];
 
-void LoadBodenCommand(char* Com,int index){
-	extern bool BodenTransEnable[16];
-	char FileName[60];
-	char FileNameCom[60];
-	
-	if(index>-1){
-		//scan out Map-FileName
-		sscanf(Com,"%*s %s",FileName);
-		
-		//Make a hole path with that
-		strcpy(FileNameCom,"/wolveslayer/tiles/");
-		strcat(FileNameCom,FileName);
-		
-		//Here is that final call to load that texture
-		BodenEnable[index]=true;
-		LoadBodenTexture(FileNameCom,index);
-		
-		int r=0,b=0,g=0;
-		//And this for the colorkeys
-		sscanf(Com,"%*s %*s R%i G%i B%i",&r,&g,&b);
-		//sprintf(BodenColorKey[index],"%02X%02X%02X",r,g,b);
-		BodenColorKey[index]=(r) | (g<<8) | (b<<16) | (0<<24);
-	
-		if(strncmp ("GROUND",Com,6) == 0)BodenTransEnable[index]=false;
-		else BodenTransEnable[index]=true;
-	}
+void LoadBodenCommand(char *Com, int index)
+{
+    extern bool BodenTransEnable[16];
+    char FileName[60];
+    char FileNameCom[60];
+
+    if (index > -1) {
+        // scan out Map-FileName
+        sscanf(Com, "%*s %s", FileName);
+
+        // Make a hole path with that
+        strcpy(FileNameCom, "/wolveslayer/tiles/");
+        strcat(FileNameCom, FileName);
+
+        // Here is that final call to load that texture
+        BodenEnable[index] = true;
+        LoadBodenTexture(FileNameCom, index);
+
+        int r = 0, b = 0, g = 0;
+        // And this for the colorkeys
+        sscanf(Com, "%*s %*s R%i G%i B%i", &r, &g, &b);
+        // sprintf(BodenColorKey[index],"%02X%02X%02X",r,g,b);
+        BodenColorKey[index] = (r) | (g << 8) | (b << 16) | (0 << 24);
+
+        if (strncmp("GROUND", Com, 6) == 0)
+            BodenTransEnable[index] = false;
+        else
+            BodenTransEnable[index] = true;
+    }
 }
 
-void LoadUferCommand(char* Com){
-	char FileName[60];
-	char FileNameCom[60];
-	
-	//scan out Map-FileName
-	sscanf(Com,"%*s %s",FileName);
-	
-	//Make a hole path with that
-	strcpy(FileNameCom,"/wolveslayer/tiles/");
-	strcat(FileNameCom,FileName);
+void LoadUferCommand(char *Com)
+{
+    char FileName[60];
+    char FileNameCom[60];
 
-	LoadUferTexture(FileNameCom,&Ufer[0],&UferPal[0],0);
+    // scan out Map-FileName
+    sscanf(Com, "%*s %s", FileName);
+
+    // Make a hole path with that
+    strcpy(FileNameCom, "/wolveslayer/tiles/");
+    strcat(FileNameCom, FileName);
+
+    LoadUferTexture(FileNameCom, &Ufer[0], &UferPal[0], 0);
 }
 
+void LoadWasserCommand(char *Com)
+{
+    char FileName[60];
+    char FileNameCom[60];
 
-void LoadWasserCommand(char* Com){
-	char FileName[60];
-	char FileNameCom[60];
-	
-	//scan out Map-FileName
-	sscanf(Com,"%*s %s",FileName);
-	
-	//Make a hole path with that
-	strcpy(FileNameCom,"/wolveslayer/tiles/");
-	strcat(FileNameCom,FileName);
+    // scan out Map-FileName
+    sscanf(Com, "%*s %s", FileName);
 
-	//Here is that final call to load that texture
-	LoadModelTexture(FileNameCom,&Wasser[0],&WasserPal[0],0);
+    // Make a hole path with that
+    strcpy(FileNameCom, "/wolveslayer/tiles/");
+    strcat(FileNameCom, FileName);
 
-	int r=0,b=0,g=0;
-	//And this for the colorkeys
-	sscanf(Com,"%*s %*s R%i G%i B%i",&r,&g,&b);
-	//sprintf(WasserKey,"%02X%02X%02X",r,g,b);
-	WasserKey=(r) | (g<<8) | (b<<16) | (0<<24);
-	
+    // Here is that final call to load that texture
+    LoadModelTexture(FileNameCom, &Wasser[0], &WasserPal[0], 0);
+
+    int r = 0, b = 0, g = 0;
+    // And this for the colorkeys
+    sscanf(Com, "%*s %*s R%i G%i B%i", &r, &g, &b);
+    // sprintf(WasserKey,"%02X%02X%02X",r,g,b);
+    WasserKey = (r) | (g << 8) | (b << 16) | (0 << 24);
 }
 
-void LoadAutotileCommand(char* Com,int num){
-	char FileName[60];
-	char FileNameCom[60];
+void LoadAutotileCommand(char *Com, int num)
+{
+    char FileName[60];
+    char FileNameCom[60];
 
-	//scan out Map-FileName
-	sscanf(Com,"%*s %s",FileName);
-	
-	//Make a hole path with that
-	strcpy(FileNameCom,"/wolveslayer/tiles/");
-	strcat(FileNameCom,FileName);
-	
-	int r=0,b=0,g=0;
-	//And this for the colorkeys
-	sscanf(Com,"%*s %*s R%i G%i B%i",&r,&g,&b);
-	
-	//Here is that final call to load that texture
-	LoadAutotileTexture(FileNameCom,num);
-	//sprintf(AutotileColorKeyMaster[num],"%02X%02X%02X",r,g,b);
-	AutotileColorKeyMaster[num]=(r) | (g<<8) | (b<<16) | (0<<24);
-	
+    // scan out Map-FileName
+    sscanf(Com, "%*s %s", FileName);
+
+    // Make a hole path with that
+    strcpy(FileNameCom, "/wolveslayer/tiles/");
+    strcat(FileNameCom, FileName);
+
+    int r = 0, b = 0, g = 0;
+    // And this for the colorkeys
+    sscanf(Com, "%*s %*s R%i G%i B%i", &r, &g, &b);
+
+    // Here is that final call to load that texture
+    LoadAutotileTexture(FileNameCom, num);
+    // sprintf(AutotileColorKeyMaster[num],"%02X%02X%02X",r,g,b);
+    AutotileColorKeyMaster[num] = (r) | (g << 8) | (b << 16) | (0 << 24);
 }
 
-void AddAutotileIgnoreCommand(char* Com,int num){
-	u32 temp=0;
-	int r=0,b=0,g=0;
+void AddAutotileIgnoreCommand(char *Com, int num)
+{
+    u32 temp = 0;
+    int r = 0, b = 0, g = 0;
 
-	//And this for the colorkeys
-	sscanf(Com,"%*s R%i G%i B%i",&r,&g,&b);
-	temp=(r) | (g<<8) | (b<<16) | (0<<24);
+    // And this for the colorkeys
+    sscanf(Com, "%*s R%i G%i B%i", &r, &g, &b);
+    temp = (r) | (g << 8) | (b << 16) | (0 << 24);
 
-	//Here is that final call to add the ignore color
-	AddAutIgnore(num, temp);
+    // Here is that final call to add the ignore color
+    AddAutIgnore(num, temp);
 }

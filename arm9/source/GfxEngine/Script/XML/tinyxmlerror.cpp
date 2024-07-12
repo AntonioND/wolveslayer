@@ -2,12 +2,12 @@
 www.sourceforge.net/projects/tinyxml
 Original code (2.0 and earlier )copyright (c) 2000-2002 Lee Thomason (www.grinninglizard.com)
 
-This software is provided 'as-is', without any express or implied 
-warranty. In no event will the authors be held liable for any 
+This software is provided 'as-is', without any express or implied
+warranty. In no event will the authors be held liable for any
 damages arising from the use of this software.
 
-Permission is granted to anyone to use this software for any 
-purpose, including commercial applications, and to alter it and 
+Permission is granted to anyone to use this software for any
+purpose, including commercial applications, and to alter it and
 redistribute it freely, subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must
@@ -21,6 +21,8 @@ must not be misrepresented as being the original software.
 3. This notice may not be removed or altered from any source
 distribution.
 */
+
+// clang-format off
 
 #include "tinyxml.h"
 

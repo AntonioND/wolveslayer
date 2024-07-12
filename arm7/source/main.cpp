@@ -61,10 +61,9 @@ int main(int argc, char *argv[])
 
     SndInit7();
 
-    while (!exit_loop)
-    {
+    while (!exit_loop) {
         const uint16_t key_mask = KEY_SELECT | KEY_START | KEY_L | KEY_R;
-        uint16_t keys_pressed = ~REG_KEYINPUT;
+        uint16_t keys_pressed   = ~REG_KEYINPUT;
 
         if ((keys_pressed & key_mask) == key_mask)
             exit_loop = true;

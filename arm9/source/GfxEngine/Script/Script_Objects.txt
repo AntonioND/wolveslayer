@@ -9,113 +9,126 @@ extern bool ObjectMirrow[Object_Count];
 extern bool ObjectNoGround[Object_Count];
 extern int ObjTexSize[Object_Count];
 
-//int ObjectTextureID[26];
+// int ObjectTextureID[26];
 
+void LoadDoorCommand(char *Com)
+{
+    char FileName[60];
+    char FileNameCom[60];
 
-void LoadDoorCommand(char* Com){
-	char FileName[60];
-	char FileNameCom[60];
-	
-	//scan out Map-FileName
-	sscanf(Com,"%*s %s",FileName);
-	
-	//Make a hole path with that
-	strcpy(FileNameCom,"/wolveslayer/obj/");
-	strcat(FileNameCom,FileName);
-	
-	//Here is that final call to load that texture
-	LoadDoorTexture(FileNameCom);
+    // scan out Map-FileName
+    sscanf(Com, "%*s %s", FileName);
+
+    // Make a hole path with that
+    strcpy(FileNameCom, "/wolveslayer/obj/");
+    strcat(FileNameCom, FileName);
+
+    // Here is that final call to load that texture
+    LoadDoorTexture(FileNameCom);
 }
 
-void LoadObjectCommand(char* Com,int num){
-	char ObjTyp[60];
-	char FileName[60];
-	char FileNameCom[60];
+void LoadObjectCommand(char *Com, int num)
+{
+    char ObjTyp[60];
+    char FileName[60];
+    char FileNameCom[60];
 
-	if(strncmp ("OBJECT",Com,6) == 0)ObjTexSize[num]=64;
-	if(strncmp ("2XOBJECT",Com,8) == 0)ObjTexSize[num]=128;
+    if (strncmp("OBJECT", Com, 6) == 0)
+        ObjTexSize[num] = 64;
+    if (strncmp("2XOBJECT", Com, 8) == 0)
+        ObjTexSize[num] = 128;
 
-	//scan out Map-FileName
-	sscanf(Com,"%*s %*s %s",FileName);
+    // scan out Map-FileName
+    sscanf(Com, "%*s %*s %s", FileName);
 
-	//scan out Type
-	sscanf(Com,"%*s %s",ObjTyp);
-	if(strncmp ("HOUSE",ObjTyp,5) != 0 && strncmp ("WALL",ObjTyp,4) != 0 && strncmp ("BUMPWALL",ObjTyp,8) != 0){
-		char Model[40];
-		strcpy(Model,"/wolveslayer/obj/");
-		strcat(Model,ObjTyp);
-	
-		LoadMD2Model(Model,num+10);
-		strcpy(ObjTyp,"MODEL");
-	}
+    // scan out Type
+    sscanf(Com, "%*s %s", ObjTyp);
+    if (strncmp("HOUSE", ObjTyp, 5) != 0 && strncmp("WALL", ObjTyp, 4) != 0 && strncmp("BUMPWALL", ObjTyp, 8) != 0) {
+        char Model[40];
+        strcpy(Model, "/wolveslayer/obj/");
+        strcat(Model, ObjTyp);
 
-	int r=0,b=0,g=0;
-	//And this for the colorkeys
-	sscanf(Com,"%*s %*s %*s R%i G%i B%i",&r,&g,&b);
-	
-	//Make a hole path with that
-	strcpy(FileNameCom,"/wolveslayer/obj/");
-	strcat(FileNameCom,FileName);
+        LoadMD2Model(Model, num + 10);
+        strcpy(ObjTyp, "MODEL");
+    }
 
-	//Here is that final call to load that texture
-	strcpy(ObjektTyp[num],ObjTyp);
-	if(strncmp ("BUMPWALL",ObjTyp,8) != 0)LoadModelTexture(FileNameCom,&ObjektTexA[0],&ObjektPal[0],num);
-	else LoadMBump3Texture(FileNameCom,num);
-	ObjektColorKey[num]=(r) | (g<<8) | (b<<16) | (0<<24);
-	
-	//Add a scale info for standard size
-	extern int ModelScale[30];
-	ModelScale[num+10]=50;
-	ModelScale[num+20]=50;
-	ObjectRadius[num]=.7;	
-	ObjectMirrow[num]=true;
-	ObjectNoGround[num]=false;
+    int r = 0, b = 0, g = 0;
+    // And this for the colorkeys
+    sscanf(Com, "%*s %*s %*s R%i G%i B%i", &r, &g, &b);
+
+    // Make a hole path with that
+    strcpy(FileNameCom, "/wolveslayer/obj/");
+    strcat(FileNameCom, FileName);
+
+    // Here is that final call to load that texture
+    strcpy(ObjektTyp[num], ObjTyp);
+    if (strncmp("BUMPWALL", ObjTyp, 8) != 0)
+        LoadModelTexture(FileNameCom, &ObjektTexA[0], &ObjektPal[0], num);
+    else
+        LoadMBump3Texture(FileNameCom, num);
+    ObjektColorKey[num] = (r) | (g << 8) | (b << 16) | (0 << 24);
+
+    // Add a scale info for standard size
+    extern int ModelScale[30];
+    ModelScale[num + 10] = 50;
+    ModelScale[num + 20] = 50;
+    ObjectRadius[num]    = .7;
+    ObjectMirrow[num]    = true;
+    ObjectNoGround[num]  = false;
 }
 
-void LoadSecondObjectCommand(char* Com,int num){
-	char ObjTyp[60];
-//^^SecondMesh tree02_leaves.md2 blended
+void LoadSecondObjectCommand(char *Com, int num)
+{
+    char ObjTyp[60];
+    //^^SecondMesh tree02_leaves.md2 blended
 
-	//scan out Type
-	sscanf(Com,"%*s %s",ObjTyp);
-	char Model[40];
-	strcpy(Model,"/wolveslayer/obj/");
-	strcat(Model,ObjTyp);
-	LoadMD2Model(Model,num+36);
-
+    // scan out Type
+    sscanf(Com, "%*s %s", ObjTyp);
+    char Model[40];
+    strcpy(Model, "/wolveslayer/obj/");
+    strcat(Model, ObjTyp);
+    LoadMD2Model(Model, num + 36);
 }
 
-void AddObjectScale(char* Com,int num){
-	extern int ModelScale[30];
-	int s=0;
-	//And this for the colorkeys
-	sscanf(Com,"%*s %i",&s);
-	if(s<1)s=40;
-	
-	ModelScale[num+10]=s;
-	ModelScale[num+20]=s;
+void AddObjectScale(char *Com, int num)
+{
+    extern int ModelScale[30];
+    int s = 0;
+    // And this for the colorkeys
+    sscanf(Com, "%*s %i", &s);
+    if (s < 1)
+        s = 40;
+
+    ModelScale[num + 10] = s;
+    ModelScale[num + 20] = s;
 }
 
-void AddObjectUnpass(char* Com,int num){
-	float radius;
-	//And this for the colorkeys
-	sscanf(Com,"%*s %f",&radius);
-	if(radius<0.0)radius=0.0;
-	if(radius>0.7)radius=0.7;
-	ObjectRadius[num]=radius;	
+void AddObjectUnpass(char *Com, int num)
+{
+    float radius;
+    // And this for the colorkeys
+    sscanf(Com, "%*s %f", &radius);
+    if (radius < 0.0)
+        radius = 0.0;
+    if (radius > 0.7)
+        radius = 0.7;
+    ObjectRadius[num] = radius;
 }
 
-void SetOffObjectGround(int num){
-	ObjectNoGround[num]=true;
+void SetOffObjectGround(int num)
+{
+    ObjectNoGround[num] = true;
 }
 
-void SetOffObjectMirrow(int num){
-	ObjectMirrow[num]=false;
+void SetOffObjectMirrow(int num)
+{
+    ObjectMirrow[num] = false;
 }
 
-void AddFirefly(char* Com){
-	int r=0,b=0,g=0,x=0,y=0;
-	//And this for the colorkeys
-	sscanf(Com,"%*s X%i Y%i R%i G%i B%i",&x,&y,&r,&g,&b);
-	AddDynamic(x,y,r,g,b);
+void AddFirefly(char *Com)
+{
+    int r = 0, b = 0, g = 0, x = 0, y = 0;
+    // And this for the colorkeys
+    sscanf(Com, "%*s X%i Y%i R%i G%i B%i", &x, &y, &r, &g, &b);
+    AddDynamic(x, y, r, g, b);
 }

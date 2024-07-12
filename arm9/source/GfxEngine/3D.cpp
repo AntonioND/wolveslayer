@@ -1,3 +1,5 @@
+#include <filesystem.h>
+
 #include "3D.h"
 
 void vblank_handler (void);
@@ -376,7 +378,7 @@ void WaitForFreeVblank(void){
 
 void E3D_Init(void){
  	powerOn (POWER_ALL);
-	InitFS();	
+	nitroFSInit(NULL);
 	Splash();
 
 

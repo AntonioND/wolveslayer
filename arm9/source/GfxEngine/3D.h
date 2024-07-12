@@ -5,7 +5,6 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "../../sdt.h"
 
 #define f32 int32
 

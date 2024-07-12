@@ -460,10 +460,3 @@ void E3D_StartRender(){
 					
 	glPushMatrix();	
 }
-
-void glTranslatef32(f32 x, f32 y, f32 z) {
-//---------------------------------------------------------------------------------
-  MATRIX_TRANSLATE = x;
-  MATRIX_TRANSLATE = y;
-  MATRIX_TRANSLATE = z;
-}

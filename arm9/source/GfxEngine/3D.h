@@ -44,8 +44,6 @@ void tackt(void);
 void SetMainBg(unsigned short int *pic);
 void E3D_Init(void);
 void E3D_StartRender();
-void glTranslatef32(f32 x, f32 y, f32 z);
-void glScalef32(f32 x, f32 y, f32 z);
 
 //Touchscreen Functions
 void UpdateBar(void);//HP bar update

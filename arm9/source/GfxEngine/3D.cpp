@@ -417,8 +417,6 @@ void E3D_Init(void){
 	glEnable(GL_TEXTURE);
 	glEnable(GL_ANTIALIAS);
 	glEnable(GL_BLEND);
-	glAlphaFunc(BLEND_ALPHA); //could that blend out colors from palletes which doesnt have alphabit?
-
 
 	//Speeds up a bit when thoose values are used (which are used often and are fixed)
 	BodenTextPosStart[0]=inttot16(0);

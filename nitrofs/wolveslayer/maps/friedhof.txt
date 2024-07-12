@@ -1,4 +1,4 @@
-<map file="friedhof.bmp" music="Scary.mod" env="inside">
+<map file="friedhof.bmp" music="scary.mod" env="inside">
 	<ground colorkey="127,237,37" file="ground/trockengras1.bmp"/>
 	<ground colorkey="105,215,15" file="ground/trockengras2.bmp"/>
 	<ground colorkey="79,162,12" file="ground/trockengras3.bmp"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<map file="dungeon2.bmp" music="Water Temple.mod" env="inside">
+<map file="dungeon2.bmp" music="water-temple.mod" env="inside">
 	<ground colorkey="109,83,27" file="bump/boden1gb.bmp" bump-mapping="true"/>
 	<ground colorkey="117,45,45" file="bump/boden1sgb.bmp" bump-mapping="true"/>
 	<ground colorkey="76,57,20" file="bump/boden2.bmp" bump-mapping="false"/>

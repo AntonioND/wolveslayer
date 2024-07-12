@@ -1,4 +1,4 @@
-<map file="zentrum.bmp" music="Forest.mod" env="inside">
+<map file="zentrum.bmp" music="forest.mod" env="inside">
 	<ground colorkey="127,237,37" file="ground/grasteil1.bmp"/>
 	<ground colorkey="105,215,15" file="ground/grasteil2.bmp"/>
 	<ground colorkey="79,162,12" file="ground/grasteil3.bmp"/>

@@ -1,4 +1,4 @@
-<map file="stadt.bmp" music="Village-Day.mod" env="inside">
+<map file="stadt.bmp" music="village-day.mod" env="inside">
 	<ground colorkey="52,171,210" file="bump/stadtboden1.bmp" bump-mapping="true"/>
 	<ground colorkey="208,94,72" file="ground/mauerschatten.bmp"/>
 	<ground colorkey="87,177,47" file="ground/treppelinks.bmp" />

@@ -62,7 +62,7 @@ void CheckEndGame(void){
 		//check if player died
 		if(PlHP==0){
 			Gameended=true;
-			StartSong("/wolveslayer/bgfx/GameOver.mod");
+			StartSong("/wolveslayer/bgfx/game-over.mod");
 			Print("YOU SUCKED!!!",80,75);
 			Print(" Restart with",80,85);
 			Print("  Start-Key  ",80,95);			
@@ -72,7 +72,7 @@ void CheckEndGame(void){
 		for(a=0;a<=GegnerCount;a++){
 			if(GegnerIsBoss[a]==true && GegnerHP[a]<=0){
 				Gameended=true;
-				StartSong("/wolveslayer/bgfx/GameFinished.mod");
+				StartSong("/wolveslayer/bgfx/game-finished.mod");
 				PlStatus=-1;
 				PlFrame=0;
 				Print(" YOU OWNED!!!",80,75);

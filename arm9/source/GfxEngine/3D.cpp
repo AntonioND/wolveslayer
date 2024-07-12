@@ -218,7 +218,7 @@ void Splash(void){
 	srand(0xDEADBEEF);
 
 	InitSound();
-	StartSong("/wolveslayer/bgfx/Title.mod");
+	StartSong("/wolveslayer/bgfx/title.mod");
 
  	vramSetBankA (VRAM_A_MAIN_BG);
 	vramSetBankC(VRAM_C_SUB_BG);

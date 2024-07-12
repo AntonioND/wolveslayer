@@ -169,8 +169,7 @@ extern const u16		notePeriodTable[];
 
 // ----- Global functions -----
 
-extern void SndInit7();
-extern void SndTimerIrq();
+void SndInit7();
 
 // ----------
 

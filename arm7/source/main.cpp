@@ -59,9 +59,6 @@ int main(int argc, char *argv[])
 
     irqEnable(IRQ_VBLANK);
 
-    irqSet(IRQ_TIMER0, SndTimerIrq);
-    irqEnable(IRQ_TIMER0);
-
     SndInit7();
 
     while (!exit_loop)

@@ -293,26 +293,10 @@ static void SndFifoHandlerDatamsg(int num_bytes, void *userdata)
 	// Call this once at startup
 void SndInit7()
 {
-	s32 i;
-	u16 oldIME;
-
-	oldIME = REG_IME;
-	REG_IME = 0;
-
-		// Enable sound, full volume
-	REG_POWERCNT = POWER_SOUND;
-	REG_SOUNDCNT = SOUND_ENABLE | 127;
-
-	TIMER0_CR = 0;
-		// My custom IRQ handler uses this, but ndslib doesn't have it so 
-		// the call to SndTimerIrq is hardcoded in ARM7 main.cpp's handler.
-//	irqTable[IRQTABLE_TM0] = (u32)SndTimerIrq;
-	REG_IE |= IRQ_TIMER0;
-
 	memset(&sndVars, 0, sizeof(sndVars));
 	memset(&sndMod, 0, sizeof(sndMod));
 
-	for(i = 0; i < SND_MAX_CHANNELS; i++)
+	for(int i = 0; i < SND_MAX_CHANNELS; i++)
 	{
 		sndChannel[i].data			= NULL;
 		sndChannel[i].length		= 0;
@@ -323,14 +307,12 @@ void SndInit7()
 	}
 	sndVars.bInitialized = true;
 
-	REG_IME = oldIME;
-
 	// Now that everything has been set up and we're ready to receive messages,
 	// configure the message handler
 	fifoSetDatamsgHandler(FIFO_USER_01, SndFifoHandlerDatamsg, NULL);
 }
 
-void SndTimerIrq()
+static void SndTimerIrq()
 {
 	MODUpdate();
 }
@@ -375,33 +357,19 @@ static void SndCmdSetCallback(SND_COMMAND *cmd)
 
 static void SndCmdSetVolume(SND_COMMAND *cmd)
 {
-	REG_SOUNDCNT = SOUND_ENABLE | cmd->param32;
+	REG_MASTER_VOLUME = cmd->param32;
 }
 
 // --- MOD functions ---
 
 static void MODStartTimer()
 {
-	u16 oldIME;
-
-	oldIME = REG_IME;
-	REG_IME = 0;
-
-	TIMER0_CR = 0;
-	TIMER0_DATA = sndVars.irqTimer;
-	TIMER0_CR = TIMER_DIV_64 | TIMER_IRQ_REQ | TIMER_ENABLE;
-
-	REG_IME = oldIME;
+	timerStart(0, ClockDivider_64, sndVars.irqTimer, SndTimerIrq);
 }
 
 static void MODStopTimer()
 {
-	u16 oldIME;
-
-	oldIME = REG_IME;
-	REG_IME = 0;
-	TIMER0_CR = 0;
-	REG_IME = oldIME;
+	timerStop(0);
 }
 
 static void MODPlay(const void *modFile)

@@ -143,7 +143,7 @@ void MapDoorHandle(void)
                     UpdateDynamic();
                     Refresh3D();
                     glPopMatrix(1);
-                    glFlush(2);
+                    glFlush(GL_WBUFFERING);
                 }
 
                 LoadScrip(Filename);
@@ -159,7 +159,7 @@ void MapDoorHandle(void)
                     UpdateDynamic();
                     Refresh3D();
                     glPopMatrix(1);
-                    glFlush(2);
+                    glFlush(GL_WBUFFERING);
                 }
             }
         } // Mapchange if door is opened

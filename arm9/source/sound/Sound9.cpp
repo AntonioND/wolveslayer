@@ -81,7 +81,7 @@ void SndStopMOD()
 }
 
 	// Send command to ARM7 to pause or unpause the song.
-void SndPauseMOD(BOOL bPaused)
+void SndPauseMOD(bool bPaused)
 {
 	SND_COMMAND *cmd = &sndControl->cmd[sndControl->curCmd];
 

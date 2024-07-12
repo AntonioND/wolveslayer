@@ -55,7 +55,7 @@ typedef struct _SOUND_VARS
 	u16		irqTimer;				// REG_TM0CNT_L value for MOD update IRQ
 	u16		channelBlocked;			// One bit per mixer channel
 	u8		curCmd;					// Index into shared sndControl.cmd[]
-	BOOL	bInitialized;			// Set by SndInit
+	bool	bInitialized;			// Set by SndInit
 	u8*		cmprsdSong;				// Compressed song
 
 } SOUND_VARS;

@@ -111,7 +111,7 @@ static void MODStartTimer		();
 static void MODStopTimer		();
 static void MODPlay			(const void *modFile);
 static void MODStop			();
-static BOOL MODSeek			(u32 order, u32 row);
+static bool MODSeek			(u32 order, u32 row);
 void MODUpdate					();
 static void MODProcessRow		();
 static void MODUpdateEffects	();
@@ -312,7 +312,7 @@ void SndInit7()
 		sndChannel[i].pan			= 0;
 		sndChannel[i].vol			= 0;
 	}
-	sndVars.bInitialized = TRUE;
+	sndVars.bInitialized = true;
 
 	REG_IME = oldIME;
 
@@ -320,7 +320,7 @@ void SndInit7()
 
 void SndVblIrq()
 {
-	if(sndVars.bInitialized == FALSE || sndControl->bInitialized == FALSE)
+	if(sndVars.bInitialized == false || sndControl->bInitialized == false)
 		return;
 
 	while(sndVars.curCmd != sndControl->curCmd)
@@ -456,14 +456,14 @@ static void MODStop()
 
 }	// MODStop
 
-// Returns FALSE if song ended, TRUE if still playing
-static BOOL MODSeek(u32 order, u32 row)
+// Returns false if song ended, true if still playing
+static bool MODSeek(u32 order, u32 row)
 {
 	sndMod.curOrder = order;
 	if(sndMod.curOrder >= sndMod.orderCount)
 	{
 		MODStop();			// Hit the end of the song, so stop it
-		return FALSE;		// FALSE = song ended
+		return false;		// false = song ended
 	}
 		
 	sndMod.curRow = row;
@@ -475,7 +475,7 @@ static BOOL MODSeek(u32 order, u32 row)
 	sndMod.rowPtr    = sndMod.pattern[sndMod.order[sndMod.curOrder]] + 
 					   sndMod.curRow*4*sndMod.channelCount;  // 4 bytes/channel/row
 
-	return TRUE;			// TRUE = continue playing
+	return true;			// true = continue playing
 
 }	// MODSeek
 
@@ -492,8 +492,8 @@ void MODUpdate()
 		{
 			if(sndMod.curRow++ >= MOD_PATTERN_ROWS)
 			{
-				if(MODSeek(sndMod.nextOrder, sndMod.breakRow) == FALSE)
-					return;		// FALSE = song ended
+				if(MODSeek(sndMod.nextOrder, sndMod.breakRow) == false)
+					return;		// false = song ended
 
 				sndMod.curRow++;
 			}
@@ -803,7 +803,7 @@ static void MODInitVibrato(MOD_UPDATE_VARS *vars, MOD_VIBRATO_PARAMS *vibrato)
 		vibrato->depth = vars->param & 0xf;
 	if((vars->param >> 4) != 0)
 		vibrato->speed = vars->param >> 4;
-	if(vibrato->noRetrig == FALSE && vars->note != MOD_NO_NOTE)
+	if(vibrato->noRetrig == false && vars->note != MOD_NO_NOTE)
 		vibrato->tick = 0;
 }
 
@@ -1097,7 +1097,7 @@ static void MODFXSpecialRow(MOD_UPDATE_VARS *vars)
 	{
 	case 0x0:		// Undefined, we use it for callback
 		if(sndMod.callback != NULL)
-			sndMod.callback(param, TRUE);
+			sndMod.callback(param, true);
 		break;
 	case 0x1:		// Fine porta up
 		vars->fineSlide = param;
@@ -1111,7 +1111,7 @@ static void MODFXSpecialRow(MOD_UPDATE_VARS *vars)
 		break;
 	case 0x4:		// Vibrato waveform
 		vars->modChn->vibrato.waveform =  param & 3;
-		vars->modChn->vibrato.noRetrig = (param & 4) ? TRUE : FALSE;
+		vars->modChn->vibrato.noRetrig = (param & 4) ? true : false;
 		break;
 	case 0x5:		// Set finetune
 		vars->modChn->finetune = param;
@@ -1140,7 +1140,7 @@ static void MODFXSpecialRow(MOD_UPDATE_VARS *vars)
 		break;
 	case 0x7:		// Tremolo waveform
 		vars->modChn->tremolo.waveform =  param & 3;
-		vars->modChn->tremolo.noRetrig = (param & 4) ? TRUE : FALSE;
+		vars->modChn->tremolo.noRetrig = (param & 4) ? true : false;
 		break;
 	case 0x8:		// Set panning
 		vars->modChn->pan = (param << 4) | param;
@@ -1179,7 +1179,7 @@ static void MODFXSpecialMid(MOD_UPDATE_VARS *vars)
 	{
 	case 0x0:		// Undefined, we use it for callback
 		if(sndMod.callback != NULL)
-			sndMod.callback(vars->modChn->param & 0xf, FALSE);
+			sndMod.callback(vars->modChn->param & 0xf, false);
 		break;
 	case 0x1:		// Fine porta up
 		break;

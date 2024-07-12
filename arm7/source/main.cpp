@@ -21,7 +21,6 @@ void power_button_callback(void)
 void vblank_handler(void)
 {
     inputGetAndSend();
-    SndVblIrq();
 }
 
 int main(int argc, char *argv[])

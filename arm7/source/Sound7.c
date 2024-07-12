@@ -281,6 +281,15 @@ static const s8 vibratoRandomTab[64] =
 
 // --- Sound functions ---
 
+static void SndFifoHandlerDatamsg(int num_bytes, void *userdata)
+{
+	SND_COMMAND cmd = { 0 };
+
+	fifoGetDatamsg(FIFO_USER_01, sizeof(SND_COMMAND), (void *)&cmd);
+
+	cmdFuncTable[cmd.cmdType](&cmd);
+}
+
 	// Call this once at startup
 void SndInit7()
 {
@@ -316,22 +325,9 @@ void SndInit7()
 
 	REG_IME = oldIME;
 
-}	// SndInit
-
-void SndVblIrq()
-{
-	if(sndVars.bInitialized == false || sndControl->bInitialized == false)
-		return;
-
-	while(sndVars.curCmd != sndControl->curCmd)
-	{
-		SND_COMMAND *cmd = &sndControl->cmd[sndVars.curCmd];
-
-//		ASSERT(cmd->cmdType < SND_CMD_NUM);
-		cmdFuncTable[cmd->cmdType](cmd);
-		sndVars.curCmd++;
-		sndVars.curCmd &= MAX_SND_COMMANDS-1;
-	}
+	// Now that everything has been set up and we're ready to receive messages,
+	// configure the message handler
+	fifoSetDatamsgHandler(FIFO_USER_01, SndFifoHandlerDatamsg, NULL);
 }
 
 void SndTimerIrq()

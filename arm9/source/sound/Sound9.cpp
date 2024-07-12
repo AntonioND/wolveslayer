@@ -17,9 +17,6 @@ inline void ASSERT(bool x) { }
 	// Call once on startup
 void SndInit9()
 {
-	memset(sndControl, 0, sizeof(SND_CONTROL));
-	sndControl->bInitialized = TRUE;
-	sndControl->toFade = true;
 	SndSetMemPool(new u32[MEMPOOL_SIZE/4], MEMPOOL_SIZE);
 }
 
@@ -33,21 +30,18 @@ void SndInit9()
 	//					of your largest MOD file.
 void SndSetMemPool(void *memPool, u32 memPoolSize)
 {
-	SND_COMMAND *cmd = &sndControl->cmd[sndControl->curCmd];
-
-	memset(cmd, 0, sizeof(SND_COMMAND));
+	SND_COMMAND cmd = { 0 };
 
 	ASSERT(memPool != NULL);
 	ASSERT(memPoolSize < (1<<24));	// Only 3 bytes available in parameters
 
-	cmd->cmdType  = SND_CMD_SETMEMPOOL;
-	cmd->param[0] = (u8)(memPoolSize);
-	cmd->param[1] = (u8)(memPoolSize >> 8);
-	cmd->param[2] = (u8)(memPoolSize >> 16);
-	cmd->param32  = (u32)memPool;
+	cmd.cmdType  = SND_CMD_SETMEMPOOL;
+	cmd.param[0] = (u8)(memPoolSize);
+	cmd.param[1] = (u8)(memPoolSize >> 8);
+	cmd.param[2] = (u8)(memPoolSize >> 16);
+	cmd.param32  = (u32)memPool;
 
-	sndControl->curCmd++;
-	sndControl->curCmd &= MAX_SND_COMMANDS-1;
+	fifoSendDatamsg(FIFO_USER_01, sizeof(cmd), (u8*)&cmd);
 }
 
 	// Send command to ARM7 to play a song.
@@ -56,70 +50,55 @@ void SndSetMemPool(void *memPool, u32 memPoolSize)
 	//	modFile		Pointer to a standard .mod file.
 void SndPlayMOD(const void *modFile)
 {
-	SND_COMMAND *cmd = &sndControl->cmd[sndControl->curCmd];
+	SND_COMMAND cmd = { 0 };
 
-	memset(cmd, 0, sizeof(SND_COMMAND));
+	cmd.cmdType = SND_CMD_PLAYSONG;
+	cmd.param32 = (u32)modFile;
 
-	cmd->cmdType = SND_CMD_PLAYSONG;
-	cmd->param32 = (u32)modFile;
-
-	sndControl->curCmd++;
-	sndControl->curCmd &= MAX_SND_COMMANDS-1;
+	fifoSendDatamsg(FIFO_USER_01, sizeof(cmd), (u8*)&cmd);
 }
 
 	// Send command to ARM7 to stop the song.
 void SndStopMOD()
 {
-	SND_COMMAND *cmd = &sndControl->cmd[sndControl->curCmd];
+	SND_COMMAND cmd = { 0 };
 
-	memset(cmd, 0, sizeof(SND_COMMAND));
+	cmd.cmdType = SND_CMD_STOPSONG;
 
-	cmd->cmdType = SND_CMD_STOPSONG;
-
-	sndControl->curCmd++;
-	sndControl->curCmd &= MAX_SND_COMMANDS-1;
+	fifoSendDatamsg(FIFO_USER_01, sizeof(cmd), (u8*)&cmd);
 }
 
 	// Send command to ARM7 to pause or unpause the song.
 void SndPauseMOD(bool bPaused)
 {
-	SND_COMMAND *cmd = &sndControl->cmd[sndControl->curCmd];
+	SND_COMMAND cmd = { 0 };
 
-	memset(cmd, 0, sizeof(SND_COMMAND));
+	cmd.cmdType = SND_CMD_STOPSONG;
+	cmd.param[0] = (u8)bPaused;
 
-	cmd->cmdType = SND_CMD_STOPSONG;
-	cmd->param[0] = (u8)bPaused;
-
-	sndControl->curCmd++;
-	sndControl->curCmd &= MAX_SND_COMMANDS-1;
+	fifoSendDatamsg(FIFO_USER_01, sizeof(cmd), (u8*)&cmd);
 }
 
 	// Send command to ARM7 to set the MOD callback function.
 	// Callback is triggered by E0x effects in the song.
 void SndSetMODCallback(MOD_CALLBACK callback)
 {
-	SND_COMMAND *cmd = &sndControl->cmd[sndControl->curCmd];
+	SND_COMMAND cmd = { 0 };
 
-	memset(cmd, 0, sizeof(SND_COMMAND));
+	cmd.cmdType = SND_CMD_SETCALLBACK;
+	cmd.param32 = (u32)callback;
 
-	cmd->cmdType = SND_CMD_SETCALLBACK;
-	cmd->param32 = (u32)callback;
-
-	sndControl->curCmd++;
-	sndControl->curCmd &= MAX_SND_COMMANDS-1;
+	fifoSendDatamsg(FIFO_USER_01, sizeof(cmd), (u8*)&cmd);
 }
 
 void SoundSendCmd(SND_COMMAND_TYPE cmdType, u32 param32)
 {
-	SND_COMMAND *cmd = &sndControl->cmd[sndControl->curCmd];
+	SND_COMMAND cmd = { 0 };
 
-	memset(cmd, 0, sizeof(SND_COMMAND));
+	cmd.cmdType = cmdType;
+	cmd.param32 = param32;
 
-	cmd->cmdType = cmdType;
-	cmd->param32 = param32;
-
-	sndControl->curCmd++;
-	sndControl->curCmd &= MAX_SND_COMMANDS-1;
+	fifoSendDatamsg(FIFO_USER_01, sizeof(cmd), (u8*)&cmd);
 }
 
 /*

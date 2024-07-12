@@ -11,13 +11,7 @@
 extern "C" {
 #endif
 
-
-// TODO: Replace this by FIFO commands, this will only work in DS mode
-#define IPC 0x02FFF040
-
 // ----- Constants -----
-
-#define MAX_SND_COMMANDS	32
 
 typedef void (*MOD_CALLBACK)(u32 param, bool bRowTick);
 
@@ -45,24 +39,6 @@ typedef struct _SND_COMMAND
 	u32 param32;	// Mainly for commands that need to send a pointer
 
 } SND_COMMAND;
-
-	// Processor communication area
-typedef struct _SND_CONTROL
-{
-	SND_COMMAND	cmd[MAX_SND_COMMANDS];
-	u8			curCmd;
-	bool		bInitialized;	// Set by ARM9's SndInit
-	bool		toFade;
-
-} SND_CONTROL;
-
-
-// ----- Global variables -----
-
-	// Magic address, after IPC struct
-#define sndControl		((SND_CONTROL*)((u32)(IPC)))
-		
-// ----------
 
 #ifdef __cplusplus
 }

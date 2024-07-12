@@ -292,8 +292,7 @@ void LoadModelTexture(char filename[],int* Target,int* TargetPal,int num,int* w)
 
 	WaitForFreeVblank();
 
-	if(width==64)glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, 64, 64, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffer8);
-	if(width==128)glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, 128, 128, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffer8);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, width, height, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffer8);
 	glColorTableEXT(GL_TEXTURE_2D, 0, 256, 0, 0, pal);
 
 	free(buffer8);

@@ -120,8 +120,7 @@ void LoadAutotileTexture(char filename[],int num)
 
 		WaitForFreeVblank();
 
-		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_128, TEXTURE_SIZE_128, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)part);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_128, TEXTURE_SIZE_128, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)part);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, 128, 128, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, part);
 
 		if (palTextureName == -1)
 		{

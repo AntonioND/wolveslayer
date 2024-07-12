@@ -114,8 +114,7 @@ void LoadBodenTexture(char filename[],int num)
 	WaitForFreeVblank();
 
 	BodenSize[num]=width;
-	if(width==32)glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_32, TEXTURE_SIZE_32, 0, TEXGEN_TEXCOORD,(uint8*)buffer8);
-	if(width==64)glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_64, TEXTURE_SIZE_64, 0, TEXGEN_TEXCOORD,(uint8*)buffer8);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, width, width, 0, TEXGEN_TEXCOORD, buffer8);
 	glColorTableEXT(GL_TEXTURE_2D, 0, 256, 0, 0, pal);
 
 	free(buffer8);
@@ -123,6 +122,7 @@ void LoadBodenTexture(char filename[],int num)
 
 v16 vmini=floattov16(0.025f);
 
+// Render the floor inside and outside buildings.
 void RenderBoden ( int x, int y, int z,int textnum)
 {
 	extern int BodenTexture[Ground_Count];

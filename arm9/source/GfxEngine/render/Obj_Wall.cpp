@@ -22,6 +22,7 @@ extern t16 walltex2e;
 
 extern bool walltrans;
 
+// Renders walls inside buildings
 void RenderWallBorder (int mode,int dirrection ,f32 x, f32 y, f32 z,int textnum)
 {
 	if(mode!=0 && mode!=1)return;

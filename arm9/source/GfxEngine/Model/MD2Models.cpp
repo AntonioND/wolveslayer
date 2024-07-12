@@ -18,7 +18,7 @@ void Precalcmd2light(int n,int num){
 		GrapMd2Light( (vert[i].colorindex & (3<<rot))>>rot ,ColorContainer[i]);
 }
 
-//Functions
+// This renders MD2 objects, which is almost everything that you see in the world.
 void RenderMD2Model (int n,int num){	
 	int i, j,stnum,vertnum;
 	//MD2Entity mod=Models[num];

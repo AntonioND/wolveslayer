@@ -496,7 +496,7 @@ void LoadUferTexture(char filename[],int* Target,int* TargetPal,int num)
 
 	WaitForFreeVblank();
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_32, TEXTURE_SIZE_64, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffer8);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, 32, 64, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffer8);
 	glColorTableEXT(GL_TEXTURE_2D, 0, 256, 0, 0, pal);
 
 	free(buffer8);

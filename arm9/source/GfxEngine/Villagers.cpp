@@ -216,7 +216,7 @@ void LoadSpriteTexture(char filename[],char palname[],int* Target,int* TargetPal
 	glGenTextures (1, &Target[num]);
 	glBindTexture (0, Target[num]);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_128, TEXTURE_SIZE_256, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffer);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, 128, 256, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffer);
 	glColorTableEXT(GL_TEXTURE_2D, 0, 256, 0, 0, palette);
 
 	free(buffer);

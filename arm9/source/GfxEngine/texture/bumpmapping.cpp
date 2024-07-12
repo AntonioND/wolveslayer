@@ -128,15 +128,15 @@ void LoadMBump3Texture(char filename[],int num,int* targetp,int* target,int* tar
 	WaitForFreeVblank();
 
 	glBindTexture (0, target[num]);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_32, TEXTURE_SIZE_64, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffNorm);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, 32, 64, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffNorm);
 	glColorTableEXT(GL_TEXTURE_2D, 0, 256, 0, 0, pal);
 
 	glBindTexture (0, targetb[num]);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_32, TEXTURE_SIZE_64, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffLeft);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, 32, 64, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffLeft);
 	glAssignColorTable(0, target[num]);
 
 	glBindTexture (0, targetc[num]);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_32, TEXTURE_SIZE_64, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffRight);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, 32, 64, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffRight);
 	glAssignColorTable(0, target[num]);
 }
 
@@ -235,10 +235,10 @@ void LoadMBump5Texture(char filename[],int num)
 	
 	fclose(bmp) ;
  
- 	u8* buffNorm= new u8[height*height];
- 	u8* buffLeft= new u8[height*height];
-	u8* buffRight= new u8[height*height];
-	u8* buffDown= new u8[height*height];
+ 	u8* buffNorm= (u8*)malloc(height*height);
+ 	u8* buffLeft= (u8*)malloc(height*height);
+	u8* buffRight= (u8*)malloc(height*height);
+	u8* buffDown= (u8*)malloc(height*height);
 
 	int x,y;
 	//first we get the colors
@@ -282,22 +282,23 @@ void LoadMBump5Texture(char filename[],int num)
 	WaitForFreeVblank();
 
 	glBindTexture (0, BodenTexture[num]);
-	if(height==32)glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_32, TEXTURE_SIZE_32, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffNorm);
-	if(height==64)glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_64, TEXTURE_SIZE_64, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffNorm);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, height, height, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffNorm);
 	glColorTableEXT(GL_TEXTURE_2D, 0, 256, 0, 0, pal);
 
 	glBindTexture (0, BodenTextureS[num]);
-	if(height==32)glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_32, TEXTURE_SIZE_32, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffDown);
-	if(height==64)glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_64, TEXTURE_SIZE_64, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffDown);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, height, height, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffDown);
 	glAssignColorTable(0, BodenTexture[num]);
 
 	glBindTexture (0, BodenTextureW[num]);
-	if(height==32)glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_32, TEXTURE_SIZE_32, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffLeft);
-	if(height==64)glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_64, TEXTURE_SIZE_64, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffLeft);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, height, height, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffLeft);
 	glAssignColorTable(0, BodenTexture[num]);
 
 	glBindTexture (0, BodenTextureE[num]);
-	if(height==32)glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_32, TEXTURE_SIZE_32, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffRight);
-	if(height==64)glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_64, TEXTURE_SIZE_64, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffRight);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, height, height, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffRight);
 	glAssignColorTable(0, BodenTexture[num]);
+
+	free(buffNorm);
+	free(buffLeft);
+	free(buffRight);
+	free(buffDown);
 }

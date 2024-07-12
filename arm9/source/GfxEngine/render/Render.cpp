@@ -305,7 +305,7 @@ void RefreshPlayer(void){
 	extern u8 Precalcdata[128][128];
 	extern int screenmode;
 	extern int GegnerCount;
-	extern int EquipedWeapon;
+	//extern int EquipedWeapon;
 	float sx=PlPosSX+.5;
 	float sy=PlPosSY+.5;
 	extern float PlHeight;
@@ -506,7 +506,7 @@ void RefreshEnemys(void){
 	extern int stackt11;
 	extern u8 Precalcdata[128][128];
 
-	extern int screenmode;
+	//extern int screenmode;
 	extern int GegnerX[10],GegnerY[10];
 	extern float GegnerSX[10],GegnerSY[10];
 	extern int GegnerTextNum[10];

@@ -153,11 +153,22 @@ void UpdateFireFlys(void){
 					Gcol4=float((Fireflys[a].Gcolor/20*(20-sx))/20*(20-sy))+WorldLightG[Fireflys[a].X+(Fireflys[a].Y)*128];
 					Bcol4=float((Fireflys[a].Bcolor/20*(20-sx))/20*(20-sy))+WorldLightB[Fireflys[a].X+(Fireflys[a].Y)*128];
 					
-					if(Rcol1>255)Rcol1=255;if(Gcol1>255)Gcol1=255;if(Bcol1>255)Bcol1=255;
-					if(Rcol2>255)Rcol2=255;if(Gcol2>255)Gcol2=255;if(Bcol2>255)Bcol2=255;
-					if(Rcol3>255)Rcol3=255;if(Gcol3>255)Gcol3=255;if(Bcol3>255)Bcol3=255;
-					if(Rcol4>255)Rcol4=255;if(Gcol4>255)Gcol4=255;if(Bcol4>255)Bcol4=255;
-										
+					if(Rcol1>255)Rcol1=255;
+					if(Gcol1>255)Gcol1=255;
+					if(Bcol1>255)Bcol1=255;
+
+					if(Rcol2>255)Rcol2=255;
+					if(Gcol2>255)Gcol2=255;
+					if(Bcol2>255)Bcol2=255;
+
+					if(Rcol3>255)Rcol3=255;
+					if(Gcol3>255)Gcol3=255;
+					if(Bcol3>255)Bcol3=255;
+
+					if(Rcol4>255)Rcol4=255;
+					if(Gcol4>255)Gcol4=255;
+					if(Bcol4>255)Bcol4=255;
+
 					WorldLightR[Fireflys[a].X+(Fireflys[a].Y)*128]=Rcol4;
 					WorldLightG[Fireflys[a].X+(Fireflys[a].Y)*128]=Gcol4;
 					WorldLightB[Fireflys[a].X+(Fireflys[a].Y)*128]=Bcol4;

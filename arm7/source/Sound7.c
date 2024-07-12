@@ -15,9 +15,6 @@
 #include <nds.h>
 #include <string.h>
 
-// TODO: Remove header
-#include <nds/registers_alt.h>
-
 #include "ModFile.h"
 #include "Sound7.h"
 #include "SoundCommon.h"
@@ -301,7 +298,7 @@ void SndInit7()
 
 		// Enable sound, full volume
 	REG_POWERCNT = POWER_SOUND;
-	SOUND_CR = SOUND_ENABLE | 127;
+	REG_SOUNDCNT = SOUND_ENABLE | 127;
 
 	TIMER0_CR = 0;
 		// My custom IRQ handler uses this, but ndslib doesn't have it so 
@@ -400,7 +397,7 @@ static void SndCmdSetCallback(SND_COMMAND *cmd)
 
 static void SndCmdSetVolume(SND_COMMAND *cmd)
 {
-	SOUND_CR = SOUND_ENABLE | cmd->param32;
+	REG_SOUNDCNT = SOUND_ENABLE | cmd->param32;
 }
 
 // --- MOD functions ---

@@ -30,12 +30,12 @@
 
 //Sound
 void InitSound(void);
-void StartSong(char *Name);//Overgive filename and arm7 will do the rest for playing that song
+void StartSong(const char *Name);//Overgive filename and arm7 will do the rest for playing that song
 //void StopSong(void);//Must! be called before starting new one...best is wait a vblank
 void Playhandler(void);//checks if we need to start song again
 
 //Bmp
-void LoadBmptoBuffer(char* filename,u16* picbuff);//For getting 8bit bmp into a 16bit buffer
+void LoadBmptoBuffer(const char* filename,u16* picbuff);//For getting 8bit bmp into a 16bit buffer
 
 void WaitForFreeVblank(void);//important for multitask buffering and loading to vram 
 
@@ -54,8 +54,8 @@ void ScreenMode(void);//Displays BG (cls)
 void ScreenModeLOADING(void);//Displays loading bg
 void CaptureMode(void);//Starting capture
 void ScreenModeHandler(void);//Determinates if capture was done, and if so swaps back to sceenmode
-void Print(char* Text,int x,int y);//Prints a text on specific position and restores bg
-void PrintOUT(char* Text,int x,int y,bool color,int n);//Doesnt restore BG but can swap between black and white and just print n chars
+void Print(const char* Text,int x,int y);//Prints a text on specific position and restores bg
+void PrintOUT(const char* Text,int x,int y,bool color,int n);//Doesnt restore BG but can swap between black and white and just print n chars
 void PercentBar(int cur,int max);//For loading things is nice to see the progress
 void ItemMode(void);
 void PauseMode(void);
@@ -78,11 +78,11 @@ void PreCalcAll(void);//That one precalculates which textures to use...gives use
 	void ResetMapChange(void);//For reseting mapchange positions and mapchangedoors
 	void AddMapChange(int x,int y, char Filename[],int tox, int toy);//adds a mapchange
 	void AddMapDoor(int x,int y, char Filename[],int tox, int toy,int key);//adds a door
-	char* GetMapChange(int x,int y);
+	const char* GetMapChange(int x,int y);
 	int GetMapChangePOSX(int x,int y);
 	int GetMapChangePOSY(int x,int y);
 	//mapdoors
-	char* GetMapDoor(int x,int y);
+	const char* GetMapDoor(int x,int y);
 	int GetMapDoorAngle(int x,int y);
 	void OpenMapDoor(int x,int y);//This sets the door angle to 1 if it is unlocked
 	void MapDoorHandle(void);//This opens doors which angle is greater then 0
@@ -220,11 +220,11 @@ void ShownextPage(void);
 void LoadItemList(void);
 void ClearItems(void);//Clears all times....no ownership
 bool ItemCheck_Set(char* Com);//It compares and gives back if matches or not/or sets a value...
-char* GiveItemName(int Index);
-char* GiveItemImgName(int Index);
-char* GiveItemSrcA(int Index);
-char* GiveItemSrcB(int Index);
-char* GiveItemType(int Index);
+const char* GiveItemName(int Index);
+const char* GiveItemImgName(int Index);
+const char* GiveItemSrcA(int Index);
+const char* GiveItemSrcB(int Index);
+const char* GiveItemType(int Index);
 
 //Inventory
 void ResetInventory(void);

@@ -200,7 +200,7 @@ MakeCollisionMap(num);
 
 void LoadModelTexture(char filename[],int* Target,int* TargetPal,int num,int* w) 
 {
-	u8* buffer8;
+	u8* buffer8 = NULL;
 	u16 pal[256];
 	int width=0;
 	int height=0;
@@ -270,7 +270,7 @@ void LoadModelTexture(char filename[],int* Target,int* TargetPal,int num,int* w)
 					//pal[i]=RGB15(r>>3,g>>3,b>>3)| BIT(15);
 					pal[i]=RGB15(r>>3,g>>3,b>>3);
 			}
-			buffer8 = new u8[width*height] ;
+			buffer8 = (u8*)malloc(width*height) ;
 			for (i=0;i<height;i++){
 				for (q=0;q<width;q++){
 					u8 color;
@@ -279,6 +279,10 @@ void LoadModelTexture(char filename[],int* Target,int* TargetPal,int num,int* w)
 				}
 			}
 		break ;
+		default:
+			fprintf(stderr, "Invalid BMP format: %s", filename);
+			while (1);
+		break;
 	} ;
 	
 	fclose(bmp) ;

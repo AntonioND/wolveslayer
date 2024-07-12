@@ -1,8 +1,5 @@
 #include "3D.h"
 
-// TODO: Remove this
-#include <nds/registers_alt.h>
-
 void vblank_handler (void);
 void SetMainBg(unsigned short int *pic);
 void E3D_Init(void);
@@ -72,8 +69,8 @@ u16 touch_bin[256*192];
 u16 textbox_pal[256];
 u8 Font1[668*11];
 
-void LoadBmptoBuffer(char* filename,u16* picbuff){
-	u8* buffer8;
+void LoadBmptoBuffer(const char* filename,u16* picbuff){
+	u8* buffer8 = NULL;
 	u16 pal[256];
 	int width=0;
 	int height=0;
@@ -118,7 +115,7 @@ void LoadBmptoBuffer(char* filename,u16* picbuff){
 					//BG_GFX[i+256]= RGB15(r>>3,g>>3,b>>3)| BIT(15);
 					pal[i]=RGB15(r>>3,g>>3,b>>3)| BIT(15);
 			}
-			buffer8 = new u8[width*height] ;
+			buffer8 = (u8*)malloc(width*height) ;
 			for (i=0;i<height;i++){
 				for (q=0;q<width;q++){
 					u8 color;
@@ -131,6 +128,10 @@ void LoadBmptoBuffer(char* filename,u16* picbuff){
 					fread(&abuf,4-((width) & 1),1,bmp) ;
 			}
 		break ;
+		default:
+			fprintf(stderr, "Invalid BMP format: %s", filename);
+			while (1);
+		break;
 	} ;
 	
 	fclose(bmp) ;
@@ -138,10 +139,11 @@ void LoadBmptoBuffer(char* filename,u16* picbuff){
 	swiWaitForVBlank();
 	for(int i = 0; i < width*height; i++)
 	picbuff[i] = pal[buffer8[i]]; 
+	free(buffer8);
 }
 
-void LoadBmptoBuffer8(char* filename,u8* picbuff,u16* palbuff){
-	u8* buffer8;
+void LoadBmptoBuffer8(const char* filename,u8* picbuff,u16* palbuff){
+	u8* buffer8 = NULL;
 	u16 pal[256];
 	int width=0;
 	int height=0;
@@ -186,7 +188,7 @@ void LoadBmptoBuffer8(char* filename,u8* picbuff,u16* palbuff){
 					//BG_GFX[i+256]= RGB15(r>>3,g>>3,b>>3)| BIT(15);
 					pal[i]=RGB15(r>>3,g>>3,b>>3)| BIT(15);
 			}
-			buffer8 = new u8[width*height] ;
+			buffer8 = (u8*)malloc(width*height) ;
 			for (i=0;i<height;i++){
 				for (q=0;q<width;q++){
 					u8 color;
@@ -199,6 +201,10 @@ void LoadBmptoBuffer8(char* filename,u8* picbuff,u16* palbuff){
 					fread(&abuf,4-((width) & 1),1,bmp) ;
 			}
 		break ;
+		default:
+			fprintf(stderr, "Invalid BMP format: %s", filename);
+			while (1);
+		break;
 	} ;
 	
 	fclose(bmp) ;
@@ -206,6 +212,7 @@ void LoadBmptoBuffer8(char* filename,u8* picbuff,u16* palbuff){
 	swiWaitForVBlank();
 	for(i = 0; i < width*height; i++)picbuff[i] = buffer8[i]; 
 	for(i = 0; i < 256; i++)palbuff[i]=pal[i];
+	free(buffer8);
 }
 
 
@@ -220,35 +227,35 @@ void Splash(void){
 	
 	videoSetMode(MODE_5_2D | DISPLAY_BG3_ACTIVE);
 	lcdSwap();
-	BLEND_CR = BLEND_FADE_BLACK | BLEND_SRC_BG3 | BLEND_DST_BACKDROP; 
-	BG3_CR = BG_BMP16_256x256;
-    BG3_XDX = 1 << 8;
-    BG3_XDY = 0;
-    BG3_YDX = 0;
-    BG3_YDY = 1 << 8;
-    BG3_CX = 0;
-    BG3_CY = 0 << 8;
+	REG_BLDCNT = BLEND_FADE_BLACK | BLEND_SRC_BG3 | BLEND_DST_BACKDROP;
+	REG_BG3CNT = BG_BMP16_256x256;
+	REG_BG3PA = 1 << 8;
+	REG_BG3PB = 0;
+	REG_BG3PC = 0;
+	REG_BG3PD = 1 << 8;
+	REG_BG3X = 0;
+	REG_BG3Y = 0;
 
 	videoSetModeSub(MODE_5_2D | DISPLAY_BG3_ACTIVE);
 
-	SUB_BLEND_CR = BLEND_FADE_BLACK | BLEND_SRC_BG3 | BLEND_DST_BACKDROP; 	
-	SUB_BG3_CR = BG_BMP16_256x256;
-    SUB_BG3_XDX = 1 << 8;
-    SUB_BG3_XDY = 0;
-    SUB_BG3_YDX = 0;
-    SUB_BG3_YDY = 1 << 8;
-    SUB_BG3_CX = 0;
-    SUB_BG3_CY = 0 << 8;
+	REG_BLDCNT_SUB = BLEND_FADE_BLACK | BLEND_SRC_BG3 | BLEND_DST_BACKDROP;
+	REG_BG3CNT_SUB = BG_BMP16_256x256;
+	REG_BG3PA_SUB = 1 << 8;
+	REG_BG3PB_SUB = 0;
+	REG_BG3PC_SUB = 0;
+	REG_BG3PD_SUB = 1 << 8;
+	REG_BG3X_SUB = 0;
+	REG_BG3Y_SUB = 0;
 
-	BLEND_Y = 15;
-	SUB_BLEND_Y = 15;
+	REG_BLDY = 15;
+	REG_BLDY_SUB = 15;
 	LoadBmptoBuffer("/wolveslayer/pic/scr1.bmp",BG_GFX);
 	LoadBmptoBuffer("/wolveslayer/pic/scr2.bmp",BG_GFX_SUB);
 
 
 	for(int u=15;u>=0;u--){	
-		BLEND_Y = u;
-		SUB_BLEND_Y = u;
+		REG_BLDY = u;
+		REG_BLDY_SUB = u;
 		swiWaitForVBlank();
 	}
 	InitCircles();
@@ -268,8 +275,8 @@ void Splash(void){
 	}
 	
 	for(int u=15;u>=0;u--){	
-		BLEND_Y = 15-u;
-		SUB_BLEND_Y = 15-u;
+		REG_BLDY = 15-u;
+		REG_BLDY_SUB = 15-u;
 		swiWaitForVBlank();
 	}
 	
@@ -277,8 +284,8 @@ void Splash(void){
 	LoadBmptoBuffer("/wolveslayer/pic/scr4.bmp",BG_GFX_SUB);
 
 	for(int u=15;u>=0;u--){	
-		BLEND_Y = u;
-		SUB_BLEND_Y = u;
+		REG_BLDY = u;
+		REG_BLDY_SUB = u;
 		swiWaitForVBlank();
 	}
 	
@@ -303,7 +310,7 @@ void vBlank(void){
 	extern void DisplCapture(void);
 
 	extern int screenmode;
-	extern int frcapture;
+	//extern int frcapture;
 
 	++elapsedFrames; 
 	++frameCounter;
@@ -326,7 +333,7 @@ void vBlank(void){
 		px=PlPosX;
 		py=PlPosY;
 		
-		char Tmp[20];
+		char Tmp[50];
 		
 		#ifdef ShowPosition
 		sprintf(Tmp,"PX: %d  PY: %d  ",px+6,py+8);
@@ -385,13 +392,13 @@ void E3D_Init(void){
 	lcdSwap();	
 	videoSetModeSub(MODE_5_2D | DISPLAY_BG3_ACTIVE);
 	
-	SUB_BG3_CR = BG_BMP16_256x256;
-    SUB_BG3_XDX = 1 << 8;
-    SUB_BG3_XDY = 0;
-    SUB_BG3_YDX = 0;
-    SUB_BG3_YDY = 1 << 8;
-    SUB_BG3_CX = 0;
-    SUB_BG3_CY = 0 << 8;	
+	REG_BG3CNT_SUB = BG_BMP16_256x256;
+	REG_BG3PA_SUB = 1 << 8;
+	REG_BG3PB_SUB = 0;
+	REG_BG3PC_SUB = 0;
+	REG_BG3PD_SUB = 1 << 8;
+	REG_BG3X_SUB = 0;
+	REG_BG3Y_SUB = 0;
 	
 	ScreenMode();
    

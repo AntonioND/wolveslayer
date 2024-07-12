@@ -138,8 +138,8 @@ void LoadWaterCommand(TiXmlElement *map){
 }
 
 void LoadTerrainBorderCommand(TiXmlElement *map){
-	int x,y;
-	int x2,y2;
+	//int x,y;
+	//int x2,y2;
 	char FileNameCom[60];
 	bool bumpmapping;
 	TiXmlElement *terrainborder = map->FirstChildElement("terrainborder");

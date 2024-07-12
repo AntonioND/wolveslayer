@@ -36,9 +36,11 @@ void LoadTextureCommand(TiXmlElement *map){
 		
 		//Final call to load that shit
 		if(id<Object_Count && id>=0)
+		{
 			if(bump==false)LoadModelTexture(FileNameCom,&ObjektTex[0],&ObjektPal[0],id,&TextureWidthHeight[0]);
 			else LoadMBump3Texture(FileNameCom,id,&ObjektPal[0],&ObjektTex[0],&ObjektTexB[0],&ObjektTexC[0]);
-		
+		}
+
 		TexturehasBump[id]=bump;
 		
 		texture= texture->NextSiblingElement("texture");

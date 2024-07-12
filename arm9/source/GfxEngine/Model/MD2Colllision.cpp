@@ -13,7 +13,7 @@ void Putpixel (int x, int y,int modelnum){
 }
 
 bool GetModelCollsisionXY(int num,int x,int y,int rot){
-	int X,Y;
+	int X = 0, Y = 0; // TODO: Check this
 	if(rot==0){
 		X=x;
 		Y=y;
@@ -101,10 +101,17 @@ void MakeCollisionMap(int modelnum){
 			x2=(10.5+(f32tofloat(vert[vert2num].v[1])*21.0));
 			y2=(10.5+(f32tofloat(vert[vert2num].v[0])*21.0));
 			
-			if(x1<0)x1=0;if(x1>20)x1=20;
-			if(x2<0)x2=0;if(x2>20)x2=20;
-			if(y1<0)y1=0;if(y1>20)y1=20;
-			if(y2<0)y2=0;if(y2>20)y2=20;
+			if(x1<0)x1=0;
+			if(x1>20)x1=20;
+
+			if(x2<0)x2=0;
+			if(x2>20)x2=20;
+
+			if(y1<0)y1=0;
+			if(y1>20)y1=20;
+
+			if(y2<0)y2=0;
+			if(y2>20)y2=20;
 			
 			Line((int)x1,(int)y1, (int)x2, (int)y2,modelnum);
 		}
@@ -117,17 +124,17 @@ void ShowCollisionMap(int modelnum){
 	
 	for(y=0;y<21;y++){
 		for(x=0;x<21;x++){
-			if(GetModelCollsisionXY(modelnum,x,y,0))BG_GFX_SUB[x+(y*256)]=RGB15(255,255,255) | BIT(15);
-			else BG_GFX_SUB[x+(y*256)]=RGB15(0,0,0) | BIT(15);
+			if(GetModelCollsisionXY(modelnum,x,y,0))BG_GFX_SUB[x+(y*256)]=RGB8(255,255,255) | BIT(15);
+			else BG_GFX_SUB[x+(y*256)]=RGB8(0,0,0) | BIT(15);
 
-			if(GetModelCollsisionXY(modelnum,x,y,2))BG_GFX_SUB[x+22+(y*256)]=RGB15(255,255,255) | BIT(15);
-			else BG_GFX_SUB[x+22+(y*256)]=RGB15(0,0,0) | BIT(15);
+			if(GetModelCollsisionXY(modelnum,x,y,2))BG_GFX_SUB[x+22+(y*256)]=RGB8(255,255,255) | BIT(15);
+			else BG_GFX_SUB[x+22+(y*256)]=RGB8(0,0,0) | BIT(15);
 
-			if(GetModelCollsisionXY(modelnum,x,y,4))BG_GFX_SUB[x+44+(y*256)]=RGB15(255,255,255) | BIT(15);
-			else BG_GFX_SUB[x+44+(y*256)]=RGB15(0,0,0) | BIT(15);
+			if(GetModelCollsisionXY(modelnum,x,y,4))BG_GFX_SUB[x+44+(y*256)]=RGB8(255,255,255) | BIT(15);
+			else BG_GFX_SUB[x+44+(y*256)]=RGB8(0,0,0) | BIT(15);
 
-			if(GetModelCollsisionXY(modelnum,x,y,6))BG_GFX_SUB[x+66+(y*256)]=RGB15(255,255,255) | BIT(15);
-			else BG_GFX_SUB[x+66+(y*256)]=RGB15(0,0,0) | BIT(15);
+			if(GetModelCollsisionXY(modelnum,x,y,6))BG_GFX_SUB[x+66+(y*256)]=RGB8(255,255,255) | BIT(15);
+			else BG_GFX_SUB[x+66+(y*256)]=RGB8(0,0,0) | BIT(15);
 		}
 	}
 }

@@ -106,8 +106,10 @@ void UpdateDorfis(){
 			NPy=GetPY()+(PlPosSY+.5);//why? copy/paste/change a bit...easy
 			
 			Px=DorfiX[a];Py=DorfiY[a];
-			if(DorfiSY[a]>=-.5)Py++;if(DorfiSY[a]<=.5)Py--;
-			if(DorfiSX[a]>=-.5)Px++;if(DorfiSX[a]<=.5)Px--;
+			if(DorfiSY[a]>=-.5)Py++;
+			if(DorfiSY[a]<=.5)Py--;
+			if(DorfiSX[a]>=-.5)Px++;
+			if(DorfiSX[a]<=.5)Px--;
 			Px+=DorfiSX[a]+.5;Py+=DorfiSY[a]+.5;
 			//Wow strange code....but should work to compare those positions right
 			//first check distance
@@ -132,8 +134,10 @@ void UpdateDorfis(){
 				for(NPCnum=0;NPCnum<=DorfiCount;NPCnum++){
 					if(NPCnum!=a){
 						Px=DorfiX[NPCnum];Py=DorfiY[NPCnum];
-						if(DorfiSY[NPCnum]>=-.5)Py++;if(DorfiSY[NPCnum]<=.5)Py--;
-						if(DorfiSX[NPCnum]>=-.5)Px++;if(DorfiSX[NPCnum]<=.5)Px--;
+						if(DorfiSY[NPCnum]>=-.5)Py++;
+						if(DorfiSY[NPCnum]<=.5)Py--;
+						if(DorfiSX[NPCnum]>=-.5)Px++;
+						if(DorfiSX[NPCnum]<=.5)Px--;
 						Px+=DorfiSX[NPCnum]+.5;Py+=DorfiSY[NPCnum]+.5;
 						//Wow strange code....but should work to compare those positions right
 						//first check distance

@@ -1346,7 +1346,7 @@ public:
 											}
 
 	/** Dump the document to standard out. */
-	void Print() const						{ 0; }
+	void Print() const						{ }
 
 	/// Print this Document to a FILE stream.
 	virtual void Print( FILE* cfile, int depth = 0 ) const;

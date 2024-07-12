@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 {
     consoleDebugInit(DebugDevice_NOCASH);
 
-	extern int EquipedWeapon;
+	//extern int EquipedWeapon;
 	
 	E3D_Init();
 	
@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 
 	extern int screenmode;	
 	extern int loopCounter; 
-	extern int frameold;
+	//extern int frameold;
 	extern int polycount;
 	
 	//sprintf(Heap,"heap: %d  ",(fake_heap_end - __end__)/1024);

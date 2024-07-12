@@ -18,7 +18,7 @@ void LoadBodenTexture(char filename[],int num)
 	extern int BodenPal[Ground_Count];
 	extern u8 BodenSize[Ground_Count];
 
-	u8* buffer8;
+	u8* buffer8 = NULL;
 	u16 pal[256];
 	int width=0;
 	int height=0;
@@ -55,7 +55,7 @@ void LoadBodenTexture(char filename[],int num)
 		char bug[40];
 		PrintOUT(filename,5,5,false,strlen(filename));
 		PrintOUT("Texture isnt 8bit...",5,15,false,strlen("Texture isnt 8bit..."));
-		sprintf(bug,"its %dBit",((colorCoding & 0xFFFF0000) >> 16));
+		sprintf(bug,"its %luBit",((colorCoding & 0xFFFF0000) >> 16));
 		PrintOUT(bug,5,25,false,strlen(bug));	
 		while(!(keysDown() & KEY_A))scanKeys();
 		ScreenModeLOADING();
@@ -88,7 +88,7 @@ void LoadBodenTexture(char filename[],int num)
 					//BG_GFX[i+256]= RGB15(r>>3,g>>3,b>>3)| BIT(15);
 					pal[i]=RGB15(r>>3,g>>3,b>>3)| BIT(15);
 			}
-			buffer8 = new u8[width*height] ;
+			buffer8 = (u8*)malloc(width*height);
 			for (i=0;i<height;i++){
 				for (q=0;q<width;q++){
 					u8 color;
@@ -101,6 +101,10 @@ void LoadBodenTexture(char filename[],int num)
 					fread(&abuf,4-((width) & 1),1,bmp) ;
 			}
 		break ;
+		default:
+			fprintf(stderr, "Invalid BMP format: %s", filename);
+			while (1);
+		break;
 	} ;
 	
 	fclose(bmp) ;

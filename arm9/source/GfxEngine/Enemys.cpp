@@ -18,7 +18,7 @@ extern float SpriteSX,SpriteSY;
 
 void ResetEnemys(void){
 	GegnerCount=-1;
-	int b;
+	//int b;
 	for(int a=0;a<10;a++){
 		GegnerX[a]=-1;
 		GegnerY[a]=-1;
@@ -75,8 +75,10 @@ void TurnittoPlayer(int a){
 	NPy=GetPY()+(PlPosSY+.5);//why? copy/paste/change a bit...easy
 				
 	Px=GegnerX[a];Py=GegnerY[a];
-	if(GegnerSY[a]>=-.5)Py++;if(GegnerSY[a]<=.5)Py--;
-	if(GegnerSX[a]>=-.5)Px++;if(GegnerSX[a]<=.5)Px--;
+	if(GegnerSY[a]>=-.5)Py++;
+	if(GegnerSY[a]<=.5)Py--;
+	if(GegnerSX[a]>=-.5)Px++;
+	if(GegnerSX[a]<=.5)Px--;
 	Px+=GegnerSX[a]+.5;Py+=GegnerSY[a]+.5;
 
 	dx=Px-NPx;if(dx<0)dx*=-1;
@@ -137,7 +139,8 @@ void UpdateEnemy(){
 	extern int screenmode;
 	extern int PlStatus;
 
-	int a,b;
+	int a;
+	//int b;
 	float sx,sy;
 	float Px,Py;
 	float NPx,NPy;
@@ -175,8 +178,10 @@ void UpdateEnemy(){
 				NPy=GetPY()+(PlPosSY+.5);//why? copy/paste/change a bit...easy
 				
 				Px=GegnerX[a];Py=GegnerY[a];
-				if(GegnerSY[a]>=-.5)Py++;if(GegnerSY[a]<=.5)Py--;
-				if(GegnerSX[a]>=-.5)Px++;if(GegnerSX[a]<=.5)Px--;
+				if(GegnerSY[a]>=-.5)Py++;
+				if(GegnerSY[a]<=.5)Py--;
+				if(GegnerSX[a]>=-.5)Px++;
+				if(GegnerSX[a]<=.5)Px--;
 				Px+=GegnerSX[a]+.5;Py+=GegnerSY[a]+.5;
 				//Wow strange code....but should work to compare those positions right
 				//first check distance
@@ -210,8 +215,10 @@ void UpdateEnemy(){
 					for(NPCnum=0;NPCnum<=GegnerCount;NPCnum++){
 						if(NPCnum!=a){
 							Px=GegnerX[NPCnum];Py=GegnerY[NPCnum];
-							if(GegnerSY[NPCnum]>=-.5)Py++;if(GegnerSY[NPCnum]<=.5)Py--;
-							if(GegnerSX[NPCnum]>=-.5)Px++;if(GegnerSX[NPCnum]<=.5)Px--;
+							if(GegnerSY[NPCnum]>=-.5)Py++;
+							if(GegnerSY[NPCnum]<=.5)Py--;
+							if(GegnerSX[NPCnum]>=-.5)Px++;
+							if(GegnerSX[NPCnum]<=.5)Px--;
 							Px+=GegnerSX[NPCnum]+.5;Py+=GegnerSY[NPCnum]+.5;
 							//Wow strange code....but should work to compare those positions right
 							//first check distance

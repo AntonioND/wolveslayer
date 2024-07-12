@@ -85,7 +85,7 @@ void ScreenModeHandler(void){
 	if(screenmode==2 && (keysDown() & KEY_A) && nextpage==true)ShownextPage();
 }
 
-void Print(char* Text,int x,int y){
+void Print(const char* Text,int x,int y){
     fprintf(stderr,"%s",Text);
 	int Counter;
 	char Char;
@@ -113,7 +113,7 @@ void Print(char* Text,int x,int y){
 	} 
 }
 
-void PrintOUT(char* Text,int x,int y,bool color,int n){
+void PrintOUT(const char* Text,int x,int y,bool color,int n){
     fprintf(stderr,"%s",Text);
 	int Counter;
 	char Char;

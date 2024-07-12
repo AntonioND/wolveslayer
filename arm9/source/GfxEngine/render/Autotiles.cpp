@@ -12,7 +12,7 @@ void LoadAutotileTexture(char filename[],int num)
 {
 	extern int AutotileTextur[4][3];
 	extern int AutotilePal[4];
-	u8* buffer8;
+	u8* buffer8 = NULL;
 	u8* part;
 	u16 pal[256];
 	int width=0;
@@ -50,7 +50,7 @@ void LoadAutotileTexture(char filename[],int num)
 		char bug[40];
 		PrintOUT(filename,5,5,false,strlen(filename));
 		PrintOUT("Texture isnt 8bit...",5,15,false,strlen("Texture isnt 8bit..."));
-		sprintf(bug,"its %dBit",((colorCoding & 0xFFFF0000) >> 16));
+		sprintf(bug,"its %luBit",((colorCoding & 0xFFFF0000) >> 16));
 		PrintOUT(bug,5,25,false,strlen(bug));	
 		while(!(keysDown() & KEY_A))scanKeys();
 		ScreenModeLOADING();
@@ -83,7 +83,7 @@ void LoadAutotileTexture(char filename[],int num)
 					//BG_GFX[i+256]= RGB15(r>>3,g>>3,b>>3)| BIT(15);
 					pal[i]=RGB15(r>>3,g>>3,b>>3)| BIT(15);
 			}
-			buffer8 = new u8[width*height] ;
+			buffer8 = (u8*)malloc(width*height);
 			for (i=0;i<height;i++){
 				for (q=0;q<width;q++){
 					u8 color;
@@ -96,6 +96,10 @@ void LoadAutotileTexture(char filename[],int num)
 					fread(&abuf,4-((width) & 1),1,bmp) ;
 			}
 		break ;
+		default:
+			fprintf(stderr, "Invalid BMP format: %s", filename);
+			while (1);
+		break;
 	} ;
 	
 	fclose(bmp) ;
@@ -104,7 +108,7 @@ void LoadAutotileTexture(char filename[],int num)
 	//AutotilePal[num]= gluTexLoadPal( pal, 256, GL_RGB256 );
 	
 	//OK here we now have loaded pal and we got 36 fields a 32x32
-	part = new u8[128*129];
+	part = (u8*)malloc(128*129);
 	int ax,bx,by;
 	//lets load 16 first 
 	for (ax=0;ax<3;ax++){//all 16 parts of 128x128 tile thing

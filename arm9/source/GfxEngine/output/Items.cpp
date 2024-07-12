@@ -101,27 +101,32 @@ void ClearItems(void){
 */
 }
 
-char* GiveItemName(int Index){
+const char* GiveItemName(int Index){
 	//return List[Index].Name;
+	return NULL;
 }
 
-char* GiveItemImgName(int Index){
+const char* GiveItemImgName(int Index){
 	//return List[Index].ImgFileName;
+	return NULL;
 }
 
-char* GiveItemSrcA(int Index){
+const char* GiveItemSrcA(int Index){
 	//return List[Index].SrcA;
+	return NULL;
 }
 
-char* GiveItemSrcB(int Index){
+const char* GiveItemSrcB(int Index){
 	//return List[Index].SrcB;
+	return NULL;
 }
 
-char* GiveItemType(int Index){
+const char* GiveItemType(int Index){
 	//return List[Index].Type;
+	return NULL;
 }
 
-bool BoolCheck_Set(char* UcaseCom){
+bool BoolCheck_Set(const char* UcaseCom){
 /*
 	bool* Container;//Its a link to right script intern array
 	char ContName[20];//Its the name for right container
@@ -188,9 +193,10 @@ bool BoolCheck_Set(char* UcaseCom){
 	//When it reaches here...something was made wrong...:(
 	return false;
 */
+	return false; // TODO: Is this OK?
 }
 
-bool ItemCheck_Set(char* Com){
+bool ItemCheck_Set(const char* Com){
 /*
 	char UcaseCom[256];
 
@@ -208,5 +214,7 @@ bool ItemCheck_Set(char* Com){
 	//When it reaches here...something was made wrong...:(
 	return false;
 	*/
+
+	return false; // TODO: Is this OK?
 }
 

@@ -56,7 +56,7 @@ void InitSound(){
 }
 
 
-void StartSong(char *Name){
+void StartSong(const char *Name){
 	if(strncmp (Name,ModFilename,60) == 0)return;
 	strcpy(ModFilename,Name);
 	

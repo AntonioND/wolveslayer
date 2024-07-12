@@ -3,7 +3,7 @@
 
 void LoadMBump3Texture(char filename[],int num,int* targetp,int* target,int* targetb,int* targetc) 
 {
-	u8* buffer8;
+	u8* buffer8 = NULL;
 	u16 pal[256];
 	int width=0;
 	int height=0;
@@ -71,7 +71,7 @@ void LoadMBump3Texture(char filename[],int num,int* targetp,int* target,int* tar
 					r = ((color >> 16) & 0x0FF) ;				
 					pal[i]=RGB15(r>>3,g>>3,b>>3)| BIT(15);
 			}
-			buffer8 = new u8[width*height] ;
+			buffer8 = (u8*)malloc(width*height) ;
 			for (i=0;i<height;i++){
 				for (q=0;q<width;q++){
 					u8 color;
@@ -80,6 +80,10 @@ void LoadMBump3Texture(char filename[],int num,int* targetp,int* target,int* tar
 				}
 			}
 		break ;
+		default:
+			fprintf(stderr, "Invalid BMP format: %s", filename);
+			while (1);
+		break;
 	} ;
 	
 	fclose(bmp) ;
@@ -92,7 +96,7 @@ void LoadMBump3Texture(char filename[],int num,int* targetp,int* target,int* tar
 	//first we get the colors
 	u16 red=RGB15(255>>3,0>>3,0>>3)| BIT(15);
 	u16 blue=RGB15(0>>3,0>>3,255>>3)| BIT(15);
-	u16 black=RGB15(0>>3,0>>3,0>>3)| BIT(15);
+	//u16 black=RGB15(0>>3,0>>3,0>>3)| BIT(15);
 	
 	//now we create 3 textures
 	for(x=0;x<32;x++){
@@ -143,7 +147,7 @@ void LoadMBump5Texture(char filename[],int num)
 	extern int BodenPal[Ground_Count];
 	extern u8 BodenSize[Ground_Count];
 
-	u8* buffer8;
+	u8* buffer8 = NULL;
 	u16 pal[256];
 	int width=0;
 	int height=0;
@@ -211,7 +215,7 @@ void LoadMBump5Texture(char filename[],int num)
 					r = ((color >> 16) & 0x0FF) ;				
 					pal[i]=RGB15(r>>3,g>>3,b>>3)| BIT(15);
 			}
-			buffer8 = new u8[width*height] ;
+			buffer8 = (u8*)malloc(width*height) ;
 			for (i=0;i<height;i++){
 				for (q=0;q<width;q++){
 					u8 color;
@@ -220,6 +224,10 @@ void LoadMBump5Texture(char filename[],int num)
 				}
 			}
 		break ;
+		default:
+			fprintf(stderr, "Invalid BMP format: %s", filename);
+			while (1);
+		break;
 	} ;
 	
 	fclose(bmp) ;

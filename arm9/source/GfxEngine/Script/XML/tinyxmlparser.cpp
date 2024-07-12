@@ -353,7 +353,7 @@ const char* TiXmlBase::SkipWhiteSpace( const char* p, TiXmlEncoding encoding )
 	}
 	else
 	{
-		while ( *p && IsWhiteSpace( *p ) || *p == '\n' || *p =='\r' )
+		while ( *p && (IsWhiteSpace( *p ) || *p == '\n' || *p =='\r') )
 			++p;
 	}
 
@@ -1328,7 +1328,7 @@ const char* TiXmlAttribute::Parse( const char* p, TiXmlParsingData* data, TiXmlE
 	p = SkipWhiteSpace( p, encoding );
 	if ( !p || !*p ) return 0;
 
-	int tabsize = 4;
+	__attribute__((unused)) int tabsize = 4;
 	if ( document )
 		tabsize = document->TabSize();
 

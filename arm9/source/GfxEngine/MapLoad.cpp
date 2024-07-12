@@ -82,7 +82,7 @@ void AddMapDoor(int x,int y, char Filename[],int tox, int toy,int key){
 	MapDoorAngle[MapChangeCounter]=0;
 }
 
-char* GetMapDoor(int x,int y){
+const char* GetMapDoor(int x,int y){
 	for (int i=0;i<MapChangeCounter;i++){
 		if(MapChangePosX[i]==x && MapChangePosY[i]==y && MapChangeDoor[i]==true)return Mapchange[i];
 	}
@@ -97,9 +97,9 @@ int GetMapDoorAngle(int x,int y){
 }
 
 void OpenMapDoor(int x,int y){
-extern bool Key[100];
-extern char DoorSpeech[25][10][256];//to hold 10 textes for each ddor with 256 chars
-extern int DoorSpeechCount[25];//Holds the Number of speeches a Door has...
+//extern bool Key[100];
+//extern char DoorSpeech[25][10][256];//to hold 10 textes for each ddor with 256 chars
+//extern int DoorSpeechCount[25];//Holds the Number of speeches a Door has...
 	for (int i=0;i<MapChangeCounter;i++){
 		if(MapChangePosX[i]==x && MapChangePosY[i]==y && MapChangeDoor[i]==true && MapDoorAngle[i]==0){
 			MapDoorAngle[i]=10;
@@ -154,7 +154,7 @@ void MapDoorHandle(void){
 	}
 }
 
-char* GetMapChange(int x,int y){
+const char* GetMapChange(int x,int y){
 	for (int i=0;i<MapChangeCounter;i++){
 		if(MapChangePosX[i]==x && MapChangePosY[i]==y)return Mapchange[i];
 	}
@@ -295,10 +295,6 @@ float GetHight(int x,int y){
 	float r2=float((r>>5) /4.0f);
 	
 	return (r2);
-}
-
-bool Isheight(int x,int y){
-
 }
 
 //Maploading routine

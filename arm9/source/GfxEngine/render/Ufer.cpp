@@ -415,7 +415,7 @@ void RenderUfer(int x, int y,f32 xx, f32 yy){
 
 void LoadUferTexture(char filename[],int* Target,int* TargetPal,int num) 
 {
-	u8* buffer8;
+	u8* buffer8 = NULL;
 	u16 pal[256];
 	int width=0;
 	int height=0;
@@ -483,7 +483,7 @@ void LoadUferTexture(char filename[],int* Target,int* TargetPal,int num)
 					r = ((color >> 16) & 0x0FF) ;				
 					pal[i]=RGB15(r>>3,g>>3,b>>3)| BIT(15);
 			}
-			buffer8 = new u8[width*height] ;
+			buffer8 = (u8*)malloc(width*height);
 			for (i=0;i<height;i++){
 				for (q=0;q<width;q++){
 					u8 color;
@@ -492,6 +492,10 @@ void LoadUferTexture(char filename[],int* Target,int* TargetPal,int num)
 				}
 			}
 		break ;
+		default:
+			fprintf(stderr, "Invalid BMP format: %s", filename);
+			while (1);
+		break;
 	} ;
 	
 	fclose(bmp) ;

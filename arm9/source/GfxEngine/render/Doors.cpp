@@ -42,7 +42,7 @@ void AddTexttoDoor(char txt[256]){
 void LoadDoorTexture(char filename[]) 
 {
 	extern int Door[1],DoorPal[1];
-	u8* buffer8;
+	u8* buffer8 = NULL;
 	u16 pal[256];
 	int width=0;
 	int height=0;
@@ -79,7 +79,7 @@ void LoadDoorTexture(char filename[])
 		char bug[40];
 		PrintOUT(filename,5,5,false,strlen(filename));
 		PrintOUT("Texture isnt 8bit...",5,15,false,strlen("Texture isnt 8bit..."));
-		sprintf(bug,"its %dBit",((colorCoding & 0xFFFF0000) >> 16));
+		sprintf(bug,"its %luBit",((colorCoding & 0xFFFF0000) >> 16));
 		PrintOUT(bug,5,25,false,strlen(bug));	
 		while(!(keysDown() & KEY_A))scanKeys();
 		ScreenModeLOADING();
@@ -110,7 +110,7 @@ void LoadDoorTexture(char filename[])
 					r = ((color >> 16) & 0x0FF) ;				
 					pal[i]=RGB15(r>>3,g>>3,b>>3)| BIT(15);
 			}
-			buffer8 = new u8[width*height] ;
+			buffer8 = (u8*)malloc(width*height);
 			for (i=0;i<height;i++){
 				for (q=0;q<width;q++){
 					u8 color;
@@ -123,6 +123,10 @@ void LoadDoorTexture(char filename[])
 					fread(&abuf,4-((width) & 1),1,bmp) ;
 			}
 		break ;
+		default:
+			fprintf(stderr, "Invalid BMP format: %s", filename);
+			while (1);
+		break;
 	} ;
 	
 	fclose(bmp) ;
@@ -136,6 +140,7 @@ void LoadDoorTexture(char filename[])
 }
 
 void RenderDoorOutside(int mode,float angle,f32 x, f32 y, f32 z,bool trans){
+	if(mode!=0 && mode!=1)return;
 
 	if(trans)glPolyFmt(POLY_ALPHA(7) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0|POLY_ID(3));
 	else glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0|POLY_ID(3));

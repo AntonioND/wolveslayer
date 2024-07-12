@@ -38,7 +38,7 @@ int GetPY(void){
 }
 
 float GetSY(void){
-	int y=PlPosY+8;
+	//int y=PlPosY+8;
 	float sy=PlPosSY+.5;
 	return sy;
 }
@@ -182,8 +182,10 @@ void Interact(void){
 						
 			for(NPCnum=0;NPCnum<=GegnerCount;NPCnum++){
 				NPx=GegnerX[NPCnum];NPy=GegnerY[NPCnum];
-				if(GegnerSY[NPCnum]>=-.5)NPy++;if(GegnerSY[NPCnum]<=.5)NPy--;
-				if(GegnerSX[NPCnum]>=-.5)NPx++;if(GegnerSX[NPCnum]<=.5)NPx--;
+				if(GegnerSY[NPCnum]>=-.5)NPy++;
+				if(GegnerSY[NPCnum]<=.5)NPy--;
+				if(GegnerSX[NPCnum]>=-.5)NPx++;
+				if(GegnerSX[NPCnum]<=.5)NPx--;
 				NPx+=GegnerSX[NPCnum]+.5;NPy+=GegnerSY[NPCnum]+.5;
 				//Wow strange code....but should work to compare those positions right
 				//now lets compace		
@@ -407,8 +409,10 @@ void inputs(void){
 	
 	for(NPCnum=0;NPCnum<=GegnerCount;NPCnum++){
 		NPx=GegnerX[NPCnum];NPy=GegnerY[NPCnum];
-		if(GegnerSY[NPCnum]>=-.5)NPy++;if(GegnerSY[NPCnum]<=.5)NPy--;
-		if(GegnerSX[NPCnum]>=-.5)NPx++;if(GegnerSX[NPCnum]<=.5)NPx--;
+		if(GegnerSY[NPCnum]>=-.5)NPy++;
+		if(GegnerSY[NPCnum]<=.5)NPy--;
+		if(GegnerSX[NPCnum]>=-.5)NPx++;
+		if(GegnerSX[NPCnum]<=.5)NPx--;
 		NPx+=GegnerSX[NPCnum]+.5;NPy+=GegnerSY[NPCnum]+.5;
 		//Wow strange code....but should work to compare those positions right
 		//first check distance

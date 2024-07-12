@@ -104,21 +104,36 @@ void LoadAutotileTexture(char filename[],int num)
 	
 	fclose(bmp) ;
 	swiWaitForVBlank();
-    // TODO: Uncomment
-	//AutotilePal[num]= gluTexLoadPal( pal, 256, GL_RGB256 );
 	
-	//OK here we now have loaded pal and we got 36 fields a 32x32
+
 	part = (u8*)malloc(128*129);
 	int ax,bx,by;
+
+	int palTextureName = -1;
+
 	//lets load 16 first 
 	for (ax=0;ax<3;ax++){//all 16 parts of 128x128 tile thing
 		for (bx=0;bx<128;bx++)for(by=0;by<128;by++)//each pixel
 			part[bx+(by*128)]=buffer8[(bx+(ax*128))+(by*384)];
-			
-		WaitForFreeVblank();	
-		glBindTexture (0, AutotileTextur[num][ax]);
+
+		glGenTextures(0, &AutotileTextur[num][ax]);
+		glBindTexture(0, AutotileTextur[num][ax]);
+
+		WaitForFreeVblank();
+
 		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_128, TEXTURE_SIZE_128, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)part);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_128, TEXTURE_SIZE_128, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)part);
+
+		if (palTextureName == -1)
+		{
+			//OK here we now have loaded pal and we got 36 fields a 32x32
+			glColorTableEXT(GL_TEXTURE_2D, 0, 256, 0, 0, pal);
+			palTextureName = AutotileTextur[num][ax];
+		}
+		else
+		{
+			glAssignColorTable(0, palTextureName);
+		}
 	}
 
 	free(buffer8);

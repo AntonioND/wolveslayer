@@ -119,16 +119,12 @@ void RefreshMap(void){
 								if(TexABod[x][y]>31)subset=2;
 								glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0|POLY_ID(2));
 								glBindTexture (GL_TEXTURE_2D, AutotileTextur[SetABod[x][y]][subset]);
-                                // TODO: Uncomment
-								//glColorTable(GL_RGB256, AutotilePal[SetABod[x][y]]);		
-								
+
 								RenderAutoBoden ((xx)-6, 0, (yy)-8,TexABod[x][y]-(subset*16));
 						}//AutoBoden	
 		
 						if((Precalcdata[x][y]&(1<<water))  && ShapeObj[x][y]!=Wallbor){
 							glBindTexture (GL_TEXTURE_2D, Wasser[0]);
-                            // TODO: Uncomment
-							//glColorTable(GL_RGB256, WasserPal[0]);	
 							RenderWasser (tackt32, inttof32((xx)-6), waterheight, inttof32((yy)-8));
 						}//wasser
 					
@@ -196,9 +192,7 @@ void RefreshWelt(void){
 			if(seeable){
 				if(TexObj[x][y]>=0){
 					glBindTexture (GL_TEXTURE_2D, ObjektTex[ObjectTextureID[TexObj[x][y]]]);
-                    // TODO: Uncomment
-					//glColorTable(GL_RGB256, ObjektPal[ObjectTextureID[TexObj[x][y]]]);		
-				
+
 					height=TerrainMid[x][y];
 					posx=inttof32((xx)-6);
 					posy=inttof32((yy)-8);
@@ -317,8 +311,6 @@ void RefreshPlayer(void){
 	SetMdlLights(pos,spos,.4,PlRichtung*64);
 	
 	glBindTexture (GL_TEXTURE_2D, Figuren[0]);
-    // TODO: Uncomment
-	//glColorTable(GL_RGB256, FigurenPal[0]);		
 
 	float hpos=GetInterPolY(GetPX(),GetPY(),sx,sy);
 	PlHeight=hpos;	
@@ -373,8 +365,6 @@ void RefreshPlayer(void){
 	
 	//if(EquipedWeapon>-1){
 		glBindTexture (GL_TEXTURE_2D, Figuren[1]);
-        // TODO: Uncomment
-		//glColorTable(GL_RGB256, FigurenPal[1]);		
 
 		//Waffe
 		glPushMatrix ();
@@ -542,9 +532,7 @@ void RefreshEnemys(void){
 	
 		hpos=GetHight(GegnerX[a],GegnerY[a]);
 		glBindTexture (GL_TEXTURE_2D, Figuren[GegnerTextNum[a]]);
-        // TODO: Uncomment
-		//glColorTable(GL_RGB256, FigurenPal[GegnerTextNum[a]]);
-				
+
 		if((GegnerX[a]-6)+GegnerSX[a]-(CamPosX)-CamPosSX>-4)
 		if((GegnerX[a]-6)+GegnerSX[a]-(CamPosX)-CamPosSX<4)
 		if((GegnerY[a]-8)+GegnerSY[a]-(CamPosY)-CamPosSY>-6)

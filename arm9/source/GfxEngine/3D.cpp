@@ -388,6 +388,7 @@ void E3D_Init(void){
 	vramSetBankB (VRAM_B_TEXTURE);
 	vramSetBankC(VRAM_C_SUB_BG);
 	vramSetBankD (VRAM_D_TEXTURE);
+	vramSetBankE (VRAM_E_TEX_PALETTE);
 
 	lcdSwap();	
 	videoSetModeSub(MODE_5_2D | DISPLAY_BG3_ACTIVE);
@@ -415,27 +416,7 @@ void E3D_Init(void){
 	glEnable(GL_ANTIALIAS);
 	glEnable(GL_BLEND);
 	glAlphaFunc(BLEND_ALPHA); //could that blend out colors from palletes which doesnt have alphabit?
-	
-	//texturen Platzhalter
-	glGenTextures (Ground_Count, &BodenTexture[0]);//Regular ground
-	//glGenTextures (Ground_Count, &BodenTextureN[0]);//bump for northside of a ground
-	glGenTextures (Ground_Count, &BodenTextureS[0]);//bump for southside of a ground
-	glGenTextures (Ground_Count, &BodenTextureW[0]);//bump for westside(2PAC) of a ground
-	glGenTextures (Ground_Count, &BodenTextureE[0]);//bump for eastside of a ground
-	glGenTextures (10, &Figuren[0]);
-	glGenTextures (Object_Count, &ObjektTex[0]);//Regular Obj
-	glGenTextures (Object_Count, &ObjektTexB[0]);//Bumpmap for one side
-	glGenTextures (Object_Count, &ObjektTexC[0]);//and the other one
-	glGenTextures (1, &Wasser[0]);
-	glGenTextures (1, &Door[0]);
-	glGenTextures (3, &AutotileTextur[0][0]);
-	glGenTextures (3, &AutotileTextur[1][0]);
-	glGenTextures (3, &AutotileTextur[2][0]);
-	glGenTextures (3, &AutotileTextur[3][0]);
-	glGenTextures (1, &Waffe[0]);
-	glGenTextures (10, &Ufer[0]);
-	glGenTextures (10, &UferB[0]);
-	glGenTextures (10, &UferC[0]);
+
 
 	//Speeds up a bit when thoose values are used (which are used often and are fixed)
 	BodenTextPosStart[0]=inttot16(0);

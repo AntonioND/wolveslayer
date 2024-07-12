@@ -56,8 +56,7 @@ void WallUfer(int x, int y,f32 xx, f32 yy){
 		br=GetTerrain(x-1,y,3);tbr=heightot16down(br);
 		
 		for(a=-b;a<=b;a++){
-            // TODO: Uncomment
-			//glColorTable(GL_RGB256, UferPal[0]);
+
 			if(a==-1)glBindTexture (GL_TEXTURE_2D, UferC[0]);
 //			if(a==0 && b!=0)glBindTexture (GL_TEXTURE_2D, UferA[0]);
 			if(a==0)glBindTexture (GL_TEXTURE_2D, Ufer[0]);
@@ -95,8 +94,7 @@ void WallUfer(int x, int y,f32 xx, f32 yy){
 		br=GetTerrain(x+1,y,2);tbr=heightot16down(br);
 
 		for(a=-b;a<=b;a++){
-            // TODO: Uncomment
-			//glColorTable(GL_RGB256, UferPal[0]);
+
 			if(a==-1)glBindTexture (GL_TEXTURE_2D, UferC[0]);
 //			if(a==0 && b!=0)glBindTexture (GL_TEXTURE_2D, UferA[0]);
 			if(a==0)glBindTexture (GL_TEXTURE_2D, Ufer[0]);
@@ -132,8 +130,7 @@ void WallUfer(int x, int y,f32 xx, f32 yy){
 		br=GetTerrain(x,y+1,2);tbr=heightot16down(br);
 				
 		for(a=-b;a<=b;a++){
-            // TODO: Uncomment
-			//glColorTable(GL_RGB256, UferPal[0]);
+
 			if(a==-1)glBindTexture (GL_TEXTURE_2D, UferC[0]);
 //			if(a==0 && b!=0)glBindTexture (GL_TEXTURE_2D, UferA[0]);
 			if(a==0)glBindTexture (GL_TEXTURE_2D, Ufer[0]);
@@ -181,8 +178,7 @@ void HalfWallUferA(int x, int y,f32 xx, f32 yy){
 		br=GetTerrain(x-1,y,3);tbr=heightot16down(br);
 
 		for(a=-b;a<=b;a++){
-            // TODO: Uncomment
-			//glColorTable(GL_RGB256, UferPal[0]);
+
 			if(a==-1)glBindTexture (GL_TEXTURE_2D, UferC[0]);
 			//if(a==0 && b!=0)glBindTexture (GL_TEXTURE_2D, UferA[0]);
 			if(a==0)glBindTexture (GL_TEXTURE_2D, Ufer[0]);
@@ -216,8 +212,7 @@ void HalfWallUferA(int x, int y,f32 xx, f32 yy){
 		br=GetTerrain(x+1,y,2);tbr=heightot16down(br);
 
 		for(a=-b;a<=b;a++){
-            // TODO: Uncomment
-			//glColorTable(GL_RGB256, UferPal[0]);
+
 			if(a==-1)glBindTexture (GL_TEXTURE_2D, UferC[0]);
 //			if(a==0 && b!=0)glBindTexture (GL_TEXTURE_2D, UferA[0]);
 			if(a==0)glBindTexture (GL_TEXTURE_2D, Ufer[0]);
@@ -251,8 +246,7 @@ void HalfWallUferA(int x, int y,f32 xx, f32 yy){
 		br=GetTerrain(x,y+1,2);tbr=heightot16down(br);
 
 		for(a=-b;a<=b;a++){
-            // TODO: Uncomment
-			//glColorTable(GL_RGB256, UferPal[0]);
+
 			if(a==-1)glBindTexture (GL_TEXTURE_2D, UferC[0]);
 //			if(a==0 && b!=0)glBindTexture (GL_TEXTURE_2D, UferA[0]);
 			if(a==0)glBindTexture (GL_TEXTURE_2D, Ufer[0]);
@@ -297,8 +291,7 @@ void HalfWallUferB(int x, int y,f32 xx, f32 yy){
 		br=GetTerrain(x-1,y,3);tbr=heightot16down(br);
 
 		for(a=-b;a<=b;a++){
-            // TODO: Uncomment
-			//glColorTable(GL_RGB256, UferPal[0]);
+
 			if(a==-1)glBindTexture (GL_TEXTURE_2D, UferC[0]);
 			//if(a==0 && b!=0)glBindTexture (GL_TEXTURE_2D, UferA[0]);
 			if(a==0)glBindTexture (GL_TEXTURE_2D, Ufer[0]);
@@ -332,8 +325,7 @@ void HalfWallUferB(int x, int y,f32 xx, f32 yy){
 		br=GetTerrain(x+1,y,2);tbr=heightot16down(br);
 
 		for(a=-b;a<=b;a++){
-            // TODO: Uncomment
-			//glColorTable(GL_RGB256, UferPal[0]);
+
 			if(a==-1)glBindTexture (GL_TEXTURE_2D, UferC[0]);
 //			if(a==0 && b!=0)glBindTexture (GL_TEXTURE_2D, UferA[0]);
 			if(a==0)glBindTexture (GL_TEXTURE_2D, Ufer[0]);
@@ -367,8 +359,7 @@ void HalfWallUferB(int x, int y,f32 xx, f32 yy){
 		br=GetTerrain(x,y+1,2);tbr=heightot16down(br);
 
 		for(a=-b;a<=b;a++){
-            // TODO: Uncomment
-			//glColorTable(GL_RGB256, UferPal[0]);
+
 			if(a==-1)glBindTexture (GL_TEXTURE_2D, UferC[0]);
 //			if(a==0 && b!=0)glBindTexture (GL_TEXTURE_2D, UferA[0]);
 			if(a==0)glBindTexture (GL_TEXTURE_2D, Ufer[0]);
@@ -497,14 +488,17 @@ void LoadUferTexture(char filename[],int* Target,int* TargetPal,int num)
 			while (1);
 		break;
 	} ;
-	
+
 	fclose(bmp) ;
- 
-	WaitForFreeVblank();
-    // TODO: Uncomment
-	//TargetPal[num]= gluTexLoadPal( pal, 256, GL_RGB256 );
+
+	glGenTextures (1, &Target[num]);
 	glBindTexture (0, Target[num]);
+
+	WaitForFreeVblank();
+
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, TEXTURE_SIZE_32, TEXTURE_SIZE_64, 0, TEXGEN_TEXCOORD|(3<<29),(uint8*)buffer8);
+	glColorTableEXT(GL_TEXTURE_2D, 0, 256, 0, 0, pal);
+
 	free(buffer8);
 }
 

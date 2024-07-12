@@ -13,6 +13,7 @@
 // ----------------------
 
 #include <nds.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "ModFile.h"
@@ -284,6 +285,12 @@ static const s8 vibratoRandomTab[64] =
 static void SndFifoHandlerDatamsg(int num_bytes, void *userdata)
 {
 	SND_COMMAND cmd = { 0 };
+
+	if (num_bytes != sizeof(SND_COMMAND))
+	{
+		fprintf(stderr, "Invalid command size: %d != %zu", num_bytes, sizeof(SND_COMMAND));
+		return;
+	}
 
 	fifoGetDatamsg(FIFO_USER_01, sizeof(SND_COMMAND), (void *)&cmd);
 

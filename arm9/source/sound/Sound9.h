@@ -6,7 +6,6 @@
 #define SOUND9_H
 
 #include <nds.h>
-#include "main.h"
 #include "SoundCommon.h"
 
 #ifdef __cplusplus

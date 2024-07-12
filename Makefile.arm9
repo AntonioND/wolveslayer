@@ -21,7 +21,7 @@ AUDIODIRS	:=
 # Defines passed to all files
 # ---------------------------
 
-DEFINES		:=
+DEFINES		:= -DPICOLIBC_LONG_LONG_PRINTF_SCANF
 
 # Libraries
 # ---------

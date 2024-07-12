@@ -288,7 +288,7 @@ static void SndFifoHandlerDatamsg(int num_bytes, void *userdata)
 
 	if (num_bytes != sizeof(SND_COMMAND))
 	{
-		fprintf(stderr, "Invalid command size: %d != %zu", num_bytes, sizeof(SND_COMMAND));
+		// Invalid command size
 		return;
 	}
 

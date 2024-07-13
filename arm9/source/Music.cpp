@@ -21,35 +21,35 @@ void InitSound()
     SndSetMemPool(&ModfileA, 768 * 1024);
 
 #if 0
-    FILE *bmp;
-    bmp = fopen("/rd/sfx/schwert.bin", "rb");
-    if (bmp != NULL) {
-        fseek(bmp, 0, SEEK_END);
-        schwert_bin_size = ftell(bmp);
-        fseek(bmp, 0, SEEK_SET);
+    FILE *f;
+    f = fopen("/rd/sfx/schwert.bin", "rb");
+    if (f != NULL) {
+        fseek(f, 0, SEEK_END);
+        schwert_bin_size = ftell(f);
+        fseek(f, 0, SEEK_SET);
         for (int a = 0; a < schwert_bin_size; a++)
-            fread(&schwert_bin[a], 1, 1, bmp);
-        fclose(bmp);
+            fread(&schwert_bin[a], 1, 1, f);
+        fclose(f);
     }
 
-    bmp = fopen("/rd/sfx/wolfaua.bin", "rb");
-    if (bmp != NULL) {
-        fseek(bmp, 0, SEEK_END);
-        wolfaua_bin_size = ftell(bmp);
-        fseek(bmp, 0, SEEK_SET);
+    f = fopen("/rd/sfx/wolfaua.bin", "rb");
+    if (f != NULL) {
+        fseek(f, 0, SEEK_END);
+        wolfaua_bin_size = ftell(f);
+        fseek(f, 0, SEEK_SET);
         for (int a = 0; a < wolfaua_bin_size; a++)
-            fread(&wolfaua_bin[a], 1, 1, bmp);
-        fclose(bmp);
+            fread(&wolfaua_bin[a], 1, 1, f);
+        fclose(f);
     }
 
-    bmp = fopen("/rd/sfx/wolfstirbt.bin", "rb");
-    if (bmp != NULL) {
-        fseek(bmp, 0, SEEK_END);
-        wolfstirbt_bin_size = ftell(bmp);
-        fseek(bmp, 0, SEEK_SET);
+    f = fopen("/rd/sfx/wolfstirbt.bin", "rb");
+    if (f != NULL) {
+        fseek(f, 0, SEEK_END);
+        wolfstirbt_bin_size = ftell(f);
+        fseek(f, 0, SEEK_SET);
         for (int a = 0; a < wolfstirbt_bin_size; a++)
-            fread(&wolfstirbt_bin[a], 1, 1, bmp);
-        fclose(bmp);
+            fread(&wolfstirbt_bin[a], 1, 1, f);
+        fclose(f);
     }
 
     setGenericSound(11025, 127, 64, 1);

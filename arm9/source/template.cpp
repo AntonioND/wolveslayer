@@ -34,7 +34,7 @@ void DisplCapture(void)
 
 int main(int argc, char *argv[])
 {
-    consoleDebugInit(DebugDevice_NOCASH);
+    // consoleDebugInit(DebugDevice_NOCASH);
 
     // extern int EquipedWeapon;
 

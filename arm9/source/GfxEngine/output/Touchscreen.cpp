@@ -89,7 +89,6 @@ void ScreenModeHandler(void)
 
 void Print(const char *Text, int x, int y)
 {
-    fprintf(stderr, "%s", Text);
     int Counter;
     char Char;
     int i, j;
@@ -128,7 +127,6 @@ void Print(const char *Text, int x, int y)
 
 void PrintOUT(const char *Text, int x, int y, bool color, int n)
 {
-    fprintf(stderr, "%s", Text);
     int Counter;
     char Char;
     int i, j;

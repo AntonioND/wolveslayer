@@ -6,7 +6,7 @@ bool LOADINGNOw;
 
 extern bool outside;
 
-extern int Door[1], DoorPal[1];
+extern int Door[1];
 extern float PlPosSX, PlPosSY;
 extern float CamPosSX, CamPosSY;
 
@@ -79,17 +79,16 @@ void LoadMainChar(void)
     extern char MaincharMd2[20];
     extern char MaincharText[20];
     extern int Figuren[10];
-    extern int FigurenPal[10];
     extern int ModelScale[20];
     extern int EquipedWeapon;
     extern int Inventory[100];
 
-    LoadModelTexture(MaincharText, &Figuren[0], &FigurenPal[0], 0);
+    LoadModelTexture(MaincharText, &Figuren[0], 0);
     LoadMD2Model(MaincharMd2, 0);
     ModelScale[0] = 40;
 
     if (EquipedWeapon > -1) {
-        LoadModelTexture(GiveItemSrcB(Inventory[EquipedWeapon]), &Figuren[0], &FigurenPal[0], 1);
+        LoadModelTexture(GiveItemSrcB(Inventory[EquipedWeapon]), &Figuren[0], 1);
         LoadMD2Model(GiveItemSrcA(Inventory[EquipedWeapon]), 1);
         // Print(GiveItemSrcA(Inventory[EquipedWeapon]),5,10);
         // Print(GiveItemSrcB(Inventory[EquipedWeapon]),5,20);

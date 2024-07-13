@@ -12,13 +12,11 @@ extern int AutotileIgnorecolorsNum[4];
 
 extern int Wasser[1];
 extern u32 WasserKey;
-extern int WasserPal[1];
 
 extern int Ufer[10];
 extern int UferA[10];
 extern int UferB[10];
 extern int UferC[10];
-extern int UferPal[10];
 extern bool UferBump[10];
 
 void LoadBodenCommand(TiXmlElement *map)
@@ -142,7 +140,7 @@ void LoadWaterCommand(TiXmlElement *map)
             sscanf(wasser->Attribute("colorkey"), "%i,%i,%i", &r, &g, &b);
             WasserKey = (r) | (g << 8) | (b << 16) | (0 << 24);
         }
-        LoadModelTexture(FileNameCom, &Wasser[0], &WasserPal[0], 0, &size);
+        LoadModelTexture(FileNameCom, &Wasser[0], 0, &size);
     }
 }
 
@@ -166,9 +164,9 @@ void LoadTerrainBorderCommand(TiXmlElement *map)
         if (terrainborder->Attribute("file")) {
             strcat(FileNameCom, terrainborder->Attribute("file"));
             if (bumpmapping == false)
-                LoadUferTexture(FileNameCom, &Ufer[0], &UferPal[0], 0);
+                LoadUferTexture(FileNameCom, &Ufer[0], 0);
             else
-                LoadMBump3Texture(FileNameCom, 0, &UferPal[0], &Ufer[0], &UferB[0], &UferC[0]);
+                LoadMBump3Texture(FileNameCom, 0, &Ufer[0], &UferB[0], &UferC[0]);
             UferBump[0] = bumpmapping;
         }
     }

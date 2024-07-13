@@ -5,16 +5,13 @@ extern bool BodenEnable[16];
 extern u32 BodenColorKey[16];
 
 extern int AutotileTextur[4];
-extern int AutotilePal[4];
 extern u32 AutotileColorKeyMaster[4];
 extern int AutotileIgnorecolorsNum[4];
 
 extern int Wasser[1];
 extern u32 WasserKey;
-extern int WasserPal[1];
 
 extern int Ufer[1];
-extern int UferPal[1];
 
 void LoadBodenCommand(char *Com, int index)
 {
@@ -59,7 +56,7 @@ void LoadUferCommand(char *Com)
     strcpy(FileNameCom, "/wolveslayer/tiles/");
     strcat(FileNameCom, FileName);
 
-    LoadUferTexture(FileNameCom, &Ufer[0], &UferPal[0], 0);
+    LoadUferTexture(FileNameCom, &Ufer[0], 0);
 }
 
 void LoadWasserCommand(char *Com)
@@ -75,7 +72,7 @@ void LoadWasserCommand(char *Com)
     strcat(FileNameCom, FileName);
 
     // Here is that final call to load that texture
-    LoadModelTexture(FileNameCom, &Wasser[0], &WasserPal[0], 0);
+    LoadModelTexture(FileNameCom, &Wasser[0], 0);
 
     int r = 0, b = 0, g = 0;
     // And this for the colorkeys

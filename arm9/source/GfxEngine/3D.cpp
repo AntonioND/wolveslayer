@@ -31,17 +31,14 @@ u32 AutotileIgnorecolors[10][4];
 int AutotileIgnorecolorsNum[4];
 
 int Wasser[1];
-int WasserPal[1];
 u32 WasserKey;
 
 int Ufer[10];
 int UferB[10];
 int UferC[10];
-int UferPal[10];
 bool UferBump[10];
 
 int Figuren[10];
-int FigurenPal[10];
 
 // 26 textureslots for objects
 int ObjektTex[Object_Count];  // Standard slot for objects
@@ -53,7 +50,6 @@ int ObjectTextureID[Object_Count];
 // and 26 objects...but u can map textures twice....
 char ObjektTyp[Object_Count][13];
 u32 ObjektColorKey[Object_Count];
-int ObjektPal[Object_Count];
 float ObjectRadius[Object_Count];
 bool ObjectMirrow[Object_Count];
 bool ObjectIllumination[Object_Count];
@@ -62,7 +58,7 @@ bool ObjectCulling[Object_Count];
 
 int Door[1];
 
-int Waffe[1], WaffePal[1];
+int Waffe[1];
 
 u16 scrL_bin[256 * 192];
 u16 touch_bin[256 * 192];

@@ -245,7 +245,7 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
     MakeCollisionMap(num);
 }
 
-void LoadModelTexture(char filename[], int *Target, int *TargetPal, int num, int *w)
+void LoadModelTexture(char filename[], int *Target, int num, int *w)
 {
     u8 *buffer8 = NULL;
     u8 *buffer8line = NULL;

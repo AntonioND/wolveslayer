@@ -1,6 +1,6 @@
 #include "3D.h"
 
-void LoadMBump3Texture(char filename[], int num, int *targetp, int *target, int *targetb, int *targetc)
+void LoadMBump3Texture(char filename[], int num, int *target, int *targetb, int *targetc)
 {
     u8 *buffer8 = NULL;
     u8 *buffer8line = NULL;

@@ -6,7 +6,6 @@ bool TexturehasBump[Object_Count];
 extern int ObjektTex[Object_Count];  // Standard slot for objects
 extern int ObjektTexB[Object_Count]; // Advanced slot for objects(bumpmapping)
 extern int ObjektTexC[Object_Count]; // Advanced slot for objects(bumpmapping)
-extern int ObjektPal[Object_Count];
 
 void LoadTextureCommand(TiXmlElement *map)
 {
@@ -37,9 +36,9 @@ void LoadTextureCommand(TiXmlElement *map)
         // Final call to load that shit
         if (id < Object_Count && id >= 0) {
             if (bump == false)
-                LoadModelTexture(FileNameCom, &ObjektTex[0], &ObjektPal[0], id, &TextureWidthHeight[0]);
+                LoadModelTexture(FileNameCom, &ObjektTex[0], id, &TextureWidthHeight[0]);
             else
-                LoadMBump3Texture(FileNameCom, id, &ObjektPal[0], &ObjektTex[0], &ObjektTexB[0], &ObjektTexC[0]);
+                LoadMBump3Texture(FileNameCom, id, &ObjektTex[0], &ObjektTexB[0], &ObjektTexC[0]);
         }
 
         TexturehasBump[id] = bump;

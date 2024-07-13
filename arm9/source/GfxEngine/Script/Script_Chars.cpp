@@ -1,7 +1,6 @@
 #include "Script.h"
 
 extern int Figuren[10];
-extern int FigurenPal[10];
 
 extern char MaincharMd2[20];
 extern char MaincharText[20];
@@ -18,10 +17,10 @@ void LoadChars(TiXmlElement *map)
 {
     int textsize;
     // loadmainchar and weapon
-    LoadModelTexture(MaincharText, Figuren, FigurenPal, 0, &textsize);
+    LoadModelTexture(MaincharText, Figuren, 0, &textsize);
     LoadMD2Model(MaincharMd2, 0, textsize, 35);
 
-    LoadModelTexture(waffeText, Figuren, FigurenPal, 1, &textsize);
+    LoadModelTexture(waffeText, Figuren, 1, &textsize);
     LoadMD2Model(waffeMd2, 1, textsize, 35);
 
     // load enemy defenition stuff
@@ -90,7 +89,7 @@ void LoadChars(TiXmlElement *map)
 
             // loadstuff
             if (texture->Attribute("file") && mesh->Attribute("file")) {
-                LoadModelTexture(TextureNameCom, Figuren, FigurenPal, 2 + Num, &textsize);
+                LoadModelTexture(TextureNameCom, Figuren, 2 + Num, &textsize);
                 LoadMD2Model(FileNameCom, 2 + Num, textsize, scale);
             }
         }

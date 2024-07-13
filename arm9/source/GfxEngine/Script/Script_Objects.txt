@@ -1,7 +1,6 @@
 #include "script.h"
 
 extern int ObjektTexA[Object_Count];
-extern int ObjektPal[Object_Count];
 extern char ObjektTyp[Object_Count][13];
 extern u32 ObjektColorKey[Object_Count];
 extern float ObjectRadius[Object_Count];
@@ -63,7 +62,7 @@ void LoadObjectCommand(char *Com, int num)
     // Here is that final call to load that texture
     strcpy(ObjektTyp[num], ObjTyp);
     if (strncmp("BUMPWALL", ObjTyp, 8) != 0)
-        LoadModelTexture(FileNameCom, &ObjektTexA[0], &ObjektPal[0], num);
+        LoadModelTexture(FileNameCom, &ObjektTexA[0], num);
     else
         LoadMBump3Texture(FileNameCom, num);
     ObjektColorKey[num] = (r) | (g << 8) | (b << 16) | (0 << 24);

@@ -252,7 +252,7 @@ void UpdateDorfis()
     }
 }
 
-void LoadSpriteTexture(char filename[], char palname[], int *Target, int *TargetPal, int num)
+void LoadSpriteTexture(char filename[], char palname[], int *Target, int num)
 {
     // Reading the 8bit image to an array
     FILE *bmp = fopen(filename, "r");

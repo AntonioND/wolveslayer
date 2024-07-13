@@ -17,16 +17,12 @@ extern bool BodenEnable[Ground_Count];
 extern char BodenColorKey[Ground_Count][7];
 extern int Wasser[1];
 extern char WasserKey[7];
-extern int WasserPal[1];
 extern int Figuren[10];
-extern int FigurenPal[10];
 extern int ObjektTex[Object_Count];
-extern int ObjektPal[Object_Count];
 extern char ObjektTyp[Object_Count][13];
 extern char ObjektColorKey[Object_Count][7];
 extern bool ObjectCulling[Object_Count];
 extern int Ufer[10];
-extern int UferPal[10];
 
 // Metronoms
 extern int Tackt3er;
@@ -511,7 +507,7 @@ void RefreshDorfis(void)
     for (a = 0; a <= DorfiCount; a++) {
         hpos = GetHight(DorfiX[a], DorfiY[a]);
         glBindTexture(GL_TEXTURE_2D, Figuren[DorfiTextNum[a]]);
-        glColorTable(GL_RGB256, FigurenPal[DorfiTextNum[a]]);
+        glColorTable(GL_RGB256, ...); // TODO: Update this if needed
 
         if ((DorfiX[a] - 6) + DorfiSX[a] - (CamPosX)-CamPosSX > -4)
             if ((DorfiX[a] - 6) + DorfiSX[a] - (CamPosX)-CamPosSX < 4)

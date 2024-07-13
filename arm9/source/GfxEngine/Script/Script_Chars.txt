@@ -1,7 +1,6 @@
 #include "script.h"
 
 extern int Figuren[10];
-extern int FigurenPal[10];
 
 void LoadCharCommand(char *Com, int num)
 {
@@ -40,7 +39,7 @@ void LoadCharCommand(char *Com, int num)
     strcat(TextureNameCom, TextureName);
 
     // Here is that final call to load that texture
-    LoadModelTexture(TextureNameCom, &Figuren[0], &FigurenPal[0], Num);
+    LoadModelTexture(TextureNameCom, &Figuren[0], Num);
     LoadMD2Model(FileNameCom, Num);
 
     // Add a scale info for standard size

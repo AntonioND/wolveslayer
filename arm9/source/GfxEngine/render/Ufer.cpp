@@ -39,7 +39,6 @@ t16 heightot16down(v16 h)
 extern int Ufer[10];
 extern int UferB[10];
 extern int UferC[10];
-extern int UferPal[10];
 extern bool UferBump[10];
 
 void WallUfer(int x, int y, f32 xx, f32 yy)
@@ -577,7 +576,7 @@ void RenderUfer(int x, int y, f32 xx, f32 yy)
     }
 }
 
-void LoadUferTexture(char filename[], int *Target, int *TargetPal, int num)
+void LoadUferTexture(char filename[], int *Target, int num)
 {
     u8 *buffer8 = NULL;
     u8 *buffer8line = NULL;

@@ -120,7 +120,7 @@ void Refresh3D(void);
 
 void InitTableOfNormal(void);
 void FreeModels(void);
-void LoadModelTexture(char filename[], int *Target, int *TargetPal, int num, int *w);
+void LoadModelTexture(char filename[], int *Target, int num, int *w);
 void LoadMD2Model(char Filename[], int num, int widthheight, int scale);
 void Precalcmd2light(int n, int num);
 void RenderMD2Model(int n, int num);
@@ -164,19 +164,19 @@ void RenderBoden(int x, int y, int z, int textnum);
 void RenderLevelBorderBoden(int x, int y, int z);
 // Ufer
 void RenderUfer(int x, int y, f32 xx, f32 yy); // Will appear where terrain meet stairs or stair meet stair
-void LoadUferTexture(char filename[], int *Target, int *TargetPal, int num);
+void LoadUferTexture(char filename[], int *Target, int num);
 
 // Sprite
-void LoadSpriteTexture(char filename[], char palname[], int *Target, int *TargetPal, int num);
+void LoadSpriteTexture(char filename[], char palname[], int *Target, int num);
 void RenderSprite(int frame, int dirrection, float x, float y, float z);
 void SetCurSprite(int x, int y, float sx, float sy);
 
 // Wasser
-void LoadWasserTexture(char filename[], int *Target, int *TargetPal, int num);
+void LoadWasserTexture(char filename[], int *Target, int num);
 void RenderWasser(int floating, f32 x, f32 y, f32 z);
 
 // Objects
-void LoadObjectTexture(char filename[], int *Target, int *TargetPal, int num);
+void LoadObjectTexture(char filename[], int *Target,  int num);
 void LoadDoorTexture(char filename[]);
 void AddTexttoDoor(char txt[256]);
 
@@ -205,7 +205,7 @@ void RenderHouseBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y
 void RenderHouseCorner(int mode, int dirrection, f32 x, f32 y, f32 z);
 
 // Bumpmapping
-void LoadMBump3Texture(char filename[], int num, int *targetp, int *target, int *targetb, int *targetc); // used for walls only
+void LoadMBump3Texture(char filename[], int num, int *target, int *targetb, int *targetc); // used for walls only
 void LoadMBump5Texture(char filename[], int num); // used for grounds only (no water and no autotiles!)
 
 // Villagers

@@ -6,7 +6,6 @@ extern u8 EnvR, EnvG, EnvB;
 extern int ObjektTexA[Object_Count];
 extern int ObjektTexB[Object_Count];
 extern int ObjektTexC[Object_Count];
-extern int ObjektPal[Object_Count];
 
 extern v16 mode0vertex;
 extern v16 mode1vertex;

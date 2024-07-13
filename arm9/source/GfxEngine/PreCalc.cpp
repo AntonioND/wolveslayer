@@ -37,12 +37,9 @@ extern u32 BodenColorKey[Ground_Count];
 
 extern int Wasser[1];
 extern u32 WasserKey;
-extern int WasserPal[1];
 
 extern int Figuren[10];
-extern int FigurenPal[10];
 extern int ObjektTexA[Object_Count];
-extern int ObjektPal[Object_Count];
 extern char ObjektTyp[Object_Count][13];
 extern u32 ObjektColorKey[Object_Count];
 

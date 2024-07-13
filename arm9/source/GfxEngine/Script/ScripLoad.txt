@@ -99,8 +99,8 @@ void LoadMainChar(void)
 void LoadScrip(char filename[])
 {
     int a;
-    // LOADINGNOw=true;
-    irqSet(IRQ_VBLANK, 0);
+    // LOADINGNOw = true;
+    irqSet(IRQ_VBLANK, NULL);
 
     ScreenModeLOADING();
     // Reset all datas

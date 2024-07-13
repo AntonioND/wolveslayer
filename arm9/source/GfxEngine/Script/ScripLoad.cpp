@@ -89,7 +89,7 @@ void LoadScrip(char filename[])
 {
     char FileNameCom[60];
 
-    irqSet(IRQ_VBLANK, 0);
+    irqSet(IRQ_VBLANK, NULL);
     ScreenModeLOADING();
     UnloadStuff();
     ResetCounter();  // for percentbar

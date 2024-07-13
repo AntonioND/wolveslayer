@@ -182,7 +182,7 @@ void LoadWasserTexture(char filename[], int *Target, int num);
 void RenderWasser(int floating, f32 x, f32 y, f32 z);
 
 // Objects
-void LoadObjectTexture(char filename[], int *Target,  int num);
+void LoadObjectTexture(char filename[], int *Target, int num);
 void LoadDoorTexture(char filename[]);
 void AddTexttoDoor(char txt[256]);
 
@@ -211,8 +211,11 @@ void RenderHouseBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y
 void RenderHouseCorner(int mode, int dirrection, f32 x, f32 y, f32 z);
 
 // Bumpmapping
-void LoadMBump3Texture(char filename[], int num, int *target, int *targetb, int *targetc); // used for walls only
-void LoadMBump5Texture(char filename[], int num); // used for grounds only (no water and no autotiles!)
+
+// Used for walls only
+void LoadMBump3Texture(char filename[], int num, int *target, int *targetb, int *targetc);
+// Used for grounds only (no water and no autotiles!)
+void LoadMBump5Texture(char filename[], int num);
 
 // Villagers
 void ResetVillagers(void);

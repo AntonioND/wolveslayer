@@ -2,8 +2,8 @@
 
 #include <filesystem.h>
 
-#include "3D.h"
 #include "../sound/Sound9.h"
+#include "3D.h"
 
 void vblank_handler(void);
 void SetMainBg(unsigned short int *pic);

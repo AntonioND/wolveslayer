@@ -13,8 +13,6 @@ inline void ASSERT(bool x)
 {
 }
 
-//#define MEMPOOL_SIZE (90 * 1024)
-
 // ----- Global functions -----
 
 // Send command to ARM7 to set the memory area to load MOD files into

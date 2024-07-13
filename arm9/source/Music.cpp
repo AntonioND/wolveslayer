@@ -11,7 +11,7 @@ u8 *wolfstirbt_bin;
 u32 wolfstirbt_bin_size = 0;
 #endif
 
-void *ModfileA = NULL;
+void *ModfileA     = NULL;
 size_t Modfilesize = 0;
 char ModFilename[60];
 

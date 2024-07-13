@@ -18,7 +18,7 @@ void *LoadFile(const char *filename, size_t *size)
 
     rewind(f);
 
-    u8 *buffer = (u8*)malloc(size_);
+    u8 *buffer = (u8 *)malloc(size_);
     if (buffer == NULL)
         Crash("Not enough memory for file:\n%s", filename);
 
@@ -41,7 +41,7 @@ static u32 read32(u8 *p)
 
 void LoadBmptoBuffer(const char *filename, u16 *picbuff)
 {
-    u8 *bmp_buffer = (u8*)LoadFile(filename, NULL);
+    u8 *bmp_buffer = (u8 *)LoadFile(filename, NULL);
 
     u8 *bmp = bmp_buffer + 18;
 
@@ -52,7 +52,6 @@ void LoadBmptoBuffer(const char *filename, u16 *picbuff)
     u32 colorCoding = read32(bmp);
 
     if (((colorCoding & 0xFFFF0000) >> 16) == 8) {
-
         u16 pal[256];
 
         // First read the palette
@@ -72,6 +71,7 @@ void LoadBmptoBuffer(const char *filename, u16 *picbuff)
         for (u32 y = 0; y < height; y++) {
             for (u32 x = 0; x < width; x++) {
                 u8 color = *bmp++;
+
                 picbuff[x + (((height - 1) - y) * width)] = pal[color];
             }
             if (width & 1)
@@ -86,7 +86,7 @@ void LoadBmptoBuffer(const char *filename, u16 *picbuff)
 
 void LoadBmptoBuffer8(const char *filename, u8 *picbuff, u16 *palbuff)
 {
-    u8 *bmp_buffer = (u8*)LoadFile(filename, NULL);
+    u8 *bmp_buffer = (u8 *)LoadFile(filename, NULL);
 
     u8 *bmp = bmp_buffer + 18;
 
@@ -97,7 +97,6 @@ void LoadBmptoBuffer8(const char *filename, u8 *picbuff, u16 *palbuff)
     u32 colorCoding = read32(bmp);
 
     if (((colorCoding & 0xFFFF0000) >> 16) == 8) {
-
         // First read the palette
         bmp = bmp_buffer + 54;
 
@@ -115,6 +114,7 @@ void LoadBmptoBuffer8(const char *filename, u8 *picbuff, u16 *palbuff)
         for (u32 y = 0; y < height; y++) {
             for (u32 x = 0; x < width; x++) {
                 u8 color = *bmp++;
+
                 picbuff[x + (((height - 1) - y) * width)] = color;
             }
             if (width & 1)
@@ -129,10 +129,9 @@ void LoadBmptoBuffer8(const char *filename, u8 *picbuff, u16 *palbuff)
 
 void LoadBmpAllocBuffer8(const char *filename, u8 **picbuff_, u16 **palbuff_, u32 *height_, u32 *width_)
 {
-    sassert(picbuff_ != NULL && palbuff_ != NULL && height_ != NULL && width_ != NULL,
-            "Invalid argument");
+    sassert(picbuff_ != NULL && palbuff_ != NULL && height_ != NULL && width_ != NULL, "Invalid argument");
 
-    u8 *bmp_buffer = (u8*)LoadFile(filename, NULL);
+    u8 *bmp_buffer = (u8 *)LoadFile(filename, NULL);
 
     u8 *bmp = bmp_buffer + 18;
 
@@ -142,13 +141,12 @@ void LoadBmpAllocBuffer8(const char *filename, u8 **picbuff_, u16 **palbuff_, u3
     bmp += 4;
     u32 colorCoding = read32(bmp);
 
-    *width_ = width;
+    *width_  = width;
     *height_ = height;
 
     if (((colorCoding & 0xFFFF0000) >> 16) == 8) {
-
-        u8 *picbuff = (u8*)malloc(width * height);
-        u16 *palbuff = (u16*)malloc(256 * 2);
+        u8 *picbuff  = (u8 *)malloc(width * height);
+        u16 *palbuff = (u16 *)malloc(256 * 2);
 
         if (picbuff == NULL || palbuff == NULL)
             Crash("Not enough memory for file:\n%s", filename);
@@ -173,6 +171,7 @@ void LoadBmpAllocBuffer8(const char *filename, u8 **picbuff_, u16 **palbuff_, u3
         for (u32 y = 0; y < height; y++) {
             for (u32 x = 0; x < width; x++) {
                 u8 color = *bmp++;
+
                 picbuff[x + (((height - 1) - y) * width)] = color;
             }
             if (width & 1)
@@ -187,10 +186,9 @@ void LoadBmpAllocBuffer8(const char *filename, u8 **picbuff_, u16 **palbuff_, u3
 
 void LoadBmpAllocBuffer24(const char *filename, u8 **picbuff_, u32 *height_, u32 *width_)
 {
-    sassert(picbuff_ != NULL && height_ != NULL && width_ != NULL,
-            "Invalid argument");
+    sassert(picbuff_ != NULL && height_ != NULL && width_ != NULL, "Invalid argument");
 
-    u8 *bmp_buffer = (u8*)LoadFile(filename, NULL);
+    u8 *bmp_buffer = (u8 *)LoadFile(filename, NULL);
 
     u8 *bmp = bmp_buffer + 18;
 
@@ -200,12 +198,11 @@ void LoadBmpAllocBuffer24(const char *filename, u8 **picbuff_, u32 *height_, u32
     bmp += 4;
     u32 colorCoding = read32(bmp);
 
-    *width_ = width;
+    *width_  = width;
     *height_ = height;
 
     if (((colorCoding & 0xFFFF0000) >> 16) == 24) {
-
-        u8 *picbuff = (u8*)malloc(width * height * 3);
+        u8 *picbuff = (u8 *)malloc(width * height * 3);
 
         if (picbuff == NULL)
             Crash("Not enough memory for file:\n%s", filename);

@@ -248,6 +248,8 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
 void LoadModelTexture(char filename[], int *Target, int *TargetPal, int num, int *w)
 {
     u8 *buffer8 = NULL;
+    u8 *buffer8line = NULL;
+
     u16 pal[256];
     int width  = 0;
     int height = 0;
@@ -316,17 +318,21 @@ void LoadModelTexture(char filename[], int *Target, int *TargetPal, int num, int
                 b = (color & 0x0FF);
                 g = ((color >> 8) & 0x0FF);
                 r = ((color >> 16) & 0x0FF);
-                // pal[i]=RGB15(r>>3,g>>3,b>>3)| BIT(15);
+                // pal[i] = RGB15(r >> 3, g >> 3, b >> 3) | BIT(15);
                 pal[i] = RGB15(r >> 3, g >> 3, b >> 3);
             }
             buffer8 = (u8 *)malloc(width * height);
+            buffer8line = (u8 *)malloc(width);
+
             for (i = 0; i < height; i++) {
+                fread(buffer8line, 1, width, bmp);
+
                 for (q = 0; q < width; q++) {
-                    u8 color;
-                    fread(&color, 1, 1, bmp);
+                    u8 color = buffer8line[q];
                     buffer8[q + (((height - 1) - i) * width)] = color;
                 }
             }
+            free(buffer8line);
             break;
         default:
             fprintf(stderr, "Invalid BMP format: %s", filename);

@@ -72,6 +72,8 @@ u8 Font1[668 * 11];
 void LoadBmptoBuffer(const char *filename, u16 *picbuff)
 {
     u8 *buffer8 = NULL;
+    u8 *buffer8line = NULL;
+
     u16 pal[256];
     int width  = 0;
     int height = 0;
@@ -117,10 +119,13 @@ void LoadBmptoBuffer(const char *filename, u16 *picbuff)
                 pal[i] = RGB15(r >> 3, g >> 3, b >> 3) | BIT(15);
             }
             buffer8 = (u8 *)malloc(width * height);
+            buffer8line = (u8 *)malloc(width);
+
             for (i = 0; i < height; i++) {
+                fread(buffer8line, 1, width, bmp);
+
                 for (q = 0; q < width; q++) {
-                    u8 color;
-                    fread(&color, 1, 1, bmp);
+                    u8 color = buffer8line[q];
                     // BG_GFX[q + (((height - 1) - i) * 256)] = pal[color];
                     buffer8[q + (((height - 1) - i) * width)] = color;
                 }
@@ -128,6 +133,7 @@ void LoadBmptoBuffer(const char *filename, u16 *picbuff)
                 if ((width) & 1)
                     fread(&abuf, 4 - ((width) & 1), 1, bmp);
             }
+            free(buffer8line);
             break;
         default:
             fprintf(stderr, "Invalid BMP format: %s", filename);
@@ -147,6 +153,8 @@ void LoadBmptoBuffer(const char *filename, u16 *picbuff)
 void LoadBmptoBuffer8(const char *filename, u8 *picbuff, u16 *palbuff)
 {
     u8 *buffer8 = NULL;
+    u8 *buffer8line = NULL;
+
     u16 pal[256];
     int width  = 0;
     int height = 0;
@@ -192,10 +200,13 @@ void LoadBmptoBuffer8(const char *filename, u8 *picbuff, u16 *palbuff)
                 pal[i] = RGB15(r >> 3, g >> 3, b >> 3) | BIT(15);
             }
             buffer8 = (u8 *)malloc(width * height);
+            buffer8line = (u8 *)malloc(width);
+
             for (i = 0; i < height; i++) {
+                fread(buffer8line, 1, width, bmp);
+
                 for (q = 0; q < width; q++) {
-                    u8 color;
-                    fread(&color, 1, 1, bmp);
+                    u8 color = buffer8line[q];
                     // BG_GFX[q + (((height - 1) - i) * 256)] = pal[color];
                     buffer8[q + (((height - 1) - i) * width)] = color;
                 }
@@ -203,6 +214,8 @@ void LoadBmptoBuffer8(const char *filename, u8 *picbuff, u16 *palbuff)
                 if ((width) & 1)
                     fread(&abuf, 4 - ((width) & 1), 1, bmp);
             }
+
+            free(buffer8line);
             break;
         default:
             fprintf(stderr, "Invalid BMP format: %s", filename);

@@ -37,6 +37,9 @@ void Playhandler(void); // checks if we need to start song again
 
 // Bmp
 void LoadBmptoBuffer(const char *filename, u16 *picbuff); // For getting 8bit bmp into a 16bit buffer
+void LoadBmptoBuffer8(const char *filename, u8 *picbuff, u16 *palbuff);
+void LoadBmpAllocBuffer8(const char *filename, u8 **picbuff_, u16 **palbuff_, u32 *height_, u32 *width_);
+void LoadBmpAllocBuffer24(const char *filename, u8 **picbuff_, u32 *height_, u32 *width_);
 
 void WaitForFreeVblank(void); // important for multitask buffering and loading to vram
 

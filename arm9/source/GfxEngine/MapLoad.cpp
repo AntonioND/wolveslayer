@@ -350,71 +350,42 @@ float GetHight(int x, int y)
 // Maploading routine
 void LoadMap(char *filename)
 {
-    int width  = 0;
-    int height = 0;
-
-    FILE *bmp = fopen(filename, "r");
-
-    fseek(bmp, 18, SEEK_SET);
-
-    fread(&width, 4, 1, bmp);
-    fread(&height, 4, 1, bmp);
+    u8 *picbuff;
+    u32 width, height;
+    LoadBmpAllocBuffer24(filename, &picbuff, &height, &width);
 
     MapW     = width;
     MapH     = height;
     MapWreal = width / 3;
     MapHreal = height / 3;
 
-    int i, j;
-    for (i = 0; i < 256; i++)
-        for (j = 0; j < 256; j++)
-            MapImage[i][j] = 0;
+    memset(MapImage, 0, sizeof(MapImage));
 
-    unsigned long colorCoding;
-    fread(&colorCoding, 4, 1, bmp);
+    u8 *pic = picbuff;
+    for (int i = height - 1; i >= 0; i--) {
+        for (u32 q = 0; q < width; q++) {
+            u32 b = *pic++;
+            u32 g = *pic++;
+            u32 r = *pic++;
 
-    fseek(bmp, 34, SEEK_SET);
-    unsigned long dataLength;
-    fread(&dataLength, 4, 1, bmp);
+            if (q >= 0 && q < 256)
+                if (i >= 0 && i < 256)
+                    MapImage[q][i] = (r) | (g << 8) | (b << 16) | (0 << 24);
 
-    int q;
-    unsigned long color;
-    unsigned short r, g, b;
-    unsigned long abuf;
-    int point;
+            if (q % 3 == 0 && i % 3 == 0) {
+                int point = (q / 3) + (i / 3) * 128;
+                if (point < 128 * 128 && point >= 0) {
+                    MapLightR[point] = r;
+                    MapLightG[point] = g;
+                    MapLightB[point] = b;
 
-    fseek(bmp, 54, SEEK_SET);
-    switch ((colorCoding & 0xFFFF0000) >> 16) {
-        case 24:
-            for (i = height - 1; i >= 0; i--) {
-                for (q = 0; q < width; q++) {
-                    fread(&color, 3, 1, bmp);
-                    b = (color & 0x0FF);
-                    g = ((color >> 8) & 0x0FF);
-                    r = ((color >> 16) & 0x0FF);
-
-                    if (q >= 0 && q < 256)
-                        if (i >= 0 && i < 256)
-                            MapImage[q][i] = (r) | (g << 8) | (b << 16) | (0 << 24);
-
-                    if (q % 3 == 0 && i % 3 == 0) {
-                        point = (q / 3) + (i / 3) * 128;
-                        if (point < 128 * 128 && point >= 0) {
-                            MapLightR[point] = r;
-                            MapLightG[point] = g;
-                            MapLightB[point] = b;
-
-                            WorldLightR[point] = r;
-                            WorldLightG[point] = g;
-                            WorldLightB[point] = b;
-                        }
-                    }
+                    WorldLightR[point] = r;
+                    WorldLightG[point] = g;
+                    WorldLightB[point] = b;
                 }
+            }
+        }
+    }
 
-                if ((width * 3) & 3)
-                    fread(&abuf, 4 - ((width * 3) & 3), 1, bmp);
-            };
-            break;
-    };
-    fclose(bmp);
+    free(picbuff);
 }

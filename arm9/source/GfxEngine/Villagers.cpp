@@ -254,40 +254,17 @@ void UpdateDorfis()
 
 void LoadSpriteTexture(char filename[], char palname[], int *Target, int num)
 {
-    // Reading the 8bit image to an array
-    FILE *bmp = fopen(filename, "r");
-    if (bmp == 0) {
-        fprintf(stderr, "%s not found\n", filename);
-        return;
-    };
-    fseek(bmp, 0, SEEK_END);
-    int size = ftell(bmp);
-    fseek(bmp, 0, SEEK_SET);
-    u8 *buffer = (u8 *)malloc(size + 1);
-    while (!feof(bmp))
-        fread((void *)buffer, size, 1, bmp);
-    fclose(bmp);
-
-    // reading the pallete to an array
-    FILE *pal = fopen(palname, "r");
-    if (pal == 0) {
-        fprintf(stderr, "%s not found\n", palname);
-        return;
-    };
-    fseek(pal, 0, SEEK_END);
-    size = ftell(pal);
-    fseek(pal, 0, SEEK_SET);
-    u16 *palette = (u16 *)malloc(size + 1);
-    while (!feof(pal))
-        fread((void *)palette, size, 1, pal);
-    fclose(pal);
+    u8 *buffer;
+    u16 *pal;
+    u32 height, width;
+    LoadBmpAllocBuffer8(filename, &buffer, &pal, &height, &width);
 
     glGenTextures(1, &Target[num]);
     glBindTexture(0, Target[num]);
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, 128, 256, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffer);
-    glColorTableEXT(GL_TEXTURE_2D, 0, 256, 0, 0, palette);
+    glColorTableEXT(GL_TEXTURE_2D, 0, 256, 0, 0, pal);
 
     free(buffer);
-    free(palette);
+    free(pal);
 }

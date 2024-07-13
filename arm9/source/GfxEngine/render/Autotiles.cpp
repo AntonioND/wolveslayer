@@ -13,109 +13,20 @@ void LoadAutotileTexture(char filename[], int num)
 {
     extern int AutotileTextur[4][3];
 
-    u8 *buffer8 = NULL;
-    u8 *buffer8line = NULL;
+    u8 *buffer8;
+    u16 *pal;
+    u32 height, width;
+    LoadBmpAllocBuffer8(filename, &buffer8, &pal, &height, &width);
 
-    u8 *part;
-    u16 pal[256];
-    int width  = 0;
-    int height = 0;
+    if (width != 384 || height != 128)
+        Crash("Texture isn't 384x128\nSize: %lux%lu\n%s", width, height, filename);
 
-    FILE *bmp = fopen(filename, "r");
-    if (bmp == NULL) {
-        PrintOUT(filename, 5, 5, false, strlen(filename));
-        PrintOUT("wasnt found", 5, 15, false, strlen("wasnt found"));
-        while (!(keysDown() & KEY_A))
-            scanKeys();
-        ScreenModeLOADING();
-        return;
-    }
-
-    fseek(bmp, 18, SEEK_SET);
-
-    fread(&width, 4, 1, bmp);
-    fread(&height, 4, 1, bmp);
-
-    if (width != 384 || height != 128) {
-        char bug[40];
-        PrintOUT(filename, 5, 5, false, strlen(filename));
-        PrintOUT("Texture isnt 384x128...", 5, 15, false, strlen("Texture isnt 384x128..."));
-        sprintf(bug, "its %dx%d", width, height);
-        PrintOUT(bug, 5, 25, false, strlen(bug));
-        while (!(keysDown() & KEY_A))
-            scanKeys();
-        ScreenModeLOADING();
-        return;
-    }
-
-    unsigned long colorCoding;
-    fread(&colorCoding, 4, 1, bmp);
-
-    if (((colorCoding & 0xFFFF0000) >> 16) != 8) {
-        char bug[40];
-        PrintOUT(filename, 5, 5, false, strlen(filename));
-        PrintOUT("Texture isnt 8bit...", 5, 15, false, strlen("Texture isnt 8bit..."));
-        sprintf(bug, "its %luBit", ((colorCoding & 0xFFFF0000) >> 16));
-        PrintOUT(bug, 5, 25, false, strlen(bug));
-        while (!(keysDown() & KEY_A))
-            scanKeys();
-        ScreenModeLOADING();
-        return;
-    }
-
-    fseek(bmp, 34, SEEK_SET);
-    unsigned long dataLength;
-    fread(&dataLength, 4, 1, bmp);
-
-    fseek(bmp, 46, SEEK_SET);
-    unsigned long impcol;
-    fread(&impcol, 4, 1, bmp);
-
-    int i, q;
-
-    switch ((colorCoding & 0xFFFF0000) >> 16) {
-        case 8:
-            // First read the pal
-            fseek(bmp, 54, SEEK_SET);
-            for (i = 0; i < 256; i++) {
-                unsigned char r, g, b;
-                unsigned long color;
-                fread(&color, 4, 1, bmp);
-                b = (color & 0x0FF);
-                g = ((color >> 8) & 0x0FF);
-                r = ((color >> 16) & 0x0FF);
-                // BG_GFX[i]= RGB15(r>>3,g>>3,b>>3)| BIT(15);
-                // BG_GFX[i+256]= RGB15(r>>3,g>>3,b>>3)| BIT(15);
-                pal[i] = RGB15(r >> 3, g >> 3, b >> 3) | BIT(15);
-            }
-            buffer8 = (u8 *)malloc(width * height);
-            buffer8line = (u8 *)malloc(width);
-
-            for (i = 0; i < height; i++) {
-                fread(buffer8line, 1, width, bmp);
-
-                for (q = 0; q < width; q++) {
-                    u8 color = buffer8line[q];
-                    // BG_GFX[q + (((height - 1) - i) * 256)] = pal[color];
-                    buffer8[q + (((height - 1) - i) * width)] = color;
-                }
-                unsigned long abuf;
-                if ((width) & 1)
-                    fread(&abuf, 4 - ((width) & 1), 1, bmp);
-            }
-            free(buffer8line);
-            break;
-        default:
-            fprintf(stderr, "Invalid BMP format: %s", filename);
-            while (1)
-                ;
-            break;
-    };
-
-    fclose(bmp);
     swiWaitForVBlank();
 
-    part = (u8 *)malloc(128 * 129);
+    u8 *part = (u8 *)malloc(128 * 129);
+    if (part == NULL)
+        Crash("Not enough memory for buffer:\n%s", filename);
+
     int ax, bx, by;
 
     int palTextureName = -1;
@@ -143,6 +54,7 @@ void LoadAutotileTexture(char filename[], int num)
     }
 
     free(buffer8);
+    free(pal);
     free(part);
 }
 

@@ -247,109 +247,24 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
 
 void LoadModelTexture(char filename[], int *Target, int num, int *w)
 {
-    u8 *buffer8 = NULL;
-    u8 *buffer8line = NULL;
+    u8 *picbuff;
+    u16 *palbuff;
+    u32 height, width;
+    LoadBmpAllocBuffer8(filename, &picbuff, &palbuff, &height, &width);
 
-    u16 pal[256];
-    int width  = 0;
-    int height = 0;
+    if ((width != 64 || height != 64) && (width != 128 || height != 128))
+        Crash("Texture isn't 64x64 or 128x128\nSize: %lux%lu\n%s", width, height, filename);
 
-    FILE *bmp = fopen(filename, "r");
-    if (bmp == NULL) {
-        PrintOUT(filename, 5, 5, false, strlen(filename));
-        PrintOUT("wasnt found", 5, 15, false, strlen("wasnt found"));
-        while (!(keysDown() & KEY_A))
-            scanKeys();
-        ScreenModeLOADING();
-        return;
-    }
-
-    fseek(bmp, 18, SEEK_SET);
-
-    fread(&width, 4, 1, bmp);
-    fread(&height, 4, 1, bmp);
     w[num] = width;
-
-    if ((width != 64 || height != 64) && (width != 128 || height != 128)) {
-        char bug[40];
-        PrintOUT(filename, 5, 5, false, strlen(filename));
-        PrintOUT("Texture isnt 64x64 or 128x128...", 5, 15, false, strlen("Texture isnt 64x64 or 128x128..."));
-        sprintf(bug, "its %dx%d", width, height);
-        PrintOUT(bug, 5, 25, false, strlen(bug));
-        while (!(keysDown() & KEY_A))
-            scanKeys();
-        ScreenModeLOADING();
-        return;
-    }
-
-    unsigned long colorCoding;
-    fread(&colorCoding, 4, 1, bmp);
-
-    if (((colorCoding & 0xFFFF0000) >> 16) != 8) {
-        char bug[40];
-        PrintOUT(filename, 5, 5, false, strlen(filename));
-        PrintOUT("Texture isnt 8bit...", 5, 15, false, strlen("Texture isnt 8bit..."));
-        sprintf(bug, "its %dBit", int((colorCoding & 0xFFFF0000) >> 16));
-        PrintOUT(bug, 5, 25, false, strlen(bug));
-        while (!(keysDown() & KEY_A))
-            scanKeys();
-        ScreenModeLOADING();
-        return;
-    }
-
-    fseek(bmp, 34, SEEK_SET);
-    unsigned long dataLength;
-    fread(&dataLength, 4, 1, bmp);
-
-    fseek(bmp, 46, SEEK_SET);
-    unsigned long impcol;
-    fread(&impcol, 4, 1, bmp);
-
-    int i, q;
-
-    switch ((colorCoding & 0xFFFF0000) >> 16) {
-        case 8:
-            // First read the pal
-            fseek(bmp, 54, SEEK_SET);
-            for (i = 0; i < 256; i++) {
-                unsigned char r, g, b;
-                unsigned long color;
-                fread(&color, 4, 1, bmp);
-                b = (color & 0x0FF);
-                g = ((color >> 8) & 0x0FF);
-                r = ((color >> 16) & 0x0FF);
-                // pal[i] = RGB15(r >> 3, g >> 3, b >> 3) | BIT(15);
-                pal[i] = RGB15(r >> 3, g >> 3, b >> 3);
-            }
-            buffer8 = (u8 *)malloc(width * height);
-            buffer8line = (u8 *)malloc(width);
-
-            for (i = 0; i < height; i++) {
-                fread(buffer8line, 1, width, bmp);
-
-                for (q = 0; q < width; q++) {
-                    u8 color = buffer8line[q];
-                    buffer8[q + (((height - 1) - i) * width)] = color;
-                }
-            }
-            free(buffer8line);
-            break;
-        default:
-            fprintf(stderr, "Invalid BMP format: %s", filename);
-            while (1)
-                ;
-            break;
-    };
-
-    fclose(bmp);
 
     glGenTextures(1, &Target[num]);
     glBindTexture(0, Target[num]);
 
     WaitForFreeVblank();
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, width, height, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffer8);
-    glColorTableEXT(GL_TEXTURE_2D, 0, 256, 0, 0, pal);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, width, height, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, picbuff);
+    glColorTableEXT(GL_TEXTURE_2D, 0, 256, 0, 0, palbuff);
 
-    free(buffer8);
+    free(picbuff);
+    free(palbuff);
 }

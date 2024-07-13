@@ -101,10 +101,7 @@ void LoadScrip(char filename[])
     FILE *xml = fopen(filename, "r");
     if (xml == NULL) {
         // Fatal error, cannot load
-        Print("script not found", 5, 0);
-        Print(filename, 5, 10);
-        while (1)
-            swiWaitForVBlank();
+        Crash("Script not found:\n%s", filename);
     }
     fclose(xml);
 
@@ -112,19 +109,13 @@ void LoadScrip(char filename[])
     TiXmlDocument *xmlDoc = new TiXmlDocument(filename);
     if (!xmlDoc->LoadFile()) {
         // Fatal error, cannot load
-        Print("script invalid", 5, 0);
-        Print(filename, 5, 10);
-        while (1)
-            swiWaitForVBlank();
+        Crash("Script invalid:\n%s", filename);
     }
 
     // search for <map> </map>
     TiXmlElement *map = xmlDoc->FirstChildElement("map");
-    if (!map) {
-        Print("tag called 'map' not found", 5, 10);
-        while (1)
-            swiWaitForVBlank();
-    }
+    if (!map)
+        Crash("Tag called 'map' not found:\n%s", filename);
 
     // print atributes if there are some
     // mapfile (bmp)
@@ -132,15 +123,17 @@ void LoadScrip(char filename[])
         strcpy(FileNameCom, "/wolveslayer/maps/");
         strcat(FileNameCom, map->Attribute("file"));
         LoadMap(FileNameCom);
-    } else
-        Print("->No Mapfile specified", 5, 20);
+    } else {
+        Crash("->No Mapfile specified:\n%s", filename);
+    }
 
     // song
     if (map->Attribute("music")) {
         strcpy(SongFile, "/wolveslayer/bgfx/");
         strcat(SongFile, map->Attribute("music"));
-    } else
-        Print("->No Musikfile specified", 5, 30);
+    } else {
+        Crash("->No Musikfile specified:\n%s", filename);
+    }
 
     // environment
     if (map->Attribute("env")) {
@@ -148,8 +141,9 @@ void LoadScrip(char filename[])
             outside = true;
         if (strncmp("inside", map->Attribute("env"), 6) == 0)
             outside = false;
-    } else
-        Print("->No environment specified", 5, 40);
+    } else {
+        Crash("->No environment specified:\n%s", filename);
+    }
 
     // load the grounds
     LoadBodenCommand(map);

@@ -48,26 +48,17 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
         texturereverse = false;
 
     FILE *fp = fopen(Filename, "rb");
-    if (fp == NULL) {
-        PrintOUT(Filename, 5, 5, false, strlen(Filename));
-        PrintOUT("wasnt found", 5, 15, false, strlen("wasnt found"));
-        while (!(keysDown() & KEY_A))
-            scanKeys();
-        ScreenModeLOADING();
-        return;
-    }
+    if (fp == NULL)
+        Crash("File not found:\n%s", Filename);
 
     int i;
 
     /* read header */
     fread(&Models[num].header, 1, sizeof(md2_header_t), fp);
 
-    if ((Models[num].header.ident != 844121161) || (Models[num].header.version != 8)) {
-        /* error! */
-        fprintf(stderr, "error: bad version!");
-        while (1 == 1) {
-        } // Can't go on so lets hang arround
-    }
+    if ((Models[num].header.ident != 844121161) || (Models[num].header.version != 8))
+        Crash("Error: Bad version:\n%s", Filename);
+
     /* memory allocation */
     Models[num].texcoords = (md2_texCoord_t *)malloc(sizeof(md2_texCoord_t) * Models[num].header.num_st);
     Models[num].triangles = (md2_triangle_t *)malloc(sizeof(md2_triangle_t) * Models[num].header.num_tris);

@@ -60,23 +60,21 @@ void StartSong(const char *Name)
 {
     if (strncmp(Name, ModFilename, 60) == 0)
         return;
+
     strcpy(ModFilename, Name);
 
     SndStopMOD();
-    FILE *bmp = fopen(Name, "rb");
-    if (bmp == NULL) {
-        return;
-    }
+    FILE *f = fopen(Name, "rb");
+    if (f == NULL)
+        Crash("Can't open file:\n%s", Name);
 
-    fseek(bmp, 0, SEEK_END);
-    Modfilesize = ftell(bmp);
-    fseek(bmp, 0, SEEK_SET);
+    fseek(f, 0, SEEK_END);
+    Modfilesize = ftell(f);
+    fseek(f, 0, SEEK_SET);
 
-    // for (int a = 0; a < Modfilesize; a++)
-    //     fread(&ModfileA[a], 1, 1, bmp);
-    fread(ModfileA, Modfilesize, 1, bmp);
+    fread(ModfileA, Modfilesize, 1, f);
 
-    fclose(bmp);
+    fclose(f);
 
     SndPlayMOD(ModfileA);
 }

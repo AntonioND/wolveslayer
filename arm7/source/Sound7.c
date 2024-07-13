@@ -308,7 +308,6 @@ void SndInit7()
         sndChannel[i].pan        = 0;
         sndChannel[i].vol        = 0;
     }
-    sndVars.bInitialized = true;
 
     // Now that everything has been set up and we're ready to receive messages,
     // configure the message handler

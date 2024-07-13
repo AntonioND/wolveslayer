@@ -35,7 +35,8 @@ void StartSong(const char *Name); // Overgive filename and arm7 will do the rest
 // void StopSong(void);//Must! be called before starting new one...best is wait a vblank
 void Playhandler(void); // checks if we need to start song again
 
-// Bmp
+// Bmp and general file loading
+void *LoadFile(const char *filename, size_t *size);
 void LoadBmptoBuffer(const char *filename, u16 *picbuff); // For getting 8bit bmp into a 16bit buffer
 void LoadBmptoBuffer8(const char *filename, u8 *picbuff, u16 *palbuff);
 void LoadBmpAllocBuffer8(const char *filename, u8 **picbuff_, u16 **palbuff_, u32 *height_, u32 *width_);

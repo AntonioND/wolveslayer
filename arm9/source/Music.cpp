@@ -11,15 +11,12 @@ u8 *wolfstirbt_bin;
 u32 wolfstirbt_bin_size = 0;
 #endif
 
-u8 ModfileA[768 * 1024];
-int Modfilesize = 0;
+void *ModfileA = NULL;
+size_t Modfilesize = 0;
 char ModFilename[60];
 
 void InitSound()
 {
-    SndInit9();
-    SndSetMemPool(&ModfileA, 768 * 1024);
-
 #if 0
     FILE *f;
     f = fopen("/rd/sfx/schwert.bin", "rb");
@@ -61,21 +58,22 @@ void StartSong(const char *Name)
     if (strncmp(Name, ModFilename, 60) == 0)
         return;
 
-    strcpy(ModFilename, Name);
+    snprintf(ModFilename, sizeof(ModFilename), "%s", Name);
 
+    // Stop song and wait for it to stop playing
     SndStopMOD();
-    FILE *f = fopen(Name, "rb");
-    if (f == NULL)
-        Crash("Can't open file:\n%s", Name);
+    swiWaitForVBlank();
 
-    fseek(f, 0, SEEK_END);
-    Modfilesize = ftell(f);
-    fseek(f, 0, SEEK_SET);
+    // Free old buffer
+    free(ModfileA);
 
-    fread(ModfileA, Modfilesize, 1, f);
+    // Load new song and send the buffer to the ARM7. We need to flush t he
+    // cache so that the ARM7 sees the data we have just loaded.
+    ModfileA = LoadFile(Name, &Modfilesize);
+    DC_FlushRange(ModfileA, Modfilesize);
+    SndSetMemPool(ModfileA, Modfilesize);
 
-    fclose(f);
-
+    // Start player again
     SndPlayMOD(ModfileA);
 }
 

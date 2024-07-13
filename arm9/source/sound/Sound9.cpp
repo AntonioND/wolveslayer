@@ -13,15 +13,9 @@ inline void ASSERT(bool x)
 {
 }
 
-#define MEMPOOL_SIZE (90 * 1024)
+//#define MEMPOOL_SIZE (90 * 1024)
 
 // ----- Global functions -----
-
-// Call once on startup
-void SndInit9()
-{
-    SndSetMemPool(new u32[MEMPOOL_SIZE / 4], MEMPOOL_SIZE);
-}
 
 // Send command to ARM7 to set the memory area to load MOD files into
 // for playing. Must be called at least once at startup, but can be

@@ -15,7 +15,6 @@ extern "C" {
 
 // ----- Functions -----
 
-extern void SndInit9();
 extern void SndSetMemPool(void *memPool, u32 memPoolSize);
 extern void SndPlayMOD(const void *modFile);
 extern void SndStopMOD();

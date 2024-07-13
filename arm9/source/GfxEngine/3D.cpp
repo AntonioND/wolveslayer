@@ -1,6 +1,9 @@
+#include <stdarg.h>
+
 #include <filesystem.h>
 
 #include "3D.h"
+#include "../sound/Sound9.h"
 
 void vblank_handler(void);
 void SetMainBg(unsigned short int *pic);
@@ -481,4 +484,25 @@ void E3D_StartRender()
     glTranslate3f32(0, 0, floattov16(-0.1));
 
     glPushMatrix();
+}
+
+__attribute__((noreturn)) void Crash(const char *msg, ...)
+{
+    SndStopMOD();
+
+    irqSet(IRQ_VBLANK, NULL);
+
+    consoleDemoInit();
+
+    printf("FATAL ERROR!\n");
+    printf("\n");
+
+    va_list args;
+    va_start(args, msg);
+    vprintf(msg, args);
+    va_end(args);
+    printf("\n");
+
+    while (1)
+        swiWaitForVBlank();
 }

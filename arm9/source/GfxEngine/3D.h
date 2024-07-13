@@ -27,6 +27,8 @@
 #define BumpwallW   6
 #define BumpwallE   7
 
+__attribute__((noreturn)) void Crash(const char *msg, ...);
+
 // Sound
 void InitSound(void);
 void StartSong(const char *Name); // Overgive filename and arm7 will do the rest for playing that song

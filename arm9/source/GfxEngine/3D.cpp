@@ -241,7 +241,10 @@ void WaitForFreeVblank(void)
 void E3D_Init(void)
 {
     powerOn(POWER_ALL);
-    nitroFSInit(NULL);
+
+    if (!nitroFSInit(NULL))
+        Crash("Failed to initialize NitroFS");
+
     Splash();
 
     // Set mode 0 and set it to 3D

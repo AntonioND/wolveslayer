@@ -15,7 +15,7 @@ inline void ASSERT(bool x)
 
 // ----- Global functions -----
 
-#define MEMPOOL_SIZE (1024 * 1024)
+#define MEMPOOL_SIZE (512 * 1024)
 static u32 pool[MEMPOOL_SIZE / 4];
 
 // Call once on startup

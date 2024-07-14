@@ -15,6 +15,15 @@ inline void ASSERT(bool x)
 
 // ----- Global functions -----
 
+#define MEMPOOL_SIZE (1024 * 1024)
+static u32 pool[MEMPOOL_SIZE / 4];
+
+// Call once on startup
+void SndInit9()
+{
+    SndSetMemPool(&pool, MEMPOOL_SIZE);
+}
+
 // Send command to ARM7 to set the memory area to load MOD files into
 // for playing. Must be called at least once at startup, but can be
 // called repeatedly to change the size of the sound area as needed.

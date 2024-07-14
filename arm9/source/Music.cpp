@@ -17,6 +17,8 @@ char ModFilename[60];
 
 void InitSound()
 {
+     SndInit9();
+
 #if 0
     FILE *f;
     f = fopen("/rd/sfx/schwert.bin", "rb");
@@ -71,7 +73,6 @@ void StartSong(const char *Name)
     // cache so that the ARM7 sees the data we have just loaded.
     ModfileA = LoadFile(Name, &Modfilesize);
     DC_FlushRange(ModfileA, Modfilesize);
-    SndSetMemPool(ModfileA, Modfilesize);
 
     // Start player again
     SndPlayMOD(ModfileA);

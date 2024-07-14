@@ -12,7 +12,6 @@
 // 05/08/05 - Ported to DS.
 // ----------------------
 
-#include <stdio.h>
 #include <string.h>
 
 #include <nds.h>

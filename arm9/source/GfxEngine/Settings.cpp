@@ -10,9 +10,6 @@ char MaincharText[40];
 char waffeMd2[40];
 char waffeText[40];
 
-// THis is for testing on em...it should double speed...
-bool Emuspeed = false;
-
 void Setit(char *setting)
 {
     char Filename[40];

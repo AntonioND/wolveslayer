@@ -1,6 +1,3 @@
-//Following commands are for testing
-EmuSpeed false
-
 //This defines how new-game will start
 StartMap etage1.txt
 StartPos 7 2

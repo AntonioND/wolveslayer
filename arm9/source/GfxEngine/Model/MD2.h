@@ -65,7 +65,6 @@ typedef struct {
 } nds_vertex_t;
 
 typedef struct {
-    char name[16];       /* frame name */
     nds_vertex_t *verts; /* list of frame's vertices */
 
 } nds_frame_t;

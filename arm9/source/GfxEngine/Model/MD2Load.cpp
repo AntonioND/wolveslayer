@@ -126,8 +126,6 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
                 Models[num].rahmen[N].verts[Models[num].triangles[I].vertex[j]].v[0] = floattov16(float(v[0] / 128) * scale);
                 Models[num].rahmen[N].verts[Models[num].triangles[I].vertex[j]].v[1] = floattov16(float(v[1] / 128) * scale);
                 Models[num].rahmen[N].verts[Models[num].triangles[I].vertex[j]].v[2] = floattov16(float(v[2] / 128) * scale);
-                // Kopiere den framename
-                strcpy(Models[num].rahmen[N].name, pframe->name);
             }
         }
     }

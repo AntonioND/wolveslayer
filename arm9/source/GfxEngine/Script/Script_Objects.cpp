@@ -63,19 +63,19 @@ void LoadObjectCommand(TiXmlElement *map)
         ObjectTextureID[num] = id;
 
         // filename
-        strcpy(FileNameCom, "/wolveslayer/obj/");
+        strcpy(FileNameCom, "");
         if (object->Attribute("mesh")) {
-            strcat(FileNameCom, object->Attribute("mesh"));
-
             if (strncmp("[wall]", object->Attribute("mesh"), 6) == 0) {
                 if (!TexturehasBump[id])
                     ObjTyp = "WALL";
                 else
                     ObjTyp = "BUMPWALL";
-            } else if (strncmp("[house]", object->Attribute("mesh"), 7) == 0)
+            } else if (strncmp("[house]", object->Attribute("mesh"), 7) == 0) {
                 ObjTyp = "HOUSE";
-            else
+            } else {
                 ObjTyp = "MODEL";
+                snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/obj/%s", object->Attribute("mesh"));
+            }
         }
 
         // color-id
@@ -135,10 +135,10 @@ void LoadObjectCommand(TiXmlElement *map)
         }
         ObjectCulling[num] = cull;
 
-        // Final call to load that shit
-        if (id < Object_Count && id >= 0) {
+        // Final call to load it
+        if (id < Object_Count && id >= 0)
             strcpy(ObjektTyp[num], ObjTyp);
-        }
+
         if (strncmp("MODEL", ObjektTyp[num], 5) == 0 && id >= 0)
             LoadMD2Model(FileNameCom, num + 10, TextureWidthHeight[id], scale);
 

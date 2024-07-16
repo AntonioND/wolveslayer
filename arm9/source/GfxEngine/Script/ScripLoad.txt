@@ -62,7 +62,7 @@ char SongFile[40];
 
 char Script[256][256];
 
-void ucase(char character[256], char *New)
+void ucase(char *character, char *New)
 {
     uint a;
 

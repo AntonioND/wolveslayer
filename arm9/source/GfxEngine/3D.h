@@ -102,9 +102,9 @@ void OpenMapDoor(int x, int y); // This sets the door angle to 1 if it is unlock
 void MapDoorHandle(void);       // This opens doors which angle is greater then 0
 v16 GetTerrain(int x, int y, int num);
 //>>>>>>>>>>>>>>>>Script
-void ReadSettings(void);                    // gets some settings
-void LoadScrip(char filename[]);            // Loads a new script
-void ucase(char character[256], char *New); // Returns cptial lettered text of the given text
+void ReadSettings(void);                // gets some settings
+void LoadScrip(char filename[]);        // Loads a new script
+void ucase(char *character, char *New); // Returns cptial lettered text of the given text
 
 //>>>>>>>>>>>>>>>>Input
 void inputs(void);

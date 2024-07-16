@@ -25,7 +25,7 @@ extern void LoadDoorCommand(TiXmlElement *map);
 
 extern void LoadDynamicLightCommand(TiXmlElement *map);
 
-void ucase(char character[256], char *New)
+void ucase(char *character, char *New)
 {
     strcpy(New, character);
 

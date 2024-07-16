@@ -9,23 +9,20 @@ extern int ObjektTexC[Object_Count]; // Advanced slot for objects(bumpmapping)
 
 void LoadTextureCommand(TiXmlElement *map)
 {
-    char FileNameCom[60];
-    int id;
-    bool bump;
-
     TiXmlElement *texture = map->FirstChildElement("texture");
 
     while (texture) {
-        id = -1;
         // filename
+        char FileNameCom[60];
         snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/obj/%s", texture->Attribute("file"));
 
         // id
+        int id = -1;
         if (texture->Attribute("id"))
             sscanf(texture->Attribute("id"), "%i", &id);
 
         // bumpmapping
-        bump = false;
+        bool bump = false;
         if (texture->Attribute("bumpmapping")) {
             if (strncmp("true", texture->Attribute("bumpmapping"), 4) == 0)
                 bump = true;

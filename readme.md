@@ -14,7 +14,7 @@ copy the `wolveslayer` folder to the root of the SD card. It is enough to copy
 the `.nds` file and load it with a loader that supports the `argv` protocol and
 DLDI patching.
 
-![Title Screen](screenshots/screenshot-1.png) ![House](screenshots/screenshot-2.png)
+![Title screen](screenshots/screenshot-1.png) ![House](screenshots/screenshot-2.png)
 ![Village](screenshots/screenshot-3.png) ![Forest](screenshots/screenshot-4.png)
 ![Entrance](screenshots/screenshot-5.png) ![Temple](screenshots/screenshot-6.png)
 

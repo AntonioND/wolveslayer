@@ -164,8 +164,6 @@ int capcount      = 0;
 
 void vBlank(void)
 {
-    extern void DisplCapture(void);
-
     extern int screenmode;
     // extern int frcapture;
 
@@ -210,6 +208,8 @@ void vBlank(void)
     }
 
 #if 0
+    extern void DisplCapture(void);
+
     if ((keysHeld() & KEY_L))
         DisplCapture();
 

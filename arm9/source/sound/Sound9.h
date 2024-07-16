@@ -15,15 +15,13 @@ extern "C" {
 
 // ----- Functions -----
 
-extern void SndInit9();
-extern void SndSetMemPool(void *memPool, u32 memPoolSize);
-extern void SndPlayMOD(const void *modFile);
-extern void SndStopMOD();
-extern void SndPauseMOD(bool bPaused);
-extern void SndSetMODCallback(MOD_CALLBACK callback);
-extern void SoundSendCmd(SND_COMMAND_TYPE cmdType, u32 param32);
-// extern bool checkMusicFade(LEVELS lvlIdx);
-// extern void updateMusic(LEVELS lvlIdx);
+void SndInit9();
+void SndSetMemPool(void *memPool, u32 memPoolSize);
+void SndPlayMOD(const void *modFile);
+void SndStopMOD();
+void SndPauseMOD(bool bPaused);
+void SndSetMODCallback(MOD_CALLBACK callback);
+void SoundSendCmd(SND_COMMAND_TYPE cmdType, u32 param32);
 
 // ----------
 

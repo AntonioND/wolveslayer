@@ -9,12 +9,6 @@
 #include "Sound9.h"
 #include "SoundCommon.h"
 
-inline void ASSERT(bool x)
-{
-}
-
-// ----- Global functions -----
-
 #define MEMPOOL_SIZE (512 * 1024)
 static u32 pool[MEMPOOL_SIZE / 4];
 
@@ -36,8 +30,8 @@ void SndSetMemPool(void *memPool, u32 memPoolSize)
 {
     SND_COMMAND cmd = { 0 };
 
-    ASSERT(memPool != NULL);
-    ASSERT(memPoolSize < (1 << 24)); // Only 3 bytes available in parameters
+    sassert(memPool != NULL, "NULL buffer");
+    sassert(memPoolSize < (1 << 24), "Too big"); // Only 3 bytes available in parameters
 
     cmd.cmdType  = SND_CMD_SETMEMPOOL;
     cmd.param[0] = (u8)(memPoolSize);
@@ -104,25 +98,3 @@ void SoundSendCmd(SND_COMMAND_TYPE cmdType, u32 param32)
 
     fifoSendDatamsg(FIFO_USER_01, sizeof(cmd), (u8 *)&cmd);
 }
-
-#if 0
-bool checkMusicFade(LEVELS lvlIdx)
-{
-    if (bgMusic[lvlIdx] != NULL) {
-        if (bgMusic[lvlIdx] != bgMusic[curLevel->levelIdx])
-            return true;
-        else
-            return false;
-    } else
-        return true;
-}
-
-void updateMusic(LEVELS lvlIdx)
-{
-    if (bgMusic[lvlIdx] != NULL) {
-        if (bgMusic[lvlIdx] != bgMusic[curLevel->levelIdx])
-            SndPlayMOD(bgMusic[lvlIdx]);
-    } else
-        SndStopMOD();
-}
-#endif

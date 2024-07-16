@@ -18,7 +18,7 @@ extern float SpriteSX, SpriteSY;
 void ResetEnemys(void)
 {
     GegnerCount = -1;
-    // int b;
+
     for (int a = 0; a < 10; a++) {
         GegnerX[a]        = -1;
         GegnerY[a]        = -1;
@@ -164,22 +164,18 @@ float gethposfromenemy(int a, float sx, float sy)
 
 void UpdateEnemy()
 {
-    bool l, r, u, d;
     extern float PlPosSX, PlPosSY;
     extern int screenmode;
     extern int PlStatus;
 
-    int a;
-    // int b;
-    float sx, sy;
     float Px, Py;
     float NPx, NPy;
     float dx, dy;
     bool change;
-    int NPCnum;
+    bool l, r, u, d;
 
     if (screenmode < 3) {
-        for (a = 0; a <= GegnerCount; a++) {
+        for (int a = 0; a <= GegnerCount; a++) {
             // check coolision just if enemy walks or follows player
             if (GegnerStatus[a] < 1) {
                 l = true;
@@ -187,8 +183,8 @@ void UpdateEnemy()
                 u = true;
                 d = true;
 
-                sx = (GegnerSX[a]) * 20;
-                sy = (GegnerSY[a]) * 20;
+                float sx = GegnerSX[a] * 20;
+                float sy = GegnerSY[a] * 20;
 
                 bool val[8];
                 Checkcolision(GegnerX[a], GegnerY[a], sx + 10, sy + 10, 5, (bool *)&val);
@@ -287,7 +283,7 @@ void UpdateEnemy()
                 NPx = GegnerX[a];
                 NPy = GegnerY[a];
 
-                for (NPCnum = 0; NPCnum <= GegnerCount; NPCnum++) {
+                for (int NPCnum = 0; NPCnum <= GegnerCount; NPCnum++) {
                     if (NPCnum != a) {
                         Px = GegnerX[NPCnum];
                         Py = GegnerY[NPCnum];

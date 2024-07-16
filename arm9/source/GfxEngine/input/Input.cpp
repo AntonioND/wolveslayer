@@ -467,9 +467,8 @@ void inputs(void)
         if (ShapeObj[GetPX()][GetPY() + 2] == obwalldoor)
             SetWallTrans(true);
 
-    float sx, sy;
-    sx = (PlPosSX) * 20;
-    sy = (PlPosSY) * 20;
+    float sx = PlPosSX * 20;
+    float sy = PlPosSY * 20;
 
     bool val[8];
     int pressedkeycount = 0;

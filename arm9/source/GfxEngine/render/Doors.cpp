@@ -78,6 +78,7 @@ void RenderDoorOutside(int mode, float angle, f32 x, f32 y, f32 z, bool trans)
 
     if (!walltrans || mode == 1)
         alpha = 31;
+
     v16 vert, vert2;
     if (mode == 0) {
         vert  = mode0vertex;
@@ -134,6 +135,7 @@ void RenderHouseBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y
 {
     if (mode != 0 && mode != 1)
         return;
+
     bool trans = true;
 
     if (walltrans && mode != 1)

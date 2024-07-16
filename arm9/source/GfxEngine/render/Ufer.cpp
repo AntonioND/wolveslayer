@@ -113,7 +113,9 @@ void WallUfer(int x, int y, f32 xx, f32 yy)
             b = 1;
         else
             b = 0;
+
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
+
         bl  = GetTerrain(x + 1, y, 0);
         tbl = heightot16down(bl);
         tl  = GetTerrain(x, y, 1);
@@ -168,7 +170,9 @@ void WallUfer(int x, int y, f32 xx, f32 yy)
             b = 1;
         else
             b = 0;
+
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
+
         bl  = GetTerrain(x, y + 1, 0);
         tbl = heightot16down(bl);
         tl  = GetTerrain(x, y, 2);
@@ -288,7 +292,9 @@ void HalfWallUferA(int x, int y, f32 xx, f32 yy)
             b = 1;
         else
             b = 0;
+
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
+
         bl  = GetTerrain(x + 1, y, 0);
         tbl = heightot16down(bl);
         tl  = GetTerrain(x, y, 1);
@@ -339,7 +345,9 @@ void HalfWallUferA(int x, int y, f32 xx, f32 yy)
             b = 1;
         else
             b = 0;
+
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
+
         bl  = GetTerrain(x, y + 1, 0);
         tbl = heightot16down(bl);
         tl  = GetTerrain(x, y, 2);
@@ -404,7 +412,9 @@ void HalfWallUferB(int x, int y, f32 xx, f32 yy)
             b = 1;
         else
             b = 0;
+
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
+
         bl  = GetTerrain(x - 1, y, 1);
         tbl = heightot16down(bl);
         // tl  = GetTerrain(x, y, 0);
@@ -455,7 +465,9 @@ void HalfWallUferB(int x, int y, f32 xx, f32 yy)
             b = 1;
         else
             b = 0;
+
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
+
         bl  = GetTerrain(x + 1, y, 0);
         tbl = heightot16down(bl);
         // tl  = GetTerrain(x, y, 1);
@@ -506,7 +518,9 @@ void HalfWallUferB(int x, int y, f32 xx, f32 yy)
             b = 1;
         else
             b = 0;
+
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
+
         bl  = GetTerrain(x, y + 1, 0);
         tbl = heightot16down(bl);
         // tl  = GetTerrain(x, y, 2);

@@ -43,7 +43,6 @@ v16 GetTerrain(int x, int y, int num)
 
 void ResetMapChange(void)
 {
-    int b;
     MapChangeCounter = 0;
 
     for (int a = 0; a < 25; a++) {
@@ -55,7 +54,7 @@ void ResetMapChange(void)
         MapChangeTOPosY[a] = -1;
         strcpy(Mapchange[a], "");
         MapDoorAngle[a] = 0;
-        for (b = 0; b < 10; b++)
+        for (int b = 0; b < 10; b++)
             strcpy(DoorSpeech[a][b], "");
         DoorSpeechCount[a] = 0;
     }
@@ -127,6 +126,7 @@ void MapDoorHandle(void)
         if (MapDoorAngle[i] >= 1 && MapDoorAngle[i] <= 80)
             MapDoorAngle[i] += 10;
 
+        // Mapchange if door is opened
         if (MapDoorAngle[i] >= 80) {
             char Filename[50];
             int newx = 0, newy = 0;
@@ -162,7 +162,7 @@ void MapDoorHandle(void)
                     glFlush(GL_WBUFFERING);
                 }
             }
-        } // Mapchange if door is opened
+        }
     }
 }
 
@@ -239,7 +239,7 @@ u8 MapObjGetRot(int x, int y)
     if (y >= MapHreal)
         return 0; // Provides engine to draw shit arround the level
 
-    rot = u8(MapImage[xx][yy] & (255));
+    rot = u8(MapImage[xx][yy] & 255);
     if (rot >= 0)
         rot2 = 0;
     if (rot >= 63)
@@ -340,7 +340,7 @@ float GetHight(int x, int y)
     uint r = 0;
 
     // sscanf(MapColors[xx + yy * MapW].w, "%02X", &r);
-    r = MapImage[xx][yy] & (255);
+    r = MapImage[xx][yy] & 255;
 
     float r2 = float((r >> 5) / 4.0f);
 

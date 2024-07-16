@@ -88,12 +88,10 @@ void RenderBoden(int x, int y, int z, int textnum)
     glPushMatrix();
     glTranslatef32(inttof32(x), inttof32(0), inttof32(z));
 
-    int b;
-    bool doit;
+    for (int b = 0; b <= a; b++) {
+        v16 v1, v2, v3, v4;
+        bool doit = false;
 
-    v16 v1, v2, v3, v4;
-    for (b = 0; b <= a; b++) {
-        doit = false;
         if (b == 0) {
             glBindTexture(GL_TEXTURE_2D, BodenTexture[textnum]);
             bodx = BodenX;
@@ -255,7 +253,7 @@ void RenderLevelBorderBoden(int x, int y, int z)
     glPushMatrix();
     glTranslatef32(inttof32(x), inttof32(0), inttof32(z));
 
-    GFX_COLOR = (vuint32)0;
+    GFX_COLOR = 0;
 
     glBegin(GL_QUADS);
 

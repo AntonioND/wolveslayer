@@ -185,15 +185,15 @@ void vBlank(void)
         TextBoxmodeHandler();
 
     if (screenmode != 2 && frameCounter % 59 == 0 && (keysHeld() & KEY_R)) {
-        extern float PlPosX;
-        extern float PlPosY;
-        int px, py;
-        px = PlPosX;
-        py = PlPosY;
 
         char Tmp[50];
 
 #ifdef ShowPosition
+        extern float PlPosX;
+        extern float PlPosY;
+        int px = PlPosX;
+        int py = PlPosY;
+
         sprintf(Tmp, "PX: %d  PY: %d  ", px + 6, py + 8);
         Print(Tmp, 80, 105);
 #endif
@@ -296,7 +296,6 @@ void E3D_Init(void)
 
     InitTableOfNormal();
     swiWaitForVBlank();
-    // glReset ();
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();

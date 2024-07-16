@@ -53,7 +53,6 @@ signed char DirObj[128][128];
 
 void PreCalcBod(void)
 {
-    u32 Bod, Obj;
     int choose, texturecounter;
     int choose2, texturecounter2;
 
@@ -63,8 +62,8 @@ void PreCalcBod(void)
 
             choose  = -3; // int value for choosing texture
             choose2 = -1;
-            Bod     = 0; // char[7] value for compare colorkeys
-            Obj     = 0; // char[7] value for compare colorkeys
+            u32 Bod = 0; // char[7] value for compare colorkeys
+            u32 Obj = 0; // char[7] value for compare colorkeys
 
             // Boden
             if (xx >= 0 && yy >= 0)
@@ -139,8 +138,7 @@ void PreCalcABod(void)
             SetABod[xx][yy] = -1;
 
             // Here we look which texture to use
-            for (texturecounter = 0; texturecounter < 4; texturecounter++)
-
+            for (texturecounter = 0; texturecounter < 4; texturecounter++) {
                 if (Bod == AutotileColorKeyMaster[texturecounter]) {
                     SetABod[xx][yy] = texturecounter;
 
@@ -192,224 +190,161 @@ void PreCalcABod(void)
                     }
 
                     // Tex alone
-                    if (LBod == true)
-                        if (RBod == true)
-                            if (UBod == true)
-                                if (DBod == true)
-                                    TexABod[xx][yy] = 31;
+                    if ((LBod == true) && (RBod == true) && (UBod == true) && (DBod == true))
+                        TexABod[xx][yy] = 31;
 
                     // tex surounded others
-                    if (LBod == false) {
-                        if (RBod == false) {
-                            if (UBod == false) {
-                                if (DBod == false) {
-                                    if (ULBod == false && URBod == false && DLBod == false && DRBod == false)
-                                        TexABod[xx][yy] = 9; // mo diagonal oponents
+                    if ((LBod == false) && (RBod == false) && (UBod == false) && (DBod == false)) {
+                        if (ULBod == false && URBod == false && DLBod == false && DRBod == false)
+                            TexABod[xx][yy] = 9; // no diagonal oponents
 
-                                    if (ULBod == true && URBod == false && DLBod == false && DRBod == false)
-                                        TexABod[xx][yy] = 16; // one oponent
-                                    if (ULBod == false && URBod == false && DLBod == true && DRBod == false)
-                                        TexABod[xx][yy] = 20; // one oponent
-                                    if (ULBod == false && URBod == true && DLBod == false && DRBod == false)
-                                        TexABod[xx][yy] = 24; // one oponent
-                                    if (ULBod == false && URBod == false && DLBod == false && DRBod == true)
-                                        TexABod[xx][yy] = 28; // one oponent
+                        if (ULBod == true && URBod == false && DLBod == false && DRBod == false)
+                            TexABod[xx][yy] = 16; // one oponent
+                        if (ULBod == false && URBod == false && DLBod == true && DRBod == false)
+                            TexABod[xx][yy] = 20; // one oponent
+                        if (ULBod == false && URBod == true && DLBod == false && DRBod == false)
+                            TexABod[xx][yy] = 24; // one oponent
+                        if (ULBod == false && URBod == false && DLBod == false && DRBod == true)
+                            TexABod[xx][yy] = 28; // one oponent
 
-                                    if (ULBod == true && URBod == true && DLBod == false && DRBod == false)
-                                        TexABod[xx][yy] = 17; // two oponents
-                                    if (ULBod == false && URBod == false && DLBod == true && DRBod == true)
-                                        TexABod[xx][yy] = 21; // two oponents
-                                    if (ULBod == false && URBod == true && DLBod == false && DRBod == true)
-                                        TexABod[xx][yy] = 25; // two oponents
-                                    if (ULBod == true && URBod == false && DLBod == true && DRBod == false)
-                                        TexABod[xx][yy] = 29; // two oponents
-                                    if (ULBod == false && URBod == true && DLBod == true && DRBod == false)
-                                        TexABod[xx][yy] = 18; // two oponents
-                                    if (ULBod == true && URBod == false && DLBod == false && DRBod == true)
-                                        TexABod[xx][yy] = 22; // two oponents
+                        if (ULBod == true && URBod == true && DLBod == false && DRBod == false)
+                            TexABod[xx][yy] = 17; // two oponents
+                        if (ULBod == false && URBod == false && DLBod == true && DRBod == true)
+                            TexABod[xx][yy] = 21; // two oponents
+                        if (ULBod == false && URBod == true && DLBod == false && DRBod == true)
+                            TexABod[xx][yy] = 25; // two oponents
+                        if (ULBod == true && URBod == false && DLBod == true && DRBod == false)
+                            TexABod[xx][yy] = 29; // two oponents
+                        if (ULBod == false && URBod == true && DLBod == true && DRBod == false)
+                            TexABod[xx][yy] = 18; // two oponents
+                        if (ULBod == true && URBod == false && DLBod == false && DRBod == true)
+                            TexABod[xx][yy] = 22; // two oponents
 
-                                    if (ULBod == true && URBod == true && DLBod == false && DRBod == true)
-                                        TexABod[xx][yy] = 26; // 3 oponents
-                                    if (ULBod == true && URBod == true && DLBod == true && DRBod == false)
-                                        TexABod[xx][yy] = 30; // 3 oponents
-                                    if (ULBod == false && URBod == true && DLBod == true && DRBod == true)
-                                        TexABod[xx][yy] = 19; // 3 oponents
-                                    if (ULBod == true && URBod == false && DLBod == true && DRBod == true)
-                                        TexABod[xx][yy] = 23; // 3 oponents
+                        if (ULBod == true && URBod == true && DLBod == false && DRBod == true)
+                            TexABod[xx][yy] = 26; // 3 oponents
+                        if (ULBod == true && URBod == true && DLBod == true && DRBod == false)
+                            TexABod[xx][yy] = 30; // 3 oponents
+                        if (ULBod == false && URBod == true && DLBod == true && DRBod == true)
+                            TexABod[xx][yy] = 19; // 3 oponents
+                        if (ULBod == true && URBod == false && DLBod == true && DRBod == true)
+                            TexABod[xx][yy] = 23; // 3 oponents
 
-                                    if (ULBod == true && URBod == true && DLBod == true && DRBod == true)
-                                        TexABod[xx][yy] = 27; // 4 oponents
-                                }
-                            }
-                        }
+                        if (ULBod == true && URBod == true && DLBod == true && DRBod == true)
+                            TexABod[xx][yy] = 27; // 4 oponents
                     }
 
                     // tex with border over it
-                    if (LBod == false) {
-                        if (RBod == false) {
-                            if (UBod == true) {
-                                if (DBod == false) {
-                                    if (DLBod == false && DRBod == false)
-                                        TexABod[xx][yy] = 5;
+                    if ((LBod == false) && (RBod == false) && (UBod == true) && (DBod == false)) {
+                        if (DLBod == false && DRBod == false)
+                            TexABod[xx][yy] = 5;
 
-                                    if (DLBod == false && DRBod == true)
-                                        TexABod[xx][yy] = 33;
-                                    if (DLBod == true && DRBod == false)
-                                        TexABod[xx][yy] = 37;
-                                    if (DLBod == true && DRBod == true)
-                                        TexABod[xx][yy] = 41;
-                                }
-                            }
-                        }
+                        if (DLBod == false && DRBod == true)
+                            TexABod[xx][yy] = 33;
+                        if (DLBod == true && DRBod == false)
+                            TexABod[xx][yy] = 37;
+                        if (DLBod == true && DRBod == true)
+                            TexABod[xx][yy] = 41;
                     }
 
                     // tex with border under it
-                    if (LBod == false) {
-                        if (RBod == false) {
-                            if (UBod == false) {
-                                if (DBod == true) {
-                                    if (ULBod == false && URBod == false)
-                                        TexABod[xx][yy] = 13;
+                    if ((LBod == false) && (RBod == false) && (UBod == false) && (DBod == true)) {
+                        if (ULBod == false && URBod == false)
+                            TexABod[xx][yy] = 13;
 
-                                    if (ULBod == false && URBod == true)
-                                        TexABod[xx][yy] = 45;
-                                    if (ULBod == true && URBod == false)
-                                        TexABod[xx][yy] = 34;
-                                    if (ULBod == true && URBod == true)
-                                        TexABod[xx][yy] = 38;
-                                }
-                            }
-                        }
+                        if (ULBod == false && URBod == true)
+                            TexABod[xx][yy] = 45;
+                        if (ULBod == true && URBod == false)
+                            TexABod[xx][yy] = 34;
+                        if (ULBod == true && URBod == true)
+                            TexABod[xx][yy] = 38;
                     }
 
                     // tex border on the right
-                    if (LBod == true) {
-                        if (RBod == false) {
-                            if (UBod == false) {
-                                if (DBod == false) {
-                                    if (URBod == false && DRBod == false)
-                                        TexABod[xx][yy] = 8;
+                    if ((LBod == true) && (RBod == false) && (UBod == false) && (DBod == false)) {
+                        if (URBod == false && DRBod == false)
+                            TexABod[xx][yy] = 8;
 
-                                    if (URBod == true && DRBod == false)
-                                        TexABod[xx][yy] = 42;
-                                    if (URBod == false && DRBod == true)
-                                        TexABod[xx][yy] = 46;
-                                    if (URBod == true && DRBod == true)
-                                        TexABod[xx][yy] = 35;
-                                }
-                            }
-                        }
+                        if (URBod == true && DRBod == false)
+                            TexABod[xx][yy] = 42;
+                        if (URBod == false && DRBod == true)
+                            TexABod[xx][yy] = 46;
+                        if (URBod == true && DRBod == true)
+                            TexABod[xx][yy] = 35;
                     }
 
                     // tex with border on the left
-                    if (LBod == false) {
-                        if (RBod == true) {
-                            if (UBod == false) {
-                                if (DBod == false) {
-                                    if (ULBod == false && DLBod == false)
-                                        TexABod[xx][yy] = 10;
+                    if ((LBod == false) && (RBod == true) && (UBod == false) && (DBod == false)) {
+                        if (ULBod == false && DLBod == false)
+                            TexABod[xx][yy] = 10;
 
-                                    if (ULBod == true && DLBod == false)
-                                        TexABod[xx][yy] = 39;
-                                    if (ULBod == false && DLBod == true)
-                                        TexABod[xx][yy] = 43;
-                                    if (ULBod == true && DLBod == true)
-                                        TexABod[xx][yy] = 47;
-                                }
-                            }
-                        }
+                        if (ULBod == true && DLBod == false)
+                            TexABod[xx][yy] = 39;
+                        if (ULBod == false && DLBod == true)
+                            TexABod[xx][yy] = 43;
+                        if (ULBod == true && DLBod == true)
+                            TexABod[xx][yy] = 47;
                     }
 
                     // tex with border up/left
-                    if (LBod == true) {
-                        if (RBod == false) {
-                            if (UBod == true) {
-                                if (DBod == false) {
-                                    if (DRBod == false)
-                                        TexABod[xx][yy] = 4;
-                                    if (DRBod == true)
-                                        TexABod[xx][yy] = 32;
-                                }
-                            }
-                        }
+                    if ((LBod == true) && (RBod == false) && (UBod == true) && (DBod == false)) {
+                        if (DRBod == false)
+                            TexABod[xx][yy] = 4;
+                        if (DRBod == true)
+                            TexABod[xx][yy] = 32;
                     }
 
                     // tex with border up/right
-                    if (LBod == false)
-                        if (RBod == true)
-                            if (UBod == true)
-                                if (DBod == false) {
-                                    if (DLBod == false)
-                                        TexABod[xx][yy] = 6;
-                                    if (DLBod == true)
-                                        TexABod[xx][yy] = 36;
-                                }
+                    if ((LBod == false) && (RBod == true) && (UBod == true) && (DBod == false)) {
+                        if (DLBod == false)
+                            TexABod[xx][yy] = 6;
+                        if (DLBod == true)
+                            TexABod[xx][yy] = 36;
+                    }
 
                     // tex with border down/left
-                    if (LBod == true)
-                        if (RBod == false)
-                            if (UBod == false)
-                                if (DBod == true) {
-                                    if (URBod == false)
-                                        TexABod[xx][yy] = 12;
-                                    if (URBod == true)
-                                        TexABod[xx][yy] = 40;
-                                }
+                    if ((LBod == true) && (RBod == false) && (UBod == false) && (DBod == true)) {
+                        if (URBod == false)
+                            TexABod[xx][yy] = 12;
+                        if (URBod == true)
+                            TexABod[xx][yy] = 40;
+                    }
+
                     // tex with border down/right
-                    if (LBod == false)
-                        if (RBod == true)
-                            if (UBod == false)
-                                if (DBod == true) {
-                                    if (ULBod == false)
-                                        TexABod[xx][yy] = 14;
-                                    if (ULBod == true)
-                                        TexABod[xx][yy] = 44;
-                                }
+                    if ((LBod == false) && (RBod == true) && (UBod == false) && (DBod == true)) {
+                        if (ULBod == false)
+                            TexABod[xx][yy] = 14;
+                        if (ULBod == true)
+                            TexABod[xx][yy] = 44;
+                    }
+
                     // tex with border up/down
-                    if (LBod == false)
-                        if (RBod == false)
-                            if (UBod == true)
-                                if (DBod == true)
-                                    TexABod[xx][yy] = 1;
+                    if ((LBod == false) && (RBod == false) && (UBod == true) && (DBod == true))
+                        TexABod[xx][yy] = 1;
 
                     // tex with border left/down/up
-                    if (LBod == true)
-                        if (RBod == false)
-                            if (UBod == true)
-                                if (DBod == true)
-                                    TexABod[xx][yy] = 3;
+                    if ((LBod == true) && (RBod == false) && (UBod == true) && (DBod == true))
+                        TexABod[xx][yy] = 3;
 
                     // tex with border right/down/up
-                    if (LBod == false)
-                        if (RBod == true)
-                            if (UBod == true)
-                                if (DBod == true)
-                                    TexABod[xx][yy] = 15;
+                    if ((LBod == false) && (RBod == true) && (UBod == true) && (DBod == true))
+                        TexABod[xx][yy] = 15;
 
                     // tex with border left/right
-                    if (LBod == true)
-                        if (RBod == true)
-                            if (UBod == false)
-                                if (DBod == false)
-                                    TexABod[xx][yy] = 2;
+                    if ((LBod == true) && (RBod == true) && (UBod == false) && (DBod == false))
+                        TexABod[xx][yy] = 2;
 
                     // tex with border left/right/up
-                    if (LBod == true)
-                        if (RBod == true)
-                            if (UBod == true)
-                                if (DBod == false)
-                                    TexABod[xx][yy] = 11;
+                    if ((LBod == true) && (RBod == true) && (UBod == true) && (DBod == false))
+                        TexABod[xx][yy] = 11;
 
                     // tex with border Left/right/down
-                    if (LBod == true)
-                        if (RBod == true)
-                            if (UBod == false)
-                                if (DBod == true)
-                                    TexABod[xx][yy] = 7;
+                    if ((LBod == true) && (RBod == true) && (UBod == false) && (DBod == true))
+                        TexABod[xx][yy] = 7;
 
                     if (MapBodenGetRGB(xx, yy) == (0 | BIT(15)) || MapBodenGetRGB(xx, yy) == 0)
                         TexABod[xx][yy] = -1;
                 }
+            }
         }
     }
 }
@@ -1106,9 +1041,10 @@ bool Passable(int x, int y, int sxx, int syy)
 
     if (TexObj[x][y] == -1)
         return true;
-    if (strncmp(ObjektTyp[TexObj[x][y]], "MODEL", 5) == 0 && ObjectRadius[TexObj[x][y]] != 0)
+
+    if (strncmp(ObjektTyp[TexObj[x][y]], "MODEL", 5) == 0 && ObjectRadius[TexObj[x][y]] != 0) {
         return GetModelCollsisionXY(TexObj[x][y] + 10, sxx, syy, DirObj[x][y]);
-    else {
+    } else {
         if (strncmp(ObjektTyp[TexObj[x][y]], "WALL", 4) == 0)
             return false;
         if (strncmp(ObjektTyp[TexObj[x][y]], "HOUSE", 5) == 0)

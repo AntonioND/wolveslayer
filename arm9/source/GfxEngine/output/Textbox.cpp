@@ -102,9 +102,9 @@ void TextBoxmodeHandler(void)
 void ShownextPage(void)
 {
     WaitForFreeVblank();
-    int i, j;
-    for (i = 5; i < 251; i++)
-        for (j = 5; j < 101; j++)
+
+    for (int i = 5; i < 251; i++)
+        for (int j = 5; j < 101; j++)
             BG_GFX_SUB[i + (j * 256)] = RGB15(0, 0, 31) | BIT(15);
 
     Nj -= 90;

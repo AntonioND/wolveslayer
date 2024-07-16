@@ -24,7 +24,7 @@ extern char WasserKey[7];
 void ResetVillagers(void)
 {
     DorfiCount = -1;
-    int b;
+
     for (int a = 0; a < Dorf_Max; a++) {
         DorfiX[a]        = -1;
         DorfiY[a]        = -1;
@@ -32,7 +32,7 @@ void ResetVillagers(void)
         DorfiSY[a]       = 0;
         DorfiTextNum[a]  = -1;
         DorfiRichtung[a] = 0;
-        for (b = 0; b < 10; b++)
+        for (int b = 0; b < 10; b++)
             strcpy(DorfiSpeech[a][b], "");
         DorfiSpeechCount[a] = 0;
     }
@@ -66,8 +66,9 @@ void TurnDorfi(int a, bool l, bool r, bool u, bool d)
     bool ok    = false;
 
     while (ok == false) {
-        ok     = true;
-        dirnew = rand() % 8;
+        ok = true;
+
+        int dirnew = rand() % 8;
         if ((dirnew == 0 || dirnew == 1 || dirnew == 7) && d == false)
             ok = false;
         if ((dirnew == 1 || dirnew == 2 || dirnew == 3) && l == false)
@@ -89,20 +90,17 @@ void UpdateDorfis()
     extern int npctalk;
     extern float PlPosSX, PlPosSY;
 
-    int a, b;
-    float sx, sy;
-
     if (screenmode < 3) {
-        for (a = 0; a <= DorfiCount; a++) {
+        for (int a = 0; a <= DorfiCount; a++) {
             l = true;
             r = true;
             u = true;
             d = true;
 
-            sx = (DorfiSX[a]) * 10;
-            sy = (DorfiSY[a]) * 10;
+            float sx = (DorfiSX[a]) * 10;
+            float sy = (DorfiSY[a]) * 10;
 
-            for (b = 2; b < 8; b++) {
+            for (int b = 2; b < 8; b++) {
                 if (Passable(DorfiX[a], DorfiY[a], sx + b, sy) == false)
                     u = false;
                 if (Passable(DorfiX[a], DorfiY[a], sx + b, sy + 8) == false)
@@ -158,8 +156,8 @@ void UpdateDorfis()
 
             // Chrash mit anderen NPCs verhindern
             int NPCnum;
-            // NPx=GetPX()+(PlPosSX+.5);//its playerpos here...
-            // NPy=GetPY()+(PlPosSY+.5);//why? copy/paste/change a bit...easy
+            // NPx = GetPX() + (PlPosSX + .5); // its playerpos here...
+            // NPy = GetPY() + (PlPosSY + .5); // why? copy/paste/change a bit...easy
             NPx = DorfiX[a];
             NPy = DorfiY[a];
 

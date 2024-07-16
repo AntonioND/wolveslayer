@@ -238,18 +238,17 @@ void UpdateFireFlys(void)
 
 void UpdateViewableLights(void)
 {
-    int x = 0, y = 0;
     extern int CamPosX, CamPosY;
-    u8 col[3];
-    int minx, maxx;
 
     extern u8 Precalcdata[128][128];
     // extern bool Bump[128][128];
 
     for (int yy = 13; yy > -4; yy--) {
-        y    = yy + CamPosY;
-        minx = 4;
-        maxx = 7;
+        int y = yy + CamPosY;
+
+        int minx = 4;
+        int maxx = 7;
+
         if (yy == 13 || yy == 12 || yy == 11 || yy == 10 || yy == 9) {
             minx = 1;
             maxx = 10;
@@ -277,10 +276,10 @@ void UpdateViewableLights(void)
 
         for (int xx = maxx; xx > minx; xx--) {
             // maplight color
-            x = xx + CamPosX;
+            u8 col[3];
+            int x = xx + CamPosX;
             GiveLight(x, y, col);
             ViewportMapLights[xx + 5][yy + 3] = RGB15((u8)col[0] >> 3, (u8)col[1] >> 3, (u8)col[2] >> 3);
-            ;
 
             // reset Bump-mapping status
             if (x >= 0 && y >= 0 && y <= MapGetHr() && x <= MapGetWr()) {

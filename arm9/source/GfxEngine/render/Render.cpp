@@ -118,19 +118,22 @@ void RefreshMap(void)
             if (ObjectNoGround[TexObj[x][y]] == false) {
                 SetCurBod(x, y); // We tell the renderengine where the boden is to set up maplight
 
+                // Levelrand
                 if ((TexBod[x][y] <= -1 && TexABod[x][y] <= -1 && !(Precalcdata[x][y] & (1 << water))) || (ShapeObj[x][y] == Wallbor)) {
                     glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_ID(0));
                     glBindTexture(GL_TEXTURE_2D, BodenTexture[0]);
-                    RenderLevelBorderBoden((xx)-6, 0, (yy)-8);
-                } // Levelrand
+                    RenderLevelBorderBoden(xx - 6, 0, yy - 8);
+                }
 
-                if (x < MapGetWr() && y < MapGetHr() && ShapeObj[x][y] != Wallbor)
+                if (x < MapGetWr() && y < MapGetHr() && ShapeObj[x][y] != Wallbor) {
                     if (x > -1 && y > -1) {
+                        // Boden
                         if (TexBod[x][y] >= 0 && SetABod[x][y] < 0) {
                             if (TexBod[x][y] >= 0)
-                                RenderBoden((xx)-6, 0, (yy)-8, TexBod[x][y]);
-                        } // Boden
+                                RenderBoden(xx - 6, 0, yy - 8, TexBod[x][y]);
+                        }
 
+                        // AutoBoden
                         if (TexABod[x][y] != -2 && SetABod[x][y] >= 0 && SetABod[x][y] <= 3 && TexBod[x][y] == -2 && ShapeObj[x][y] != Wallbor) {
                             subset = 0;
                             if (TexABod[x][y] > 15)
@@ -140,18 +143,21 @@ void RefreshMap(void)
                             glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
                             glBindTexture(GL_TEXTURE_2D, AutotileTextur[SetABod[x][y]][subset]);
 
-                            RenderAutoBoden((xx)-6, 0, (yy)-8, TexABod[x][y] - (subset * 16));
-                        } // AutoBoden
+                            RenderAutoBoden(xx - 6, 0, yy - 8, TexABod[x][y] - (subset * 16));
+                        }
 
+                        // Wasser
                         if ((Precalcdata[x][y] & (1 << water)) && ShapeObj[x][y] != Wallbor) {
                             glBindTexture(GL_TEXTURE_2D, Wasser[0]);
-                            RenderWasser(tackt32, inttof32((xx)-6), waterheight, inttof32((yy)-8));
-                        } // wasser
+                            RenderWasser(tackt32, inttof32(xx - 6), waterheight, inttof32(yy - 8));
+                        }
 
+                        // Ufer
                         if (Terrain[x][y].sidewalls) {
-                            RenderUfer(x, y, inttof32((xx)-6), inttof32((yy)-8));
-                        } // Ufer
+                            RenderUfer(x, y, inttof32(xx - 6), inttof32(yy - 8));
+                        }
                     }
+                }
             }
         }
     }
@@ -188,7 +194,8 @@ void RefreshWelt(void)
 
     // float spos[2];
     int pos[2];
-    // spos[0]=1;spos[1]=.5;
+    // spos[0] = 1;
+    // spos[1] = .5;
 
     v16 height;
     f32 posx, posy;
@@ -238,8 +245,8 @@ void RefreshWelt(void)
                     glBindTexture(GL_TEXTURE_2D, ObjektTex[ObjectTextureID[TexObj[x][y]]]);
 
                     height = TerrainMid[x][y];
-                    posx   = inttof32((xx)-6);
-                    posy   = inttof32((yy)-8);
+                    posx   = inttof32(xx - 6);
+                    posy   = inttof32(yy - 8);
 
                     // Models
                     if (ShapeObj[x][y] == model) {
@@ -320,7 +327,8 @@ void RefreshWelt(void)
 
                     // wallParts...finaly
                     // Wall border
-                    // if(IsObjBumpWall(x,y)==true)glBindTexture (GL_TEXTURE_2D, ObjektTexA[ObjectTextureID[TexObj[x][y]]]);
+                    // if (IsObjBumpWall(x, y) == true)
+                    //     glBindTexture(GL_TEXTURE_2D, ObjektTexA[ObjectTextureID[TexObj[x][y]]]);
 
                     if (ShapeObj[x][y] == Wallbor) {
                         SetCurWall(xx + CamPosX, yy + CamPosY);
@@ -509,9 +517,9 @@ void RefreshDorfis(void)
         glBindTexture(GL_TEXTURE_2D, Figuren[DorfiTextNum[a]]);
         glColorTable(GL_RGB256, ...); // TODO: Update this if needed
 
-        if ((DorfiX[a] - 6) + DorfiSX[a] - (CamPosX)-CamPosSX > -4)
-            if ((DorfiX[a] - 6) + DorfiSX[a] - (CamPosX)-CamPosSX < 4)
-                if ((DorfiY[a] - 8) + DorfiSY[a] - (CamPosY)-CamPosSY > -8)
+        if ((DorfiX[a] - 6) + DorfiSX[a] - (CamPosX)-CamPosSX > -4) {
+            if ((DorfiX[a] - 6) + DorfiSX[a] - (CamPosX)-CamPosSX < 4) {
+                if ((DorfiY[a] - 8) + DorfiSY[a] - (CamPosY)-CamPosSY > -8) {
                     if ((DorfiY[a] - 8) + DorfiSY[a] - (CamPosY)-CamPosSY < 3) {
                         vx  = DorfiX[a];
                         vy  = DorfiY[a];
@@ -569,6 +577,9 @@ void RefreshDorfis(void)
                             glPopMatrix(1);
                         }
                     }
+                }
+            }
+        }
     }
 }
 #endif

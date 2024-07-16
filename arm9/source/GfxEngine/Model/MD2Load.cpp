@@ -1,5 +1,5 @@
-#include "MD2.h"
 #include "../3D.h"
+#include "MD2.h"
 
 /* table of precalculated normals */
 vec3_t anorms_table[162] = {
@@ -62,12 +62,10 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
     Models[num].frames    = (md2_frame_t *)malloc(sizeof(md2_frame_t) * Models[num].header.num_frames);
 
     // Read float textcoords
-    memcpy(Models[num].texcoords, md2_buffer + Models[num].header.offset_st,
-           sizeof(md2_texCoord_t) * Models[num].header.num_st);
+    memcpy(Models[num].texcoords, md2_buffer + Models[num].header.offset_st, sizeof(md2_texCoord_t) * Models[num].header.num_st);
 
     // read that float triangles
-    memcpy(Models[num].triangles, md2_buffer + Models[num].header.offset_tris,
-           sizeof(md2_triangle_t) * Models[num].header.num_tris);
+    memcpy(Models[num].triangles, md2_buffer + Models[num].header.offset_tris, sizeof(md2_triangle_t) * Models[num].header.num_tris);
 
     // read frames
     u8 *ptr = md2_buffer + Models[num].header.offset_frames;

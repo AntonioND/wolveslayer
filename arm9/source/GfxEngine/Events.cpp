@@ -19,6 +19,7 @@ void AddTexttoEvent(char txt[256])
 }
 
 bool Gameended = false;
+
 void CheckEndGame(void)
 {
     extern int PlHP;
@@ -29,8 +30,6 @@ void CheckEndGame(void)
     extern int PlFrame;
     extern void Splash(void);
     extern int Blend;
-
-    int a;
 
     if (Gameended == true && (keysDown() & KEY_START)) {
         Gameended = false;
@@ -72,7 +71,7 @@ void CheckEndGame(void)
         }
 
         // check if endboss died
-        for (a = 0; a <= GegnerCount; a++) {
+        for (int a = 0; a <= GegnerCount; a++) {
             if (GegnerIsBoss[a] == true && GegnerHP[a] <= 0) {
                 Gameended = true;
                 StartSong("/wolveslayer/bgfx/game-finished.mod");

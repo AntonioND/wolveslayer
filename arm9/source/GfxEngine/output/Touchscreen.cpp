@@ -59,12 +59,12 @@ void UpdateBar(void)
 
 void ScreenMode(void)
 {
-    int i;
     screenmode = 0;
 
     // Draw IngameBG
     WaitForFreeVblank();
-    for (i = 0; i < 256 * 256; i++)
+
+    for (int i = 0; i < 256 * 256; i++)
         BG_GFX_SUB[i] = ((u16 *)touch_bin)[i];
 
     UpdateBar();
@@ -127,19 +127,15 @@ void Print(const char *Text, int x, int y)
 
 void PrintOUT(const char *Text, int x, int y, bool color, int n)
 {
-    int Counter;
-    char Char;
-    int i, j;
-
     int sw = 7, sh = 10;
 
-    for (Counter = 0; Counter < n; Counter++) {
-        Char = Text[Counter] - 32;
+    for (int Counter = 0; Counter < n; Counter++) {
+        char Char = Text[Counter] - 32;
         for (int xx = Char * sw; xx <= Char * sw + (sw - 1); xx++)
             for (int yy = 0; yy <= sh; yy++) {
                 if (Font1[xx + yy * 668] == 0) {
-                    i = x + xx - Char * sw + Counter * (sw + 1);
-                    j = y + yy;
+                    int i = x + xx - Char * sw + Counter * (sw + 1);
+                    int j = y + yy;
                     if ((i < 256 && j < 192) && (i > -1 && j > -1)) {
                         if (color)
                             BG_GFX_SUB[i + (j * 256)] = RGB15(31, 31, 31) | BIT(15);

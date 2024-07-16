@@ -38,6 +38,7 @@ void RenderHouseM(int mode, f32 x, f32 y, f32 z)
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0);
     if (walltrans)
         return;
+
     glPushMatrix();
     glTranslatef32(x, y, z);
     // glNormal3f(0, 1.0f, 0);
@@ -196,6 +197,7 @@ void RenderHouseCorner(int mode, int dirrection, f32 x, f32 y, f32 z)
 {
     if (mode != 0 && mode != 1)
         return;
+
     v16 vert, vert2;
     if (mode == 0) {
         vert  = mode0vertex;

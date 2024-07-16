@@ -25,6 +25,7 @@ void RenderWallBorder(int mode, int dirrection, f32 x, f32 y, f32 z, int textnum
 {
     if (mode != 0 && mode != 1)
         return;
+
     v16 vert, vert2;
     if (mode == 0) {
         vert  = mode0vertex;
@@ -42,6 +43,7 @@ void RenderWallBorder(int mode, int dirrection, f32 x, f32 y, f32 z, int textnum
 
     int LightX1[3], LightY1[3];
     int LightX2[3], LightY2[3];
+
     int layers = 0;
     if (IsObjBumpWall(WallX, WallY) == true)
         layers = 2;

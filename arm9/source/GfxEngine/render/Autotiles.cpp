@@ -194,7 +194,9 @@ void RenderAutoBoden(int x, int y, int z, int num)
             GrapLight(BodenX + 1, BodenY + 1);
             glTexCoord2t16(BodenTextPosEnd[cx], BodenTextPosEnd[cy]);
             glVertex3v16(BodenVertex1, pointer.v[3], BodenVertex1);
-            //***********************
+
+            // ***********************
+
             // Top right
             GrapLight(BodenX + 1, BodenY + 1);
             glTexCoord2t16(BodenTextPosEnd[cx], BodenTextPosEnd[cy]);
@@ -232,7 +234,9 @@ void RenderAutoBoden(int x, int y, int z, int num)
             GrapLight(BodenX + 1, BodenY);
             glTexCoord2t16(BodenTextPosEnd[cx], BodenTextPosStart[cy]);
             glVertex3v16(BodenVertex1, pointer.v[1], BodenVertex2);
-            //***********************
+
+            // ***********************
+
             // Top right
             GrapLight(BodenX + 1, BodenY + 1);
             glTexCoord2t16(BodenTextPosEnd[cx], BodenTextPosEnd[cy]);

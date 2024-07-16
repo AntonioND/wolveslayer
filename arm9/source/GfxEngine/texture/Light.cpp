@@ -25,6 +25,7 @@ void SetRot(int rot)
 void RunTime(void)
 {
     extern int screenmode;
+
     if (screenmode < 2)
         Time2++;
     if (Time2 > 2400)
@@ -165,11 +166,10 @@ void GrapLight(int x, int y)
     // u8 col[3];
     // GiveLight(x, y, col);
     // glColor3b(col[0], col[1], col[2]);
-    // int xx,yy;
     extern int CamPosX, CamPosY;
     extern u16 ViewportMapLights[20][20];
-    // xx = x - CamPosX;
-    // yy = y - CamPosY;
+    // int xx = x - CamPosX;
+    // int yy = y - CamPosY;
     GFX_COLOR = (u32)ViewportMapLights[x - CamPosX + 5][y - CamPosY + 3];
 }
 
@@ -346,11 +346,12 @@ void SetObjLights(int pos[2], int rot)
     if (rot >= 383)
         rotation = 3;
 
-    int xx, yy;
     extern int CamPosX, CamPosY;
     extern u16 ViewportMapLights[20][20];
-    xx            = pos[0] - CamPosX;
-    yy            = pos[1] - CamPosY;
+
+    int xx = pos[0] - CamPosX;
+    int yy = pos[1] - CamPosY;
+
     MdlLight16[0] = (u32)ViewportMapLights[xx + 5][yy + 3];
     MdlLight16[1] = (u32)ViewportMapLights[xx + 6][yy + 3];
     MdlLight16[2] = (u32)ViewportMapLights[xx + 5][yy + 4];

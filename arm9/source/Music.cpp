@@ -16,7 +16,7 @@ static char *ModFilename = NULL;
 
 void InitSound()
 {
-     SndInit9();
+    SndInit9();
 
 #if 0
     FILE *f;
@@ -74,6 +74,7 @@ void StartSong(const char *Name)
     // Load new song and send the buffer to the ARM7. We need to flush t he
     // cache so that the ARM7 sees the data we have just loaded.
     size_t Modfilesize = 0;
+
     ModBuffer = LoadFile(Name, &Modfilesize);
     DC_FlushRange(ModBuffer, Modfilesize);
 

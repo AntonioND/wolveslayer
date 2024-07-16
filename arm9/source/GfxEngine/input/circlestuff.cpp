@@ -19,8 +19,6 @@ circle CircleLUT[6];
 // This precalulated circles maight be usefull for hitdetection :D
 void makecircle(int rad)
 {
-    int X     = -1;
-    int Y     = -1;
     int ox    = 0;
     int oy    = 0;
     int deg   = 0;
@@ -29,12 +27,12 @@ void makecircle(int rad)
     // ok first we count the pixels which will be used...
     f32 radius = inttof32(rad + 1);
     do {
-        X = round(f32tofloat(mulf32(radius, cosLerp(deg * 64))));
-        Y = round(f32tofloat(mulf32(radius, sinLerp(deg * 64))));
+        int X = round(f32tofloat(mulf32(radius, cosLerp(deg * 64))));
+        int Y = round(f32tofloat(mulf32(radius, sinLerp(deg * 64))));
 
-        if (ox != X || oy != Y) {
+        if (ox != X || oy != Y)
             count++;
-        }
+
         ox = X;
         oy = Y;
         deg += 1;
@@ -48,11 +46,10 @@ void makecircle(int rad)
     deg   = 0;
     ox    = 0;
     oy    = 0;
-    X     = -1;
-    Y     = -1;
+
     do {
-        X = round(f32tofloat(mulf32(radius, cosLerp(deg * 64))));
-        Y = round(f32tofloat(mulf32(radius, sinLerp(deg * 64))));
+        int X = round(f32tofloat(mulf32(radius, cosLerp(deg * 64))));
+        int Y = round(f32tofloat(mulf32(radius, sinLerp(deg * 64))));
 
         if (ox != X || oy != Y) {
             CircleLUT[rad].Pix[count].X = X;
@@ -114,10 +111,9 @@ void DrawCircle(int num)
     if (num < 1 || num > 5)
         return;
 
-    int x, y;
     for (int q = 0; q < CircleLUT[num].count; q++) {
-        x = CircleLUT[num].Pix[q].X;
-        y = CircleLUT[num].Pix[q].Y;
+        int x = CircleLUT[num].Pix[q].X;
+        int y = CircleLUT[num].Pix[q].Y;
 
         if (CircleLUT[num].Pix[q].Dirrection == 0)
             BG_GFX_SUB[x + 128 + ((y + 96) * 256)] = RGB15(31, 31, 31) | BIT(15);
@@ -147,13 +143,12 @@ void DrawCircle(int num)
 
 void Checkcolision(int x, int y, int sx, int sy, int rad, bool *values)
 {
-    int X, Y;
     for (int a = 0; a < 8; a++)
         values[a] = true;
 
     for (int q = 0; q < CircleLUT[rad].count; q++) {
-        X = CircleLUT[rad].Pix[q].X;
-        Y = CircleLUT[rad].Pix[q].Y;
+        int X = CircleLUT[rad].Pix[q].X;
+        int Y = CircleLUT[rad].Pix[q].Y;
 
         if (Passable(x, y, sx + X, sy + Y) == false)
             values[CircleLUT[rad].Pix[q].Dirrection] = false;
@@ -162,13 +157,12 @@ void Checkcolision(int x, int y, int sx, int sy, int rad, bool *values)
 
 void CheckcolisionDiagonal(int x, int y, int sx, int sy, int rad, bool *values)
 {
-    int X, Y;
     for (int a = 0; a < 8; a++)
         values[a] = true;
 
     for (int q = 0; q < CircleLUT[rad].count; q++) {
-        X = CircleLUT[rad].Pix[q].X;
-        Y = CircleLUT[rad].Pix[q].Y;
+        int X = CircleLUT[rad].Pix[q].X;
+        int Y = CircleLUT[rad].Pix[q].Y;
 
         if (Passable(x, y, sx + X, sy + Y) == false)
             values[CircleLUT[rad].Pix[q].DirrectionDiagonal] = false;

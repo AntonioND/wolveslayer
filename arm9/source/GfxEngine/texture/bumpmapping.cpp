@@ -14,15 +14,14 @@ void LoadMBump3Texture(char filename[], int num, int *target, int *targetb, int 
     u8 buffRight[32 * 64];
     u8 buffNorm[32 * 64];
 
-    int x, y;
     // first we get the colors
     u16 red  = RGB15(255 >> 3, 0 >> 3, 0 >> 3) | BIT(15);
     u16 blue = RGB15(0 >> 3, 0 >> 3, 255 >> 3) | BIT(15);
     // u16 black = RGB15(0 >> 3, 0 >> 3, 0 >> 3) | BIT(15);
 
     // now we create 3 textures
-    for (x = 0; x < 32; x++) {
-        for (y = 0; y < 64; y++) {
+    for (int x = 0; x < 32; x++) {
+        for (int y = 0; y < 64; y++) {
             buffNorm[x + (y * 32)]  = buffer8[(x) + (y * 64)];
             buffLeft[x + (y * 32)]  = 0;
             buffRight[x + (y * 32)] = 0;

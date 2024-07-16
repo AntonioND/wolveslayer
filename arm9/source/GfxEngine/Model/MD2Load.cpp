@@ -1,4 +1,5 @@
 #include "MD2.h"
+#include "../3D.h"
 
 /* table of precalculated normals */
 vec3_t anorms_table[162] = {
@@ -47,45 +48,55 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
     if (Filename[strlen(Filename) - 1] == 'm')
         texturereverse = false;
 
-    FILE *fp = fopen(Filename, "rb");
-    if (fp == NULL)
-        Crash("File not found:\n%s", Filename);
+    u8 *md2_buffer = (u8 *)LoadFile(Filename, NULL);
 
-    int i;
-
-    /* read header */
-    fread(&Models[num].header, 1, sizeof(md2_header_t), fp);
+    // Read header
+    memcpy(&Models[num].header, md2_buffer, sizeof(md2_header_t));
 
     if ((Models[num].header.ident != 844121161) || (Models[num].header.version != 8))
         Crash("Error: Bad version:\n%s", Filename);
 
-    /* memory allocation */
+    // memory allocation
     Models[num].texcoords = (md2_texCoord_t *)malloc(sizeof(md2_texCoord_t) * Models[num].header.num_st);
     Models[num].triangles = (md2_triangle_t *)malloc(sizeof(md2_triangle_t) * Models[num].header.num_tris);
     Models[num].frames    = (md2_frame_t *)malloc(sizeof(md2_frame_t) * Models[num].header.num_frames);
 
     // Read float textcoords
-    fseek(fp, Models[num].header.offset_st, SEEK_SET);
-    fread(Models[num].texcoords, sizeof(md2_texCoord_t), Models[num].header.num_st, fp);
+    memcpy(Models[num].texcoords, md2_buffer + Models[num].header.offset_st,
+           sizeof(md2_texCoord_t) * Models[num].header.num_st);
 
     // read that float triangles
-    fseek(fp, Models[num].header.offset_tris, SEEK_SET);
-    fread(Models[num].triangles, sizeof(md2_triangle_t), Models[num].header.num_tris, fp);
+    memcpy(Models[num].triangles, md2_buffer + Models[num].header.offset_tris,
+           sizeof(md2_triangle_t) * Models[num].header.num_tris);
 
-    /* read frames */
-    fseek(fp, Models[num].header.offset_frames, SEEK_SET);
-    for (i = 0; i < Models[num].header.num_frames; ++i) {
-        /* memory allocation for vertices of this frame */
+    // read frames
+    u8 *ptr = md2_buffer + Models[num].header.offset_frames;
+
+    for (int i = 0; i < Models[num].header.num_frames; ++i) {
+        // memory allocation for vertices of this frame
         Models[num].frames[i].verts = (md2_vertex_t *)malloc(sizeof(md2_vertex_t) * Models[num].header.num_vertices);
 
-        /* read frame data */
-        fread(Models[num].frames[i].scale, sizeof(vec3_t), 1, fp);
-        fread(Models[num].frames[i].translate, sizeof(vec3_t), 1, fp);
-        fread(Models[num].frames[i].name, sizeof(char), 16, fp);
-        fread(Models[num].frames[i].verts, sizeof(md2_vertex_t), Models[num].header.num_vertices, fp);
+        size_t size;
+
+        // read frame data
+        size = sizeof(vec3_t);
+        memcpy(Models[num].frames[i].scale, ptr, size);
+        ptr += size;
+
+        size = sizeof(vec3_t);
+        memcpy(Models[num].frames[i].translate, ptr, size);
+        ptr += size;
+
+        size = sizeof(char) * 16;
+        memcpy(Models[num].frames[i].name, ptr, size);
+        ptr += size;
+
+        size = sizeof(md2_vertex_t) * Models[num].header.num_vertices;
+        memcpy(Models[num].frames[i].verts, ptr, size);
+        ptr += size;
     }
 
-    fclose(fp);
+    free(md2_buffer);
 
     //<<<<<<<<Extatcly here we got a standard md2 model stored in a standard way
     // Now we convert them for a superfast nds renderway
@@ -93,7 +104,7 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
     Models[num].flaechenkoords = (nds_texCoord_t *)malloc(sizeof(nds_texCoord_t) * Models[num].header.num_st);
     Models[num].dreiecke       = (nds_triangle_t *)malloc(sizeof(nds_triangle_t) * Models[num].header.num_tris);
     Models[num].rahmen         = (nds_frame_t *)malloc(sizeof(nds_frame_t) * Models[num].header.num_frames);
-    for (i = 0; i < Models[num].header.num_frames; ++i)
+    for (int i = 0; i < Models[num].header.num_frames; ++i)
         Models[num].rahmen[i].verts = (nds_vertex_t *)malloc(sizeof(nds_vertex_t) * Models[num].header.num_vertices);
 
     // nun schön brav eins nach dem anderen von float und den dreck in fixed point math konvertieren

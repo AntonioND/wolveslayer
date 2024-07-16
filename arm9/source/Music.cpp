@@ -11,9 +11,8 @@ u8 *wolfstirbt_bin;
 u32 wolfstirbt_bin_size = 0;
 #endif
 
-void *ModfileA     = NULL;
-size_t Modfilesize = 0;
-char ModFilename[60];
+static void *ModBuffer   = NULL;
+static char *ModFilename = NULL;
 
 void InitSound()
 {
@@ -57,25 +56,29 @@ void InitSound()
 
 void StartSong(const char *Name)
 {
-    if (strncmp(Name, ModFilename, 60) == 0)
-        return;
+    if (ModFilename != NULL)
+        free(ModFilename);
 
-    snprintf(ModFilename, sizeof(ModFilename), "%s", Name);
+    ModFilename = strdup(Name);
+    if (ModFilename == NULL)
+        Crash("No memory for ModFilename:\n%s", Name);
 
     // Stop song and wait for it to stop playing
     SndStopMOD();
     swiWaitForVBlank();
 
     // Free old buffer
-    free(ModfileA);
+    if (ModBuffer != NULL)
+        free(ModBuffer);
 
     // Load new song and send the buffer to the ARM7. We need to flush t he
     // cache so that the ARM7 sees the data we have just loaded.
-    ModfileA = LoadFile(Name, &Modfilesize);
-    DC_FlushRange(ModfileA, Modfilesize);
+    size_t Modfilesize = 0;
+    ModBuffer = LoadFile(Name, &Modfilesize);
+    DC_FlushRange(ModBuffer, Modfilesize);
 
     // Start player again
-    SndPlayMOD(ModfileA);
+    SndPlayMOD(ModBuffer);
 }
 
 void Playhandler(void)

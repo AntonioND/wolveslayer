@@ -29,9 +29,7 @@ void LoadBodenCommand(TiXmlElement *map)
 
     while (boden && a < Ground_Count) {
         // filename
-        strcpy(FileNameCom, "/wolveslayer/tiles/");
-        if (boden->Attribute("file"))
-            strcat(FileNameCom, boden->Attribute("file"));
+        snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", boden->Attribute("file"));
 
         // color-id
         r = 0;
@@ -80,9 +78,7 @@ void LoadAutoBodenCommand(TiXmlElement *map)
 
     while (aboden && a < 16) {
         // filename
-        strcpy(FileNameCom, "/wolveslayer/tiles/");
-        if (aboden->Attribute("file"))
-            strcat(FileNameCom, aboden->Attribute("file"));
+        snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", aboden->Attribute("file"));
 
         // color-id
         r = 0;
@@ -128,9 +124,7 @@ void LoadWaterCommand(TiXmlElement *map)
 
     if (wasser) {
         // filename
-        strcpy(FileNameCom, "/wolveslayer/tiles/");
-        if (wasser->Attribute("file"))
-            strcat(FileNameCom, wasser->Attribute("file"));
+        snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", wasser->Attribute("file"));
 
         // color-id
         r = 0;
@@ -160,9 +154,9 @@ void LoadTerrainBorderCommand(TiXmlElement *map)
         }
 
         // filename
-        strcpy(FileNameCom, "/wolveslayer/tiles/");
         if (terrainborder->Attribute("file")) {
-            strcat(FileNameCom, terrainborder->Attribute("file"));
+            snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", terrainborder->Attribute("file"));
+
             if (bumpmapping == false)
                 LoadUferTexture(FileNameCom, &Ufer[0], 0);
             else

@@ -75,9 +75,7 @@ void LoadMapChangeCommand(TiXmlElement *map)
             sscanf(mc->Attribute("targetpos"), "%i,%i", &x2, &y2);
 
         // filename
-        strcpy(FileNameCom, "/wolveslayer/maps/");
-        if (mc->Attribute("targetmap"))
-            strcat(FileNameCom, mc->Attribute("targetmap"));
+        snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/maps/%s", mc->Attribute("targetmap"));
 
         if (x + y + x2 + y2 > -1)
             AddMapChange(x, y, FileNameCom, x2, y2);
@@ -95,9 +93,9 @@ void LoadDoorCommand(TiXmlElement *map)
     TiXmlElement *doortext = map->FirstChildElement("doortexture");
     if (doortext) {
         // filename
-        strcpy(FileNameCom, "/wolveslayer/obj/");
         if (doortext->Attribute("file")) {
-            strcat(FileNameCom, doortext->Attribute("file"));
+
+            snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/obj/%s", doortext->Attribute("file"));
             LoadDoorTexture(FileNameCom);
         }
     }
@@ -117,9 +115,7 @@ void LoadDoorCommand(TiXmlElement *map)
             sscanf(door->Attribute("targetpos"), "%i,%i", &x2, &y2);
 
         // filename
-        strcpy(FileNameCom, "/wolveslayer/maps/");
-        if (door->Attribute("targetmap"))
-            strcat(FileNameCom, door->Attribute("targetmap"));
+        snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/maps/%s", door->Attribute("targetmap"));
 
         if (x + y + x2 + y2 > -1)
             AddMapDoor(x, y, FileNameCom, x2, y2, 0);

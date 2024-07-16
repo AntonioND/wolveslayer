@@ -39,7 +39,7 @@ void LoadObjectCommand(TiXmlElement *map)
 
     char FileNameCom[60];
     // char usca[60];
-    char ObjTyp[13];
+    const char *ObjTyp = NULL;
     int id;
     int num = 0;
     uint r, g, b;
@@ -69,13 +69,13 @@ void LoadObjectCommand(TiXmlElement *map)
 
             if (strncmp("[wall]", object->Attribute("mesh"), 6) == 0) {
                 if (!TexturehasBump[id])
-                    strcpy(ObjTyp, "WALL");
+                    ObjTyp = "WALL";
                 else
-                    strcpy(ObjTyp, "BUMPWALL");
+                    ObjTyp = "BUMPWALL";
             } else if (strncmp("[house]", object->Attribute("mesh"), 7) == 0)
-                strcpy(ObjTyp, "HOUSE");
+                ObjTyp = "HOUSE";
             else
-                strcpy(ObjTyp, "MODEL");
+                ObjTyp = "MODEL";
         }
 
         // color-id

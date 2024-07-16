@@ -68,7 +68,7 @@ void AddMapChange(int x, int y, char Filename[], int tox, int toy)
     MapChangePosY[MapChangeCounter]   = y;
     MapChangeTOPosX[MapChangeCounter] = tox;
     MapChangeTOPosY[MapChangeCounter] = toy;
-    strcpy(Mapchange[MapChangeCounter], Filename);
+    snprintf(Mapchange[MapChangeCounter], sizeof(Mapchange[MapChangeCounter]), "%s", Filename);
     MapChangeCounter++;
 }
 
@@ -80,7 +80,7 @@ void AddMapDoor(int x, int y, char Filename[], int tox, int toy, int key)
     MapChangePosY[MapChangeCounter]   = y;
     MapChangeTOPosX[MapChangeCounter] = tox;
     MapChangeTOPosY[MapChangeCounter] = toy;
-    strcpy(Mapchange[MapChangeCounter], Filename);
+    snprintf(Mapchange[MapChangeCounter], sizeof(Mapchange[MapChangeCounter]), "%s", Filename);
     MapChangeCounter++;
     MapDoorAngle[MapChangeCounter] = 0;
 }
@@ -130,7 +130,7 @@ void MapDoorHandle(void)
         if (MapDoorAngle[i] >= 80) {
             char Filename[50];
             int newx = 0, newy = 0;
-            strcpy(Filename, GetMapChange(MapChangePosX[i], MapChangePosY[i]));
+            snprintf(Filename, sizeof(Filename), "%s", GetMapChange(MapChangePosX[i], MapChangePosY[i]));
             if (Filename[0] != '.') {
                 newx = MapChangeTOPosX[i] - 6;
                 newy = MapChangeTOPosY[i] - 8;

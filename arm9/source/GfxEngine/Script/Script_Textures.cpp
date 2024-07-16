@@ -18,9 +18,7 @@ void LoadTextureCommand(TiXmlElement *map)
     while (texture) {
         id = -1;
         // filename
-        strcpy(FileNameCom, "/wolveslayer/obj/");
-        if (texture->Attribute("file"))
-            strcat(FileNameCom, texture->Attribute("file"));
+        snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/obj/%s", texture->Attribute("file"));
 
         // id
         if (texture->Attribute("id"))

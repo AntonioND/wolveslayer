@@ -1,14 +1,14 @@
 #include "3D.h"
 
 // Those setting are for new game choice
-char StartMap[40];
+char StartMap[60];
 int StartMapX, StartMapY;
 
-char MaincharMd2[40];
-char MaincharText[40];
+char MaincharMd2[60];
+char MaincharText[60];
 
-char waffeMd2[40];
-char waffeText[40];
+char waffeMd2[60];
+char waffeText[60];
 
 void Setit(char *setting)
 {
@@ -16,9 +16,8 @@ void Setit(char *setting)
 
     // Readout startmap
     if (strncmp("StartMap ", setting, 9) == 0) {
-        sscanf(setting, "%*s %s", Filename);
-        strcpy(StartMap, "/wolveslayer/maps/");
-        strcat(StartMap, Filename);
+        sscanf(setting, "%*s %39s", Filename);
+        snprintf(StartMap, sizeof(StartMap), "/wolveslayer/maps/%s", Filename);
     }
 
     if (strncmp("StartPos ", setting, 9) == 0) {
@@ -27,23 +26,19 @@ void Setit(char *setting)
     }
 
     if (strncmp("StartChar ", setting, 10) == 0) {
-        sscanf(setting, "%*s %s", Filename);
-        strcpy(MaincharMd2, "/wolveslayer/chars/");
-        strcat(MaincharMd2, Filename);
+        sscanf(setting, "%*s %39s", Filename);
+        snprintf(MaincharMd2, sizeof(MaincharMd2), "/wolveslayer/chars/%s", Filename);
 
-        sscanf(setting, "%*s %*s %s", Filename);
-        strcpy(MaincharText, "/wolveslayer/chars/");
-        strcat(MaincharText, Filename);
+        sscanf(setting, "%*s %*s %39s", Filename);
+        snprintf(MaincharText, sizeof(MaincharText), "/wolveslayer/chars/%s", Filename);
     }
 
     if (strncmp("StartWaffe ", setting, 11) == 0) {
-        sscanf(setting, "%*s %s", Filename);
-        strcpy(waffeMd2, "/wolveslayer/items/");
-        strcat(waffeMd2, Filename);
+        sscanf(setting, "%*s %39s", Filename);
+        snprintf(waffeMd2, sizeof(waffeMd2), "/wolveslayer/items/%s", Filename);
 
-        sscanf(setting, "%*s %*s %s", Filename);
-        strcpy(waffeText, "/wolveslayer/items/");
-        strcat(waffeText, Filename);
+        sscanf(setting, "%*s %*s %39s", Filename);
+        snprintf(waffeText, sizeof(waffeText), "/wolveslayer/items/%s", Filename);
     }
 }
 

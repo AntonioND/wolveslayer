@@ -2,10 +2,10 @@
 
 extern int Figuren[10];
 
-extern char MaincharMd2[20];
-extern char MaincharText[20];
-extern char waffeMd2[40];
-extern char waffeText[40];
+extern char MaincharMd2[60];
+extern char MaincharText[60];
+extern char waffeMd2[60];
+extern char waffeText[60];
 
 char Names[8][20];
 int Atps[8];
@@ -37,8 +37,7 @@ void LoadChars(TiXmlElement *map)
     TiXmlElement *endef = map->FirstChildElement("enemydef");
     // TiXmlElement *atributes;
 
-    int a;
-    for (a = 0; a < 8; a++)
+    for (int a = 0; a < 8; a++)
         strcpy(Names[a], "-.-öäüß");
 
     while (endef && Num < 7) {
@@ -51,7 +50,7 @@ void LoadChars(TiXmlElement *map)
 
             // copy enemydef-name
             if (endef->Attribute("name"))
-                strcpy(Names[Num], endef->Attribute("name"));
+                snprintf(Names[Num], sizeof(Names[Num]), "%s", endef->Attribute("name"));
 
             // add attackpower
             if (atributes->Attribute("attackpower"))
@@ -62,14 +61,10 @@ void LoadChars(TiXmlElement *map)
                 sscanf(atributes->Attribute("healthpower"), "%i", &Hps[Num]);
 
             // get the texturefilename
-            strcpy(TextureNameCom, "/wolveslayer/chars/");
-            if (texture->Attribute("file"))
-                strcat(TextureNameCom, texture->Attribute("file"));
+            snprintf(TextureNameCom, sizeof(TextureNameCom), "/wolveslayer/chars/%s", texture->Attribute("file"));
 
             // get meshdata
-            strcpy(FileNameCom, "/wolveslayer/chars/");
-            if (mesh->Attribute("file"))
-                strcat(FileNameCom, mesh->Attribute("file"));
+            snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/chars/%s", mesh->Attribute("file"));
 
             // getscale factor
             scale = 35;
@@ -102,20 +97,19 @@ void LoadChars(TiXmlElement *map)
     // <enemy name="Wolve1" pos="3,5"/>
     TiXmlElement *ene = map->FirstChildElement("enemy");
 
-    char eName[20];
-    int enenum;
-    int x, y;
-
     while (ene) {
         if (ene->Attribute("name")) {
             // get the enemy name and search in the defenitions for right one
-            strcpy(eName, ene->Attribute("name"));
-            enenum = -1;
-            for (a = 0; a < 8; a++)
+            char eName[20];
+            snprintf(eName, sizeof(eName), "%s", ene->Attribute("name"));
+
+            int enenum = -1;
+            for (int a = 0; a < 8; a++)
                 if (strncmp(Names[a], eName, strlen(eName)) == 0)
                     enenum = a;
 
             if (ene->Attribute("pos") && enenum >= 0) {
+                int x, y;
                 sscanf(ene->Attribute("pos"), "%i,%i", &x, &y);
                 AddEnemy(x, y, enenum + 2, Atps[enenum], Hps[enenum], rads[enenum], boss[enenum]);
             }

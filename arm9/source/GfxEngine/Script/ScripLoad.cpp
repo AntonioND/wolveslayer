@@ -85,8 +85,6 @@ void UnloadStuff(void)
 
 void LoadScrip(char filename[])
 {
-    char FileNameCom[60];
-
     irqSet(IRQ_VBLANK, NULL);
     ScreenModeLOADING();
     UnloadStuff();
@@ -118,8 +116,8 @@ void LoadScrip(char filename[])
     // print atributes if there are some
     // mapfile (bmp)
     if (map->Attribute("file")) {
-        strcpy(FileNameCom, "/wolveslayer/maps/");
-        strcat(FileNameCom, map->Attribute("file"));
+        char FileNameCom[60];
+        snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/maps/%s", map->Attribute("file"));
         LoadMap(FileNameCom);
     } else {
         Crash("->No Mapfile specified:\n%s", filename);
@@ -127,8 +125,7 @@ void LoadScrip(char filename[])
 
     // song
     if (map->Attribute("music")) {
-        strcpy(SongFile, "/wolveslayer/bgfx/");
-        strcat(SongFile, map->Attribute("music"));
+        snprintf(SongFile, sizeof(SongFile), "/wolveslayer/bgfx/%s", map->Attribute("music"));
     } else {
         Crash("->No Musikfile specified:\n%s", filename);
     }
@@ -179,23 +176,21 @@ void LoadScrip(char filename[])
 
 void LoadMapChange(char *Com)
 {
-    char FileName[20];
-    char FileNameCom[40];
-    int x = 0, y = 0;
-    int tox = 0, toy = 0;
-
     // scan out Map-FileName
-    sscanf(Com, "%*s %*i %*i %s", FileName);
+    char FileName[40];
+    sscanf(Com, "%*s %*i %*i %39s", FileName);
 
     // scan out positions
+    int x = 0, y = 0;
     sscanf(Com, "%*s %i %i", &x, &y);
 
     // scan out GotTOpositions
+    int tox = 0, toy = 0;
     sscanf(Com, "%*s %*i %*i %*s %i %i", &tox, &toy);
 
     // Make a hole path with that
-    strcpy(FileNameCom, "/wolveslayer/maps/");
-    strcat(FileNameCom, FileName);
+    char FileNameCom[60];
+    snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/maps/%s", FileName);
 
     // Here is that final call add the exit
     AddMapChange(x, y, FileNameCom, tox, toy);
@@ -203,30 +198,30 @@ void LoadMapChange(char *Com)
 
 void LoadMapChangeDoor(char *Com)
 {
-    char FileName[20];
-    char FileNameCom[40];
-    int x = 0, y = 0;
-    int tox = 0, toy = 0;
-    int Keynum;
-    // MapChangeDoor Key0 25 5 Map2.txt 1 6
+    // Example:
+    //   MapChangeDoor Key0 25 5 Map2.txt 1 6
 
     // scan out Map-FileName
-    sscanf(Com, "%*s KEY%*i %*i %*i %s %*i %*i", FileName);
+    char FileName[40];
+    sscanf(Com, "%*s KEY%*i %*i %*i %39s %*i %*i", FileName);
 
     // scan out Keynumber
+    int Keynum;
     sscanf(Com, "%*s KEY%i %*i %*i %*s %*i %*i", &Keynum);
     if (Keynum > 100 || Keynum < 0)
         Keynum = 0;
 
     // scan out positions
+    int x = 0, y = 0;
     sscanf(Com, "%*s KEY%*i %i %i %*s %*i %*i", &x, &y);
 
     // scan out GotTOpositions
+    int tox = 0, toy = 0;
     sscanf(Com, "%*s KEY%*i %*i %*i %*s %i %i", &tox, &toy);
 
     // Make a hole path with that
-    strcpy(FileNameCom, "/wolveslayer/maps/");
-    strcat(FileNameCom, FileName);
+    char FileNameCom[60];
+    snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/maps/%s", FileName);
 
     // Here is that final call add the exit
     AddMapDoor(x, y, FileNameCom, tox, toy, Keynum);

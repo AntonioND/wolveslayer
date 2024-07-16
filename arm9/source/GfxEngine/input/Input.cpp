@@ -717,7 +717,7 @@ void inputs(void)
         // Mapchange
         char Filename[50];
         int newx = 0, newy = 0;
-        strcpy(Filename, GetMapChange(GetPX(), GetPY()));
+        snprintf(Filename, sizeof(Filename), "%s", GetMapChange(GetPX(), GetPY()));
         if (Filename[0] != '.') {
             newx = GetMapChangePOSX(GetPX(), GetPY()) - 6;
             newy = GetMapChangePOSY(GetPX(), GetPY()) - 8;

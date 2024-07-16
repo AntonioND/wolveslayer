@@ -76,8 +76,8 @@ void ucase(char character[256], char *New)
 
 void LoadMainChar(void)
 {
-    extern char MaincharMd2[20];
-    extern char MaincharText[20];
+    extern char MaincharMd2[60];
+    extern char MaincharText[60];
     extern int Figuren[10];
     extern int ModelScale[20];
     extern int EquipedWeapon;

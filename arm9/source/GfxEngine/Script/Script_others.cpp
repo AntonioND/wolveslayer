@@ -94,7 +94,6 @@ void LoadDoorCommand(TiXmlElement *map)
     if (doortext) {
         // filename
         if (doortext->Attribute("file")) {
-
             snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/obj/%s", doortext->Attribute("file"));
             LoadDoorTexture(FileNameCom);
         }

@@ -185,7 +185,6 @@ void vBlank(void)
         TextBoxmodeHandler();
 
     if (screenmode != 2 && frameCounter % 59 == 0 && (keysHeld() & KEY_R)) {
-
         char Tmp[50];
 
 #ifdef ShowPosition

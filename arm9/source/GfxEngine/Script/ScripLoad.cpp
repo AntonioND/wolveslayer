@@ -2,7 +2,7 @@
 
 uint16 keyPress2;
 
-bool LOADINGNOw;
+bool LoadingNow;
 
 extern bool outside;
 

@@ -2,7 +2,7 @@
 
 uint16 keyPress2;
 
-bool LOADINGNOw;
+bool LoadingNow;
 
 extern bool outside;
 
@@ -99,7 +99,7 @@ void LoadMainChar(void)
 void LoadScrip(char filename[])
 {
     int a;
-    // LOADINGNOw = true;
+    // LoadingNow = true;
     irqSet(IRQ_VBLANK, NULL);
 
     ScreenModeLOADING();
@@ -189,7 +189,7 @@ void LoadScrip(char filename[])
     extern char EventSpeech[10][256]; // to hold 10 textes for event with 256 chars
     extern int EventSpeechCount;      // Holds the Number of speeches a event has...
     TextBoxmode(EventSpeech, EventSpeechCount, -1);
-    // LOADINGNOw=false;
+    // LoadingNow = false;
     irqSet(IRQ_VBLANK, vBlank);
 }
 

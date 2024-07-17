@@ -318,8 +318,6 @@ void E3D_StartRender()
 
     // Move away from the camera
     glTranslate3f32(0, 0, floattov16(-0.1));
-
-    glPushMatrix();
 }
 
 __attribute__((noreturn)) void Crash(const char *msg, ...)

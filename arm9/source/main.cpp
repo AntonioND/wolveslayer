@@ -70,7 +70,6 @@ int main(int argc, char *argv[])
         // rendering
         Refresh3D();
 
-        glPopMatrix(1);
         glFlush(GL_WBUFFERING); // Stop render
         loopCounter++;
 #ifdef ShowPolyCount

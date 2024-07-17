@@ -1,4 +1,4 @@
-#include "3D.h"
+#include "GfxEngine/3D.h"
 
 extern u8 MapLightR[128 * 128];
 extern u8 MapLightG[128 * 128];

@@ -1,4 +1,4 @@
-#include "../GfxEngine/3D.h"
+#include "GfxEngine/3D.h"
 
 int frcapture = -1;
 

@@ -1,4 +1,4 @@
-#include "3D.h"
+#include "GfxEngine/3D.h"
 
 void LoadMBump3Texture(char filename[], int num, int *target, int *targetb, int *targetc)
 {

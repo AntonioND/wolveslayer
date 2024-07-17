@@ -1,5 +1,5 @@
-#include "../sound/Sound9.h"
-#include "3D.h"
+#include "GfxEngine/3D.h"
+#include "sound/Sound9.h"
 
 // some sounds
 #if 0

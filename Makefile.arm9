@@ -12,8 +12,7 @@ ARM_NONE_EABI_PATH	?= $(WONDERFUL_TOOLCHAIN)/toolchain/gcc-arm-none-eabi/bin/
 # -----------------
 
 SOURCEDIRS	:= arm9/source
-INCLUDEDIRS	:= common/include arm9/source/GfxEngine \
-			   arm9/source/GfxEngine/Script arm9/source/GfxEngine/Model
+INCLUDEDIRS	:= arm9/source common/include
 GFXDIRS		:=
 BINDIRS		:=
 AUDIODIRS	:=

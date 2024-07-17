@@ -1,4 +1,5 @@
-#include "3D.h"
+#include "GfxEngine/3D.h"
+
 int Blend = 8;
 
 typedef struct {

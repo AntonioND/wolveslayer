@@ -70,12 +70,13 @@ int main(int argc, char *argv[])
         // rendering
         Refresh3D();
 
-        glFlush(GL_WBUFFERING); // Stop render
         loopCounter++;
 #ifdef ShowPolyCount
         if (loopCounter == 2)
             glGetInt(GL_GET_POLYGON_RAM_COUNT, &polycount);
 #endif
+
+        glFlush(GL_WBUFFERING); // Stop render
         // swiWaitForVBlank();
     }
     return 0;

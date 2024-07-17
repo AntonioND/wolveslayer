@@ -7,7 +7,7 @@
 #include <nds/arm9/image.h>
 #include <nds/arm9/trig_lut.h>
 
-#define f32 int32
+typedef int32_t f32;
 
 /* DebugInfo Options */
 #define ShowHeapUsage

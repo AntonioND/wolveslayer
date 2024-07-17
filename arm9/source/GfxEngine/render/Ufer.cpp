@@ -79,7 +79,7 @@ void WallUfer(int x, int y, f32 xx, f32 yy)
 
             glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
             glPushMatrix();
-            glTranslatef32((int32_t)xx, (int32_t)0, (int32_t)yy);
+            glTranslatef32(xx, 0, yy);
 
             glBegin(GL_QUADS);
 
@@ -136,7 +136,7 @@ void WallUfer(int x, int y, f32 xx, f32 yy)
                 glBindTexture(GL_TEXTURE_2D, UferB[0]);
 
             glPushMatrix();
-            glTranslatef32((int32_t)xx, (int32_t)0, (int32_t)yy);
+            glTranslatef32(xx, 0, yy);
 
             glBegin(GL_QUADS);
 
@@ -193,7 +193,7 @@ void WallUfer(int x, int y, f32 xx, f32 yy)
                 glBindTexture(GL_TEXTURE_2D, UferB[0]);
 
             glPushMatrix();
-            glTranslatef32((int32_t)xx, (int32_t)0, (int32_t)yy);
+            glTranslatef32(xx, 0, yy);
 
             glBegin(GL_QUADS);
 
@@ -262,7 +262,7 @@ void HalfWallUferA(int x, int y, f32 xx, f32 yy)
                 glBindTexture(GL_TEXTURE_2D, UferB[0]);
 
             glPushMatrix();
-            glTranslatef32((int32_t)xx, (int32_t)0, (int32_t)yy);
+            glTranslatef32(xx, 0, yy);
 
             glBegin(GL_TRIANGLES);
 
@@ -315,7 +315,7 @@ void HalfWallUferA(int x, int y, f32 xx, f32 yy)
                 glBindTexture(GL_TEXTURE_2D, UferB[0]);
 
             glPushMatrix();
-            glTranslatef32((int32_t)xx, (int32_t)0, (int32_t)yy);
+            glTranslatef32(xx, 0, yy);
 
             glBegin(GL_TRIANGLES);
 
@@ -368,7 +368,7 @@ void HalfWallUferA(int x, int y, f32 xx, f32 yy)
                 glBindTexture(GL_TEXTURE_2D, UferB[0]);
 
             glPushMatrix();
-            glTranslatef32((int32_t)xx, (int32_t)0, (int32_t)yy);
+            glTranslatef32(xx, 0, yy);
 
             glBegin(GL_TRIANGLES);
 
@@ -435,7 +435,7 @@ void HalfWallUferB(int x, int y, f32 xx, f32 yy)
                 glBindTexture(GL_TEXTURE_2D, UferB[0]);
 
             glPushMatrix();
-            glTranslatef32((int32_t)xx, (int32_t)0, (int32_t)yy);
+            glTranslatef32(xx, 0, yy);
 
             glBegin(GL_TRIANGLES);
 
@@ -488,7 +488,7 @@ void HalfWallUferB(int x, int y, f32 xx, f32 yy)
                 glBindTexture(GL_TEXTURE_2D, UferB[0]);
 
             glPushMatrix();
-            glTranslatef32((int32_t)xx, (int32_t)0, (int32_t)yy);
+            glTranslatef32(xx, 0, yy);
 
             glBegin(GL_TRIANGLES);
 
@@ -541,7 +541,7 @@ void HalfWallUferB(int x, int y, f32 xx, f32 yy)
                 glBindTexture(GL_TEXTURE_2D, UferB[0]);
 
             glPushMatrix();
-            glTranslatef32((int32_t)xx, (int32_t)0, (int32_t)yy);
+            glTranslatef32(xx, 0, yy);
 
             glBegin(GL_TRIANGLES);
 

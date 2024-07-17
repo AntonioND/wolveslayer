@@ -268,7 +268,7 @@ void RefreshWelt(void)
                                 glPolyFmt(POLY_ALPHA(31) | POLY_CULL_FRONT | POLY_FORMAT_LIGHT0 | POLY_ID(ObjectTextureID[TexObj[x][y]] + 11 + 3));
                             else
                                 glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(ObjectTextureID[TexObj[x][y]] + 11 + 3));
-                            glTranslatef32((int32_t)posx, (int32_t)height, (int32_t)posy);
+                            glTranslatef32(posx, height, posy);
                             glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
                             glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + (DirObj[x][y] * -64)));
                             RenderMD2Model(stackt11, TexObj[x][y] + 10);
@@ -278,7 +278,7 @@ void RefreshWelt(void)
                         if ((Precalcdata[x][y] & (1 << mirrow)) && ObjectMirrow[TexObj[x][y]] == true) {
                             glPushMatrix();
                             glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(ObjectTextureID[TexObj[x][y]] + 11 + 3));
-                            glTranslatef32((int32_t)posx, (int32_t)-height, (int32_t)posy);
+                            glTranslatef32(posx, -height, posy);
                             glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
                             glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + (DirObj[x][y] * -64)));
                             RenderMD2ModelMirrowed(stackt11, TexObj[x][y] + 10);

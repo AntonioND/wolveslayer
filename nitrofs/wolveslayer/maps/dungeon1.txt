@@ -13,10 +13,10 @@
 	<object mesh="building/dwand1-mdm.mdm" colorkey="96,204,58" textureid="2" scale="49"/>
 	<object mesh="building/dwandr-mdm.mdm" colorkey="228,158,158" textureid="2" scale="49"/>
 	<object mesh="building/dwand2-mdm.mdm" colorkey="213,79,79" textureid="2" scale="49"/>
-	<object mesh="building/dwandle-mdm.mdm" colorkey="184,44,44" textureid="2" scale="49"/>	
+	<object mesh="building/dwandle-mdm.mdm" colorkey="184,44,44" textureid="2" scale="49"/>
 	<object mesh="building/dwandre-mdm.mdm" colorkey="209,59,59" textureid="2" scale="49"/>
 	<object mesh="building/dwandl-mdm.mdm" colorkey="204,160,160" textureid="2" scale="49"/>
-	<object mesh="building/dwandlestatue-mdm.mdm" colorkey="99,19,19" textureid="3" scale="49"/>	
+	<object mesh="building/dwandlestatue-mdm.mdm" colorkey="99,19,19" textureid="3" scale="49"/>
 	<object mesh="building/dwandrestatue-mdm.mdm" colorkey="163,55,55" textureid="3" scale="49"/>
 	<object mesh="other/zacken-rechts-mdm.mdm" colorkey="94,224,80" textureid="4" scale="50"/>
 	<object mesh="other/zacken-links-mdm.mdm" colorkey="88,182,54" textureid="4" scale="50"/>
@@ -26,7 +26,7 @@
 	<object mesh="other/zacken-linksoh-mdm.mdm" colorkey="160,224,80" textureid="4" scale="50"/>
 	<object mesh="other/pfeil-ani-mdm.mdm" colorkey="195,3,166" textureid="5" scale="50" radius="0" selfilluminated="true"/>
 	<object mesh="other/kiste1-mdm.mdm"           colorkey="245,20,70"            textureid="6" scale="30" culling="true"/>
-	<object mesh="building/dwand-ulinks-mdm.mdm" colorkey="180,90,120" textureid="2" scale="49"/>	
+	<object mesh="building/dwand-ulinks-mdm.mdm" colorkey="180,90,120" textureid="2" scale="49"/>
 	<object mesh="building/dwand-urechts-mdm.mdm" colorkey="200,50,180" textureid="2" scale="49"/>
 
 	<texture id="1" file="furniture/saeule2.bmp"/>
@@ -36,17 +36,15 @@
 	<texture id="5" file="other/pfeil.bmp"/>
 	<texture id="6" file="other/invibox.bmp"/>
 
-	
 	<mapchange pos="4,25" targetmap="friedhof.txt" targetpos="13,3"/>
 	<mapchange pos="4,1" targetmap="boss1.txt" targetpos="5,10"/>
 	<mapchange pos="0,5" targetmap="dungeon2.txt" targetpos="27,8"/>
 
 	<enemydef name="Wolve2">
-		<mesh 		file="enemys/wolf.md2" 	scale="40"	radius="1.0"/>
-		<texture 	file="enemys/wolf3.bmp"			/>
-		<atributes 	healthpower="30" 	attackpower="3"	/>
+		<mesh		file="enemys/wolf.md2"	scale="40"	radius="1.0"/>
+		<texture	file="enemys/wolf3.bmp"			/>
+		<atributes	healthpower="30"	attackpower="3"	/>
 	</enemydef>
-
 
 	<enemy name="Wolve2" pos="4,5"/>
 	<enemy name="Wolve2" pos="4,14"/>

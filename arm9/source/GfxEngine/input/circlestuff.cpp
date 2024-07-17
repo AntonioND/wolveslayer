@@ -39,8 +39,10 @@ void makecircle(int rad)
     } while (deg <= 511);
 
     // fine...now we can malloc the space for it and fill it with datas :D
-    CircleLUT[rad].Pix   = (circlepoint *)malloc(sizeof(circlepoint) * count);
     CircleLUT[rad].count = count;
+    CircleLUT[rad].Pix   = (circlepoint *)malloc(sizeof(circlepoint) * count);
+    if (CircleLUT[rad].Pix == NULL)
+        Crash("Not enough RAM:\n%s", __func__);
 
     count = 0;
     deg   = 0;

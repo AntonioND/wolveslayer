@@ -1,5 +1,3 @@
-#include <malloc.h>
-
 #include "../3D.h"
 #include "XML/tinyxml.h"
 

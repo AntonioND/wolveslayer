@@ -15,6 +15,8 @@ void Precalcmd2light(int n, int num)
     nds_vertex_t *vert = Models[num].rahmen[n].verts;
     free(ColorContainer);
     ColorContainer = (u16 *)malloc(2 * Models[num].header.num_vertices);
+    if (ColorContainer == NULL)
+        Crash("Not enough RAM:\n%s", __func__);
 
     int rot = GetLightRot() * 2;
     for (int i = 0; i < Models[num].header.num_vertices; ++i)

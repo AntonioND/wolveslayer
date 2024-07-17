@@ -54,12 +54,15 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
     memcpy(&Models[num].header, md2_buffer, sizeof(md2_header_t));
 
     if ((Models[num].header.ident != 844121161) || (Models[num].header.version != 8))
-        Crash("Error: Bad version:\n%s", Filename);
+        Crash("MD2: Bad version:\n%s", Filename);
 
     // memory allocation
     Models[num].texcoords = (md2_texCoord_t *)malloc(sizeof(md2_texCoord_t) * Models[num].header.num_st);
     Models[num].triangles = (md2_triangle_t *)malloc(sizeof(md2_triangle_t) * Models[num].header.num_tris);
     Models[num].frames    = (md2_frame_t *)malloc(sizeof(md2_frame_t) * Models[num].header.num_frames);
+
+    if ((Models[num].texcoords == NULL) || (Models[num].triangles == NULL) || (Models[num].frames == NULL))
+        Crash("MD2: Not enough RAM (1):\n%s", Filename);
 
     // Read float textcoords
     memcpy(Models[num].texcoords, md2_buffer + Models[num].header.offset_st, sizeof(md2_texCoord_t) * Models[num].header.num_st);
@@ -73,6 +76,8 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
     for (int i = 0; i < Models[num].header.num_frames; ++i) {
         // memory allocation for vertices of this frame
         Models[num].frames[i].verts = (md2_vertex_t *)malloc(sizeof(md2_vertex_t) * Models[num].header.num_vertices);
+        if (Models[num].frames[i].verts == NULL)
+            Crash("MD2: Not enough RAM (2):\n%s", Filename);
 
         size_t size;
 
@@ -102,8 +107,15 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
     Models[num].flaechenkoords = (nds_texCoord_t *)malloc(sizeof(nds_texCoord_t) * Models[num].header.num_st);
     Models[num].dreiecke       = (nds_triangle_t *)malloc(sizeof(nds_triangle_t) * Models[num].header.num_tris);
     Models[num].rahmen         = (nds_frame_t *)malloc(sizeof(nds_frame_t) * Models[num].header.num_frames);
-    for (int i = 0; i < Models[num].header.num_frames; ++i)
+
+    if ((Models[num].flaechenkoords == NULL) || (Models[num].dreiecke == NULL) || (Models[num].rahmen == NULL))
+        Crash("MD2: Not enough RAM (3):\n%s", Filename);
+
+    for (int i = 0; i < Models[num].header.num_frames; ++i) {
         Models[num].rahmen[i].verts = (nds_vertex_t *)malloc(sizeof(nds_vertex_t) * Models[num].header.num_vertices);
+        if (Models[num].rahmen[i].verts == NULL)
+            Crash("MD2: Not enough RAM (4):\n%s", Filename);
+    }
 
     // nun schön brav eins nach dem anderen von float und den dreck in fixed point math konvertieren
     int I, j, N;

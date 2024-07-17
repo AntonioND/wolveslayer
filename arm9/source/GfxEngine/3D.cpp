@@ -1,4 +1,4 @@
-#include <stdarg.h>
+#include <malloc.h>
 
 #include <filesystem.h>
 
@@ -186,6 +186,16 @@ void vBlank(void)
 
     if (screenmode != 2 && frameCounter % 59 == 0 && (keysHeld() & KEY_R)) {
         char Tmp[50];
+
+#ifdef ShowHeapUsage
+        extern void *fake_heap_end;
+        extern void *fake_heap_start;
+        size_t total_heap = (uintptr_t)fake_heap_end - (uintptr_t)fake_heap_start;
+
+        struct mallinfo mi = mallinfo();
+        sprintf(Tmp, "Heap: %zu/%zu KB", mi.uordblks / 1024, total_heap / 1024);
+        Print(Tmp, 80, 85);
+#endif
 
 #ifdef ShowPosition
         extern float PlPosX;

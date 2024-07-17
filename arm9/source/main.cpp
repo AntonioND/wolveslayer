@@ -48,8 +48,6 @@ int main(int argc, char *argv[])
     // extern int frameold;
     extern int polycount;
 
-    // sprintf(Heap, "heap: %d  ", (fake_heap_end - __end__) / 1024);
-
     while (1) {
         scanKeys();
         CheckEndGame();

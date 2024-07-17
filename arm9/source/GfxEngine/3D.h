@@ -10,6 +10,7 @@
 #define f32 int32
 
 /* DebugInfo Options */
+#define ShowHeapUsage
 #define ShowPosition
 #define ShowPolyCount
 

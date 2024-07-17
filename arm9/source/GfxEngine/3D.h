@@ -105,7 +105,6 @@ v16 GetTerrain(int x, int y, int num);
 //>>>>>>>>>>>>>>>>Script
 void ReadSettings(void);                // gets some settings
 void LoadScrip(char filename[]);        // Loads a new script
-void ucase(char *character, char *New); // Returns cptial lettered text of the given text
 
 //>>>>>>>>>>>>>>>>Input
 void inputs(void);

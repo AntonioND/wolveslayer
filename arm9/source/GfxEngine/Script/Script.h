@@ -4,7 +4,8 @@
 //>>>>>>>>>>>>>>>>Script
 
 // Returns captial lettered text of the given text
-void ucase(char character[256], char *New);
+void ucase(char *character, char *New);
+
 // Loads a new script
 void LoadScrip(char filename[]);
 

@@ -25,12 +25,8 @@ extern bool ObjectCulling[Object_Count];
 extern int Ufer[10];
 
 // Metronoms
-extern int Tackt3er;
-extern int QuarterTackt;
-extern float sTackt;
-extern float sTackt2;
-extern float sTackt3;
 extern int tackt32;
+
 // MapDatas
 extern signed char TexBod[128][128];
 extern signed char TexABod[128][128];

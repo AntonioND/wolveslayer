@@ -23,7 +23,7 @@ void LoadAutotileTexture(char filename[], int num)
 
     swiWaitForVBlank();
 
-    u8 *part = (u8 *)malloc(128 * 129);
+    u8 *part = (u8 *)malloc(128 * 128);
     if (part == NULL)
         Crash("Not enough memory for buffer:\n%s", filename);
 
@@ -33,9 +33,10 @@ void LoadAutotileTexture(char filename[], int num)
 
     // lets load 16 first
     for (ax = 0; ax < 3; ax++) { // all 16 parts of 128x128 tile thing
-        for (bx = 0; bx < 128; bx++)
+        for (bx = 0; bx < 128; bx++) {
             for (by = 0; by < 128; by++) // each pixel
                 part[bx + (by * 128)] = buffer8[(bx + (ax * 128)) + (by * 384)];
+        }
 
         glGenTextures(1, &AutotileTextur[num][ax]);
         glBindTexture(0, AutotileTextur[num][ax]);

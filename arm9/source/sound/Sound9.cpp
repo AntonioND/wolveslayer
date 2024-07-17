@@ -15,6 +15,7 @@ static u32 pool[MEMPOOL_SIZE / 4];
 // Call once on startup
 void SndInit9()
 {
+    DC_FlushRange(&pool, MEMPOOL_SIZE);
     SndSetMemPool(&pool, MEMPOOL_SIZE);
 }
 

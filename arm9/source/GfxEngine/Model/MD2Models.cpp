@@ -1,4 +1,5 @@
 #include "MD2.h"
+#include "GfxEngine/texture/Light.h"
 
 MD2Entity Models[MD2_Count];
 bool ModelEnable[MD2_Count];

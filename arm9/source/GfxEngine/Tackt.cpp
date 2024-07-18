@@ -1,4 +1,5 @@
 #include "3D.h"
+#include "GfxEngine/texture/Light.h"
 
 static float sTackt = 0;
 

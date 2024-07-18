@@ -1,7 +1,5 @@
 #include "GfxEngine/3D.h"
-
-extern u8 EnvR, EnvG, EnvB;
-extern int Blend;
+#include "GfxEngine/texture/Light.h"
 
 void RenderWasser(int floating, f32 x, f32 y, f32 z)
 {

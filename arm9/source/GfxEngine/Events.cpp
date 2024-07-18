@@ -1,6 +1,7 @@
 #include "3D.h"
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/Settings.h"
+#include "GfxEngine/texture/Light.h"
 
 char EventSpeech[10][256]; // to hold 10 textes for event with 256 chars
 int EventSpeechCount;      // Holds the Number of speeches a event has...
@@ -28,7 +29,6 @@ void CheckEndGame(void)
     extern bool GegnerIsBoss[10];
     extern int GegnerCount;
     extern void Splash(void);
-    extern int Blend;
 
     if (Gameended == true && (keysDown() & KEY_START)) {
         Gameended = false;

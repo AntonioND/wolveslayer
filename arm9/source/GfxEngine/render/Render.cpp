@@ -4,6 +4,7 @@
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/render/Obj_Wall.h"
 #include "GfxEngine/Tackt.h"
+#include "GfxEngine/texture/Light.h"
 #include "GfxEngine/Villagers.h"
 
 extern uint16 keyPress;

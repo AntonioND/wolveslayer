@@ -1,7 +1,5 @@
 #include "GfxEngine/3D.h"
-
-extern u8 EnvR, EnvG, EnvB;
-extern int Blend;
+#include "GfxEngine/texture/Light.h"
 
 extern int WallX, WallY;
 extern bool walltrans;

@@ -120,24 +120,6 @@ void RenderMD2ModelMirrowed(int n, int num);
 bool GetModelCollsisionXY(int num, int x, int y, int rot); // gets a true or false if at a certain 2d pos of a topviewed model is something
 
 //>>>>>>>>>>>>>>>>Lights
-void RunTime(void); // recalcs the lightcolors(usid to run the day/night-swap
-void SetRot(int rot);
-void GrapLight(int x, int y);          // Simple graping lights(its used for terrain)
-void GiveLight(int x, int y, u8 *col); // Same like above but gives color back (col[3] rgb)
-void PreCalcLightHelper(int pos[2], float softpos[2], float radius, int rot);
-
-// prepears some lights for moving md2
-void SetMdlLights(int pos[2], float softpos[2], float radius, int rot);
-// Prepares lights way faster for standing md2(tree or someting)
-void SetObjLights(int pos[2], int rot);
-// selfexplaining
-void SetObjLightsSelfilluminated(void);
-// This is used per vertex for a md2...a good alternative to hw light i hope
-u16 GrapMdlLight(v16 nx, v16 normy, v16 nz);
-// This is used per vertex for a md2...best alternative to hw light i hope
-void GrapMd2Light(u8 Index, u16 &buff);
-int GetLightRot(void);
-
 // Dynamic Lights
 void ResetDynamic(void);
 void AddDynamic(int x, int y, u8 r, u8 g, u8 b);

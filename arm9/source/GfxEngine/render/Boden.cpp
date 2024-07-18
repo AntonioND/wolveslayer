@@ -1,6 +1,7 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/render/Boden.h"
+#include "GfxEngine/texture/Light.h"
 
 typedef struct {
     v16 v[4];

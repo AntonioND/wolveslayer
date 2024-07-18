@@ -1,23 +1,24 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
 
-int Blend = 8;
-
 typedef struct {
     v16 v[4];
     u8 sidewalls;
 } v16x4;
 
+int Blend = 8;
 u8 EnvR = 255, EnvG = 255, EnvB = 255;
-u8 EnvR3, EnvG3, EnvB3;
 
-int Time, Time2 = 1200;
+static u8 EnvR3, EnvG3, EnvB3;
+
+static int Time, Time2 = 1200;
+
 extern bool outside;
 
-int MdlLight[4][3];
-u16 MdlLight16[4];
+static int MdlLight[4][3];
+static u16 MdlLight16[4];
 
-int rotation;
+static int rotation;
 
 void SetRot(int rot)
 {
@@ -174,8 +175,8 @@ void GrapLight(int x, int y)
     GFX_COLOR = (u32)ViewportMapLights[x - CamPosX + 5][y - CamPosY + 3];
 }
 
-// intern interpolation function
-void GrapLightInterpolate(int x, int y, float sx, float sy, int *col)
+// internal interpolation function
+static void GrapLightInterpolate(int x, int y, float sx, float sy, int *col)
 {
     extern u8 WorldLightR[128 * 128];
     extern u8 WorldLightG[128 * 128];

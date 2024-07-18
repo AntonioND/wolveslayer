@@ -1,5 +1,6 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/circlestuff.h"
+#include "GfxEngine/texture/Light.h"
 #include "GfxEngine/Villagers.h"
 
 // Variblen für die matrix
@@ -434,7 +435,7 @@ void inputs(void)
     extern bool Gameended;
     extern int GegnerStatus[10];
     extern signed char ShapeObj[128][128];
-    extern int Blend;
+
     int obwalldoor = Obj_WallDoor;
 
     if (Gameended)

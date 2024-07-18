@@ -1,5 +1,6 @@
 #include "3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/texture/Light.h"
 
 typedef struct {
     v16 v[4];
@@ -119,8 +120,6 @@ void OpenMapDoor(int x, int y)
 
 void MapDoorHandle(void)
 {
-    extern int Blend;
-
     for (int i = 0; i < MapChangeCounter; i++) {
         if (MapDoorAngle[i] >= 1 && MapDoorAngle[i] <= 80)
             MapDoorAngle[i] += 10;

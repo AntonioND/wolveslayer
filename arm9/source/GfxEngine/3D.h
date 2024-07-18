@@ -72,34 +72,6 @@ void ItemMode(void);
 void PauseMode(void);
 void EquipMode(void);
 
-//>>>>>>>>>>>>>>>>>MAP
-
-void LoadMap(char *filename);
-u32 MapBodenGetRGB(int x, int y);
-u32 MapObjectGetRGB(int x, int y);
-u8 MapObjGetRot(int x, int y);
-bool IsObjHouse(int x, int y);    // deterimantes if there is a housepart at give pos.
-bool IsObjWall(int x, int y);     // deterimantes if there is a wall at give pos.
-bool IsObjBumpWall(int x, int y); // deterimantes if there is a bumpmapped wall at give pos.
-float GetHight(int x, int y);
-int MapGetWr(void);
-int MapGetHr(void);
-
-// Mapchanges
-
-// For reseting mapchange positions and mapchangedoors
-void ResetMapChange(void);
-void AddMapChange(int x, int y, char Filename[], int tox, int toy);        // adds a mapchange
-void AddMapDoor(int x, int y, char Filename[], int tox, int toy, int key); // adds a door
-const char *GetMapChange(int x, int y);
-int GetMapChangePOSX(int x, int y);
-int GetMapChangePOSY(int x, int y);
-// mapdoors
-const char *GetMapDoor(int x, int y);
-int GetMapDoorAngle(int x, int y);
-void OpenMapDoor(int x, int y); // This sets the door angle to 1 if it is unlocked
-void MapDoorHandle(void);       // This opens doors which angle is greater then 0
-v16 GetTerrain(int x, int y, int num);
 //>>>>>>>>>>>>>>>>Script
 void LoadScrip(char filename[]);        // Loads a new script
 
@@ -157,13 +129,6 @@ void RenderHouseM(int mode, f32 x, f32 y, f32 z);
 void RenderHouseBorder(int mode, int dirrection, f32 x, f32 y, f32 z);
 void RenderHouseBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y, f32 z);
 void RenderHouseCorner(int mode, int dirrection, f32 x, f32 y, f32 z);
-
-// Bumpmapping
-
-// Used for walls only
-void LoadMBump3Texture(char filename[], int num, int *target, int *targetb, int *targetc);
-// Used for grounds only (no water and no autotiles!)
-void LoadMBump5Texture(char filename[], int num);
 
 // Enemys
 void ResetEnemys(void);

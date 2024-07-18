@@ -1,4 +1,5 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/MapLoad.h"
 #include "GfxEngine/texture/Light.h"
 
 extern int WallX, WallY;

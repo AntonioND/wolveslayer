@@ -1,5 +1,6 @@
 #include "3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/MapLoad.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/texture/Light.h"
@@ -12,16 +13,16 @@ u8 MapLightB[128 * 128];
 
 bool outside;
 
-int MapW, MapH;
-int MapWreal, MapHreal;
+static int MapW, MapH;
+static int MapWreal, MapHreal;
 
-char Mapchange[25][60];
-int MapChangePosX[25], MapChangePosY[25];
-int MapChangeTOPosX[25], MapChangeTOPosY[25];
-int MapChangeCounter;
-bool MapChangeDoor[25];
-int MapDoorKey[25];
-int MapDoorAngle[25];
+static char Mapchange[25][60];
+static int MapChangePosX[25], MapChangePosY[25];
+static int MapChangeTOPosX[25], MapChangeTOPosY[25];
+static int MapChangeCounter;
+static bool MapChangeDoor[25];
+static int MapDoorKey[25];
+static int MapDoorAngle[25];
 
 extern int ObjektTexA[Object_Count];
 extern char ObjektTyp[Object_Count][13];
@@ -183,15 +184,14 @@ int GetMapChangePOSY(int x, int y)
     return 0;
 }
 
-// For getting tiled size of map
 int MapGetWr(void)
 {
-    return (MapWreal);
+    return MapWreal;
 }
 
 int MapGetHr(void)
 {
-    return (MapHreal);
+    return MapHreal;
 }
 
 // For getting BodenDatas
@@ -212,7 +212,6 @@ u32 MapBodenGetRGB(int x, int y)
     // return (MapColors[xx + yy * MapW].w);
 }
 
-// For getting Objectrotation
 u8 MapObjGetRot(int x, int y)
 {
     int xx  = (x * 3) + 1;
@@ -241,7 +240,6 @@ u8 MapObjGetRot(int x, int y)
     return rot2;
 }
 
-// For getting ObjectDatas
 u32 MapObjectGetRGB(int x, int y)
 {
     if (x > -1 && y > -1) {
@@ -312,7 +310,6 @@ bool IsObjBumpWall(int x, int y)
     return false;
 }
 
-// for getting height
 float GetHight(int x, int y)
 {
     int xx = (x * 3) + 2;

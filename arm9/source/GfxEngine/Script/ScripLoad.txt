@@ -1,3 +1,4 @@
+#include "GfxEngine/MapLoad.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/Settings.h"
@@ -7,8 +8,6 @@
 uint16 keyPress2;
 
 bool LoadingNow;
-
-extern bool outside;
 
 extern int Door[1];
 

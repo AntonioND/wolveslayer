@@ -1,3 +1,4 @@
+#include "GfxEngine/texture/bumpmapping.h"
 #include "Script.h"
 
 int TextureWidthHeight[Object_Count];

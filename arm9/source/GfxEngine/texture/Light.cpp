@@ -1,5 +1,6 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/MapLoad.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/texture/DynamicLights.h"
 
@@ -9,8 +10,6 @@ u8 EnvR = 255, EnvG = 255, EnvB = 255;
 static u8 EnvR3, EnvG3, EnvB3;
 
 static int Time, Time2 = 1200;
-
-extern bool outside;
 
 static int MdlLight[4][3];
 static u16 MdlLight16[4];

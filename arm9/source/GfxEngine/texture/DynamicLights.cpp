@@ -1,11 +1,8 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/MapLoad.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/texture/Light.h"
-
-extern u8 MapLightR[128 * 128];
-extern u8 MapLightG[128 * 128];
-extern u8 MapLightB[128 * 128];
 
 u8 WorldLightR[128 * 128];
 u8 WorldLightG[128 * 128];

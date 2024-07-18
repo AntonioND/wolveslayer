@@ -1,5 +1,6 @@
 #include "3D.h"
 #include "GfxEngine/PreCalc.h"
+#include "GfxEngine/MapLoad.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/texture/DynamicLights.h"
@@ -599,7 +600,6 @@ static void PreCalcObj(void)
 
 static void GetRGBfromMap(int x, int y, u8 &r, u8 &g, u8 &b)
 {
-    extern u32 MapImage[256][256];
     r = u8(MapImage[x][y] & (0xFF));
     g = u8((MapImage[x][y] & (0xFF00)) >> 8);
     b = u8((MapImage[x][y] & (0xFF0000)) >> 16);

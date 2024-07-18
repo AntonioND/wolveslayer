@@ -1,5 +1,6 @@
-#include "Script.h"
+#include "GfxEngine/MapLoad.h"
 #include "GfxEngine/texture/DynamicLights.h"
+#include "Script.h"
 
 int Counter;
 void ResetCounter(void)

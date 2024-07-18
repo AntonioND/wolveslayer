@@ -1,5 +1,6 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/MapLoad.h"
 #include "GfxEngine/Settings.h"
 #include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/Villagers.h"

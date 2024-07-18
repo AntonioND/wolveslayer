@@ -1,5 +1,6 @@
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/Enemys.h"
+#include "GfxEngine/Events.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
@@ -166,8 +167,6 @@ void LoadScrip(char filename[])
     // extern void ShowCollisionMap(int modelnum);
     // ShowCollisionMap(12);
 
-    extern char EventSpeech[10][256]; // to hold 10 textes for event with 256 chars
-    extern int EventSpeechCount;      // Holds the Number of speeches a event has...
     TextBoxmode(EventSpeech, EventSpeechCount, -1);
     irqSet(IRQ_VBLANK, vBlank);
 }

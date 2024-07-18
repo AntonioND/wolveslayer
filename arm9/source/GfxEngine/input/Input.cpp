@@ -1,6 +1,7 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/circlestuff.h"
 #include "GfxEngine/Enemys.h"
+#include "GfxEngine/Events.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/output/Touchscreen.h"
@@ -143,7 +144,6 @@ void Menu(void)
 void Interact(void)
 {
     // Lets start interact
-    extern bool Gameended;
 
     bool l, r, u, d;
     l = false;
@@ -429,8 +429,6 @@ void inputs(void)
 {
     bool u, l, d, r;
     bool ul, ur, dl, dr;
-
-    extern bool Gameended;
 
     int obwalldoor = Obj_WallDoor;
 

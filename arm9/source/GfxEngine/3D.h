@@ -77,11 +77,6 @@ void LoadObjectTexture(char filename[], int *Target, int num);
 #define Obj_HouseCor  22;
 #define Obj_HouseDoor 23;
 
-// Events
-void ResetEvent(void);
-void AddTexttoEvent(char txt[256]);
-void CheckEndGame(void);
-
 // Textbox
 
 // will be called if char talks to NPC or other things

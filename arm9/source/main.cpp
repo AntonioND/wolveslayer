@@ -1,5 +1,6 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/Enemys.h"
+#include "GfxEngine/Events.h"
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/output/Touchscreen.h"

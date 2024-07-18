@@ -1,6 +1,6 @@
 #include <math.h>
 
-#include "../3D.h"
+#include "GfxEngine/3D.h"
 
 typedef struct {
     short X;

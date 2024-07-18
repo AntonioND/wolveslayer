@@ -1,4 +1,4 @@
-#include "../3D.h"
+#include "GfxEngine/3D.h"
 
 extern u8 EnvR, EnvG, EnvB;
 extern int Blend;

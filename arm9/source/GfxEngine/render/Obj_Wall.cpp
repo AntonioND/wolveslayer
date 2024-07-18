@@ -1,4 +1,4 @@
-#include "../3D.h"
+#include "GfxEngine/3D.h"
 
 extern int WallX, WallY;
 extern u8 EnvR, EnvG, EnvB;

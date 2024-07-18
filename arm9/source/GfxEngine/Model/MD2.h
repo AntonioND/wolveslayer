@@ -1,4 +1,4 @@
-#include "../3D.h"
+#include "GfxEngine/3D.h"
 
 #define MD2_Count 62
 

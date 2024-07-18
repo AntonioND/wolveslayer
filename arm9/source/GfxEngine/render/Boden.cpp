@@ -1,4 +1,4 @@
-#include "../3D.h"
+#include "GfxEngine/3D.h"
 
 typedef struct {
     v16 v[4];

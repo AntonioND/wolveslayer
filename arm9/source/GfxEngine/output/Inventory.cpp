@@ -1,4 +1,4 @@
-#include "../3D.h"
+#include "GfxEngine/3D.h"
 
 int Inventory[100];
 int Inventory_Count = 0;

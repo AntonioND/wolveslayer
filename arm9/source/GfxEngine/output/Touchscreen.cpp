@@ -1,6 +1,6 @@
 #include <math.h>
 
-#include "../3D.h"
+#include "GfxEngine/3D.h"
 
 extern u8 Font1[668 * 11];
 extern u16 scrL_bin[256 * 192];

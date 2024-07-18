@@ -1,4 +1,4 @@
-#include "../3D.h"
+#include "GfxEngine/3D.h"
 #include "MD2.h"
 
 /* table of precalculated normals */

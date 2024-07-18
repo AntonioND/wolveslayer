@@ -9,7 +9,7 @@
 
 typedef int32_t f32;
 
-/* DebugInfo Options */
+// DebugInfo Options
 #define ShowHeapUsage
 #define ShowPosition
 #define ShowPolyCount

@@ -9,8 +9,6 @@ uint16 keyPress2;
 
 bool LoadingNow;
 
-extern int Door[1];
-
 void LineToCommand(char Com[]); // This line compares string with a command list
 // and if it is a command it gives that to the next function
 

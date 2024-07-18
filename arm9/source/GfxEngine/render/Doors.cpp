@@ -2,7 +2,7 @@
 #include "GfxEngine/render/Obj_House.h"
 #include "GfxEngine/texture/Light.h"
 
-extern int Door[1];
+int Door[1];
 
 static const t16 overdoor = inttot16(17);
 static const t16 ldoor    = inttot16(13);
@@ -25,8 +25,6 @@ void AddTexttoDoor(char txt[256])
 
 void LoadDoorTexture(char filename[])
 {
-    extern int Door[1];
-
     u8 *buffer8;
     u16 *pal;
     u32 height, width;

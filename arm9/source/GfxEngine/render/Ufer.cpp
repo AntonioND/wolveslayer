@@ -5,6 +5,11 @@
 #include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/texture/Light.h"
 
+int Ufer[10];
+int UferB[10];
+int UferC[10];
+bool UferBump[10];
+
 static u8 left;
 static u8 right;
 static u8 front;
@@ -35,11 +40,6 @@ static t16 heightot16down(v16 h)
     return inttot16(56 - f);
     // return minusterrain;
 }
-
-extern int Ufer[10];
-extern int UferB[10];
-extern int UferC[10];
-extern bool UferBump[10];
 
 static void WallUfer(int x, int y, f32 xx, f32 yy)
 {

@@ -3,6 +3,7 @@
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/render/Doors.h"
+#include "GfxEngine/render/Obj_Wall.h"
 #include "GfxEngine/render/Render.h"
 #include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/texture/Light.h"
@@ -26,7 +27,6 @@ static bool MapChangeDoor[25];
 static int MapDoorKey[25];
 static int MapDoorAngle[25];
 
-extern int ObjektTexA[Object_Count];
 extern char ObjektTyp[Object_Count][13];
 extern u32 ObjektColorKey[Object_Count]; // For managing mapchange attributes
 

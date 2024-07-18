@@ -10,20 +10,6 @@
 #include "sound/Sound9.h"
 
 //*******************Globale variablen
-int Wasser[1];
-u32 WasserKey;
-
-int Ufer[10];
-int UferB[10];
-int UferC[10];
-bool UferBump[10];
-
-int Figuren[10];
-
-// 26 textureslots for objects
-int ObjektTex[Object_Count];  // Standard slot for objects
-int ObjektTexB[Object_Count]; // Advanced slot for objects(bumpmapping)
-int ObjektTexC[Object_Count]; // Advanced slot for objects(bumpmapping)
 
 int ObjectTextureID[Object_Count];
 
@@ -35,10 +21,6 @@ bool ObjectMirrow[Object_Count];
 bool ObjectIllumination[Object_Count];
 bool ObjectNoGround[Object_Count];
 bool ObjectCulling[Object_Count];
-
-int Door[1];
-
-int Waffe[1];
 
 u16 scrL_bin[256 * 192];
 u16 touch_bin[256 * 192];

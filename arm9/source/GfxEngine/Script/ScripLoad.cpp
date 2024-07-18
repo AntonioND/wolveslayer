@@ -13,8 +13,6 @@ uint16 keyPress2;
 
 bool LoadingNow;
 
-extern int Door[1];
-
 extern void LoadChars(TiXmlElement *map);
 
 extern void LoadTextureCommand(TiXmlElement *map);

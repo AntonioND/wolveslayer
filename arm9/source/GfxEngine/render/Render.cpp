@@ -17,10 +17,8 @@
 extern uint16 keyPress;
 
 // Texturen zum anzeigen
-extern int Wasser[1];
-extern char WasserKey[7];
-extern int Figuren[10];
-extern int ObjektTex[Object_Count];
+int Figuren[10];
+
 extern char ObjektTyp[Object_Count][13];
 extern char ObjektColorKey[Object_Count][7];
 extern bool ObjectCulling[Object_Count];

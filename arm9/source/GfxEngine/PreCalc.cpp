@@ -3,6 +3,7 @@
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
+#include "GfxEngine/render/Wasser.h"
 #include "GfxEngine/texture/DynamicLights.h"
 
 u8 Precalcdata[128][128];
@@ -25,11 +26,6 @@ v16 TerrainMid[128][128];
 
 extern uint16 keyPress;
 
-extern int Wasser[1];
-extern u32 WasserKey;
-
-extern int Figuren[10];
-extern int ObjektTexA[Object_Count];
 extern char ObjektTyp[Object_Count][13];
 extern u32 ObjektColorKey[Object_Count];
 

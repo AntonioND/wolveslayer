@@ -1,17 +1,9 @@
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/render/Ufer.h"
+#include "GfxEngine/render/Wasser.h"
 #include "GfxEngine/texture/bumpmapping.h"
 #include "Script.h"
-
-extern int Wasser[1];
-extern u32 WasserKey;
-
-extern int Ufer[10];
-extern int UferA[10];
-extern int UferB[10];
-extern int UferC[10];
-extern bool UferBump[10];
 
 void LoadBodenCommand(TiXmlElement *map)
 {

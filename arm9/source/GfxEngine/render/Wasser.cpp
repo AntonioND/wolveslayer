@@ -1,6 +1,9 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/texture/Light.h"
 
+int Wasser[1];
+u32 WasserKey;
+
 void RenderWasser(int floating, f32 x, f32 y, f32 z)
 {
     v16 size = floattov16(.6);

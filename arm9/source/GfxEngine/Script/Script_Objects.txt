@@ -1,6 +1,6 @@
+#include "GfxEngine/render/Obj_Wall.h"
 #include "script.h"
 
-extern int ObjektTexA[Object_Count];
 extern char ObjektTyp[Object_Count][13];
 extern u32 ObjektColorKey[Object_Count];
 extern float ObjectRadius[Object_Count];

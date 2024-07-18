@@ -1,12 +1,9 @@
+#include "GfxEngine/render/Obj_Wall.h"
 #include "GfxEngine/texture/bumpmapping.h"
 #include "Script.h"
 
 int TextureWidthHeight[Object_Count];
 bool TexturehasBump[Object_Count];
-
-extern int ObjektTex[Object_Count];  // Standard slot for objects
-extern int ObjektTexB[Object_Count]; // Advanced slot for objects(bumpmapping)
-extern int ObjektTexC[Object_Count]; // Advanced slot for objects(bumpmapping)
 
 void LoadTextureCommand(TiXmlElement *map)
 {

@@ -1,10 +1,8 @@
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
+#include "GfxEngine/render/Wasser.h"
 #include "GfxEngine/texture/bumpmapping.h"
 #include "script.h"
-
-extern int Wasser[1];
-extern u32 WasserKey;
 
 extern int Ufer[1];
 

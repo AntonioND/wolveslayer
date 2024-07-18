@@ -1,3 +1,4 @@
+#include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/Settings.h"
 #include "Script.h"
@@ -44,8 +45,6 @@ extern void LoadWasserCommand(char *Com);           // Gets the filename and col
 extern void LoadAutotileCommand(char *Com, int num);
 extern void AddAutotileIgnoreCommand(char *Com, int num);
 
-extern u32 AutotileColorKeyMaster[4];
-extern int AutotileIgnorecolorsNum[4];
 extern u32 ObjektColorKey[Object_Count];
 extern char ObjektTyp[Object_Count][13];
 extern float ObjectRadius[Object_Count];

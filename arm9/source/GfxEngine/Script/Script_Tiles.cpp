@@ -1,9 +1,6 @@
+#include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
 #include "Script.h"
-
-extern int AutotileTextur[4];
-extern u32 AutotileColorKeyMaster[4];
-extern int AutotileIgnorecolorsNum[4];
 
 extern int Wasser[1];
 extern u32 WasserKey;

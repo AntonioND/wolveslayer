@@ -10,11 +10,6 @@
 #include "sound/Sound9.h"
 
 //*******************Globale variablen
-int AutotileTextur[4][3];
-u32 AutotileColorKeyMaster[4];
-u32 AutotileIgnorecolors[10][4];
-int AutotileIgnorecolorsNum[4];
-
 int Wasser[1];
 u32 WasserKey;
 

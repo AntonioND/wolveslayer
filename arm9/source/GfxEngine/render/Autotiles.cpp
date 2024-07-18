@@ -1,4 +1,5 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
 
 typedef struct {
@@ -6,11 +7,14 @@ typedef struct {
     u8 sidewalls;
 } v16x4;
 
+int AutotileTextur[4][3];
+u32 AutotileColorKeyMaster[4];
+u32 AutotileIgnorecolors[10][4];
+int AutotileIgnorecolorsNum[4];
+
 // The way a Bodentexture should be loaded
 void LoadAutotileTexture(char filename[], int num)
 {
-    extern int AutotileTextur[4][3];
-
     u8 *buffer8;
     u16 *pal;
     u32 height, width;
@@ -59,9 +63,6 @@ void LoadAutotileTexture(char filename[], int num)
 
 void AddAutIgnore(int Tilenum, u32 Col)
 {
-    extern u32 AutotileIgnorecolors[10][4];
-    extern int AutotileIgnorecolorsNum[4];
-
     AutotileIgnorecolorsNum[Tilenum]++;
     AutotileIgnorecolors[AutotileIgnorecolorsNum[Tilenum]][Tilenum] = Col;
 }

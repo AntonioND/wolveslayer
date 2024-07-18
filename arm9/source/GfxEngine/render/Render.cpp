@@ -1,5 +1,6 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/Tackt.h"
 #include "GfxEngine/Villagers.h"
@@ -7,9 +8,6 @@
 extern uint16 keyPress;
 
 // Texturen zum anzeigen
-extern int AutotileTextur[4][3];
-extern char AutotileColorKeyA[4][7];
-extern char AutotileColorKeyB[4][7];
 extern int Wasser[1];
 extern char WasserKey[7];
 extern int Figuren[10];

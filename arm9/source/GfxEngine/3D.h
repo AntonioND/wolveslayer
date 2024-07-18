@@ -143,11 +143,6 @@ void ResetDynamic(void);
 void AddDynamic(int x, int y, u8 r, u8 g, u8 b);
 void UpdateDynamic(void);
 
-// Autotiles
-void LoadAutotileTexture(char filename[], int num);
-void RenderAutoBoden(int x, int y, int z, int num);
-void AddAutIgnore(int Tilenum, u32 Col);
-
 // Ufer
 void RenderUfer(int x, int y, f32 xx, f32 yy); // Will appear where terrain meet stairs or stair meet stair
 void LoadUferTexture(char filename[], int *Target, int num);

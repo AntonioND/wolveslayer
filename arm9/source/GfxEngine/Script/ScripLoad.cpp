@@ -1,4 +1,5 @@
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/Enemys.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/render/Autotiles.h"

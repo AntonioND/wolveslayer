@@ -46,7 +46,7 @@ void AddEnemy(int x, int y, int texnum, int atp, int hp, float rad, bool boss)
     }
 }
 
-void TurnEnemy(int a, bool l, bool r, bool u, bool d)
+static void TurnEnemy(int a, bool l, bool r, bool u, bool d)
 {
     // Now give a new valid dirrecion if possible
     if (!l && !d && !r && !u)
@@ -71,7 +71,7 @@ void TurnEnemy(int a, bool l, bool r, bool u, bool d)
     GegnerRichtung[a] = dirnew;
 }
 
-void TurnittoPlayer(int a)
+static void TurnittoPlayer(int a)
 {
     float Px, Py;
     float NPx, NPy;
@@ -137,7 +137,7 @@ void TurnittoPlayer(int a)
     }
 }
 
-float gethposfromenemy(int a, float sx, float sy)
+static float gethposfromenemy(int a, float sx, float sy)
 {
     float vsx, vsy;
     int vx, vy;

@@ -1,13 +1,13 @@
 #include <math.h>
 
 #include "GfxEngine/3D.h"
+#include "GfxEngine/Enemys.h"
 #include "GfxEngine/input/Input.h"
 
 extern u8 Font1[668 * 11];
 extern u16 scrL_bin[256 * 192];
 extern u16 touch_bin[256 * 192];
 extern u8 textbox_bin[246 * 96];
-extern int GegnerCount;
 
 int capturetime = -1;
 int screenmode  = 0;
@@ -184,7 +184,6 @@ void ItemMode(void)
     int i, j;
     extern int Inventory[100];
     extern int EquipedWeapon;
-    extern int GegnerCount;
     screenmode = 3;
 
     // Draw IngameBG

@@ -1,5 +1,6 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/circlestuff.h"
+#include "GfxEngine/Enemys.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/render/Obj_House.h"
@@ -76,7 +77,6 @@ void Menu(void)
     extern int CellSelect;
     extern int Inventory[100];
     extern int EquipedWeapon;
-    extern int GegnerCount;
 
     int Old, Old2;
     Old = MouseOnButt;
@@ -143,13 +143,6 @@ void Menu(void)
 void Interact(void)
 {
     // Lets start interact
-    extern int GegnerCount;
-    extern int GegnerX[10], GegnerY[10];
-    extern float GegnerSX[10], GegnerSY[10];
-    extern int GegnerStatus[10];
-    extern int GegnerFrame[10];
-    extern int GegnerHP[10];
-    extern float GegnerRadius[10];
     extern bool Gameended;
 
     bool l, r, u, d;
@@ -438,7 +431,6 @@ void inputs(void)
     bool ul, ur, dl, dr;
 
     extern bool Gameended;
-    extern int GegnerStatus[10];
 
     int obwalldoor = Obj_WallDoor;
 
@@ -497,11 +489,6 @@ void inputs(void)
     float NPx, NPy;
     Px = GetPX() + (PlPosSX + .5);
     Py = GetPY() + (PlPosSY + .5);
-
-    extern int GegnerCount;
-    extern int GegnerX[10], GegnerY[10];
-    extern float GegnerSX[10], GegnerSY[10];
-    extern float GegnerRadius[10];
 
     for (NPCnum = 0; NPCnum <= GegnerCount; NPCnum++) {
         NPx = GegnerX[NPCnum];

@@ -1,5 +1,6 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/Enemys.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/render/Autotiles.h"
@@ -332,7 +333,7 @@ static void RefreshWelt(void)
 static void RefreshPlayer(void)
 {
     extern int screenmode;
-    extern int GegnerCount;
+
     // extern int EquipedWeapon;
     float sx = PlPosSX + .5;
     float sy = PlPosSY + .5;
@@ -546,14 +547,6 @@ static void RefreshDorfis(void)
 static void RefreshEnemys(void)
 {
     // extern int screenmode;
-    extern int GegnerX[10], GegnerY[10];
-    extern float GegnerSX[10], GegnerSY[10];
-    extern int GegnerTextNum[10];
-    extern int GegnerRichtung[10];
-    extern int GegnerCount;
-    extern int GegnerStatus[10];
-    extern int GegnerFrame[10];
-    extern int GegnerATP[10];
 
     int aniset = 0;
     int blend;

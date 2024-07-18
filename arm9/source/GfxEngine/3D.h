@@ -111,11 +111,6 @@ void LoadObjectTexture(char filename[], int *Target, int num);
 #define Obj_HouseCor  22;
 #define Obj_HouseDoor 23;
 
-// Enemys
-void ResetEnemys(void);
-void AddEnemy(int x, int y, int texnum, int atp, int hp, float rad, bool boss);
-void UpdateEnemy();
-
 // Events
 void ResetEvent(void);
 void AddTexttoEvent(char txt[256]);

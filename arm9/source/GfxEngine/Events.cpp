@@ -1,5 +1,6 @@
 #include "3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/Enemys.h"
 #include "GfxEngine/render/Render.h"
 #include "GfxEngine/Settings.h"
 #include "GfxEngine/texture/DynamicLights.h"
@@ -27,11 +28,6 @@ bool Gameended = false;
 
 void CheckEndGame(void)
 {
-    extern int GegnerHP[10];
-    extern bool GegnerIsBoss[10];
-    extern int GegnerCount;
-    extern void Splash(void);
-
     if (Gameended == true && (keysDown() & KEY_START)) {
         Gameended = false;
         PlStatus  = 0;

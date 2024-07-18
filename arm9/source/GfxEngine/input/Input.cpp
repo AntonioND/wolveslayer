@@ -12,11 +12,6 @@ int PlStatus   = 0; // aviable :D
 int PlFrame    = 0;
 int PlHP       = 100;
 
-float Cam_Pl_DistX = 0;
-float Cam_Pl_DistY = 0;
-
-float Z = 4, Y = 3.57;
-
 //**************************************************
 // DATENBESCHAFFUNGEN
 

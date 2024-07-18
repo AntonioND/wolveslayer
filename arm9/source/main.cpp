@@ -1,6 +1,7 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/Settings.h"
+#include "GfxEngine/Villagers.h"
 
 int frcapture = -1;
 

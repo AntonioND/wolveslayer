@@ -151,20 +151,12 @@ void LoadAutotileTexture(char filename[], int num);
 void RenderAutoBoden(int x, int y, int z, int num);
 void AddAutIgnore(int Tilenum, u32 Col);
 
-// Boden
-void LoadBodenTexture(char filename[], int num);
-void SetCurBod(int x, int y); // The Boden needs to know where it stands to set up light correctly
-void SetCurUf(int x, int y);
-void RenderBoden(int x, int y, int z, int textnum);
-void RenderLevelBorderBoden(int x, int y, int z);
 // Ufer
 void RenderUfer(int x, int y, f32 xx, f32 yy); // Will appear where terrain meet stairs or stair meet stair
 void LoadUferTexture(char filename[], int *Target, int num);
 
 // Sprite
-void LoadSpriteTexture(char filename[], char palname[], int *Target, int num);
 void RenderSprite(int frame, int dirrection, float x, float y, float z);
-void SetCurSprite(int x, int y, float sx, float sy);
 
 // Wasser
 void LoadWasserTexture(char filename[], int *Target, int num);
@@ -205,13 +197,6 @@ void RenderHouseCorner(int mode, int dirrection, f32 x, f32 y, f32 z);
 void LoadMBump3Texture(char filename[], int num, int *target, int *targetb, int *targetc);
 // Used for grounds only (no water and no autotiles!)
 void LoadMBump5Texture(char filename[], int num);
-
-// Villagers
-void ResetVillagers(void);
-void AddDorfi(int x, int y, int texnum);
-void AddTexttoDorfi(char txt[256]);
-void UpdateDorfis();
-#define Dorf_Max 5 // The max. count of NPCs
 
 // Enemys
 void ResetEnemys(void);

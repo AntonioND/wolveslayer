@@ -1,6 +1,7 @@
 #include "3D.h"
 #include "GfxEngine/input/circlestuff.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/Villagers.h"
 
 int GegnerX[10], GegnerY[10];     // its the HardPos on the Map(on which tile it stands)
 float GegnerSX[10], GegnerSY[10]; // Its softpos...goes from -.5 to .5
@@ -13,9 +14,6 @@ int GegnerATP[10];
 int GegnerHP[10];
 float GegnerRadius[10];
 bool GegnerIsBoss[10];
-
-extern int SpriteX, SpriteY;
-extern float SpriteSX, SpriteSY;
 
 void ResetEnemys(void)
 {

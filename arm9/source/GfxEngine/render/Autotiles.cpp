@@ -1,12 +1,10 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/render/Boden.h"
 
 typedef struct {
     v16 v[4];
     u8 sidewalls;
 } v16x4;
-
-// extern u16 BodenArray[128*256];
-extern int BodenX, BodenY;
 
 // The way a Bodentexture should be loaded
 void LoadAutotileTexture(char filename[], int num)

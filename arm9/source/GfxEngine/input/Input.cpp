@@ -1,5 +1,6 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/circlestuff.h"
+#include "GfxEngine/Villagers.h"
 
 // Variblen für die matrix
 int CamPosX = 15, CamPosY = 0;
@@ -357,12 +358,6 @@ void Interact(void)
         float NPx, NPy;
         Px = GetPX() + (PlPosSX + .5);
         Py = GetPY() + (PlPosSY + .5);
-
-        extern int DorfiCount;
-        extern int DorfiX[15], DorfiY[15];
-        extern float DorfiSX[15], DorfiSY[15];
-        extern char DorfiSpeech[Dorf_Max][10][256]; // to hold 10 textes for each NPC with 300 chars
-        extern int DorfiSpeechCount[Dorf_Max];      // Holds the Number of speeches a NPC has...
 
         for (NPCnum = 0; NPCnum <= DorfiCount; NPCnum++) {
             NPx = DorfiX[NPCnum];

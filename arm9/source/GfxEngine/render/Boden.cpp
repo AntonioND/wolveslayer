@@ -41,7 +41,7 @@ void LoadBodenTexture(char filename[], int num)
     free(pal);
 }
 
-v16 vmini = floattov16(0.025f);
+const v16 vmini = floattov16(0.025f);
 
 // The way a bodentexture should be rendered (floor inside and outside buildings).
 void RenderBoden(int x, int y, int z, int textnum)

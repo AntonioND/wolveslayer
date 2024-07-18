@@ -1,4 +1,5 @@
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/Villagers.h"
 #include "Script.h"
 
 uint16 keyPress2;

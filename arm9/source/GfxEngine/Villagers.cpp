@@ -1,5 +1,6 @@
 #include "3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/Villagers.h"
 
 int DorfiX[Dorf_Max], DorfiY[Dorf_Max];     // its the HardPos on the Map(on which tile it stands)
 float DorfiSX[Dorf_Max], DorfiSY[Dorf_Max]; // Its softpos...goes from -.5 to .5
@@ -19,8 +20,6 @@ void SetCurSprite(int x, int y, float sx, float sy)
     SpriteSX = sx;
     SpriteSY = sy;
 }
-
-extern char WasserKey[7];
 
 void ResetVillagers(void)
 {

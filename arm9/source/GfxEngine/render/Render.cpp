@@ -1,6 +1,8 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/render/Boden.h"
 #include "GfxEngine/Tackt.h"
+#include "GfxEngine/Villagers.h"
 
 extern uint16 keyPress;
 
@@ -485,11 +487,6 @@ void RefreshDorfis(void)
 
     extern int screenmode;
     extern int npctalk;
-    extern int DorfiX[15], DorfiY[15];
-    extern float DorfiSX[15], DorfiSY[15];
-    extern int DorfiTextNum[15];
-    extern int DorfiRichtung[15];
-    extern int DorfiCount;
     int dir, a, vx, vy;
     int pos[2];
     float spos[2];

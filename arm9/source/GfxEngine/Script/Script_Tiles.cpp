@@ -1,3 +1,4 @@
+#include "GfxEngine/render/Boden.h"
 #include "Script.h"
 
 extern int BodenTexture[Ground_Count];

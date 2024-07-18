@@ -1,3 +1,6 @@
+#ifndef GFXENGINE_SCRIPT_SCRIPT_H__
+#define GFXENGINE_SCRIPT_SCRIPT_H__
+
 #include "GfxEngine/3D.h"
 #include "XML/tinyxml.h"
 
@@ -15,3 +18,5 @@ int ReturnCounter(void);
 void UpdateCounter(void);
 
 int ReturnObjectsCount(void);
+
+#endif // GFXENGINE_SCRIPT_SCRIPT_H__

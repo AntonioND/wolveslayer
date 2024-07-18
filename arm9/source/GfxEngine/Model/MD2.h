@@ -1,3 +1,6 @@
+#ifndef GFXENGINE_MODEL_MD2_H__
+#define GFXENGINE_MODEL_MD2_H__
+
 #include "GfxEngine/3D.h"
 
 #define MD2_Count 62
@@ -96,3 +99,5 @@ typedef struct {
     // holds an 2d image for collision
     u32 Image[21];
 } MD2Entity;
+
+#endif // GFXENGINE_MODEL_MD2_H__

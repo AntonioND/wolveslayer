@@ -1,3 +1,6 @@
+#ifndef GFXENGINE_3D_H__
+#define GFXENGINE_3D_H__
+
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -203,3 +206,5 @@ const char *GiveItemType(int Index);
 // Inventory
 void ResetInventory(void);
 void AddItemToInventory(u8 Index);
+
+#endif // GFXENGINE_3D_H__

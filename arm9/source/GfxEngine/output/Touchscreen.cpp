@@ -43,17 +43,18 @@ void UpdateBar(void)
         col = RGB15(31, 15, 15) | BIT(15);
 
     // Draw Progressbar
-    int c, b;
-    float curpro = (float)((float)PlHP / 100) * (PW); // Yeah now it gets complicated (-:
-    for (c = PX; c <= PX + curpro; c++)
-        for (b = 0; b < 7; b++)
+    float curpro = (float)((float)PlHP / 100) * PW; // Yeah now it gets complicated (-:
+    for (int c = PX; c <= PX + curpro; c++) {
+        for (int b = 0; b < 7; b++)
             BG_GFX_SUB[c + ((PY + b) * 256)] = col;
+    }
 
     // refresh rest
     if (PlHP != 100) {
-        for (c = PX + curpro; c <= PX + PW; c++)
-            for (b = 0; b < 7; b++)
+        for (int c = PX + curpro; c <= PX + PW; c++) {
+            for (int b = 0; b < 7; b++)
                 BG_GFX_SUB[c + ((PY + b) * 256)] = ((u16 *)touch_bin)[c + (PY * 256)];
+        }
     }
 }
 

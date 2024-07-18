@@ -245,7 +245,7 @@ void ShownextPage(void);
 // Items
 void LoadItemList(void);
 void ClearItems(void);         // Clears all times....no ownership
-bool ItemCheck_Set(char *Com); // It compares and gives back if matches or not/or sets a value...
+bool ItemCheck_Set(const char *Com); // It compares and gives back if matches or not/or sets a value...
 const char *GiveItemName(int Index);
 const char *GiveItemImgName(int Index);
 const char *GiveItemSrcA(int Index);

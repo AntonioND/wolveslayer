@@ -45,7 +45,6 @@ int main(int argc, char *argv[])
 
     extern int screenmode;
     extern int loopCounter;
-    // extern int frameold;
     extern int polycount;
 
     while (1) {

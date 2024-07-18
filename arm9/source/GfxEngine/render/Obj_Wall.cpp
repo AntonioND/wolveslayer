@@ -1,7 +1,6 @@
 #include "GfxEngine/3D.h"
 
 extern int WallX, WallY;
-extern u8 EnvR, EnvG, EnvB;
 
 extern int ObjektTexA[Object_Count];
 extern int ObjektTexB[Object_Count];

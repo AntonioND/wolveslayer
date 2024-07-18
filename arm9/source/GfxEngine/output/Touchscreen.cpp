@@ -13,7 +13,6 @@ int capturetime = -1;
 int screenmode  = 0;
 extern int frame;
 int picnum = 0;
-extern uint16 keyPress;
 extern int npctalk;
 
 int MouseOnButt = -1;

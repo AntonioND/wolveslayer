@@ -5,8 +5,6 @@
 #include "GfxEngine/texture/DynamicLights.h"
 #include "Script.h"
 
-uint16 keyPress2;
-
 bool LoadingNow;
 
 void LineToCommand(char Com[]); // This line compares string with a command list
@@ -927,7 +925,7 @@ void LineToCommand(char Com[])
                 Print(Temp, 5, 150);
                 Print("Press Start to skip", 5, 161);
 
-                keyPress2 = ~(REG_KEYINPUT);
+                uint16 keyPress2 = ~(REG_KEYINPUT);
                 while (!(keyPress2 & KEY_START))
                     keyPress2 = ~(REG_KEYINPUT); // Can't go on so lets hang arround
             }

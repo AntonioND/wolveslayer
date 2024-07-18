@@ -9,8 +9,6 @@
 #include "GfxEngine/Villagers.h"
 #include "Script.h"
 
-uint16 keyPress2;
-
 bool LoadingNow;
 
 extern void LoadChars(TiXmlElement *map);

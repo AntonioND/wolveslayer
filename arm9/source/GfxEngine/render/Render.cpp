@@ -14,15 +14,12 @@
 #include "GfxEngine/texture/Light.h"
 #include "GfxEngine/Villagers.h"
 
-extern uint16 keyPress;
-
 // Texturen zum anzeigen
 int Figuren[10];
 
 extern char ObjektTyp[Object_Count][13];
 extern char ObjektColorKey[Object_Count][7];
 extern bool ObjectCulling[Object_Count];
-extern int Ufer[10];
 
 const f32 waterheight = floattof32(-.1);
 

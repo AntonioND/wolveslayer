@@ -24,8 +24,6 @@ bool Bump[128][128];
 v16x4 Terrain[128][128];
 v16 TerrainMid[128][128];
 
-extern uint16 keyPress;
-
 extern char ObjektTyp[Object_Count][13];
 extern u32 ObjektColorKey[Object_Count];
 

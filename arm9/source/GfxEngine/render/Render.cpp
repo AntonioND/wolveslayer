@@ -4,6 +4,7 @@
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
+#include "GfxEngine/render/Doors.h"
 #include "GfxEngine/render/Obj_Wall.h"
 #include "GfxEngine/Tackt.h"
 #include "GfxEngine/texture/Light.h"

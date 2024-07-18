@@ -17,14 +17,14 @@ extern v16 mode1vertex;
 extern v16 mode0vertex2;
 extern v16 mode1vertex2;
 
-t16 overdoor = inttot16(17);
-t16 ldoor    = inttot16(13);
-t16 rdoor    = inttot16(21);
+static const t16 overdoor = inttot16(17);
+static const t16 ldoor    = inttot16(13);
+static const t16 rdoor    = inttot16(21);
 
-int newcol1[3]; // for interpolated lights...
-int newcol2[3]; // stored to recycle
+static int newcol1[3]; // for interpolated lights...
+static int newcol2[3]; // stored to recycle
 
-char DoorSpeech[25][10][256]; // to hold 10 textes for each ddor with 256 chars
+char DoorSpeech[25][10][256]; // to hold 10 textes for each door with 256 chars
 int DoorSpeechCount[25];      // Holds the Number of speeches a Door has...
 
 void AddTexttoDoor(char txt[256])
@@ -60,7 +60,7 @@ void LoadDoorTexture(char filename[])
     free(pal);
 }
 
-void RenderDoorOutside(int mode, float angle, f32 x, f32 y, f32 z, bool trans)
+static void RenderDoorOutside(int mode, float angle, f32 x, f32 y, f32 z, bool trans)
 {
     if (mode != 0 && mode != 1)
         return;

@@ -1,4 +1,5 @@
 #include "GfxEngine/MapLoad.h"
+#include "GfxEngine/render/Doors.h"
 #include "GfxEngine/texture/DynamicLights.h"
 #include "Script.h"
 

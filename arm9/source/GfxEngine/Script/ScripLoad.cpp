@@ -3,6 +3,7 @@
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
+#include "GfxEngine/render/Doors.h"
 #include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/Villagers.h"
 #include "Script.h"

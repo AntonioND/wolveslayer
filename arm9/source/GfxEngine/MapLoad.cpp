@@ -2,6 +2,7 @@
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/PreCalc.h"
+#include "GfxEngine/render/Doors.h"
 #include "GfxEngine/render/Render.h"
 #include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/texture/Light.h"
@@ -28,9 +29,6 @@ static int MapDoorAngle[25];
 extern int ObjektTexA[Object_Count];
 extern char ObjektTyp[Object_Count][13];
 extern u32 ObjektColorKey[Object_Count]; // For managing mapchange attributes
-
-extern char DoorSpeech[25][10][256]; // to hold 10 textes for each ddor with 256 chars
-extern int DoorSpeechCount[25];      // Holds the Number of speeches a Door has...
 
 v16 GetTerrain(int x, int y, int num)
 {
@@ -102,8 +100,6 @@ int GetMapDoorAngle(int x, int y)
 void OpenMapDoor(int x, int y)
 {
     // extern bool Key[100];
-    // extern char DoorSpeech[25][10][256];//to hold 10 textes for each ddor with 256 chars
-    // extern int DoorSpeechCount[25];//Holds the Number of speeches a Door has...
     for (int i = 0; i < MapChangeCounter; i++) {
         if (MapChangePosX[i] == x && MapChangePosY[i] == y && MapChangeDoor[i] == true && MapDoorAngle[i] == 0) {
             MapDoorAngle[i] = 10;

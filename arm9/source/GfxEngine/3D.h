@@ -100,8 +100,6 @@ void RenderWasser(int floating, f32 x, f32 y, f32 z);
 
 // Objects
 void LoadObjectTexture(char filename[], int *Target, int num);
-void LoadDoorTexture(char filename[]);
-void AddTexttoDoor(char txt[256]);
 
 #define Obj_MD2 -10;
 
@@ -111,8 +109,6 @@ void AddTexttoDoor(char txt[256]);
 #define Obj_WallDoor  12;
 
 // #define Obj_WallCor 12;//not visible thing in fact
-
-void RenderWallBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y, f32 z);
 
 // Houseparts
 #define Obj_HouseMid  20;
@@ -124,7 +120,6 @@ void SetCurWall(int x, int y); // The Wall needs to know where it stands to set 
 void SetWallTrans(bool bol);   // Makes the walls transparent or native
 void RenderHouseM(int mode, f32 x, f32 y, f32 z);
 void RenderHouseBorder(int mode, int dirrection, f32 x, f32 y, f32 z);
-void RenderHouseBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y, f32 z);
 void RenderHouseCorner(int mode, int dirrection, f32 x, f32 y, f32 z);
 
 // Enemys

@@ -1,6 +1,7 @@
 #include "3D.h"
 #include "GfxEngine/input/circlestuff.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/render/Render.h"
 #include "GfxEngine/Villagers.h"
 
 int GegnerX[10], GegnerY[10];     // its the HardPos on the Map(on which tile it stands)
@@ -138,7 +139,6 @@ void TurnittoPlayer(int a)
 
 float gethposfromenemy(int a, float sx, float sy)
 {
-    extern float GetInterPolY(int x, int y, float sx, float sy);
     float vsx, vsy;
     int vx, vy;
 

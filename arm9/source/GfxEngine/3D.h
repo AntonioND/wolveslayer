@@ -75,9 +75,6 @@ void EquipMode(void);
 //>>>>>>>>>>>>>>>>Script
 void LoadScrip(char filename[]);        // Loads a new script
 
-//>>>>>>>>>>>>>>>>Refresh
-void Refresh3D(void);
-
 ///>>>>>>>>>>>>>>>3D
 // MD2 Models
 

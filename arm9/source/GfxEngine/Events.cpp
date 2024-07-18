@@ -1,5 +1,6 @@
 #include "3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/render/Render.h"
 #include "GfxEngine/Settings.h"
 #include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/texture/Light.h"

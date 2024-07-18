@@ -21,10 +21,7 @@ extern char ObjektColorKey[Object_Count][7];
 extern bool ObjectCulling[Object_Count];
 extern int Ufer[10];
 
-void RefreshWelt(void);
-void RefreshWeltMirrow(void);
-
-f32 waterheight = floattof32(-.1);
+const f32 waterheight = floattof32(-.1);
 
 float GetInterPolY(int x, int y, float sx, float sy)
 {
@@ -44,7 +41,7 @@ float GetInterPolY(int x, int y, float sx, float sy)
     return hpos;
 }
 
-void RefreshMap(void)
+static void RefreshMap(void)
 {
     // RefreshWelt();
     // return;
@@ -137,7 +134,7 @@ void RefreshMap(void)
 
 //*******************************************************************************
 // Welt
-void RefreshWelt(void)
+static void RefreshWelt(void)
 {
     // extern bool Mirrow[128][128];
 
@@ -328,7 +325,7 @@ void RefreshWelt(void)
 
 //*******************************************************************************
 // Spieler
-void RefreshPlayer(void)
+static void RefreshPlayer(void)
 {
     extern int screenmode;
     extern int GegnerCount;
@@ -459,7 +456,7 @@ void RefreshPlayer(void)
 //*******************************************************************************
 // Dorfbwohner (Villagers)
 #if 0
-void RefreshDorfis(void)
+static void RefreshDorfis(void)
 {
     extern int screenmode;
     extern int npctalk;
@@ -542,7 +539,7 @@ void RefreshDorfis(void)
 
 //*******************************************************************************
 // Gegner (Enemys)
-void RefreshEnemys(void)
+static void RefreshEnemys(void)
 {
     // extern int screenmode;
     extern int GegnerX[10], GegnerY[10];

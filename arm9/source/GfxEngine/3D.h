@@ -168,8 +168,8 @@ void AddTexttoDoor(char txt[256]);
 
 // #define Obj_WallCor 12;//not visible thing in fact
 
-void RenderWallBorder(int mode, int dirrection, f32 x, f32 y, f32 z, int textnum);
 void RenderWallBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y, f32 z);
+
 // Houseparts
 #define Obj_HouseMid  20;
 #define Obj_HouseBor  21;

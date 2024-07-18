@@ -2,6 +2,7 @@
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
+#include "GfxEngine/render/Obj_Wall.h"
 #include "GfxEngine/Tackt.h"
 #include "GfxEngine/Villagers.h"
 

@@ -2,6 +2,7 @@
 #include "GfxEngine/input/circlestuff.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/PreCalc.h"
+#include "GfxEngine/render/Obj_House.h"
 #include "GfxEngine/render/Render.h"
 #include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/texture/Light.h"

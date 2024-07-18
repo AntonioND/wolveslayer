@@ -87,16 +87,11 @@ void RenderMD2Model(int n, int num);
 void RenderMD2ModelMirrowed(int n, int num);
 bool GetModelCollsisionXY(int num, int x, int y, int rot); // gets a true or false if at a certain 2d pos of a topviewed model is something
 
-// Ufer
-void RenderUfer(int x, int y, f32 xx, f32 yy); // Will appear where terrain meet stairs or stair meet stair
-void LoadUferTexture(char filename[], int *Target, int num);
-
 // Sprite
 void RenderSprite(int frame, int dirrection, float x, float y, float z);
 
 // Wasser
 void LoadWasserTexture(char filename[], int *Target, int num);
-void RenderWasser(int floating, f32 x, f32 y, f32 z);
 
 // Objects
 void LoadObjectTexture(char filename[], int *Target, int num);
@@ -115,12 +110,6 @@ void LoadObjectTexture(char filename[], int *Target, int num);
 #define Obj_HouseBor  21;
 #define Obj_HouseCor  22;
 #define Obj_HouseDoor 23;
-
-void SetCurWall(int x, int y); // The Wall needs to know where it stands to set up light correctly
-void SetWallTrans(bool bol);   // Makes the walls transparent or native
-void RenderHouseM(int mode, f32 x, f32 y, f32 z);
-void RenderHouseBorder(int mode, int dirrection, f32 x, f32 y, f32 z);
-void RenderHouseCorner(int mode, int dirrection, f32 x, f32 y, f32 z);
 
 // Enemys
 void ResetEnemys(void);

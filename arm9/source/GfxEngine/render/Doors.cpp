@@ -1,21 +1,8 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/render/Obj_House.h"
 #include "GfxEngine/texture/Light.h"
 
-extern int WallX, WallY;
-extern bool walltrans;
-
 extern int Door[1];
-
-extern t16 walltex1;
-extern t16 walltex1e;
-
-extern t16 walltex2;
-extern t16 walltex2e;
-
-extern v16 mode0vertex;
-extern v16 mode1vertex;
-extern v16 mode0vertex2;
-extern v16 mode1vertex2;
 
 static const t16 overdoor = inttot16(17);
 static const t16 ldoor    = inttot16(13);

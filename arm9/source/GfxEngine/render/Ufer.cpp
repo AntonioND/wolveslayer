@@ -5,16 +5,17 @@
 #include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/texture/Light.h"
 
-u8 left;
-u8 right;
-u8 front;
+static u8 left;
+static u8 right;
+static u8 front;
 
-const v16 plusterrain     = floattov16(.5);
-const v16 minusterrain    = floattov16(-.5);
-const t16 t_null          = inttot16(0);
-const t16 t_zweiundreizig = inttot16(32);
+static const v16 plusterrain     = floattov16(.5);
+static const v16 minusterrain    = floattov16(-.5);
+static const t16 t_null          = inttot16(0);
+static const t16 t_zweiundreizig = inttot16(32);
 
-t16 heightot16up(v16 h)
+#if 0
+static t16 heightot16up(v16 h)
 {
     int f = f32toint(mulf32(h, inttof32(4)));
 
@@ -23,8 +24,9 @@ t16 heightot16up(v16 h)
     return inttot16(56 - f);
     // return minusterrain;
 }
+#endif
 
-t16 heightot16down(v16 h)
+static t16 heightot16down(v16 h)
 {
     int f = f32toint(mulf32(h, inttof32(4)));
 
@@ -39,7 +41,7 @@ extern int UferB[10];
 extern int UferC[10];
 extern bool UferBump[10];
 
-void WallUfer(int x, int y, f32 xx, f32 yy)
+static void WallUfer(int x, int y, f32 xx, f32 yy)
 {
     v16 bl, tl, br, tr;
     t16 tbl, ttl, tbr, ttr;
@@ -217,7 +219,7 @@ void WallUfer(int x, int y, f32 xx, f32 yy)
     }
 }
 
-void HalfWallUferA(int x, int y, f32 xx, f32 yy)
+static void HalfWallUferA(int x, int y, f32 xx, f32 yy)
 {
     v16 bl, tl, br;
     // v16 tr;
@@ -384,7 +386,7 @@ void HalfWallUferA(int x, int y, f32 xx, f32 yy)
     }
 }
 
-void HalfWallUferB(int x, int y, f32 xx, f32 yy)
+static void HalfWallUferB(int x, int y, f32 xx, f32 yy)
 {
     v16 bl, br, tr;
     // v16 tl;

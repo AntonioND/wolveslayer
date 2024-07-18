@@ -1,25 +1,11 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/MapLoad.h"
+#include "GfxEngine/render/Obj_House.h"
 #include "GfxEngine/texture/Light.h"
-
-extern int WallX, WallY;
 
 extern int ObjektTexA[Object_Count];
 extern int ObjektTexB[Object_Count];
 extern int ObjektTexC[Object_Count];
-
-extern v16 mode0vertex;
-extern v16 mode1vertex;
-extern v16 mode0vertex2;
-extern v16 mode1vertex2;
-
-extern t16 walltex1;
-extern t16 walltex1e;
-
-extern t16 walltex2;
-extern t16 walltex2e;
-
-extern bool walltrans;
 
 // Renders walls inside buildings
 void RenderWallBorder(int mode, int dirrection, f32 x, f32 y, f32 z, int textnum)

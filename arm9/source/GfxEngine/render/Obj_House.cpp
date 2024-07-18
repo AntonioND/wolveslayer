@@ -1,13 +1,9 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/render/Obj_House.h"
 #include "GfxEngine/texture/Light.h"
 
 int WallX, WallY;
 bool walltrans = false;
-
-v16 mode0vertex  = floattov16(-1);
-v16 mode1vertex  = floattov16(1);
-v16 mode0vertex2 = floattov16(.8);
-v16 mode1vertex2 = floattov16(-.8);
 
 void SetWallTrans(bool bol)
 {
@@ -20,13 +16,8 @@ void SetCurWall(int x, int y)
     WallY = y;
 }
 
-t16 walltex1  = inttot16(0);
-t16 walltex1e = inttot16(31);
-
-t16 walltex2  = inttot16(32);
-t16 walltex2e = inttot16(64);
-
 //________________________________________________________________________
+
 void RenderHouseM(int mode, f32 x, f32 y, f32 z)
 {
     if (mode != 0 && mode != 1)
@@ -72,8 +63,6 @@ void RenderHouseM(int mode, f32 x, f32 y, f32 z)
     glEnd();
     glPopMatrix(1);
 }
-
-//________________________________________________________________________
 
 void RenderHouseBorder(int mode, int dirrection, f32 x, f32 y, f32 z)
 {
@@ -190,7 +179,6 @@ void RenderHouseBorder(int mode, int dirrection, f32 x, f32 y, f32 z)
     glPopMatrix(1);
 }
 
-//__________________________________________________________
 void RenderHouseCorner(int mode, int dirrection, f32 x, f32 y, f32 z)
 {
     if (mode != 0 && mode != 1)

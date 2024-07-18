@@ -1,4 +1,5 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/Files.h"
 #include "GfxEngine/render/Boden.h"
 
 void LoadMBump3Texture(char filename[], int num, int *target, int *targetb, int *targetc)

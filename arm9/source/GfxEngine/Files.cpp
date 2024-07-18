@@ -2,7 +2,7 @@
 
 #include <nds.h>
 
-#include "3D.h"
+#include "GfxEngine/3D.h"
 
 void *LoadFile(const char *filename, size_t *size)
 {

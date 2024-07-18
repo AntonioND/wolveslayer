@@ -1,4 +1,5 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/Files.h"
 #include "MD2.h"
 
 /* table of precalculated normals */

@@ -1,4 +1,5 @@
-#include "3D.h"
+#include "GfxEngine/3D.h"
+#include "GfxEngine/Files.h"
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/PreCalc.h"

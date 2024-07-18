@@ -47,7 +47,6 @@ void WaitForFreeVblank(void); // important for multitask buffering and loading t
 
 void vBlank(void);
 void vBlankMusic(void);
-void tackt(void);
 void SetMainBg(unsigned short int *pic);
 void E3D_Init(void);
 void E3D_StartRender();
@@ -107,11 +106,6 @@ void LoadScrip(char filename[]);        // Loads a new script
 
 //>>>>>>>>>>>>>>>>Input
 bool Passable(int x, int y, int sxx, int syy);
-void InitCircles(void); // this is neccecary for a nice hitdetection
-// a circle based hitdetection...u give it pos,rad and pointer and it tells where it cant go to :D
-void Checkcolision(int x, int y, int sx, int sy, int rad, bool *values);
-void CheckcolisionDiagonal(int x, int y, int sx, int sy, int rad, bool *values);
-void CheckcolisionEnemy(int x, int y, int sx, int sy, int rad, bool *values);
 
 //>>>>>>>>>>>>>>>>Refresh
 void Refresh3D(void);

@@ -1,4 +1,5 @@
 #include "3D.h"
+#include "GfxEngine/input/circlestuff.h"
 #include "GfxEngine/input/Input.h"
 
 int GegnerX[10], GegnerY[10];     // its the HardPos on the Map(on which tile it stands)

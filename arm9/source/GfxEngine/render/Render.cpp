@@ -1,5 +1,6 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/Tackt.h"
 
 extern uint16 keyPress;
 
@@ -18,9 +19,6 @@ extern char ObjektTyp[Object_Count][13];
 extern char ObjektColorKey[Object_Count][7];
 extern bool ObjectCulling[Object_Count];
 extern int Ufer[10];
-
-// Metronoms
-extern int tackt32;
 
 // MapDatas
 extern signed char TexBod[128][128];
@@ -162,7 +160,6 @@ void RefreshWelt(void)
     // extern bool Mirrow[128][128];
     extern u8 Precalcdata[128][128];
 
-    extern int stackt11;
     extern bool ObjectMirrow[Object_Count];
     extern int ObjectTextureID[Object_Count];
     extern bool ObjectIllumination[Object_Count];
@@ -352,7 +349,6 @@ void RefreshWelt(void)
 // Spieler
 void RefreshPlayer(void)
 {
-    extern int stackt11;
     extern u8 Precalcdata[128][128];
     extern int screenmode;
     extern int GegnerCount;
@@ -485,7 +481,6 @@ void RefreshPlayer(void)
 #if 0
 void RefreshDorfis(void)
 {
-    extern int stackt11;
     extern u8 Precalcdata[128][128];
 
     extern int screenmode;
@@ -576,7 +571,6 @@ void RefreshDorfis(void)
 // Gegner (Enemys)
 void RefreshEnemys(void)
 {
-    extern int stackt11;
     extern u8 Precalcdata[128][128];
 
     // extern int screenmode;

@@ -1,6 +1,7 @@
 #include "3D.h"
 
-float sTackt = 0;
+static float sTackt = 0;
+
 int stackt11 = 0;
 int tackt32  = 0;
 

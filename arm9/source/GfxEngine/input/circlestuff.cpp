@@ -14,10 +14,10 @@ typedef struct {
     int count;
 } circle;
 
-circle CircleLUT[6];
+static circle CircleLUT[6];
 
 // This precalulated circles maight be usefull for hitdetection :D
-void makecircle(int rad)
+static void makecircle(int rad)
 {
     int ox    = 0;
     int oy    = 0;

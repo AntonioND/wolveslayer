@@ -3,7 +3,9 @@
 #include <filesystem.h>
 
 #include "3D.h"
+#include "GfxEngine/input/circlestuff.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/Tackt.h"
 #include "sound/Sound9.h"
 
 void vblank_handler(void);

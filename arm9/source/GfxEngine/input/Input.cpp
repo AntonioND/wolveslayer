@@ -1,4 +1,5 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/input/circlestuff.h"
 
 // Variblen für die matrix
 int CamPosX = 15, CamPosY = 0;

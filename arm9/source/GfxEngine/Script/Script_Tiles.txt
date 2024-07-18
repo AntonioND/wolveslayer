@@ -1,8 +1,5 @@
+#include "GfxEngine/render/Boden.h"
 #include "script.h"
-
-extern int BodenTexture[16];
-extern bool BodenEnable[16];
-extern u32 BodenColorKey[16];
 
 extern int AutotileTextur[4];
 extern u32 AutotileColorKeyMaster[4];
@@ -15,7 +12,6 @@ extern int Ufer[1];
 
 void LoadBodenCommand(char *Com, int index)
 {
-    extern bool BodenTransEnable[16];
     char FileName[60];
     char FileNameCom[60];
 

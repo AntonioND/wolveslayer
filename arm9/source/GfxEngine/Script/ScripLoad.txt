@@ -1,3 +1,4 @@
+#include "GfxEngine/render/Boden.h"
 #include "GfxEngine/Settings.h"
 #include "Script.h"
 
@@ -45,11 +46,9 @@ extern void AddAutotileIgnoreCommand(char *Com, int num);
 
 extern u32 AutotileColorKeyMaster[4];
 extern int AutotileIgnorecolorsNum[4];
-extern u32 BodenColorKey[16];
 extern u32 ObjektColorKey[Object_Count];
 extern char ObjektTyp[Object_Count][13];
 extern float ObjectRadius[Object_Count];
-extern bool BodenTransEnable[16];
 
 int aut  = -1;
 int obj  = -1;

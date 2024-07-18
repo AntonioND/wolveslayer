@@ -1,4 +1,5 @@
 #include "3D.h"
+#include "GfxEngine/render/Boden.h"
 
 typedef struct {
     v16 v[4];
@@ -30,10 +31,6 @@ extern int AutotileTextur[4];
 extern u32 AutotileColorKeyMaster[4];
 extern u32 AutotileIgnorecolors[10][4];
 extern int AutotileIgnorecolorsNum[4];
-
-extern int BodenTexture[Ground_Count];
-extern bool BodenEnable[Ground_Count];
-extern u32 BodenColorKey[Ground_Count];
 
 extern int Wasser[1];
 extern u32 WasserKey;
@@ -892,19 +889,17 @@ void PrecalcTerrain(void)
 
 void PrecalcMirrow(void)
 {
-    int mx, my;
-    extern bool BodenTransEnable[16];
-
     for (int yy = 0; yy <= MapGetHr(); yy++) {
         for (int xx = 0; xx <= MapGetWr(); xx++) {
             // Precalcdata[xx][yy] |= (0 << mirrow);
 
-            for (mx = xx - 1; mx <= xx + 1; mx++) {
-                for (my = yy; my <= yy + 3; my++) {
+            for (int mx = xx - 1; mx <= xx + 1; mx++) {
+                for (int my = yy; my <= yy + 3; my++) {
                     if (mx >= 0 && my >= 0) {
                         if (TexBod[mx][my] > -1)
                             if (BodenTransEnable[TexBod[mx][my]] == true && GetHight(mx, my) == 0)
                                 Precalcdata[xx][yy] |= (1 << mirrow);
+
                         if (Precalcdata[xx][yy] & (1 << water))
                             Precalcdata[xx][yy] |= (1 << mirrow);
                     }

@@ -1,5 +1,6 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/render/Boden.h"
 
 typedef struct {
     v16 v[4];
@@ -7,6 +8,23 @@ typedef struct {
 } v16x4;
 
 int BodenX, BodenY;
+
+t16 BodenTextPosStart[4];
+t16 BodenTextPosEnd[4];
+v16 BodenVertex1 = floattov16(.508);
+v16 BodenVertex2 = floattov16(-.508);
+
+int BodenTexture[Ground_Count];
+// int BodenTextureN[Ground_Count];
+int BodenTextureS[Ground_Count];
+int BodenTextureW[Ground_Count];
+int BodenTextureE[Ground_Count];
+
+bool BodenEnable[Ground_Count];
+u32 BodenColorKey[Ground_Count];
+bool BodenTransEnable[Ground_Count];
+bool BodenBumpEnable[Ground_Count];
+u8 BodenSize[Ground_Count];
 
 void SetCurBod(int x, int y)
 {
@@ -17,9 +35,6 @@ void SetCurBod(int x, int y)
 // The way a Bodentexture should be loaded
 void LoadBodenTexture(char filename[], int num)
 {
-    extern int BodenTexture[Ground_Count];
-    extern u8 BodenSize[Ground_Count];
-
     u8 *buffer8;
     u16 *pal;
     u32 height, width;
@@ -46,20 +61,8 @@ const v16 vmini = floattov16(0.025f);
 // The way a bodentexture should be rendered (floor inside and outside buildings).
 void RenderBoden(int x, int y, int z, int textnum)
 {
-    extern int BodenTexture[Ground_Count];
     // extern int BodenTextureA[Ground_Count];
-    // extern int BodenTextureN[Ground_Count];
-    extern int BodenTextureS[Ground_Count];
-    extern int BodenTextureW[Ground_Count];
-    extern int BodenTextureE[Ground_Count];
-    extern bool BodenBumpEnable[Ground_Count];
-    extern t16 BodenTextPosStart[4];
-    extern t16 BodenTextPosEnd[4];
-    extern u8 BodenSize[Ground_Count];
-    extern v16 BodenVertex1;
-    extern v16 BodenVertex2;
     extern v16x4 Terrain[128][128];
-    extern bool BodenTransEnable[Ground_Count];
     extern signed char TexBod[128][128];
 
     extern bool ViewportMapBumpGroundS[20][20];

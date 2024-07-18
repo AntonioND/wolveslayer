@@ -16,7 +16,6 @@ typedef int32_t f32;
 
 // Other settings
 #define Object_Count 26
-#define Ground_Count 31
 
 // Some replacers for bitshifting inside precalcdata
 #define water       0

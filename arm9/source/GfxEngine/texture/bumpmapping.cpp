@@ -1,4 +1,5 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/render/Boden.h"
 
 void LoadMBump3Texture(char filename[], int num, int *target, int *targetb, int *targetc)
 {
@@ -62,12 +63,6 @@ void LoadMBump3Texture(char filename[], int num, int *target, int *targetb, int 
 
 void LoadMBump5Texture(char filename[], int num)
 {
-    extern int BodenTexture[Ground_Count];
-    extern int BodenTextureS[Ground_Count];
-    extern int BodenTextureW[Ground_Count];
-    extern int BodenTextureE[Ground_Count];
-    extern u8 BodenSize[Ground_Count];
-
     u8 *buffer8;
     u16 *pal;
     u32 height, width;

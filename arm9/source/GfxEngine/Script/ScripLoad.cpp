@@ -1,4 +1,5 @@
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/render/Boden.h"
 #include "GfxEngine/Villagers.h"
 #include "Script.h"
 
@@ -48,12 +49,9 @@ void UnloadStuff(void)
 
     extern u32 AutotileColorKeyMaster[4];
     extern int AutotileIgnorecolorsNum[4];
-    extern u32 BodenColorKey[Ground_Count];
     extern u32 ObjektColorKey[Object_Count];
     extern char ObjektTyp[Object_Count][13];
     extern float ObjectRadius[Object_Count];
-    extern bool BodenTransEnable[Ground_Count];
-    extern bool BodenBumpEnable[Ground_Count];
 
     int a;
     for (a = 0; a < Ground_Count; a++)

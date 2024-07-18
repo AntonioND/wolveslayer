@@ -1,12 +1,6 @@
 #include "GfxEngine/render/Boden.h"
 #include "Script.h"
 
-extern int BodenTexture[Ground_Count];
-extern bool BodenEnable[Ground_Count];
-extern u32 BodenColorKey[Ground_Count];
-extern bool BodenTransEnable[Ground_Count];
-extern bool BodenBumpEnable[Ground_Count];
-
 extern int AutotileTextur[4];
 extern u32 AutotileColorKeyMaster[4];
 extern int AutotileIgnorecolorsNum[4];

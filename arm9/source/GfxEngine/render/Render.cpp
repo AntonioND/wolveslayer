@@ -10,9 +10,6 @@ extern uint16 keyPress;
 extern int AutotileTextur[4][3];
 extern char AutotileColorKeyA[4][7];
 extern char AutotileColorKeyB[4][7];
-extern int BodenTexture[Ground_Count];
-extern bool BodenEnable[Ground_Count];
-extern char BodenColorKey[Ground_Count][7];
 extern int Wasser[1];
 extern char WasserKey[7];
 extern int Figuren[10];
@@ -65,7 +62,6 @@ void RefreshMap(void)
     // RefreshWelt();
     // return;
     int x = 0, y = 0;
-    // extern bool BodenTransEnable[Ground_Count];
     extern u8 Precalcdata[128][128];
 
     extern bool ObjectNoGround[Object_Count];

@@ -1,7 +1,28 @@
 #ifndef GFXENGINE_RENDER_BODEN_H__
 #define GFXENGINE_RENDER_BODEN_H__
 
+#include <nds.h>
+
+#define Ground_Count 31
+
 extern int BodenX, BodenY;
+
+extern t16 BodenTextPosStart[4];
+extern t16 BodenTextPosEnd[4];
+extern v16 BodenVertex1;
+extern v16 BodenVertex2;
+
+extern int BodenTexture[Ground_Count];
+// extern int BodenTextureN[Ground_Count];
+extern int BodenTextureS[Ground_Count];
+extern int BodenTextureW[Ground_Count];
+extern int BodenTextureE[Ground_Count];
+
+extern bool BodenEnable[Ground_Count];
+extern u32 BodenColorKey[Ground_Count];
+extern bool BodenTransEnable[Ground_Count];
+extern bool BodenBumpEnable[Ground_Count];
+extern u8 BodenSize[Ground_Count];
 
 // Boden
 void SetCurBod(int x, int y); // The Boden needs to know where it stands to set up light correctly

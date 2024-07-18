@@ -5,27 +5,11 @@
 #include "3D.h"
 #include "GfxEngine/input/circlestuff.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/render/Boden.h"
 #include "GfxEngine/Tackt.h"
 #include "sound/Sound9.h"
 
 //*******************Globale variablen
-t16 BodenTextPosStart[4];
-t16 BodenTextPosEnd[4];
-v16 BodenVertex1 = floattov16(.508);
-v16 BodenVertex2 = floattov16(-.508);
-
-int BodenTexture[Ground_Count];
-// int BodenTextureN[Ground_Count];
-int BodenTextureS[Ground_Count];
-int BodenTextureW[Ground_Count];
-int BodenTextureE[Ground_Count];
-
-bool BodenEnable[Ground_Count];
-u32 BodenColorKey[Ground_Count];
-bool BodenTransEnable[Ground_Count];
-bool BodenBumpEnable[Ground_Count];
-u8 BodenSize[Ground_Count];
-
 int AutotileTextur[4][3];
 u32 AutotileColorKeyMaster[4];
 u32 AutotileIgnorecolors[10][4];

@@ -73,11 +73,6 @@ void RenderAutoBoden(int x, int y, int z, int num)
     extern v16x4 Terrain[128][128];
     v16x4 pointer = Terrain[BodenX][BodenY];
 
-    extern t16 BodenTextPosStart[4];
-    extern t16 BodenTextPosEnd[4];
-    extern v16 BodenVertex1;
-    extern v16 BodenVertex2;
-
     if (num == 0) {
         cx = 0;
         cy = 0;

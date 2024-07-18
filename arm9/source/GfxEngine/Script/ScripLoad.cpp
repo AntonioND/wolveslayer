@@ -4,6 +4,7 @@
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/Model/MD2Collision.h"
 #include "GfxEngine/Model/MD2Load.h"
+#include "GfxEngine/output/Textbox.h"
 #include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/render/Autotiles.h"

@@ -2,7 +2,8 @@
 
 int Inventory[100];
 int Inventory_Count = 0;
-int EquipedWeapon   = -1;
+
+int EquipedWeapon = -1;
 
 void ResetInventory(void)
 {

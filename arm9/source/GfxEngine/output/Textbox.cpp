@@ -4,9 +4,10 @@
 int npctalk = -1;
 
 // The valid text holder...
-char Txt[200][20];
-int Ni, Nj;
-uint CurChar;
+static char Txt[200][20];
+static int Ni, Nj;
+static uint CurChar;
+
 int CurWord;
 int wordnum;
 

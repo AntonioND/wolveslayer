@@ -3,6 +3,7 @@
 #include "GfxEngine/Enemys.h"
 #include "GfxEngine/Events.h"
 #include "GfxEngine/MapLoad.h"
+#include "GfxEngine/output/Inventory.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/render/Obj_House.h"
@@ -76,8 +77,6 @@ void Menu(void)
     extern int MouseOnButt;
     touchPosition touch;
     extern int CellSelect;
-    extern int Inventory[100];
-    extern int EquipedWeapon;
 
     int Old, Old2;
     Old = MouseOnButt;

@@ -67,26 +67,4 @@ void LoadObjectTexture(char filename[], int *Target, int num);
 #define Obj_HouseCor  22;
 #define Obj_HouseDoor 23;
 
-// Textbox
-
-// will be called if char talks to NPC or other things
-void TextBoxmode(char TxtOffset[10][256], int cnt, int num);
-// This will put char by char the text to Dialogbox...
-void TextBoxmodeHandler(void);
-void ShownextPage(void);
-
-// Items
-void LoadItemList(void);
-void ClearItems(void);         // Clears all times....no ownership
-bool ItemCheck_Set(const char *Com); // It compares and gives back if matches or not/or sets a value...
-const char *GiveItemName(int Index);
-const char *GiveItemImgName(int Index);
-const char *GiveItemSrcA(int Index);
-const char *GiveItemSrcB(int Index);
-const char *GiveItemType(int Index);
-
-// Inventory
-void ResetInventory(void);
-void AddItemToInventory(u8 Index);
-
 #endif // GFXENGINE_3D_H__

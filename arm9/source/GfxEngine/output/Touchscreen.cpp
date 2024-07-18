@@ -3,6 +3,8 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/Enemys.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/output/Inventory.h"
+#include "GfxEngine/output/Textbox.h"
 
 extern u8 textbox_bin[246 * 96];
 
@@ -12,8 +14,6 @@ u16 touch_bin[256 * 192];
 u16 textbox_pal[256];
 
 int screenmode = 0;
-
-extern int npctalk;
 
 int MouseOnButt = -1;
 
@@ -72,10 +72,6 @@ void ScreenMode(void)
 
 void ScreenModeHandler(void)
 {
-    extern int CurWord;
-    extern int wordnum;
-    extern bool nextpage;
-
     if (screenmode == 2 && (keysDown() & KEY_A) && CurWord == wordnum && nextpage == false) {
         npctalk = -1;
         ScreenMode();
@@ -181,8 +177,6 @@ void ItemMode(void)
 {
 #if 0
     int i, j;
-    extern int Inventory[100];
-    extern int EquipedWeapon;
     screenmode = 3;
 
     // Draw IngameBG

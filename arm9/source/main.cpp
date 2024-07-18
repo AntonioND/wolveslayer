@@ -13,8 +13,6 @@ int main(int argc, char *argv[])
 {
     // consoleDebugInit(DebugDevice_NOCASH);
 
-    // extern int EquipedWeapon;
-
     E3D_Init();
 
     // Script loading for new game

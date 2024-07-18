@@ -1,5 +1,7 @@
 #include "3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/output/Inventory.h"
+#include "GfxEngine/output/Items.h"
 
 // Those setting are for new game choice
 static char StartMap[60];

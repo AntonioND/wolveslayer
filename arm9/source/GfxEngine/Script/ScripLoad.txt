@@ -1,5 +1,6 @@
 #include "GfxEngine/Events.h"
 #include "GfxEngine/MapLoad.h"
+#include "GfxEngine/output/Inventory.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/Settings.h"
@@ -72,8 +73,6 @@ void LoadMainChar(void)
 {
     extern int Figuren[10];
     extern int ModelScale[20];
-    extern int EquipedWeapon;
-    extern int Inventory[100];
 
     LoadModelTexture(MaincharText, &Figuren[0], 0);
     LoadMD2Model(MaincharMd2, 0);

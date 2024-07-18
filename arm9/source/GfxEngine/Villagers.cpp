@@ -1,6 +1,7 @@
 #include "3D.h"
 #include "GfxEngine/Files.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/output/Textbox.h"
 #include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/Villagers.h"
@@ -88,8 +89,6 @@ void TurnDorfi(int a, bool l, bool r, bool u, bool d)
 void UpdateDorfis()
 {
     bool l, r, u, d;
-
-    extern int npctalk;
 
     if (screenmode < 3) {
         for (int a = 0; a <= DorfiCount; a++) {

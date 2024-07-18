@@ -3,6 +3,8 @@
 #include "GfxEngine/Enemys.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/Model/MD2Models.h"
+#include "GfxEngine/output/Inventory.h"
+#include "GfxEngine/output/Textbox.h"
 #include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/render/Autotiles.h"
@@ -329,7 +331,6 @@ static void RefreshWelt(void)
 // Spieler
 static void RefreshPlayer(void)
 {
-    // extern int EquipedWeapon;
     float sx = PlPosSX + .5;
     float sy = PlPosSY + .5;
 
@@ -458,7 +459,6 @@ static void RefreshPlayer(void)
 #if 0
 static void RefreshDorfis(void)
 {
-    extern int npctalk;
     int dir, a, vx, vy;
     int pos[2];
     float spos[2];

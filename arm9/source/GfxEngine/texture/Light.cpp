@@ -1,6 +1,7 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/PreCalc.h"
+#include "GfxEngine/texture/DynamicLights.h"
 
 int Blend = 8;
 u8 EnvR = 255, EnvG = 255, EnvB = 255;
@@ -119,10 +120,6 @@ void GiveLight(int x, int y, u8 *col)
         ny = -1;
     // }
 
-    extern u8 WorldLightR[128 * 128];
-    extern u8 WorldLightG[128 * 128];
-    extern u8 WorldLightB[128 * 128];
-
     r += WorldLightR[x + (y * 128)];
     g += WorldLightG[x + (y * 128)];
     b += WorldLightB[x + (y * 128)];
@@ -164,7 +161,6 @@ void GrapLight(int x, int y)
     // u8 col[3];
     // GiveLight(x, y, col);
     // glColor3b(col[0], col[1], col[2]);
-    extern u16 ViewportMapLights[20][20];
     // int xx = x - CamPosX;
     // int yy = y - CamPosY;
     GFX_COLOR = (u32)ViewportMapLights[x - CamPosX + 5][y - CamPosY + 3];
@@ -173,10 +169,6 @@ void GrapLight(int x, int y)
 // internal interpolation function
 static void GrapLightInterpolate(int x, int y, float sx, float sy, int *col)
 {
-    extern u8 WorldLightR[128 * 128];
-    extern u8 WorldLightG[128 * 128];
-    extern u8 WorldLightB[128 * 128];
-
     v16 ssx, ssy;
     v16 msx, msy;
 
@@ -342,8 +334,6 @@ void SetObjLights(int pos[2], int rot)
         rotation = 2;
     if (rot >= 383)
         rotation = 3;
-
-    extern u16 ViewportMapLights[20][20];
 
     int xx = pos[0] - CamPosX;
     int yy = pos[1] - CamPosY;

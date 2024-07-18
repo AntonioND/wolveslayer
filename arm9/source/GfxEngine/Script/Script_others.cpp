@@ -1,4 +1,5 @@
 #include "Script.h"
+#include "GfxEngine/texture/DynamicLights.h"
 
 int Counter;
 void ResetCounter(void)

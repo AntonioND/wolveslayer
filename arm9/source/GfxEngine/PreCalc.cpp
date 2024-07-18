@@ -2,6 +2,7 @@
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
+#include "GfxEngine/texture/DynamicLights.h"
 
 u8 Precalcdata[128][128];
 
@@ -899,10 +900,6 @@ static void PrecalcMirrow(void)
 
 static u16 Lightu16(int x, int y, int num)
 {
-    extern u8 WorldLightR[128 * 128];
-    extern u8 WorldLightG[128 * 128];
-    extern u8 WorldLightB[128 * 128];
-
     if (num == 1)
         x++;
     if (num == 2)

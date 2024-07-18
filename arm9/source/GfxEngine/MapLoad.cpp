@@ -1,6 +1,7 @@
 #include "3D.h"
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/PreCalc.h"
+#include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/texture/Light.h"
 
 u32 MapImage[256][256];
@@ -8,10 +9,6 @@ u32 MapImage[256][256];
 u8 MapLightR[128 * 128];
 u8 MapLightG[128 * 128];
 u8 MapLightB[128 * 128];
-
-extern u8 WorldLightR[128 * 128];
-extern u8 WorldLightG[128 * 128];
-extern u8 WorldLightB[128 * 128];
 
 bool outside;
 

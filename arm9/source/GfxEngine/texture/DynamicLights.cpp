@@ -31,8 +31,8 @@ typedef struct {
     u8 Bcolor;
 } DynamicLightSource;
 
-DynamicLightSource Fireflys[10];
-int DynamicLightCount = -1;
+static DynamicLightSource Fireflys[10];
+static int DynamicLightCount = -1;
 
 void ResetDynamic(void)
 {
@@ -52,7 +52,7 @@ void AddDynamic(int x, int y, u8 r, u8 g, u8 b)
     Fireflys[DynamicLightCount].Enable = true;
 }
 
-void TurnDyn(int a, bool l, bool r, bool u, bool d)
+static void TurnDyn(int a, bool l, bool r, bool u, bool d)
 {
     // Now give a new valid dirrecion if possible
     if (!l && !d && !r && !u)
@@ -77,7 +77,7 @@ void TurnDyn(int a, bool l, bool r, bool u, bool d)
     Fireflys[a].Richtung = dirnew;
 }
 
-void UpdateFireFlys(void)
+static void UpdateFireFlys(void)
 {
     extern int screenmode;
     int a, b;
@@ -239,7 +239,7 @@ void UpdateFireFlys(void)
     }
 }
 
-void UpdateViewableLights(void)
+static void UpdateViewableLights(void)
 {
     for (int yy = 13; yy > -4; yy--) {
         int y = yy + CamPosY;
@@ -292,7 +292,7 @@ void UpdateViewableLights(void)
     }
 }
 
-void UpdateAutobumps(void)
+static void UpdateAutobumps(void)
 {
 }
 

@@ -1,6 +1,7 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/PreCalc.h"
+#include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/texture/Light.h"
 
 u8 left;
@@ -43,9 +44,6 @@ void WallUfer(int x, int y, f32 xx, f32 yy)
     t16 tbl, ttl, tbr, ttr;
     int a;
     int b = 0;
-    extern bool ViewportMapBumpWallS[20][20];
-    extern bool ViewportMapBumpWallE[20][20];
-    extern bool ViewportMapBumpWallW[20][20];
 
     if (left == 3) {
         if (UferBump[0] && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
@@ -226,9 +224,6 @@ void HalfWallUferA(int x, int y, f32 xx, f32 yy)
     // t16 ttr;
     int a;
     int b = 0;
-    extern bool ViewportMapBumpWallS[20][20];
-    extern bool ViewportMapBumpWallE[20][20];
-    extern bool ViewportMapBumpWallW[20][20];
 
     if (left == 1) {
         if (UferBump[0] && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
@@ -396,9 +391,6 @@ void HalfWallUferB(int x, int y, f32 xx, f32 yy)
     // t16 ttl;
     int a;
     int b = 0;
-    extern bool ViewportMapBumpWallS[20][20];
-    extern bool ViewportMapBumpWallE[20][20];
-    extern bool ViewportMapBumpWallW[20][20];
 
     if (left == 2) {
         if (UferBump[0] && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])

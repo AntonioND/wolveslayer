@@ -2,6 +2,7 @@
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/render/Boden.h"
+#include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/texture/Light.h"
 
 int BodenX, BodenY;
@@ -58,10 +59,6 @@ const v16 vmini = floattov16(0.025f);
 // The way a bodentexture should be rendered (floor inside and outside buildings).
 void RenderBoden(int x, int y, int z, int textnum)
 {
-    extern bool ViewportMapBumpGroundS[20][20];
-    extern bool ViewportMapBumpGroundW[20][20];
-    extern bool ViewportMapBumpGroundE[20][20];
-
     v16x4 pointer = Terrain[BodenX][BodenY];
 
     int mode = (pointer.sidewalls >> 6) & 3;

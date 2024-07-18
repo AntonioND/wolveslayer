@@ -1,6 +1,7 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/circlestuff.h"
 #include "GfxEngine/PreCalc.h"
+#include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/texture/Light.h"
 #include "GfxEngine/Villagers.h"
 

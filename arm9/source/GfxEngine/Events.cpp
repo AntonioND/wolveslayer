@@ -1,6 +1,7 @@
 #include "3D.h"
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/Settings.h"
+#include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/texture/Light.h"
 
 char EventSpeech[10][256]; // to hold 10 textes for event with 256 chars

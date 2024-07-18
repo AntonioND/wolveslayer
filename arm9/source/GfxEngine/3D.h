@@ -118,12 +118,6 @@ void RenderMD2Model(int n, int num);
 void RenderMD2ModelMirrowed(int n, int num);
 bool GetModelCollsisionXY(int num, int x, int y, int rot); // gets a true or false if at a certain 2d pos of a topviewed model is something
 
-//>>>>>>>>>>>>>>>>Lights
-// Dynamic Lights
-void ResetDynamic(void);
-void AddDynamic(int x, int y, u8 r, u8 g, u8 b);
-void UpdateDynamic(void);
-
 // Ufer
 void RenderUfer(int x, int y, f32 xx, f32 yy); // Will appear where terrain meet stairs or stair meet stair
 void LoadUferTexture(char filename[], int *Target, int num);

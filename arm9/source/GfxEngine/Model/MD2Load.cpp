@@ -1,20 +1,18 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/Files.h"
-#include "MD2.h"
+#include "GfxEngine/Model/MD2Collision.h"
+#include "GfxEngine/Model/MD2Format.h"
+#include "GfxEngine/Model/MD2Models.h"
 
-/* table of precalculated normals */
-vec3_t anorms_table[162] = {
+// Table of precalculated normals
+static vec3_t anorms_table[162] = {
 #include "Anorms.h"
 };
 
 // The table should be copied and ocnverted to here
-v16 anormtable16[162][3];
+static v16 anormtable16[162][3];
 
-v16 zero = floattov16(0.0f);
-extern MD2Entity Models[MD2_Count];
-extern bool ModelEnable[MD2_Count];
-
-extern void MakeCollisionMap(int modelnum);
+static const v16 zero = floattov16(0.0f);
 
 void InitTableOfNormal(void)
 {

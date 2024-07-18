@@ -1,6 +1,7 @@
 #include "3D.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/MapLoad.h"
+#include "GfxEngine/Model/MD2Collision.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/render/Wasser.h"

@@ -42,16 +42,6 @@ void E3D_StartRender();
 void LoadScrip(char filename[]);        // Loads a new script
 
 ///>>>>>>>>>>>>>>>3D
-// MD2 Models
-
-void InitTableOfNormal(void);
-void FreeModels(void);
-void LoadModelTexture(char filename[], int *Target, int num, int *w);
-void LoadMD2Model(char Filename[], int num, int widthheight, int scale);
-void Precalcmd2light(int n, int num);
-void RenderMD2Model(int n, int num);
-void RenderMD2ModelMirrowed(int n, int num);
-bool GetModelCollsisionXY(int num, int x, int y, int rot); // gets a true or false if at a certain 2d pos of a topviewed model is something
 
 // Sprite
 void RenderSprite(int frame, int dirrection, float x, float y, float z);

@@ -1,13 +1,10 @@
 #include <math.h>
 
-#include "MD2.h"
+#include "GfxEngine/Model/MD2Models.h"
 
 #define sgn(x) (x < 0 ? -1 : 1)
 
-extern MD2Entity Models[MD2_Count];
-extern bool ModelEnable[MD2_Count];
-
-void Putpixel(int x, int y, int modelnum)
+static void Putpixel(int x, int y, int modelnum)
 {
     if (x > -1 && x < 21)
         if (y > -1 && y < 21)
@@ -48,7 +45,7 @@ bool GetModelCollsisionXY(int num, int x, int y, int rot)
         return true;
 }
 
-void Line(int a, int b, int c, int d, int modelnum)
+static void Line(int a, int b, int c, int d, int modelnum)
 {
     long u, s, v, d1x, d1y, d2x, d2y, m, n;
     int i;
@@ -85,6 +82,7 @@ void MakeCollisionMap(int modelnum)
 {
     if (ModelEnable[modelnum] == false)
         return;
+
     // Fist we clear the 2D coolision image of the model
     for (int a = 0; a < 21; a++)
         Models[modelnum].Image[a] = 0;
@@ -140,10 +138,8 @@ void MakeCollisionMap(int modelnum)
 // Test
 void ShowCollisionMap(int modelnum)
 {
-    int x, y;
-
-    for (y = 0; y < 21; y++) {
-        for (x = 0; x < 21; x++) {
+    for (int y = 0; y < 21; y++) {
+        for (int x = 0; x < 21; x++) {
             if (GetModelCollsisionXY(modelnum, x, y, 0))
                 BG_GFX_SUB[x + (y * 256)] = RGB8(255, 255, 255) | BIT(15);
             else

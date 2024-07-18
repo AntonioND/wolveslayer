@@ -3,8 +3,6 @@
 
 #include "GfxEngine/3D.h"
 
-#define MD2_Count 62
-
 //------------------------------Types
 
 typedef struct {

@@ -2,6 +2,8 @@
 #include "GfxEngine/Enemys.h"
 #include "GfxEngine/Events.h"
 #include "GfxEngine/MapLoad.h"
+#include "GfxEngine/Model/MD2Collision.h"
+#include "GfxEngine/Model/MD2Load.h"
 #include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/render/Autotiles.h"
@@ -164,7 +166,6 @@ void LoadScrip(char filename[])
     PreCalcAll();
     ScreenMode();
 
-    // extern void ShowCollisionMap(int modelnum);
     // ShowCollisionMap(12);
 
     TextBoxmode(EventSpeech, EventSpeechCount, -1);

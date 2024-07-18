@@ -1,3 +1,4 @@
+#include "GfxEngine/Model/MD2Load.h"
 #include "GfxEngine/render/Obj_Wall.h"
 #include "GfxEngine/texture/bumpmapping.h"
 #include "Script.h"

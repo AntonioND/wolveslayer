@@ -1,3 +1,4 @@
+#include "GfxEngine/Model/MD2Load.h"
 #include "Script.h"
 
 extern int TextureWidthHeight[Object_Count];

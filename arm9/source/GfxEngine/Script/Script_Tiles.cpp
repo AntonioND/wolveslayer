@@ -1,3 +1,4 @@
+#include "GfxEngine/Model/MD2Load.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/render/Ufer.h"

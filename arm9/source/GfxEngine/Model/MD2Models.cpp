@@ -1,10 +1,11 @@
-#include "MD2.h"
+#include "GfxEngine/Model/MD2Format.h"
+#include "GfxEngine/Model/MD2Models.h"
 #include "GfxEngine/texture/Light.h"
 
 MD2Entity Models[MD2_Count];
 bool ModelEnable[MD2_Count];
 
-u16 *ColorContainer;
+static u16 *ColorContainer;
 
 void Precalcmd2light(int n, int num)
 {

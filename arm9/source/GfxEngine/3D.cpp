@@ -6,6 +6,7 @@
 #include "GfxEngine/Files.h"
 #include "GfxEngine/input/circlestuff.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/Model/MD2Load.h"
 #include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/Tackt.h"

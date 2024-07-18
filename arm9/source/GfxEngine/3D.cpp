@@ -8,11 +8,6 @@
 #include "GfxEngine/Tackt.h"
 #include "sound/Sound9.h"
 
-void vblank_handler(void);
-void SetMainBg(unsigned short int *pic);
-void E3D_Init(void);
-void E3D_StartRender(int mode);
-
 //*******************Globale variablen
 t16 BodenTextPosStart[4];
 t16 BodenTextPosEnd[4];

@@ -46,8 +46,6 @@ void LoadBmpAllocBuffer24(const char *filename, u8 **picbuff_, u32 *height_, u32
 void WaitForFreeVblank(void); // important for multitask buffering and loading to vram
 
 void vBlank(void);
-void vBlankMusic(void);
-void SetMainBg(unsigned short int *pic);
 void E3D_Init(void);
 void E3D_StartRender();
 

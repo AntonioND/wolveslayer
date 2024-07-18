@@ -3,7 +3,7 @@
 
 /* table of precalculated normals */
 vec3_t anorms_table[162] = {
-#include "../Anorms.h"
+#include "Anorms.h"
 };
 
 // The table should be copied and ocnverted to here

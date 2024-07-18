@@ -4,15 +4,15 @@
 #include "GfxEngine/Enemys.h"
 #include "GfxEngine/input/Input.h"
 
-extern u8 Font1[668 * 11];
-extern u16 scrL_bin[256 * 192];
-extern u16 touch_bin[256 * 192];
 extern u8 textbox_bin[246 * 96];
 
-int capturetime = -1;
-int screenmode  = 0;
-extern int frame;
-int picnum = 0;
+u8 Font1[668 * 11];
+u16 scrL_bin[256 * 192];
+u16 touch_bin[256 * 192];
+u16 textbox_pal[256];
+
+int screenmode = 0;
+
 extern int npctalk;
 
 int MouseOnButt = -1;

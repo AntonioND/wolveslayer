@@ -1,6 +1,6 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/output/Touchscreen.h"
 
-extern int screenmode;
 int npctalk = -1;
 
 // The valid text holder...

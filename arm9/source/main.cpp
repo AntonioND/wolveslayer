@@ -2,6 +2,7 @@
 #include "GfxEngine/Enemys.h"
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/MapLoad.h"
+#include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/render/Render.h"
 #include "GfxEngine/Settings.h"
 #include "GfxEngine/texture/DynamicLights.h"
@@ -18,7 +19,6 @@ int main(int argc, char *argv[])
     // Script loading for new game
     ReadSettings();
 
-    extern int screenmode;
     extern int loopCounter;
     extern int polycount;
 

@@ -1,6 +1,7 @@
 #include "3D.h"
 #include "GfxEngine/input/circlestuff.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/render/Render.h"
 #include "GfxEngine/Villagers.h"
 
@@ -162,8 +163,6 @@ static float gethposfromenemy(int a, float sx, float sy)
 
 void UpdateEnemy()
 {
-    extern int screenmode;
-
     float Px, Py;
     float NPx, NPy;
     float dx, dy;

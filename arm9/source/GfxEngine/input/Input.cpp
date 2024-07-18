@@ -3,6 +3,7 @@
 #include "GfxEngine/Enemys.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/PreCalc.h"
+#include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/render/Obj_House.h"
 #include "GfxEngine/render/Render.h"
 #include "GfxEngine/texture/DynamicLights.h"
@@ -72,7 +73,6 @@ void Menu(void)
 {
 #if 0
     extern int MouseOnButt;
-    extern int screenmode;
     touchPosition touch;
     extern int CellSelect;
     extern int Inventory[100];

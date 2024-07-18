@@ -1,6 +1,7 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/MapLoad.h"
+#include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/texture/DynamicLights.h"
 
@@ -23,8 +24,6 @@ void SetRot(int rot)
 
 void RunTime(void)
 {
-    extern int screenmode;
-
     if (screenmode < 2)
         Time2++;
     if (Time2 > 2400)

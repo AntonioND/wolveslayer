@@ -1,5 +1,6 @@
 #include "3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/Villagers.h"
 
@@ -87,7 +88,6 @@ void UpdateDorfis()
 {
     bool l, r, u, d;
 
-    extern int screenmode;
     extern int npctalk;
 
     if (screenmode < 3) {

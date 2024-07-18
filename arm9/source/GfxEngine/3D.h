@@ -51,27 +51,6 @@ void vBlank(void);
 void E3D_Init(void);
 void E3D_StartRender();
 
-// Touchscreen Functions
-
-void UpdateBar(void);
-// Displays BG (cls)
-void ScreenMode(void);
-// Displays loading bg
-void ScreenModeLOADING(void);
-// Starting capture
-void CaptureMode(void);
-// Determinates if capture was done, and if so swaps back to sceenmode
-void ScreenModeHandler(void);
-// Prints a text on specific position and restores bg
-void Print(const char *Text, int x, int y);
-// Doesnt restore BG but can swap between black and white and just print n chars
-void PrintOUT(const char *Text, int x, int y, bool color, int n);
-// For loading things is nice to see the progress
-void PercentBar(int cur, int max);
-void ItemMode(void);
-void PauseMode(void);
-void EquipMode(void);
-
 //>>>>>>>>>>>>>>>>Script
 void LoadScrip(char filename[]);        // Loads a new script
 

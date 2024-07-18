@@ -2,9 +2,10 @@
 
 #include <filesystem.h>
 
-#include "3D.h"
+#include "GfxEngine/3D.h"
 #include "GfxEngine/input/circlestuff.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/Tackt.h"
 #include "sound/Sound9.h"
@@ -21,11 +22,6 @@ bool ObjectMirrow[Object_Count];
 bool ObjectIllumination[Object_Count];
 bool ObjectNoGround[Object_Count];
 bool ObjectCulling[Object_Count];
-
-u16 scrL_bin[256 * 192];
-u16 touch_bin[256 * 192];
-u16 textbox_pal[256];
-u8 Font1[668 * 11];
 
 void Splash(void)
 {
@@ -154,7 +150,6 @@ void DisplCapture(void)
 
 void vBlank(void)
 {
-    extern int screenmode;
     // extern int frcapture;
 
     ++elapsedFrames;

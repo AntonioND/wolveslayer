@@ -2,6 +2,7 @@
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/Enemys.h"
 #include "GfxEngine/MapLoad.h"
+#include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
@@ -327,8 +328,6 @@ static void RefreshWelt(void)
 // Spieler
 static void RefreshPlayer(void)
 {
-    extern int screenmode;
-
     // extern int EquipedWeapon;
     float sx = PlPosSX + .5;
     float sy = PlPosSY + .5;
@@ -458,7 +457,6 @@ static void RefreshPlayer(void)
 #if 0
 static void RefreshDorfis(void)
 {
-    extern int screenmode;
     extern int npctalk;
     int dir, a, vx, vy;
     int pos[2];
@@ -541,8 +539,6 @@ static void RefreshDorfis(void)
 // Gegner (Enemys)
 static void RefreshEnemys(void)
 {
-    // extern int screenmode;
-
     int aniset = 0;
     int blend;
 

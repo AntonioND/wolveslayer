@@ -1,6 +1,7 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/MapLoad.h"
+#include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/texture/Light.h"
 
@@ -76,7 +77,6 @@ static void TurnDyn(int a, bool l, bool r, bool u, bool d)
 
 static void UpdateFireFlys(void)
 {
-    extern int screenmode;
     int a, b;
     bool r, l, u, d;
     int sx, sy;

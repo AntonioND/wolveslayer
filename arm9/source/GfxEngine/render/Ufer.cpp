@@ -1,5 +1,6 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/PreCalc.h"
 #include "GfxEngine/texture/Light.h"
 
 u8 left;
@@ -10,13 +11,6 @@ const v16 plusterrain     = floattov16(.5);
 const v16 minusterrain    = floattov16(-.5);
 const t16 t_null          = inttot16(0);
 const t16 t_zweiundreizig = inttot16(32);
-
-typedef struct {
-    v16 v[4];
-    u8 sidewalls;
-} v16x4;
-
-extern v16x4 Terrain[128][128];
 
 t16 heightot16up(v16 h)
 {

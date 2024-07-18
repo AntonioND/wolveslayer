@@ -73,7 +73,6 @@ void PauseMode(void);
 void EquipMode(void);
 
 //>>>>>>>>>>>>>>>>>MAP
-void PreCalcAll(void); // That one precalculates which textures to use...gives use  nice speed
 
 void LoadMap(char *filename);
 u32 MapBodenGetRGB(int x, int y);
@@ -103,9 +102,6 @@ void MapDoorHandle(void);       // This opens doors which angle is greater then 
 v16 GetTerrain(int x, int y, int num);
 //>>>>>>>>>>>>>>>>Script
 void LoadScrip(char filename[]);        // Loads a new script
-
-//>>>>>>>>>>>>>>>>Input
-bool Passable(int x, int y, int sxx, int syy);
 
 //>>>>>>>>>>>>>>>>Refresh
 void Refresh3D(void);

@@ -1,4 +1,5 @@
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/PreCalc.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/Villagers.h"

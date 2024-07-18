@@ -1,6 +1,7 @@
 #include <math.h>
 
 #include "GfxEngine/3D.h"
+#include "GfxEngine/PreCalc.h"
 
 typedef struct {
     short X;

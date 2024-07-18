@@ -1,12 +1,8 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/PreCalc.h"
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/texture/Light.h"
-
-typedef struct {
-    v16 v[4];
-    u8 sidewalls;
-} v16x4;
 
 int BodenX, BodenY;
 
@@ -62,10 +58,6 @@ const v16 vmini = floattov16(0.025f);
 // The way a bodentexture should be rendered (floor inside and outside buildings).
 void RenderBoden(int x, int y, int z, int textnum)
 {
-    // extern int BodenTextureA[Ground_Count];
-    extern v16x4 Terrain[128][128];
-    extern signed char TexBod[128][128];
-
     extern bool ViewportMapBumpGroundS[20][20];
     extern bool ViewportMapBumpGroundW[20][20];
     extern bool ViewportMapBumpGroundE[20][20];

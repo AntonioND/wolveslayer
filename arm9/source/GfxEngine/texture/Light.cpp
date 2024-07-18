@@ -1,10 +1,6 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
-
-typedef struct {
-    v16 v[4];
-    u8 sidewalls;
-} v16x4;
+#include "GfxEngine/PreCalc.h"
 
 int Blend = 8;
 u8 EnvR = 255, EnvG = 255, EnvB = 255;
@@ -93,7 +89,6 @@ void RunTime(void)
 
 void GiveLight(int x, int y, u8 *col)
 {
-    extern v16x4 Terrain[128][128];
     v16x4 pointer = Terrain[x][y];
 
     if (x < 0 || x > 127 || y < 0 || y > 127) {

@@ -1,5 +1,6 @@
 #include "3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/PreCalc.h"
 #include "GfxEngine/Villagers.h"
 
 int DorfiX[Dorf_Max], DorfiY[Dorf_Max];     // its the HardPos on the Map(on which tile it stands)

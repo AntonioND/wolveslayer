@@ -1,11 +1,7 @@
 #include "3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/PreCalc.h"
 #include "GfxEngine/texture/Light.h"
-
-typedef struct {
-    v16 v[4];
-    u8 sidewalls;
-} v16x4;
 
 u32 MapImage[256][256];
 
@@ -39,7 +35,6 @@ extern int DoorSpeechCount[25];      // Holds the Number of speeches a Door has.
 
 v16 GetTerrain(int x, int y, int num)
 {
-    extern v16x4 Terrain[128][128];
     return Terrain[x][y].v[num];
 }
 

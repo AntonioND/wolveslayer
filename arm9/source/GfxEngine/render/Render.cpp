@@ -1,5 +1,6 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/PreCalc.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/render/Obj_Wall.h"
@@ -18,15 +19,6 @@ extern char ObjektTyp[Object_Count][13];
 extern char ObjektColorKey[Object_Count][7];
 extern bool ObjectCulling[Object_Count];
 extern int Ufer[10];
-
-// MapDatas
-extern signed char TexBod[128][128];
-extern signed char TexABod[128][128];
-extern signed char SetABod[128][128];
-
-extern signed char TexObj[128][128];
-extern signed char ShapeObj[128][128];
-extern signed char DirObj[128][128];
 
 void RefreshWelt(void);
 void RefreshWeltMirrow(void);
@@ -51,21 +43,13 @@ float GetInterPolY(int x, int y, float sx, float sy)
     return hpos;
 }
 
-// Boden,Autotiles,Wasser  & Terrainseitenwände
-typedef struct {
-    v16 v[4];
-    u8 sidewalls;
-} v16x4;
-
 void RefreshMap(void)
 {
     // RefreshWelt();
     // return;
     int x = 0, y = 0;
-    extern u8 Precalcdata[128][128];
 
     extern bool ObjectNoGround[Object_Count];
-    extern v16x4 Terrain[128][128];
     int Wallbor = Obj_WallBor;
 
     int subset;
@@ -154,9 +138,7 @@ void RefreshMap(void)
 // Welt
 void RefreshWelt(void)
 {
-    extern v16 TerrainMid[128][128];
     // extern bool Mirrow[128][128];
-    extern u8 Precalcdata[128][128];
 
     extern bool ObjectMirrow[Object_Count];
     extern int ObjectTextureID[Object_Count];
@@ -347,7 +329,6 @@ void RefreshWelt(void)
 // Spieler
 void RefreshPlayer(void)
 {
-    extern u8 Precalcdata[128][128];
     extern int screenmode;
     extern int GegnerCount;
     // extern int EquipedWeapon;
@@ -479,8 +460,6 @@ void RefreshPlayer(void)
 #if 0
 void RefreshDorfis(void)
 {
-    extern u8 Precalcdata[128][128];
-
     extern int screenmode;
     extern int npctalk;
     int dir, a, vx, vy;
@@ -564,8 +543,6 @@ void RefreshDorfis(void)
 // Gegner (Enemys)
 void RefreshEnemys(void)
 {
-    extern u8 Precalcdata[128][128];
-
     // extern int screenmode;
     extern int GegnerX[10], GegnerY[10];
     extern float GegnerSX[10], GegnerSY[10];

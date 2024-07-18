@@ -1,11 +1,7 @@
 #include "3D.h"
+#include "GfxEngine/PreCalc.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
-
-typedef struct {
-    v16 v[4];
-    u8 sidewalls;
-} v16x4;
 
 u8 Precalcdata[128][128];
 
@@ -43,7 +39,7 @@ signed char TexObj[128][128];
 signed char ShapeObj[128][128];
 signed char DirObj[128][128];
 
-void PreCalcBod(void)
+static void PreCalcBod(void)
 {
     int choose, texturecounter;
     int choose2, texturecounter2;
@@ -88,7 +84,7 @@ void PreCalcBod(void)
     }
 }
 
-void PreCalcWater(void)
+static void PreCalcWater(void)
 {
     for (int yy = 0; yy < MapGetHr(); yy++) {
         for (int xx = 0; xx < MapGetWr(); xx++) {
@@ -99,7 +95,7 @@ void PreCalcWater(void)
     }
 }
 
-void PreCalcABod(void)
+static void PreCalcABod(void)
 {
     u32 Bod;
     bool UBod, LBod, RBod, DBod;
@@ -341,7 +337,7 @@ void PreCalcABod(void)
     }
 }
 
-void PreCalcObj(void)
+static void PreCalcObj(void)
 {
     u32 Obj;
     int texturecounter, choose;
@@ -576,9 +572,6 @@ void PreCalcObj(void)
                         if ((ObjL && ObjR) || (ObjU && ObjD))
                             ShapeObj[xx][yy] = Obj_WallDoor;
 
-                    // extern signed char TexBod[128][128];
-                    // extern signed char TexABod[128][128];
-
                     if (ObjL && ObjR) {
                         // if (yy < MapGetHr() / 2)
                         //     DirObj[xx][yy] = 0; // wand nach rechts
@@ -603,7 +596,7 @@ void PreCalcObj(void)
     }
 }
 
-void GetRGBfromMap(int x, int y, u8 &r, u8 &g, u8 &b)
+static void GetRGBfromMap(int x, int y, u8 &r, u8 &g, u8 &b)
 {
     extern u32 MapImage[256][256];
     r = u8(MapImage[x][y] & (0xFF));
@@ -611,7 +604,7 @@ void GetRGBfromMap(int x, int y, u8 &r, u8 &g, u8 &b)
     b = u8((MapImage[x][y] & (0xFF0000)) >> 16);
 }
 
-void PrecalcTerrain(void)
+static void PrecalcTerrain(void)
 {
     u8 r, g, b;
 
@@ -882,7 +875,7 @@ void PrecalcTerrain(void)
     }
 }
 
-void PrecalcMirrow(void)
+static void PrecalcMirrow(void)
 {
     for (int yy = 0; yy <= MapGetHr(); yy++) {
         for (int xx = 0; xx <= MapGetWr(); xx++) {
@@ -904,7 +897,7 @@ void PrecalcMirrow(void)
     }
 }
 
-u16 Lightu16(int x, int y, int num)
+static u16 Lightu16(int x, int y, int num)
 {
     extern u8 WorldLightR[128 * 128];
     extern u8 WorldLightG[128 * 128];
@@ -927,7 +920,7 @@ u16 Lightu16(int x, int y, int num)
     return RGB15((u8)WorldLightR[x + (y * 128)] >> 3, (u8)WorldLightG[x + (y * 128)] >> 3, (u8)WorldLightB[x + (y * 128)] >> 3);
 }
 
-void PrecalcStaticBump(void)
+static void PrecalcStaticBump(void)
 {
     for (int yy = 0; yy <= MapGetHr(); yy++) {
         for (int xx = 0; xx <= MapGetWr(); xx++) {
@@ -1045,10 +1038,10 @@ bool Passable(int x, int y, int sxx, int syy)
     return true;
 }
 
-void PrecalcObjectRot(void)
+static void PrecalcObjectRot(void)
 {
     // DirObj[128][128];
-    // MapObjGetRot(int x,int y)
+    // MapObjGetRot(int x, int y)
 
     for (int yy = 0; yy <= MapGetHr(); yy++) {
         for (int xx = 0; xx <= MapGetWr(); xx++) {

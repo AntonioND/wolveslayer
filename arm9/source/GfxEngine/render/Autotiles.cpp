@@ -1,12 +1,8 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/PreCalc.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/texture/Light.h"
-
-typedef struct {
-    v16 v[4];
-    u8 sidewalls;
-} v16x4;
 
 int AutotileTextur[4][3];
 u32 AutotileColorKeyMaster[4];
@@ -72,7 +68,6 @@ void AddAutIgnore(int Tilenum, u32 Col)
 void RenderAutoBoden(int x, int y, int z, int num)
 {
     int cx = 0, cy = 0;
-    extern v16x4 Terrain[128][128];
     v16x4 pointer = Terrain[BodenX][BodenY];
 
     if (num == 0) {

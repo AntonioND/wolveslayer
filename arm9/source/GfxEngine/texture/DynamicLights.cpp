@@ -1,5 +1,6 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/input/Input.h"
+#include "GfxEngine/PreCalc.h"
 #include "GfxEngine/texture/Light.h"
 
 extern u8 MapLightR[128 * 128];
@@ -240,9 +241,6 @@ void UpdateFireFlys(void)
 
 void UpdateViewableLights(void)
 {
-    extern u8 Precalcdata[128][128];
-    // extern bool Bump[128][128];
-
     for (int yy = 13; yy > -4; yy--) {
         int y = yy + CamPosY;
 

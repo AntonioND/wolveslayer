@@ -8,6 +8,7 @@
 #include "GfxEngine/render/Doors.h"
 #include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/Villagers.h"
+#include "Music.h"
 #include "Script.h"
 
 bool LoadingNow;

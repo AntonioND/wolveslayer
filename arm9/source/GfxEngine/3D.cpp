@@ -8,7 +8,7 @@
 #include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/Tackt.h"
-#include "sound/Sound9.h"
+#include "Music.h"
 
 //*******************Globale variablen
 
@@ -310,7 +310,7 @@ void E3D_StartRender()
 
 __attribute__((noreturn)) void Crash(const char *msg, ...)
 {
-    SndStopMOD();
+    StopSong();
 
     irqSet(IRQ_VBLANK, NULL);
 

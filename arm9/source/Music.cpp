@@ -82,6 +82,8 @@ void StartSong(const char *Name)
     SndPlayMOD(ModBuffer);
 }
 
-void Playhandler(void)
+void StopSong(void)
 {
+    SndStopMOD();
+    swiWaitForVBlank();
 }

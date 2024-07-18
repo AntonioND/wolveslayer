@@ -1,4 +1,5 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/input/Input.h"
 
 u8 left;
 u8 right;
@@ -50,7 +51,6 @@ void WallUfer(int x, int y, f32 xx, f32 yy)
     extern bool ViewportMapBumpWallS[20][20];
     extern bool ViewportMapBumpWallE[20][20];
     extern bool ViewportMapBumpWallW[20][20];
-    extern int CamPosX, CamPosY;
 
     if (left == 3) {
         if (UferBump[0] && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
@@ -234,7 +234,6 @@ void HalfWallUferA(int x, int y, f32 xx, f32 yy)
     extern bool ViewportMapBumpWallS[20][20];
     extern bool ViewportMapBumpWallE[20][20];
     extern bool ViewportMapBumpWallW[20][20];
-    extern int CamPosX, CamPosY;
 
     if (left == 1) {
         if (UferBump[0] && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
@@ -405,7 +404,6 @@ void HalfWallUferB(int x, int y, f32 xx, f32 yy)
     extern bool ViewportMapBumpWallS[20][20];
     extern bool ViewportMapBumpWallE[20][20];
     extern bool ViewportMapBumpWallW[20][20];
-    extern int CamPosX, CamPosY;
 
     if (left == 2) {
         if (UferBump[0] && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])

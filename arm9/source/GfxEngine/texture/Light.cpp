@@ -1,4 +1,5 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/input/Input.h"
 
 int Blend = 8;
 
@@ -167,7 +168,6 @@ void GrapLight(int x, int y)
     // u8 col[3];
     // GiveLight(x, y, col);
     // glColor3b(col[0], col[1], col[2]);
-    extern int CamPosX, CamPosY;
     extern u16 ViewportMapLights[20][20];
     // int xx = x - CamPosX;
     // int yy = y - CamPosY;
@@ -347,7 +347,6 @@ void SetObjLights(int pos[2], int rot)
     if (rot >= 383)
         rotation = 3;
 
-    extern int CamPosX, CamPosY;
     extern u16 ViewportMapLights[20][20];
 
     int xx = pos[0] - CamPosX;

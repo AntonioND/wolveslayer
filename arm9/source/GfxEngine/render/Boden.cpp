@@ -1,4 +1,5 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/input/Input.h"
 
 typedef struct {
     v16 v[4];
@@ -64,8 +65,6 @@ void RenderBoden(int x, int y, int z, int textnum)
     extern bool ViewportMapBumpGroundS[20][20];
     extern bool ViewportMapBumpGroundW[20][20];
     extern bool ViewportMapBumpGroundE[20][20];
-
-    extern int CamPosX, CamPosY;
 
     v16x4 pointer = Terrain[BodenX][BodenY];
 

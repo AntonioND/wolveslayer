@@ -1,4 +1,5 @@
-#include "script.h"
+#include "GfxEngine/Settings.h"
+#include "Script.h"
 
 uint16 keyPress2;
 
@@ -7,8 +8,6 @@ bool LoadingNow;
 extern bool outside;
 
 extern int Door[1];
-extern float PlPosSX, PlPosSY;
-extern float CamPosSX, CamPosSY;
 
 void LineToCommand(char Com[]); // This line compares string with a command list
 // and if it is a command it gives that to the next function
@@ -76,8 +75,6 @@ void ucase(char *character, char *New)
 
 void LoadMainChar(void)
 {
-    extern char MaincharMd2[60];
-    extern char MaincharText[60];
     extern int Figuren[10];
     extern int ModelScale[20];
     extern int EquipedWeapon;

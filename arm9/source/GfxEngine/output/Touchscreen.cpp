@@ -1,6 +1,7 @@
 #include <math.h>
 
 #include "GfxEngine/3D.h"
+#include "GfxEngine/input/Input.h"
 
 extern u8 Font1[668 * 11];
 extern u16 scrL_bin[256 * 192];
@@ -30,7 +31,6 @@ void ScreenModeLOADING(void)
 
 void UpdateBar(void)
 {
-    extern int PlHP;
     int PX = 57;
     int PY = 148;
     int PW = 196;

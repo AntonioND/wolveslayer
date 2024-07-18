@@ -3,6 +3,7 @@
 #include <filesystem.h>
 
 #include "3D.h"
+#include "GfxEngine/input/Input.h"
 #include "sound/Sound9.h"
 
 void vblank_handler(void);
@@ -198,8 +199,6 @@ void vBlank(void)
 #endif
 
 #ifdef ShowPosition
-        extern float PlPosX;
-        extern float PlPosY;
         int px = PlPosX;
         int py = PlPosY;
 
@@ -313,9 +312,6 @@ void E3D_Init(void)
 
 void E3D_StartRender()
 {
-    extern float CamPosSX, CamPosSY;
-    extern float PlHeight;
-
     glMatrixMode(GL_TEXTURE);
     glLoadIdentity();
 

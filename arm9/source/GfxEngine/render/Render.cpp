@@ -1,12 +1,7 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/input/Input.h"
 
 extern uint16 keyPress;
-
-extern int CamPosX, CamPosY;
-extern float CamPosSX, CamPosSY;
-extern float PlPosX, PlPosY;
-extern float PlPosSX, PlPosSY;
-extern int PlRichtung;
 
 // Texturen zum anzeigen
 extern int AutotileTextur[4][3];
@@ -364,9 +359,6 @@ void RefreshPlayer(void)
     // extern int EquipedWeapon;
     float sx = PlPosSX + .5;
     float sy = PlPosSY + .5;
-    extern float PlHeight;
-    extern int PlStatus;
-    extern int PlFrame;
 
     int pos[2];
     pos[0] = GetPX();
@@ -596,9 +588,6 @@ void RefreshEnemys(void)
     extern int GegnerStatus[10];
     extern int GegnerFrame[10];
     extern int GegnerATP[10];
-    extern int PlStatus;
-    extern int PlFrame;
-    extern int PlHP;
 
     int aniset = 0;
     int blend;

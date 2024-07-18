@@ -1,4 +1,5 @@
 #include "3D.h"
+#include "GfxEngine/input/Input.h"
 
 int DorfiX[Dorf_Max], DorfiY[Dorf_Max];     // its the HardPos on the Map(on which tile it stands)
 float DorfiSX[Dorf_Max], DorfiSY[Dorf_Max]; // Its softpos...goes from -.5 to .5
@@ -88,7 +89,6 @@ void UpdateDorfis()
 
     extern int screenmode;
     extern int npctalk;
-    extern float PlPosSX, PlPosSY;
 
     if (screenmode < 3) {
         for (int a = 0; a <= DorfiCount; a++) {

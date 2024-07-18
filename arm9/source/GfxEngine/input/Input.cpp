@@ -1,6 +1,5 @@
 #include "GfxEngine/3D.h"
 
-extern char WasserKey[7];
 // Variblen für die matrix
 int CamPosX = 15, CamPosY = 0;
 float CamPosSX = 0, CamPosSY = 0;
@@ -43,7 +42,7 @@ int GetPY(void)
 
 float GetSY(void)
 {
-    // int y=PlPosY+8;
+    // int y = PlPosY + 8;
     float sy = PlPosSY + .5;
     return sy;
 }

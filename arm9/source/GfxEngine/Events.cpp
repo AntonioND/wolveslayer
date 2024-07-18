@@ -1,4 +1,6 @@
 #include "3D.h"
+#include "GfxEngine/input/Input.h"
+#include "GfxEngine/Settings.h"
 
 char EventSpeech[10][256]; // to hold 10 textes for event with 256 chars
 int EventSpeechCount;      // Holds the Number of speeches a event has...
@@ -22,12 +24,9 @@ bool Gameended = false;
 
 void CheckEndGame(void)
 {
-    extern int PlHP;
     extern int GegnerHP[10];
     extern bool GegnerIsBoss[10];
     extern int GegnerCount;
-    extern int PlStatus;
-    extern int PlFrame;
     extern void Splash(void);
     extern int Blend;
 

@@ -1,4 +1,5 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/input/Input.h"
 
 extern u8 MapLightR[128 * 128];
 extern u8 MapLightG[128 * 128];
@@ -238,8 +239,6 @@ void UpdateFireFlys(void)
 
 void UpdateViewableLights(void)
 {
-    extern int CamPosX, CamPosY;
-
     extern u8 Precalcdata[128][128];
     // extern bool Bump[128][128];
 

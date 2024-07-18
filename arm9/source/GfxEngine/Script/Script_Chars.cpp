@@ -1,11 +1,7 @@
+#include "GfxEngine/Settings.h"
 #include "Script.h"
 
 extern int Figuren[10];
-
-extern char MaincharMd2[60];
-extern char MaincharText[60];
-extern char waffeMd2[60];
-extern char waffeText[60];
 
 char Names[8][20];
 int Atps[8];

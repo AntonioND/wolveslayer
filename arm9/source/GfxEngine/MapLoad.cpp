@@ -1,4 +1,5 @@
 #include "3D.h"
+#include "GfxEngine/input/Input.h"
 
 typedef struct {
     v16 v[4];
@@ -118,8 +119,6 @@ void OpenMapDoor(int x, int y)
 
 void MapDoorHandle(void)
 {
-    extern float PlPosX, PlPosY;
-    extern int CamPosX, CamPosY;
     extern int Blend;
 
     for (int i = 0; i < MapChangeCounter; i++) {

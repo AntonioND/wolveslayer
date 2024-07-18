@@ -1,3 +1,4 @@
+#include "GfxEngine/input/Input.h"
 #include "Script.h"
 
 uint16 keyPress2;
@@ -7,8 +8,6 @@ bool LoadingNow;
 extern bool outside;
 
 extern int Door[1];
-extern float PlPosSX, PlPosSY;
-extern float CamPosSX, CamPosSY;
 
 extern void LoadChars(TiXmlElement *map);
 

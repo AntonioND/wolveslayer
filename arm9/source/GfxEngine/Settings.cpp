@@ -1,8 +1,9 @@
 #include "3D.h"
+#include "GfxEngine/input/Input.h"
 
 // Those setting are for new game choice
-char StartMap[60];
-int StartMapX, StartMapY;
+static char StartMap[60];
+static int StartMapX, StartMapY;
 
 char MaincharMd2[60];
 char MaincharText[60];
@@ -10,7 +11,7 @@ char MaincharText[60];
 char waffeMd2[60];
 char waffeText[60];
 
-void Setit(char *setting)
+static void Setit(char *setting)
 {
     char Filename[40];
 
@@ -63,9 +64,6 @@ void ReadSettings(void)
     }
 
     // Add playerpos
-    extern float PlPosX, PlPosY;
-    extern int CamPosX, CamPosY;
-
     PlPosX  = StartMapX - 6;
     PlPosY  = StartMapY - 8;
     CamPosX = StartMapX - 6;

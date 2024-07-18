@@ -103,15 +103,10 @@ void OpenMapDoor(int x, int y); // This sets the door angle to 1 if it is unlock
 void MapDoorHandle(void);       // This opens doors which angle is greater then 0
 v16 GetTerrain(int x, int y, int num);
 //>>>>>>>>>>>>>>>>Script
-void ReadSettings(void);                // gets some settings
 void LoadScrip(char filename[]);        // Loads a new script
 
 //>>>>>>>>>>>>>>>>Input
-void inputs(void);
-int GetPX(void);
-int GetPY(void);
 bool Passable(int x, int y, int sxx, int syy);
-void Menu(void);
 void InitCircles(void); // this is neccecary for a nice hitdetection
 // a circle based hitdetection...u give it pos,rad and pointer and it tells where it cant go to :D
 void Checkcolision(int x, int y, int sx, int sy, int rad, bool *values);

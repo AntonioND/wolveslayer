@@ -1,4 +1,5 @@
 #include "3D.h"
+#include "GfxEngine/input/Input.h"
 
 int GegnerX[10], GegnerY[10];     // its the HardPos on the Map(on which tile it stands)
 float GegnerSX[10], GegnerSY[10]; // Its softpos...goes from -.5 to .5
@@ -72,8 +73,6 @@ void TurnEnemy(int a, bool l, bool r, bool u, bool d)
 
 void TurnittoPlayer(int a)
 {
-    extern float PlPosSX, PlPosSY;
-
     float Px, Py;
     float NPx, NPy;
     float dx, dy;
@@ -164,9 +163,7 @@ float gethposfromenemy(int a, float sx, float sy)
 
 void UpdateEnemy()
 {
-    extern float PlPosSX, PlPosSY;
     extern int screenmode;
-    extern int PlStatus;
 
     float Px, Py;
     float NPx, NPy;

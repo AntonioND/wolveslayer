@@ -41,9 +41,8 @@ void CheckEndGame(void)
             RunTime();
             E3D_StartRender();
             UpdateDynamic();
-            Refresh3D();
-            glPopMatrix(1);
-            glFlush(GL_WBUFFERING);
+            E3D_Render();
+            E3D_EndRender();
         }
 
         ReadSettings();
@@ -53,9 +52,8 @@ void CheckEndGame(void)
             RunTime();
             E3D_StartRender();
             UpdateDynamic();
-            Refresh3D();
-            glPopMatrix(1);
-            glFlush(GL_WBUFFERING);
+            E3D_Render();
+            E3D_EndRender();
         }
     }
 

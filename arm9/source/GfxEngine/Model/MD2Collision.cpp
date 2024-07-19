@@ -135,7 +135,9 @@ void MakeCollisionMap(int modelnum)
     }
 }
 
-// Test
+// This draws on the bottom screen the shapes of the collision map of a model
+// when it is rotated in 4 different directions. For example, the player model
+// is displayed with "modelnum = 0".
 void ShowCollisionMap(int modelnum)
 {
     for (int y = 0; y < 21; y++) {

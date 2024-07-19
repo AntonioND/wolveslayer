@@ -261,10 +261,10 @@ bool IsObjHouse(int x, int y)
         if (x < MapGetWr() && y < MapGetHr()) {
             Obj = MapObjectGetRGB(x, y);
             for (texturecounter = 0; texturecounter < 10; texturecounter++)
-                if (Obj == ObjektColorKey[texturecounter])
+                if (Obj == Objects[texturecounter].ColorKey)
                     choose = texturecounter;
 
-            if (choose != -1 && strncmp(ObjektTyp[choose], "HOUSE", 5) == 0)
+            if (choose != -1 && strncmp(Objects[choose].Type, "HOUSE", 5) == 0)
                 return true;
         }
     }
@@ -280,10 +280,10 @@ bool IsObjWall(int x, int y)
         if (x < MapGetWr() && y < MapGetHr()) {
             Obj = MapObjectGetRGB(x, y);
             for (texturecounter = 0; texturecounter < 10; texturecounter++)
-                if (Obj == ObjektColorKey[texturecounter])
+                if (Obj == Objects[texturecounter].ColorKey)
                     choose = texturecounter;
 
-            if (choose != -1 && strncmp(ObjektTyp[choose], "WALL", 4) == 0)
+            if (choose != -1 && strncmp(Objects[choose].Type, "WALL", 4) == 0)
                 return true;
         }
     }
@@ -299,10 +299,10 @@ bool IsObjBumpWall(int x, int y)
         if (x < MapGetWr() && y < MapGetHr()) {
             Obj = MapObjectGetRGB(x, y);
             for (texturecounter = 0; texturecounter < 10; texturecounter++)
-                if (Obj == ObjektColorKey[texturecounter])
+                if (Obj == Objects[texturecounter].ColorKey)
                     choose = texturecounter;
 
-            if (choose != -1 && strncmp(ObjektTyp[choose], "BUMPWALL", 8) == 0)
+            if (choose != -1 && strncmp(Objects[choose].Type, "BUMPWALL", 8) == 0)
                 return true;
         }
     }

@@ -6,16 +6,20 @@
 #include "GfxEngine/Limits.h"
 #include "XML/tinyxml.h"
 
-extern int ObjectTextureID[Object_Count];
+typedef struct {
+    int TextureID; // Internal engine texture ID used for this object
 
-// and 26 objects...but u can map textures twice....
-extern char ObjektTyp[Object_Count][13];
-extern u32 ObjektColorKey[Object_Count];
-extern float ObjectRadius[Object_Count];
-extern bool ObjectMirrow[Object_Count];
-extern bool ObjectIllumination[Object_Count];
-extern bool ObjectNoGround[Object_Count];
-extern bool ObjectCulling[Object_Count];
+    char Type[13]; // Type of the object (a string)
+    u32 ColorKey;  // 24 BPP RGB color
+
+    float Radius;
+    bool Mirrowable;   // Is mirrowable
+    bool Illumination; // Self illuminated
+    bool NoGround;     // Don't render ground
+    bool Culling;      // If true, cull front. If false, cull none.
+} ObjectInfo;
+
+extern ObjectInfo Objects[Object_Count];
 
 int CountObjectsCommand(TiXmlElement *map);
 int ReturnObjectsCount(void);

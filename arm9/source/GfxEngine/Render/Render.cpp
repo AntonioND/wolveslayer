@@ -82,7 +82,7 @@ static void RefreshMap(void)
         for (int xx = maxx; xx > minx; xx--) {
             x = xx + CamPosX;
             y = yy + CamPosY;
-            if (ObjectNoGround[TexObj[x][y]] == false) {
+            if (Objects[TexObj[x][y]].NoGround == false) {
                 SetCurBod(x, y); // We tell the renderengine where the boden is to set up maplight
 
                 // Levelrand
@@ -200,7 +200,9 @@ static void RefreshWelt(void)
 
             if (seeable) {
                 if (TexObj[x][y] >= 0) {
-                    glBindTexture(GL_TEXTURE_2D, ObjektTex[ObjectTextureID[TexObj[x][y]]]);
+                    ObjectInfo *obj = &Objects[TexObj[x][y]];
+
+                    glBindTexture(GL_TEXTURE_2D, ObjektTex[obj->TextureID]);
 
                     height = TerrainMid[x][y];
                     posx   = inttof32(xx - 6);
@@ -212,8 +214,8 @@ static void RefreshWelt(void)
                         pos[1] = y;
 
                         // SetMdlLights(pos,spos,.4,0);   DirObj[x][y]
-                        if (yy > -1 || ((Precalcdata[x][y] & (1 << mirrow)) && ObjectMirrow[TexObj[x][y]] == true)) {
-                            if (!ObjectIllumination[TexObj[x][y]])
+                        if (yy > -1 || ((Precalcdata[x][y] & (1 << mirrow)) && obj->Mirrowable == true)) {
+                            if (!obj->Illumination)
                                 SetObjLights(pos, DirObj[x][y] * 64); // way faster and enough for objects
                             else
                                 SetObjLightsSelfilluminated();
@@ -222,10 +224,10 @@ static void RefreshWelt(void)
                         if (yy > -1) {
                             // Mesh
                             glPushMatrix();
-                            if (ObjectCulling[TexObj[x][y]])
-                                glPolyFmt(POLY_ALPHA(31) | POLY_CULL_FRONT | POLY_FORMAT_LIGHT0 | POLY_ID(ObjectTextureID[TexObj[x][y]] + 11 + 3));
+                            if (obj->Culling)
+                                glPolyFmt(POLY_ALPHA(31) | POLY_CULL_FRONT | POLY_FORMAT_LIGHT0 | POLY_ID(obj->TextureID + 11 + 3));
                             else
-                                glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(ObjectTextureID[TexObj[x][y]] + 11 + 3));
+                                glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(obj->TextureID + 11 + 3));
                             glTranslatef32(posx, height, posy);
                             glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
                             glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + (DirObj[x][y] * -64)));
@@ -233,9 +235,9 @@ static void RefreshWelt(void)
                             glPopMatrix(1);
                         }
                         // Same for mirrowing
-                        if ((Precalcdata[x][y] & (1 << mirrow)) && ObjectMirrow[TexObj[x][y]] == true) {
+                        if ((Precalcdata[x][y] & (1 << mirrow)) && obj->Mirrowable == true) {
                             glPushMatrix();
-                            glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(ObjectTextureID[TexObj[x][y]] + 11 + 3));
+                            glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(obj->TextureID + 11 + 3));
                             glTranslatef32(posx, -height, posy);
                             glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
                             glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + (DirObj[x][y] * -64)));
@@ -286,7 +288,7 @@ static void RefreshWelt(void)
                     // wallParts...finaly
                     // Wall border
                     // if (IsObjBumpWall(x, y) == true)
-                    //     glBindTexture(GL_TEXTURE_2D, ObjektTexA[ObjectTextureID[TexObj[x][y]]]);
+                    //     glBindTexture(GL_TEXTURE_2D, ObjektTexA[Object[TexObj[x][y]].TextureID]);
 
                     if (ShapeObj[x][y] == Wallbor) {
                         SetCurWall(xx + CamPosX, yy + CamPosY);

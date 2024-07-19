@@ -56,7 +56,7 @@ static void PreCalcBod(void)
             // Objekt check (needed to determinate if there is a wall/house so we dont render boden)
             Obj = MapObjectGetRGB(xx, yy);
             for (texturecounter2 = 0; texturecounter2 < Object_Count; texturecounter2++)
-                if (Obj == ObjektColorKey[texturecounter2])
+                if (Obj == Objects[texturecounter2].ColorKey)
                     choose2 = texturecounter2;
 
             // Here we look which texture to use
@@ -67,11 +67,11 @@ static void PreCalcBod(void)
             TexBod[xx][yy] = -2;
             if (choose != -3)
                 TexBod[xx][yy] = choose;
-            if (strncmp(ObjektTyp[choose2], "HOUSE", 5) == 0)
+            if (strncmp(Objects[choose2].Type, "HOUSE", 5) == 0)
                 TexBod[xx][yy] = -1;
-            if (strncmp(ObjektTyp[choose2], "WALL", 4) == 0)
+            if (strncmp(Objects[choose2].Type, "WALL", 4) == 0)
                 TexBod[xx][yy] = -1;
-            if (strncmp(ObjektTyp[choose2], "BUMPWALL", 8) == 0)
+            if (strncmp(Objects[choose2].Type, "BUMPWALL", 8) == 0)
                 TexBod[xx][yy] = -1;
             if (MapBodenGetRGB(xx, yy) == (0 | BIT(15)) || MapBodenGetRGB(xx, yy) == 0)
                 TexBod[xx][yy] = -1;
@@ -114,7 +114,7 @@ static void PreCalcABod(void)
             // Objekt check (needed to determinate if there is a wall so we dont render boden)
             Obj = MapObjectGetRGB(xx, yy);
             for (texturecounter2 = 0; texturecounter2 < Object_Count; texturecounter2++)
-                if (Obj == ObjektColorKey[texturecounter2])
+                if (Obj == Objects[texturecounter2].ColorKey)
                     choose2 = texturecounter2;
 
             TexABod[xx][yy] = -1;
@@ -352,7 +352,7 @@ static void PreCalcObj(void)
 
             // Here we look which texture to use
             for (texturecounter = 0; texturecounter < Object_Count; texturecounter++)
-                if (Obj == ObjektColorKey[texturecounter])
+                if (Obj == Objects[texturecounter].ColorKey)
                     choose = texturecounter;
             TexObj[xx][yy]   = choose;
             ShapeObj[xx][yy] = -1;
@@ -360,13 +360,13 @@ static void PreCalcObj(void)
 
             //>>>>>>>>>>>>>>>>>>>>>>>>>>>
             // MD2
-            if (choose != -1 && strncmp(ObjektTyp[choose], "MODEL", 5) == 0) {
+            if (choose != -1 && strncmp(Objects[choose].Type, "MODEL", 5) == 0) {
                 ShapeObj[xx][yy] = Obj_MD2;
             }
 
             //>>>>>>>>>>>>>>>>>>>>>>>>>>
             // HouseParts
-            if (choose != -1 && strncmp(ObjektTyp[choose], "HOUSE", 5) == 0) {
+            if (choose != -1 && strncmp(Objects[choose].Type, "HOUSE", 5) == 0) {
                 ObjD = IsObjHouse(xx, yy + 1);
                 ObjU = IsObjHouse(xx, yy - 1);
                 ObjL = IsObjHouse(xx - 1, yy);
@@ -495,7 +495,7 @@ static void PreCalcObj(void)
 
             //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
             // WallParts
-            if (choose != -1 && (strncmp(ObjektTyp[choose], "WALL", 4) == 0 || strncmp(ObjektTyp[choose], "BUMPWALL", 8) == 0)) {
+            if (choose != -1 && (strncmp(Objects[choose].Type, "WALL", 4) == 0 || strncmp(Objects[choose].Type, "BUMPWALL", 8) == 0)) {
                 if (strncmp(GetMapDoor(xx, yy), ".", 1) == 0)
                     wanddoor = false;
                 if (strncmp(GetMapDoor(xx, yy), ".", 1) != 0)
@@ -1004,19 +1004,22 @@ bool Passable(int x, int y, int sxx, int syy)
     if (x > MapGetWr() || y > MapGetHr())
         return false;
 
-    if (TexObj[x][y] == -1)
+    int tex_obj = TexObj[x][y];
+    if (tex_obj == -1)
         return true;
 
-    if (strncmp(ObjektTyp[TexObj[x][y]], "MODEL", 5) == 0 && ObjectRadius[TexObj[x][y]] != 0) {
-        return GetModelCollsisionXY(TexObj[x][y] + 10, sxx, syy, DirObj[x][y]);
-    } else {
-        if (strncmp(ObjektTyp[TexObj[x][y]], "WALL", 4) == 0)
-            return false;
-        if (strncmp(ObjektTyp[TexObj[x][y]], "HOUSE", 5) == 0)
-            return false;
-        if (strncmp(ObjektTyp[TexObj[x][y]], "BUMPWALL", 8) == 0)
-            return false;
-    }
+    const char *type = Objects[tex_obj].Type;
+
+    if (strncmp(type, "MODEL", 5) == 0 && Objects[tex_obj].Radius != 0)
+        return GetModelCollsisionXY(tex_obj + 10, sxx, syy, DirObj[x][y]);
+
+    if (strncmp(type, "WALL", 4) == 0)
+        return false;
+    if (strncmp(type, "HOUSE", 5) == 0)
+        return false;
+    if (strncmp(type, "BUMPWALL", 8) == 0)
+        return false;
+
     return true;
 }
 
@@ -1027,7 +1030,9 @@ static void PrecalcObjectRot(void)
 
     for (int yy = 0; yy <= MapGetHr(); yy++) {
         for (int xx = 0; xx <= MapGetWr(); xx++) {
-            if (strncmp(ObjektTyp[TexObj[xx][yy]], "MODEL", 5) == 0) {
+            const char *type = Objects[TexObj[xx][yy]].Type;
+
+            if (strncmp(type, "MODEL", 5) == 0) {
                 DirObj[xx][yy] = MapObjGetRot(xx, yy);
             }
         }

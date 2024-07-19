@@ -3,16 +3,7 @@
 #include "GfxEngine/Script/Script_Others.h"
 #include "GfxEngine/Script/Script_Textures.h"
 
-int ObjectTextureID[Object_Count];
-
-char ObjektTyp[Object_Count][13];
-u32 ObjektColorKey[Object_Count];
-
-float ObjectRadius[Object_Count];
-bool ObjectMirrow[Object_Count];
-bool ObjectIllumination[Object_Count];
-bool ObjectNoGround[Object_Count];
-bool ObjectCulling[Object_Count];
+ObjectInfo Objects[Object_Count];
 
 int OBJCOUNT;
 
@@ -61,7 +52,7 @@ void LoadObjectCommand(TiXmlElement *map)
         // id
         if (object->Attribute("textureid"))
             sscanf(object->Attribute("textureid"), "%i", &id);
-        ObjectTextureID[num] = id;
+        Objects[num].TextureID = id;
 
         // filename
         strcpy(FileNameCom, "");
@@ -85,7 +76,7 @@ void LoadObjectCommand(TiXmlElement *map)
         b = 0;
         if (object->Attribute("colorkey")) {
             sscanf(object->Attribute("colorkey"), "%i,%i,%i", &r, &g, &b);
-            ObjektColorKey[num] = (r) | (g << 8) | (b << 16) | (0 << 24);
+            Objects[num].ColorKey = (r) | (g << 8) | (b << 16) | (0 << 24);
         }
 
         // scale
@@ -102,7 +93,7 @@ void LoadObjectCommand(TiXmlElement *map)
             if (rad > .5)
                 rad = .5;
         }
-        ObjectRadius[num] = rad;
+        Objects[num].Radius = rad;
 
         // render ground?
         dontrenderground = false;
@@ -110,7 +101,7 @@ void LoadObjectCommand(TiXmlElement *map)
             if (strncmp("false", object->Attribute("renderground"), 5) == 0)
                 dontrenderground = true;
         }
-        ObjectNoGround[num] = dontrenderground;
+        Objects[num].NoGround = dontrenderground;
 
         // mirrowable?
         mirrowable = true;
@@ -118,7 +109,7 @@ void LoadObjectCommand(TiXmlElement *map)
             if (strncmp("false", object->Attribute("mirrowable"), 5) == 0)
                 mirrowable = false;
         }
-        ObjectMirrow[num] = mirrowable;
+        Objects[num].Mirrowable = mirrowable;
 
         // selfilluminated?
         ilu = false;
@@ -126,7 +117,7 @@ void LoadObjectCommand(TiXmlElement *map)
             if (strncmp("true", object->Attribute("selfilluminated"), 4) == 0)
                 ilu = true;
         }
-        ObjectIllumination[num] = ilu;
+        Objects[num].Illumination = ilu;
 
         // cullfront?
         cull = false;
@@ -134,13 +125,13 @@ void LoadObjectCommand(TiXmlElement *map)
             if (strncmp("true", object->Attribute("culling"), 4) == 0)
                 cull = true;
         }
-        ObjectCulling[num] = cull;
+        Objects[num].Culling = cull;
 
         // Final call to load it
         if (id < Object_Count && id >= 0)
-            strcpy(ObjektTyp[num], ObjTyp);
+            strcpy(Objects[num].Type, ObjTyp);
 
-        if (strncmp("MODEL", ObjektTyp[num], 5) == 0 && id >= 0)
+        if (strncmp("MODEL", Objects[num].Type, 5) == 0 && id >= 0)
             LoadMD2Model(FileNameCom, num + 10, TextureWidthHeight[id], scale);
 
         // Light (objects children)

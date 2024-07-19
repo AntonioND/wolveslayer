@@ -106,11 +106,11 @@ void LoadScrip(char filename[])
         AutotileIgnorecolorsNum[a] = -1;
     }
     for (a = 0; a < 10; a++)
-        ObjektColorKey[a] = 0;
+        Object[a].ColorKey = 0;
     for (a = 0; a < 10; a++)
-        strcpy(ObjektTyp[a], ".");
+        strcpy(Object[a].Type, ".");
     for (a = 0; a < 10; a++)
-        ObjectRadius[a] = 0;
+        Object[a].Radius = 0;
     FreeModels();
     ResetDynamic();
 

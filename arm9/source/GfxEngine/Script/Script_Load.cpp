@@ -55,11 +55,11 @@ static void UnloadStuff(void)
         AutotileIgnorecolorsNum[a] = -1;
     }
     for (a = 0; a < Object_Count; a++)
-        ObjektColorKey[a] = 0;
+        Objects[a].ColorKey = 0;
     for (a = 0; a < Object_Count; a++)
-        strcpy(ObjektTyp[a], ".");
+        strcpy(Objects[a].Type, ".");
     for (a = 0; a < Object_Count; a++)
-        ObjectRadius[a] = 0;
+        Objects[a].Radius = 0;
     FreeModels();
     ResetDynamic();
 

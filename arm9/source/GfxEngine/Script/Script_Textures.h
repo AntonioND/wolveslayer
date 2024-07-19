@@ -5,8 +5,8 @@
 #include "GfxEngine/Render/Obj_Wall.h"
 #include "XML/tinyxml.h"
 
-extern int TextureWidthHeight[Object_Count];
-extern bool TexturehasBump[Object_Count];
+extern int TextureWidthHeight[Object_Max];
+extern bool TexturehasBump[Object_Max];
 
 void LoadTextureCommand(TiXmlElement *map);
 

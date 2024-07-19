@@ -26,7 +26,7 @@ void InitTableOfNormal(void)
 void FreeModels(void)
 {
     int a, N;
-    for (a = 0; a < MD2_Count; a++) {
+    for (a = 0; a < MD2_Max; a++) {
         if (ModelEnable[a] == true) {
             for (N = 0; N < Models[a].header.num_frames; ++N)
                 free(Models[a].rahmen[N].verts);

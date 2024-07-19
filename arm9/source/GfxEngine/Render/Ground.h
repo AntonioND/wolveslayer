@@ -27,7 +27,7 @@ typedef struct {
     u8 Size;
 } GroundInfo;
 
-extern GroundInfo Ground[Ground_Count];
+extern GroundInfo Ground[Ground_Max];
 
 // The ground needs to know where it stands to set up light correctly
 void SetCurGround(int x, int y);

@@ -4,8 +4,8 @@
 #include "GfxEngine/Limits.h"
 #include "GfxEngine/Model/MD2Format.h"
 
-extern MD2Entity Models[MD2_Count];
-extern bool ModelEnable[MD2_Count];
+extern MD2Entity Models[MD2_Max];
+extern bool ModelEnable[MD2_Max];
 
 void Precalcmd2light(int n, int num);
 void RenderMD2Model(int n, int num);

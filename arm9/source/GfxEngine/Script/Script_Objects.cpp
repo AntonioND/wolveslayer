@@ -3,7 +3,7 @@
 #include "GfxEngine/Script/Script_Others.h"
 #include "GfxEngine/Script/Script_Textures.h"
 
-ObjectInfo Objects[Object_Count];
+ObjectInfo Objects[Object_Max];
 
 int OBJCOUNT;
 
@@ -115,7 +115,7 @@ void LoadObjectCommand(TiXmlElement *map)
         Objects[num].Culling = cull;
 
         // Final call to load it
-        if (id < Object_Count && id >= 0)
+        if (id < Object_Max && id >= 0)
             strcpy(Objects[num].Type, ObjTyp);
 
         if (strncmp("MODEL", Objects[num].Type, 5) == 0 && id >= 0)

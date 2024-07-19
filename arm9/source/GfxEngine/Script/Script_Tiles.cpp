@@ -11,7 +11,7 @@ void LoadGroundCommand(TiXmlElement *map)
     int a = 0;
     TiXmlElement *ground = map->FirstChildElement("ground");
 
-    while (ground && a < Ground_Count) {
+    while (ground && a < Ground_Max) {
         char FileNameCom[60];
         snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", ground->Attribute("file"));
 

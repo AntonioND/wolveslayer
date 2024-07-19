@@ -5,10 +5,10 @@
 #include "GfxEngine/Limits.h"
 
 // textureslots for objects
-extern int ObjektTex[Object_Count]; // Standard slot for objects
-// extern int ObjektTexA[Object_Count];
-extern int ObjektTexB[Object_Count]; // Advanced slot for objects(bumpmapping)
-extern int ObjektTexC[Object_Count]; // Advanced slot for objects(bumpmapping)
+extern int ObjektTex[Object_Max]; // Standard slot for objects
+// extern int ObjektTexA[Object_Max];
+extern int ObjektTexB[Object_Max]; // Advanced slot for objects(bumpmapping)
+extern int ObjektTexC[Object_Max]; // Advanced slot for objects(bumpmapping)
 
 void RenderWallBorder(int mode, int dirrection, f32 x, f32 y, f32 z, int textnum);
 

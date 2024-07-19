@@ -42,12 +42,12 @@ static void PreCalcGround(void)
 
             // Objekt check (needed to determinate if there is a wall/house so we dont render ground)
             Obj = MapObjectGetRGB(xx, yy);
-            for (texturecounter2 = 0; texturecounter2 < Object_Count; texturecounter2++)
+            for (texturecounter2 = 0; texturecounter2 < Object_Max; texturecounter2++)
                 if (Obj == Objects[texturecounter2].ColorKey)
                     choose2 = texturecounter2;
 
             // Here we look which texture to use
-            for (texturecounter = 0; texturecounter < Ground_Count; texturecounter++)
+            for (texturecounter = 0; texturecounter < Ground_Max; texturecounter++)
                 if (Gnd == Ground[texturecounter].ColorKey)
                     choose = texturecounter;
 
@@ -100,7 +100,7 @@ static void PreCalcAGround(void)
 
             // Objekt check (needed to determinate if there is a wall so we dont render ground)
             Obj = MapObjectGetRGB(xx, yy);
-            for (texturecounter2 = 0; texturecounter2 < Object_Count; texturecounter2++)
+            for (texturecounter2 = 0; texturecounter2 < Object_Max; texturecounter2++)
                 if (Obj == Objects[texturecounter2].ColorKey)
                     choose2 = texturecounter2;
 
@@ -338,7 +338,7 @@ static void PreCalcObj(void)
                 Obj = MapObjectGetRGB(xx, yy);
 
             // Here we look which texture to use
-            for (texturecounter = 0; texturecounter < Object_Count; texturecounter++)
+            for (texturecounter = 0; texturecounter < Object_Max; texturecounter++)
                 if (Obj == Objects[texturecounter].ColorKey)
                     choose = texturecounter;
             TexObj[xx][yy]   = choose;

@@ -13,7 +13,7 @@ int GroundX, GroundY;
 const t16 GroundTextPosStart[4] = { inttot16(0), inttot16(32), inttot16(64), inttot16(96) };
 const t16 GroundTextPosEnd[4] = { inttot16(32), inttot16(64), inttot16(96), inttot16(128) };
 
-GroundInfo Ground[Ground_Count];
+GroundInfo Ground[Ground_Max];
 
 void SetCurGround(int x, int y)
 {

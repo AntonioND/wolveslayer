@@ -3,8 +3,8 @@
 #include "GfxEngine/Texture/Bumpmapping.h"
 #include "XML/tinyxml.h"
 
-int TextureWidthHeight[Object_Count];
-bool TexturehasBump[Object_Count];
+int TextureWidthHeight[Object_Max];
+bool TexturehasBump[Object_Max];
 
 void LoadTextureCommand(TiXmlElement *map)
 {
@@ -28,7 +28,7 @@ void LoadTextureCommand(TiXmlElement *map)
         }
 
         // Final call to load that shit
-        if (id < Object_Count && id >= 0) {
+        if (id < Object_Max && id >= 0) {
             if (bump == false)
                 LoadModelTexture(FileNameCom, &ObjektTex[0], id, &TextureWidthHeight[0]);
             else

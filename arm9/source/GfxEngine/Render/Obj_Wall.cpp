@@ -4,10 +4,10 @@
 #include "GfxEngine/Render/Obj_Wall.h"
 #include "GfxEngine/Texture/Light.h"
 
-int ObjektTex[Object_Count]; // Standard slot for objects
-// int ObjektTexA[Object_Count];
-int ObjektTexB[Object_Count]; // Advanced slot for objects(bumpmapping)
-int ObjektTexC[Object_Count]; // Advanced slot for objects(bumpmapping)
+int ObjektTex[Object_Max]; // Standard slot for objects
+// int ObjektTexA[Object_Max];
+int ObjektTexB[Object_Max]; // Advanced slot for objects(bumpmapping)
+int ObjektTexC[Object_Max]; // Advanced slot for objects(bumpmapping)
 
 // Renders walls inside buildings
 void RenderWallBorder(int mode, int dirrection, f32 x, f32 y, f32 z, int textnum)

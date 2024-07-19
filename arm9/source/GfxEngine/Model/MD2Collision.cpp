@@ -34,7 +34,7 @@ bool GetModelCollsisionXY(int num, int x, int y, int rot)
         Y = x;
     }
 
-    if (num < 0 || num >= MD2_Count)
+    if (num < 0 || num >= MD2_Max)
         return true;
     if (ModelEnable[num] == false)
         return true;

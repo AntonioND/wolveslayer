@@ -2,8 +2,8 @@
 #include "GfxEngine/Model/MD2Models.h"
 #include "GfxEngine/Texture/Light.h"
 
-MD2Entity Models[MD2_Count];
-bool ModelEnable[MD2_Count];
+MD2Entity Models[MD2_Max];
+bool ModelEnable[MD2_Max];
 
 static u16 *ColorContainer;
 

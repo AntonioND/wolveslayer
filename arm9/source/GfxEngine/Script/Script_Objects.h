@@ -19,7 +19,7 @@ typedef struct {
     bool Culling;      // If true, cull front. If false, cull none.
 } ObjectInfo;
 
-extern ObjectInfo Objects[Object_Count];
+extern ObjectInfo Objects[Object_Max];
 
 int CountObjectsCommand(TiXmlElement *map);
 int ReturnObjectsCount(void);

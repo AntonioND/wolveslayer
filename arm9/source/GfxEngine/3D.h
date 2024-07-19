@@ -40,15 +40,6 @@ void E3D_StartRender();
 
 ///>>>>>>>>>>>>>>>3D
 
-// Sprite
-void RenderSprite(int frame, int dirrection, float x, float y, float z);
-
-// Wasser
-void LoadWasserTexture(char filename[], int *Target, int num);
-
-// Objects
-void LoadObjectTexture(char filename[], int *Target, int num);
-
 #define Obj_MD2 -10;
 
 // Wallparts

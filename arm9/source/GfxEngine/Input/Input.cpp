@@ -360,19 +360,19 @@ void Interact(void)
         Px = GetPX() + (PlPosSX + .5);
         Py = GetPY() + (PlPosSY + .5);
 
-        for (NPCnum = 0; NPCnum <= DorfiCount; NPCnum++) {
-            NPx = DorfiX[NPCnum];
-            NPy = DorfiY[NPCnum];
-            if (DorfiSY[NPCnum] >= -.5)
+        for (NPCnum = 0; NPCnum <= VillagerCount; NPCnum++) {
+            NPx = VillagerX[NPCnum];
+            NPy = VillagerY[NPCnum];
+            if (VillagerSY[NPCnum] >= -.5)
                 NPy++;
-            if (DorfiSY[NPCnum] <= .5)
+            if (VillagerSY[NPCnum] <= .5)
                 NPy--;
-            if (DorfiSX[NPCnum] >= -.5)
+            if (VillagerSX[NPCnum] >= -.5)
                 NPx++;
-            if (DorfiSX[NPCnum] <= .5)
+            if (VillagerSX[NPCnum] <= .5)
                 NPx--;
-            NPx += DorfiSX[NPCnum] + .5;
-            NPy += DorfiSY[NPCnum] + .5;
+            NPx += VillagerSX[NPCnum] + .5;
+            NPy += VillagerSY[NPCnum] + .5;
             // Wow strange code....but should work to compare those positions right
             // now lets compace
             if (Py > NPy - .8 && Py < NPy + .8) {
@@ -392,7 +392,7 @@ void Interact(void)
         if (d) {
             if (nd != -1) {
                 // NPCmode(nd);
-                TextBoxmode(DorfiSpeech[nd], DorfiSpeechCount[nd], nd);
+                TextBoxmode(VillagerSpeech[nd], VillagerSpeechCount[nd], nd);
                 return;
             }
             OpenMapDoor(GetPX(), GetPY() + 1);
@@ -400,7 +400,7 @@ void Interact(void)
 
         if (l) {
             if (nl != -1) {
-                TextBoxmode(DorfiSpeech[nl], DorfiSpeechCount[nl], nl);
+                TextBoxmode(VillagerSpeech[nl], VillagerSpeechCount[nl], nl);
                 return;
             }
             OpenMapDoor(GetPX() - 1, GetPY());
@@ -408,7 +408,7 @@ void Interact(void)
 
         if (u) {
             if (nu != -1) {
-                TextBoxmode(DorfiSpeech[nu], DorfiSpeechCount[nu], nu);
+                TextBoxmode(VillagerSpeech[nu], VillagerSpeechCount[nu], nu);
                 return;
             }
             OpenMapDoor(GetPX(), GetPY() - 1);
@@ -416,7 +416,7 @@ void Interact(void)
 
         if (r) {
             if (nr != -1) {
-                TextBoxmode(DorfiSpeech[nr], DorfiSpeechCount[nr], nr);
+                TextBoxmode(VillagerSpeech[nr], VillagerSpeechCount[nr], nr);
                 return;
             }
             OpenMapDoor(GetPX() + 1, GetPY());

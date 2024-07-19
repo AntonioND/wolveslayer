@@ -445,28 +445,28 @@ static void RefreshPlayer(void)
 }
 
 //*******************************************************************************
-// Dorfbwohner (Villagers)
+// Villagers
 #if 0
-static void RefreshDorfis(void)
+static void RefreshVillagers(void)
 {
     int dir, a, vx, vy;
     int pos[2];
     float spos[2];
     float hpos, vsx, vsy;
 
-    for (a = 0; a <= DorfiCount; a++) {
-        hpos = GetHight(DorfiX[a], DorfiY[a]);
-        glBindTexture(GL_TEXTURE_2D, Figuren[DorfiTextNum[a]]);
+    for (a = 0; a <= VillagerCount; a++) {
+        hpos = GetHight(VillagerX[a], VillagerY[a]);
+        glBindTexture(GL_TEXTURE_2D, Figuren[VillagerTextNum[a]]);
         glColorTable(GL_RGB256, ...); // TODO: Update this if needed
 
-        if ((DorfiX[a] - 6) + DorfiSX[a] - (CamPosX)-CamPosSX > -4) {
-            if ((DorfiX[a] - 6) + DorfiSX[a] - (CamPosX)-CamPosSX < 4) {
-                if ((DorfiY[a] - 8) + DorfiSY[a] - (CamPosY)-CamPosSY > -8) {
-                    if ((DorfiY[a] - 8) + DorfiSY[a] - (CamPosY)-CamPosSY < 3) {
-                        vx  = DorfiX[a];
-                        vy  = DorfiY[a];
-                        vsx = DorfiSX[a];
-                        vsy = DorfiSY[a];
+        if ((VillagerX[a] - 6) + VillagerSX[a] - (CamPosX)-CamPosSX > -4) {
+            if ((VillagerX[a] - 6) + VillagerSX[a] - (CamPosX)-CamPosSX < 4) {
+                if ((VillagerY[a] - 8) + VillagerSY[a] - (CamPosY)-CamPosSY > -8) {
+                    if ((VillagerY[a] - 8) + VillagerSY[a] - (CamPosY)-CamPosSY < 3) {
+                        vx  = VillagerX[a];
+                        vy  = VillagerY[a];
+                        vsx = VillagerSX[a];
+                        vsy = VillagerSY[a];
                         if (vsy >= -.5)
                             vy++;
                         if (vsy <= .5)
@@ -475,9 +475,9 @@ static void RefreshDorfis(void)
                             vx++;
                         if (vsx <= .5)
                             vx--; // This is needed to get a better position
-                        vsx = DorfiSX[a] + .5;
-                        vsy = DorfiSY[a] + .5;
-                        dir = DorfiRichtung[a];
+                        vsx = VillagerSX[a] + .5;
+                        vsy = VillagerSY[a] + .5;
+                        dir = VillagerRichtung[a];
                         if (a == npctalk && screenmode == 2) {
                             dir = PlRichtung + 4;
                             if (dir > 7)
@@ -493,29 +493,29 @@ static void RefreshDorfis(void)
                         hpos = GetInterPolY(vx, vy, vsx, vsy);
 
                         glPushMatrix();
-                        glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(DorfiTextNum[a] + 1));
-                        glTranslatef((DorfiX[a] - 6) + DorfiSX[a] - (CamPosX), hpos, (DorfiY[a] - 8) + DorfiSY[a] - (CamPosY));
+                        glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(VillagerTextNum[a] + 1));
+                        glTranslatef((VillagerX[a] - 6) + VillagerSX[a] - (CamPosX), hpos, (VillagerY[a] - 8) + VillagerSY[a] - (CamPosY));
                         glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
                         glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
                         if ((screenmode != 2 || a != npctalk) && screenmode <= 2) {
-                            Precalcmd2light(stackt11 + 11, DorfiTextNum[a]);
-                            RenderMD2Model(stackt11 + 11, DorfiTextNum[a]);
+                            Precalcmd2light(stackt11 + 11, VillagerTextNum[a]);
+                            RenderMD2Model(stackt11 + 11, VillagerTextNum[a]);
                         } else {
-                            Precalcmd2light(stackt11, DorfiTextNum[a]);
-                            RenderMD2Model(stackt11, DorfiTextNum[a]);
+                            Precalcmd2light(stackt11, VillagerTextNum[a]);
+                            RenderMD2Model(stackt11, VillagerTextNum[a]);
                         }
                         glPopMatrix(1);
 
-                        if (Precalcdata[DorfiX[a]][DorfiY[a]] & (1 << B_Mirrowable)) {
+                        if (Precalcdata[VillagerX[a]][VillagerY[a]] & (1 << B_Mirrowable)) {
                             glPushMatrix();
                             glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
-                            glTranslatef((DorfiX[a] - 6) + DorfiSX[a] - (CamPosX), -hpos, (DorfiY[a] - 8) + DorfiSY[a] - (CamPosY));
+                            glTranslatef((VillagerX[a] - 6) + VillagerSX[a] - (CamPosX), -hpos, (VillagerY[a] - 8) + VillagerSY[a] - (CamPosY));
                             glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
                             glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
                             if ((screenmode != 2 || a != npctalk) && screenmode <= 2)
-                                RenderMD2ModelMirrowed(stackt11 + 11, DorfiTextNum[a]);
+                                RenderMD2ModelMirrowed(stackt11 + 11, VillagerTextNum[a]);
                             else
-                                RenderMD2ModelMirrowed(stackt11, DorfiTextNum[a]);
+                                RenderMD2ModelMirrowed(stackt11, VillagerTextNum[a]);
                             glPopMatrix(1);
                         }
                     }
@@ -639,7 +639,7 @@ static void RefreshEnemys(void)
 void Refresh3D(void)
 {
     RefreshEnemys();
-    // RefreshDorfis();
+    // RefreshVillagers();
     RefreshPlayer();
     RefreshWelt();
     RefreshMap();

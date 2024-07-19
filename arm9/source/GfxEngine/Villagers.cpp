@@ -6,13 +6,13 @@
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/Villagers.h"
 
-int DorfiX[Dorf_Max], DorfiY[Dorf_Max];     // its the HardPos on the Map(on which tile it stands)
-float DorfiSX[Dorf_Max], DorfiSY[Dorf_Max]; // Its softpos...goes from -.5 to .5
-int DorfiTextNum[Dorf_Max];                 // The Index for texture
-int DorfiRichtung[Dorf_Max];                // The Direcction for each NPC
-int DorfiCount = -1;                        // Its the count of NPCs
-char DorfiSpeech[Dorf_Max][10][256];        // to hold 10 textes for each NPC with 300 chars
-int DorfiSpeechCount[Dorf_Max];             // Holds the Number of speeches a NPC has...
+int VillagerX[Villagers_Max], VillagerY[Villagers_Max];     // its the HardPos on the Map(on which tile it stands)
+float VillagerSX[Villagers_Max], VillagerSY[Villagers_Max]; // Its softpos...goes from -.5 to .5
+int VillagerTextNum[Villagers_Max];                 // The Index for texture
+int VillagerRichtung[Villagers_Max];                // The Direcction for each NPC
+int VillagerCount = -1;                        // Its the count of NPCs
+char VillagerSpeech[Villagers_Max][10][256];        // to hold 10 textes for each NPC with 300 chars
+int VillagerSpeechCount[Villagers_Max];             // Holds the Number of speeches a NPC has...
 
 int SpriteX, SpriteY;
 float SpriteSX, SpriteSY;
@@ -27,40 +27,40 @@ void SetCurSprite(int x, int y, float sx, float sy)
 
 void ResetVillagers(void)
 {
-    DorfiCount = -1;
+    VillagerCount = -1;
 
-    for (int a = 0; a < Dorf_Max; a++) {
-        DorfiX[a]        = -1;
-        DorfiY[a]        = -1;
-        DorfiSX[a]       = 0;
-        DorfiSY[a]       = 0;
-        DorfiTextNum[a]  = -1;
-        DorfiRichtung[a] = 0;
+    for (int a = 0; a < Villagers_Max; a++) {
+        VillagerX[a]        = -1;
+        VillagerY[a]        = -1;
+        VillagerSX[a]       = 0;
+        VillagerSY[a]       = 0;
+        VillagerTextNum[a]  = -1;
+        VillagerRichtung[a] = 0;
         for (int b = 0; b < 10; b++)
-            strcpy(DorfiSpeech[a][b], "");
-        DorfiSpeechCount[a] = 0;
+            strcpy(VillagerSpeech[a][b], "");
+        VillagerSpeechCount[a] = 0;
     }
 }
 
-void AddTexttoDorfi(char txt[256])
+void AddTexttoVillager(char txt[256])
 {
-    if (DorfiSpeechCount[DorfiCount] < 10) {
-        strcpy(DorfiSpeech[DorfiCount][DorfiSpeechCount[DorfiCount]], txt);
-        DorfiSpeechCount[DorfiCount]++;
+    if (VillagerSpeechCount[VillagerCount] < 10) {
+        strcpy(VillagerSpeech[VillagerCount][VillagerSpeechCount[VillagerCount]], txt);
+        VillagerSpeechCount[VillagerCount]++;
     }
 }
 
-void AddDorfi(int x, int y, int texnum)
+void AddVillager(int x, int y, int texnum)
 {
-    if (Dorf_Max > DorfiCount + 1) {
-        DorfiCount++;
-        DorfiX[DorfiCount]       = x;
-        DorfiY[DorfiCount]       = y;
-        DorfiTextNum[DorfiCount] = texnum;
+    if (Villagers_Max > VillagerCount + 1) {
+        VillagerCount++;
+        VillagerX[VillagerCount]       = x;
+        VillagerY[VillagerCount]       = y;
+        VillagerTextNum[VillagerCount] = texnum;
     }
 }
 
-void TurnDorfi(int a, bool l, bool r, bool u, bool d)
+void TurnVillager(int a, bool l, bool r, bool u, bool d)
 {
     // Now give a new valid dirrecion if possible
     if (!l && !d && !r && !u)
@@ -83,31 +83,31 @@ void TurnDorfi(int a, bool l, bool r, bool u, bool d)
             ok = false;
     }
 
-    DorfiRichtung[a] = dirnew;
+    VillagerRichtung[a] = dirnew;
 }
 
-void UpdateDorfis()
+void UpdateVillagers()
 {
     bool l, r, u, d;
 
     if (screenmode < 3) {
-        for (int a = 0; a <= DorfiCount; a++) {
+        for (int a = 0; a <= VillagerCount; a++) {
             l = true;
             r = true;
             u = true;
             d = true;
 
-            float sx = (DorfiSX[a]) * 10;
-            float sy = (DorfiSY[a]) * 10;
+            float sx = (VillagerSX[a]) * 10;
+            float sy = (VillagerSY[a]) * 10;
 
             for (int b = 2; b < 8; b++) {
-                if (Passable(DorfiX[a], DorfiY[a], sx + b, sy) == false)
+                if (Passable(VillagerX[a], VillagerY[a], sx + b, sy) == false)
                     u = false;
-                if (Passable(DorfiX[a], DorfiY[a], sx + b, sy + 8) == false)
+                if (Passable(VillagerX[a], VillagerY[a], sx + b, sy + 8) == false)
                     d = false;
-                if (Passable(DorfiX[a], DorfiY[a], sx + 1, sy - 1 + b) == false)
+                if (Passable(VillagerX[a], VillagerY[a], sx + 1, sy - 1 + b) == false)
                     l = false;
-                if (Passable(DorfiX[a], DorfiY[a], sx + 8, sy - 1 + b) == false)
+                if (Passable(VillagerX[a], VillagerY[a], sx + 8, sy - 1 + b) == false)
                     r = false;
             }
 
@@ -118,18 +118,18 @@ void UpdateDorfis()
             NPx = GetPX() + (PlPosSX + .5); // its playerpos here...
             NPy = GetPY() + (PlPosSY + .5); // why? copy/paste/change a bit...easy
 
-            Px = DorfiX[a];
-            Py = DorfiY[a];
-            if (DorfiSY[a] >= -.5)
+            Px = VillagerX[a];
+            Py = VillagerY[a];
+            if (VillagerSY[a] >= -.5)
                 Py++;
-            if (DorfiSY[a] <= .5)
+            if (VillagerSY[a] <= .5)
                 Py--;
-            if (DorfiSX[a] >= -.5)
+            if (VillagerSX[a] >= -.5)
                 Px++;
-            if (DorfiSX[a] <= .5)
+            if (VillagerSX[a] <= .5)
                 Px--;
-            Px += DorfiSX[a] + .5;
-            Py += DorfiSY[a] + .5;
+            Px += VillagerSX[a] + .5;
+            Py += VillagerSY[a] + .5;
             // Wow strange code....but should work to compare those positions right
             // first check distance
             dx = Px - NPx;
@@ -158,23 +158,23 @@ void UpdateDorfis()
             int NPCnum;
             // NPx = GetPX() + (PlPosSX + .5); // its playerpos here...
             // NPy = GetPY() + (PlPosSY + .5); // why? copy/paste/change a bit...easy
-            NPx = DorfiX[a];
-            NPy = DorfiY[a];
+            NPx = VillagerX[a];
+            NPy = VillagerY[a];
 
-            for (NPCnum = 0; NPCnum <= DorfiCount; NPCnum++) {
+            for (NPCnum = 0; NPCnum <= VillagerCount; NPCnum++) {
                 if (NPCnum != a) {
-                    Px = DorfiX[NPCnum];
-                    Py = DorfiY[NPCnum];
-                    if (DorfiSY[NPCnum] >= -.5)
+                    Px = VillagerX[NPCnum];
+                    Py = VillagerY[NPCnum];
+                    if (VillagerSY[NPCnum] >= -.5)
                         Py++;
-                    if (DorfiSY[NPCnum] <= .5)
+                    if (VillagerSY[NPCnum] <= .5)
                         Py--;
-                    if (DorfiSX[NPCnum] >= -.5)
+                    if (VillagerSX[NPCnum] >= -.5)
                         Px++;
-                    if (DorfiSX[NPCnum] <= .5)
+                    if (VillagerSX[NPCnum] <= .5)
                         Px--;
-                    Px += DorfiSX[NPCnum] + .5;
-                    Py += DorfiSY[NPCnum] + .5;
+                    Px += VillagerSX[NPCnum] + .5;
+                    Py += VillagerSY[NPCnum] + .5;
                     // Wow strange code....but should work to compare those positions right
                     // first check distance
                     dx = Px - NPx;
@@ -205,45 +205,45 @@ void UpdateDorfis()
             if (screenmode != 2 || a != npctalk) { // talking NPCs cant move
                 // Direction change
                 bool change = false;
-                if ((DorfiRichtung[a] == 0 || DorfiRichtung[a] == 1 || DorfiRichtung[a] == 7) && d == false)
+                if ((VillagerRichtung[a] == 0 || VillagerRichtung[a] == 1 || VillagerRichtung[a] == 7) && d == false)
                     change = true;
-                if ((DorfiRichtung[a] == 1 || DorfiRichtung[a] == 2 || DorfiRichtung[a] == 3) && l == false)
+                if ((VillagerRichtung[a] == 1 || VillagerRichtung[a] == 2 || VillagerRichtung[a] == 3) && l == false)
                     change = true;
-                if ((DorfiRichtung[a] == 6 || DorfiRichtung[a] == 5 || DorfiRichtung[a] == 7) && r == false)
+                if ((VillagerRichtung[a] == 6 || VillagerRichtung[a] == 5 || VillagerRichtung[a] == 7) && r == false)
                     change = true;
-                if ((DorfiRichtung[a] == 4 || DorfiRichtung[a] == 3 || DorfiRichtung[a] == 5) && u == false)
+                if ((VillagerRichtung[a] == 4 || VillagerRichtung[a] == 3 || VillagerRichtung[a] == 5) && u == false)
                     change = true;
                 if (rand() % 60 == 0)
                     change = true;
 
                 if (change)
-                    TurnDorfi(a, l, r, u, d);
+                    TurnVillager(a, l, r, u, d);
 
                 // Horizontal
-                if ((DorfiRichtung[a] == 6 || DorfiRichtung[a] == 5 || DorfiRichtung[a] == 7) && r)
-                    DorfiSX[a] += .025;
-                if (DorfiSX[a] > .5) {
-                    DorfiX[a] += 1;
-                    DorfiSX[a] -= 1;
+                if ((VillagerRichtung[a] == 6 || VillagerRichtung[a] == 5 || VillagerRichtung[a] == 7) && r)
+                    VillagerSX[a] += .025;
+                if (VillagerSX[a] > .5) {
+                    VillagerX[a] += 1;
+                    VillagerSX[a] -= 1;
                 }
-                if ((DorfiRichtung[a] == 1 || DorfiRichtung[a] == 2 || DorfiRichtung[a] == 3) && l)
-                    DorfiSX[a] -= .025;
-                if (DorfiSX[a] < -.5) {
-                    DorfiX[a] -= 1;
-                    DorfiSX[a] += 1;
+                if ((VillagerRichtung[a] == 1 || VillagerRichtung[a] == 2 || VillagerRichtung[a] == 3) && l)
+                    VillagerSX[a] -= .025;
+                if (VillagerSX[a] < -.5) {
+                    VillagerX[a] -= 1;
+                    VillagerSX[a] += 1;
                 }
                 // Vertikal
-                if ((DorfiRichtung[a] == 0 || DorfiRichtung[a] == 1 || DorfiRichtung[a] == 7) && d)
-                    DorfiSY[a] += .025;
-                if (DorfiSY[a] > .5) {
-                    DorfiY[a] += 1;
-                    DorfiSY[a] -= 1;
+                if ((VillagerRichtung[a] == 0 || VillagerRichtung[a] == 1 || VillagerRichtung[a] == 7) && d)
+                    VillagerSY[a] += .025;
+                if (VillagerSY[a] > .5) {
+                    VillagerY[a] += 1;
+                    VillagerSY[a] -= 1;
                 }
-                if ((DorfiRichtung[a] == 4 || DorfiRichtung[a] == 3 || DorfiRichtung[a] == 5) && u)
-                    DorfiSY[a] -= .025;
-                if (DorfiSY[a] < -.5) {
-                    DorfiY[a] -= 1;
-                    DorfiSY[a] += 1;
+                if ((VillagerRichtung[a] == 4 || VillagerRichtung[a] == 3 || VillagerRichtung[a] == 5) && u)
+                    VillagerSY[a] -= .025;
+                if (VillagerSY[a] < -.5) {
+                    VillagerY[a] -= 1;
+                    VillagerSY[a] += 1;
                 }
             }
         }

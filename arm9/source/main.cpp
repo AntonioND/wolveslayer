@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
         if (screenmode > 2)
             Menu();
 
-        UpdateDorfis();
+        UpdateVillagers();
         UpdateEnemy();
         UpdateDynamic();
 

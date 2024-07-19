@@ -63,7 +63,7 @@ void LoadAutoBodenCommand(TiXmlElement *map)
         if (aboden->Attribute("colorkey")) {
             int r = 0, g = 0, b = 0;
             sscanf(aboden->Attribute("colorkey"), "%i,%i,%i", &r, &g, &b);
-            AutotileColorKeyMaster[a] = r | (g << 8) | (b << 16) | (0 << 24);
+            Autotile[a].ColorKeyMaster = r | (g << 8) | (b << 16) | (0 << 24);
         }
 
         // Here is that final call to load that texture

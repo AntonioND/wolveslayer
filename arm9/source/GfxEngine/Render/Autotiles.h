@@ -3,11 +3,15 @@
 
 #include <nds.h>
 
-// Texturen zum anzeigen
-extern int AutotileTextur[4][3];
-extern u32 AutotileColorKeyMaster[4];
-extern u32 AutotileIgnorecolors[10][4];
-extern int AutotileIgnorecolorsNum[4];
+typedef struct {
+    int Texture[3];
+    u32 ColorKeyMaster;
+
+    u32 Ignorecolors[10];
+    int IgnorecolorsNum;
+} AutotileInfo;
+
+extern AutotileInfo Autotile[4];
 
 // Autotiles
 void LoadAutotileTexture(char filename[], int num);

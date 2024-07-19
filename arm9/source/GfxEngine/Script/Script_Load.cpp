@@ -51,8 +51,8 @@ static void UnloadStuff(void)
     for (a = 0; a < Ground_Count; a++)
         Ground[a].BumpEnable = false;
     for (a = 0; a < 4; a++) {
-        AutotileColorKeyMaster[a]  = 0;
-        AutotileIgnorecolorsNum[a] = -1;
+        Autotile[a].ColorKeyMaster = 0;
+        Autotile[a].IgnorecolorsNum = -1;
     }
     for (a = 0; a < Object_Count; a++)
         Objects[a].ColorKey = 0;

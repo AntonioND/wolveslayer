@@ -108,7 +108,7 @@ static void RefreshMap(void)
                             if (TexABod[x][y] > 31)
                                 subset = 2;
                             glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
-                            glBindTexture(GL_TEXTURE_2D, AutotileTextur[SetABod[x][y]][subset]);
+                            glBindTexture(GL_TEXTURE_2D, Autotile[SetABod[x][y]].Texture[subset]);
 
                             RenderAutoBoden(xx - 6, 0, yy - 8, TexABod[x][y] - (subset * 16));
                         }

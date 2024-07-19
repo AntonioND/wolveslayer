@@ -109,7 +109,7 @@ static void PreCalcABod(void)
 
             // Here we look which texture to use
             for (texturecounter = 0; texturecounter < 4; texturecounter++) {
-                if (Bod == AutotileColorKeyMaster[texturecounter]) {
+                if (Bod == Autotile[texturecounter].ColorKeyMaster) {
                     SetABod[xx][yy] = texturecounter;
 
                     LBod  = false;
@@ -122,40 +122,40 @@ static void PreCalcABod(void)
                     DRBod = false;
 
                     // Compare neighbours with Mastercolor
-                    if (MapBodenGetRGB(xx - 1, yy) != AutotileColorKeyMaster[texturecounter])
+                    if (MapBodenGetRGB(xx - 1, yy) != Autotile[texturecounter].ColorKeyMaster)
                         LBod = true;
-                    if (MapBodenGetRGB(xx + 1, yy) != AutotileColorKeyMaster[texturecounter])
+                    if (MapBodenGetRGB(xx + 1, yy) != Autotile[texturecounter].ColorKeyMaster)
                         RBod = true;
-                    if (MapBodenGetRGB(xx, yy - 1) != AutotileColorKeyMaster[texturecounter])
+                    if (MapBodenGetRGB(xx, yy - 1) != Autotile[texturecounter].ColorKeyMaster)
                         UBod = true;
-                    if (MapBodenGetRGB(xx, yy + 1) != AutotileColorKeyMaster[texturecounter])
+                    if (MapBodenGetRGB(xx, yy + 1) != Autotile[texturecounter].ColorKeyMaster)
                         DBod = true;
-                    if (MapBodenGetRGB(xx - 1, yy - 1) != AutotileColorKeyMaster[texturecounter])
+                    if (MapBodenGetRGB(xx - 1, yy - 1) != Autotile[texturecounter].ColorKeyMaster)
                         ULBod = true;
-                    if (MapBodenGetRGB(xx + 1, yy - 1) != AutotileColorKeyMaster[texturecounter])
+                    if (MapBodenGetRGB(xx + 1, yy - 1) != Autotile[texturecounter].ColorKeyMaster)
                         URBod = true;
-                    if (MapBodenGetRGB(xx - 1, yy + 1) != AutotileColorKeyMaster[texturecounter])
+                    if (MapBodenGetRGB(xx - 1, yy + 1) != Autotile[texturecounter].ColorKeyMaster)
                         DLBod = true;
-                    if (MapBodenGetRGB(xx + 1, yy + 1) != AutotileColorKeyMaster[texturecounter])
+                    if (MapBodenGetRGB(xx + 1, yy + 1) != Autotile[texturecounter].ColorKeyMaster)
                         DRBod = true;
 
                     // Compare neighbours with Ignore colors
-                    for (int ign = 0; ign <= AutotileIgnorecolorsNum[texturecounter]; ign++) {
-                        if (MapBodenGetRGB(xx - 1, yy) == AutotileIgnorecolors[ign][texturecounter])
+                    for (int ign = 0; ign <= Autotile[texturecounter].IgnorecolorsNum; ign++) {
+                        if (MapBodenGetRGB(xx - 1, yy) == Autotile[texturecounter].Ignorecolors[ign])
                             LBod = false;
-                        if (MapBodenGetRGB(xx + 1, yy) == AutotileIgnorecolors[ign][texturecounter])
+                        if (MapBodenGetRGB(xx + 1, yy) == Autotile[texturecounter].Ignorecolors[ign])
                             RBod = false;
-                        if (MapBodenGetRGB(xx, yy - 1) == AutotileIgnorecolors[ign][texturecounter])
+                        if (MapBodenGetRGB(xx, yy - 1) == Autotile[texturecounter].Ignorecolors[ign])
                             UBod = false;
-                        if (MapBodenGetRGB(xx, yy + 1) == AutotileIgnorecolors[ign][texturecounter])
+                        if (MapBodenGetRGB(xx, yy + 1) == Autotile[texturecounter].Ignorecolors[ign])
                             DBod = false;
-                        if (MapBodenGetRGB(xx - 1, yy - 1) == AutotileIgnorecolors[ign][texturecounter])
+                        if (MapBodenGetRGB(xx - 1, yy - 1) == Autotile[texturecounter].Ignorecolors[ign])
                             ULBod = false;
-                        if (MapBodenGetRGB(xx + 1, yy - 1) == AutotileIgnorecolors[ign][texturecounter])
+                        if (MapBodenGetRGB(xx + 1, yy - 1) == Autotile[texturecounter].Ignorecolors[ign])
                             URBod = false;
-                        if (MapBodenGetRGB(xx - 1, yy + 1) == AutotileIgnorecolors[ign][texturecounter])
+                        if (MapBodenGetRGB(xx - 1, yy + 1) == Autotile[texturecounter].Ignorecolors[ign])
                             DLBod = false;
-                        if (MapBodenGetRGB(xx + 1, yy + 1) == AutotileIgnorecolors[ign][texturecounter])
+                        if (MapBodenGetRGB(xx + 1, yy + 1) == Autotile[texturecounter].Ignorecolors[ign])
                             DRBod = false;
                     }
 

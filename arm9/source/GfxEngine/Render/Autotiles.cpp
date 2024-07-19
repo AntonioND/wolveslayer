@@ -5,10 +5,7 @@
 #include "GfxEngine/Render/Boden.h"
 #include "GfxEngine/Texture/Light.h"
 
-int AutotileTextur[4][3];
-u32 AutotileColorKeyMaster[4];
-u32 AutotileIgnorecolors[10][4];
-int AutotileIgnorecolorsNum[4];
+AutotileInfo Autotile[4];
 
 // The way a Bodentexture should be loaded
 void LoadAutotileTexture(char filename[], int num)
@@ -27,19 +24,18 @@ void LoadAutotileTexture(char filename[], int num)
     if (part == NULL)
         Crash("Not enough memory for buffer:\n%s", filename);
 
-    int ax, bx, by;
-
     int palTextureName = -1;
 
-    // lets load 16 first
-    for (ax = 0; ax < 3; ax++) { // all 16 parts of 128x128 tile thing
-        for (bx = 0; bx < 128; bx++) {
-            for (by = 0; by < 128; by++) // each pixel
+    // Let's load all 16 parts of 128x128 tile thing
+    for (int ax = 0; ax < 3; ax++) {
+        // Copy each pixel
+        for (int bx = 0; bx < 128; bx++) {
+            for (int by = 0; by < 128; by++)
                 part[bx + (by * 128)] = buffer8[(bx + (ax * 128)) + (by * 384)];
         }
 
-        glGenTextures(1, &AutotileTextur[num][ax]);
-        glBindTexture(0, AutotileTextur[num][ax]);
+        glGenTextures(1, &(Autotile[num].Texture[ax]));
+        glBindTexture(0, Autotile[num].Texture[ax]);
 
         WaitForFreeVblank();
 
@@ -48,7 +44,7 @@ void LoadAutotileTexture(char filename[], int num)
         if (palTextureName == -1) {
             // OK here we now have loaded pal and we got 36 fields a 32x32
             glColorTableEXT(GL_TEXTURE_2D, 0, 256, 0, 0, pal);
-            palTextureName = AutotileTextur[num][ax];
+            palTextureName = Autotile[num].Texture[ax];
         } else {
             glAssignColorTable(0, palTextureName);
         }
@@ -61,8 +57,9 @@ void LoadAutotileTexture(char filename[], int num)
 
 void AddAutIgnore(int Tilenum, u32 Col)
 {
-    AutotileIgnorecolorsNum[Tilenum]++;
-    AutotileIgnorecolors[AutotileIgnorecolorsNum[Tilenum]][Tilenum] = Col;
+    // IgnorecolorsNum is initialized to -1, so this will start writing index 0
+    Autotile[Tilenum].IgnorecolorsNum++;
+    Autotile[Tilenum].Ignorecolors[Autotile[Tilenum].IgnorecolorsNum] = Col;
 }
 
 // The way a bodentexture should be rendered

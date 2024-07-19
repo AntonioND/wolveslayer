@@ -3,6 +3,7 @@
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/Output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
+#include "GfxEngine/Script/Script_Load.h"
 #include "GfxEngine/Texture/DynamicLights.h"
 
 int Blend = 8;
@@ -29,9 +30,9 @@ void RunTime(void)
     if (Time2 > 2400)
         Time2 = 0;
 
-    if (outside)
+    if (IsMapOutside())
         Time = Time2;
-    if (!outside)
+    else
         Time = 0;
 
     int r, g, b, r2, g2, b2;

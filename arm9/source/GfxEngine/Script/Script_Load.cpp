@@ -19,6 +19,8 @@
 #include "GfxEngine/Villagers.h"
 #include "Sound/Music.h"
 
+static bool outside;
+
 bool LoadingNow;
 
 // Returns capital lettered text of the given text
@@ -155,6 +157,11 @@ void LoadScrip(char filename[])
 
     TextBoxmode(EventSpeech, EventSpeechCount, -1);
     irqSet(IRQ_VBLANK, vBlank);
+}
+
+bool IsMapOutside(void)
+{
+    return outside;
 }
 
 #if 0

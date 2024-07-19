@@ -17,8 +17,6 @@ u8 MapLightR[128 * 128];
 u8 MapLightG[128 * 128];
 u8 MapLightB[128 * 128];
 
-bool outside;
-
 static int MapW, MapH;
 static int MapWreal, MapHreal;
 

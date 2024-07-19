@@ -9,8 +9,6 @@ extern u8 MapLightB[128 * 128];
 
 extern int MapChangeCounter;
 
-extern bool outside;
-
 // MAP
 
 u32 MapBodenGetRGB(int x, int y);

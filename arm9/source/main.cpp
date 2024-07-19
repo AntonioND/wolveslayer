@@ -1,11 +1,11 @@
 #include "GfxEngine/3D.h"
-#include "GfxEngine/Enemys.h"
+#include "GfxEngine/Enemies.h"
 #include "GfxEngine/Events.h"
-#include "GfxEngine/input/Input.h"
+#include "GfxEngine/Input/Input.h"
 #include "GfxEngine/MapLoad.h"
-#include "GfxEngine/output/Touchscreen.h"
+#include "GfxEngine/Output/Touchscreen.h"
 #include "GfxEngine/Settings.h"
-#include "GfxEngine/texture/DynamicLights.h"
+#include "GfxEngine/Texture/DynamicLights.h"
 #include "GfxEngine/Villagers.h"
 
 int main(int argc, char *argv[])

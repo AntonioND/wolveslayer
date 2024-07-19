@@ -1,5 +1,5 @@
-#ifndef GFXENGINE_SCRIPT_SCRIPTLOAD_H__
-#define GFXENGINE_SCRIPT_SCRIPTLOAD_H__
+#ifndef GFXENGINE_SCRIPT_SCRIPT_LOAD_H__
+#define GFXENGINE_SCRIPT_SCRIPT_LOAD_H__
 
 #include <stdbool.h>
 
@@ -11,4 +11,4 @@ void ucase(char *character, char *New);
 // Loads a new script
 void LoadScrip(char filename[]);
 
-#endif // GFXENGINE_SCRIPT_SCRIPTLOAD_H__
+#endif // GFXENGINE_SCRIPT_SCRIPT_LOAD_H__

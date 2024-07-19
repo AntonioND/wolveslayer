@@ -1,11 +1,11 @@
 #include "GfxEngine/3D.h"
-#include "GfxEngine/input/Input.h"
-#include "GfxEngine/Enemys.h"
-#include "GfxEngine/output/Touchscreen.h"
-#include "GfxEngine/render/Render.h"
+#include "GfxEngine/Enemies.h"
+#include "GfxEngine/Input/Input.h"
+#include "GfxEngine/Output/Touchscreen.h"
+#include "GfxEngine/Render/Render.h"
 #include "GfxEngine/Settings.h"
-#include "GfxEngine/texture/DynamicLights.h"
-#include "GfxEngine/texture/Light.h"
+#include "GfxEngine/Texture/DynamicLights.h"
+#include "GfxEngine/Texture/Light.h"
 #include "Music.h"
 
 char EventSpeech[10][256]; // to hold 10 textes for event with 256 chars

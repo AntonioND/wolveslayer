@@ -1,8 +1,8 @@
-#include "3D.h"
+#include "GfxEngine/3D.h"
 #include "GfxEngine/Files.h"
-#include "GfxEngine/input/Input.h"
-#include "GfxEngine/output/Textbox.h"
-#include "GfxEngine/output/Touchscreen.h"
+#include "GfxEngine/Input/Input.h"
+#include "GfxEngine/Output/Textbox.h"
+#include "GfxEngine/Output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/Villagers.h"
 

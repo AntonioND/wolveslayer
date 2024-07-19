@@ -1,6 +1,6 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/Files.h"
-#include "sound/Sound9.h"
+#include "Sound/Sound9.h"
 
 // some sounds
 #if 0

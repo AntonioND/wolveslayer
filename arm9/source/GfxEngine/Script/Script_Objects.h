@@ -4,7 +4,6 @@
 #include <nds.h>
 
 #include "GfxEngine/Limits.h"
-
 #include "XML/tinyxml.h"
 
 extern int ObjectTextureID[Object_Count];

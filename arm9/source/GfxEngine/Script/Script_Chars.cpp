@@ -1,7 +1,6 @@
-#include "GfxEngine/Enemys.h"
+#include "GfxEngine/Enemies.h"
 #include "GfxEngine/Model/MD2Load.h"
 #include "GfxEngine/Settings.h"
-
 #include "XML/tinyxml.h"
 
 int Figuren[10];

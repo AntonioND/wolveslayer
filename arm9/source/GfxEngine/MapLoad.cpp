@@ -1,15 +1,15 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/Files.h"
-#include "GfxEngine/input/Input.h"
+#include "GfxEngine/Input/Input.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/PreCalc.h"
-#include "GfxEngine/Script/ScripLoad.h"
+#include "GfxEngine/Render/Doors.h"
+#include "GfxEngine/Render/Obj_Wall.h"
+#include "GfxEngine/Render/Render.h"
+#include "GfxEngine/Script/Script_Load.h"
 #include "GfxEngine/Script/Script_Objects.h"
-#include "GfxEngine/render/Doors.h"
-#include "GfxEngine/render/Obj_Wall.h"
-#include "GfxEngine/render/Render.h"
-#include "GfxEngine/texture/DynamicLights.h"
-#include "GfxEngine/texture/Light.h"
+#include "GfxEngine/Texture/DynamicLights.h"
+#include "GfxEngine/Texture/Light.h"
 
 u32 MapImage[256][256];
 

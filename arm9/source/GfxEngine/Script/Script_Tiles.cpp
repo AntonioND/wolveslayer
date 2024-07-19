@@ -1,10 +1,9 @@
 #include "GfxEngine/Model/MD2Load.h"
-#include "GfxEngine/render/Autotiles.h"
-#include "GfxEngine/render/Boden.h"
-#include "GfxEngine/render/Ufer.h"
-#include "GfxEngine/render/Wasser.h"
-#include "GfxEngine/texture/bumpmapping.h"
-
+#include "GfxEngine/Render/Autotiles.h"
+#include "GfxEngine/Render/Boden.h"
+#include "GfxEngine/Render/Ufer.h"
+#include "GfxEngine/Render/Wasser.h"
+#include "GfxEngine/Texture/Bumpmapping.h"
 #include "XML/tinyxml.h"
 
 void LoadBodenCommand(TiXmlElement *map)

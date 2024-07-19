@@ -1,9 +1,9 @@
 #include "GfxEngine/MapLoad.h"
-#include "GfxEngine/render/Doors.h"
-#include "GfxEngine/output/Touchscreen.h"
+#include "GfxEngine/Output/Touchscreen.h"
+#include "GfxEngine/Render/Doors.h"
 #include "GfxEngine/Script/Script_Objects.h"
-#include "GfxEngine/Script/Script_others.h"
-#include "GfxEngine/texture/DynamicLights.h"
+#include "GfxEngine/Script/Script_Others.h"
+#include "GfxEngine/Texture/DynamicLights.h"
 
 static int Counter;
 

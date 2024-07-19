@@ -1,11 +1,11 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/MapLoad.h"
-#include "GfxEngine/render/Obj_House.h"
-#include "GfxEngine/render/Obj_Wall.h"
-#include "GfxEngine/texture/Light.h"
+#include "GfxEngine/Render/Obj_House.h"
+#include "GfxEngine/Render/Obj_Wall.h"
+#include "GfxEngine/Texture/Light.h"
 
-int ObjektTex[Object_Count];  // Standard slot for objects
-//int ObjektTexA[Object_Count];
+int ObjektTex[Object_Count]; // Standard slot for objects
+// int ObjektTexA[Object_Count];
 int ObjektTexB[Object_Count]; // Advanced slot for objects(bumpmapping)
 int ObjektTexC[Object_Count]; // Advanced slot for objects(bumpmapping)
 

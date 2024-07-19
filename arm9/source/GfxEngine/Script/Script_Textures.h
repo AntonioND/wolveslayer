@@ -2,8 +2,7 @@
 #define GFXENGINE_SCRIPT_SCRIPT_TEXTURES_H__
 
 #include "GfxEngine/Limits.h"
-#include "GfxEngine/render/Obj_Wall.h"
-
+#include "GfxEngine/Render/Obj_Wall.h"
 #include "XML/tinyxml.h"
 
 extern int TextureWidthHeight[Object_Count];

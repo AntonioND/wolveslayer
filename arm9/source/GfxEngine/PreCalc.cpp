@@ -1,12 +1,12 @@
-#include "3D.h"
-#include "GfxEngine/PreCalc.h"
+#include "GfxEngine/3D.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/Model/MD2Collision.h"
+#include "GfxEngine/PreCalc.h"
+#include "GfxEngine/Render/Autotiles.h"
+#include "GfxEngine/Render/Boden.h"
+#include "GfxEngine/Render/Wasser.h"
 #include "GfxEngine/Script/Script_Objects.h"
-#include "GfxEngine/render/Autotiles.h"
-#include "GfxEngine/render/Boden.h"
-#include "GfxEngine/render/Wasser.h"
-#include "GfxEngine/texture/DynamicLights.h"
+#include "GfxEngine/Texture/DynamicLights.h"
 
 u8 Precalcdata[128][128];
 

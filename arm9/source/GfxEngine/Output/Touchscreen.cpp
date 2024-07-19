@@ -1,10 +1,10 @@
 #include <math.h>
 
 #include "GfxEngine/3D.h"
-#include "GfxEngine/Enemys.h"
-#include "GfxEngine/input/Input.h"
-#include "GfxEngine/output/Inventory.h"
-#include "GfxEngine/output/Textbox.h"
+#include "GfxEngine/Enemies.h"
+#include "GfxEngine/Input/Input.h"
+#include "GfxEngine/Output/Inventory.h"
+#include "GfxEngine/Output/Textbox.h"
 
 // extern u8 textbox_bin[246 * 96];
 

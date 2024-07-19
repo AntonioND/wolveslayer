@@ -1,10 +1,10 @@
 #include "GfxEngine/Events.h"
 #include "GfxEngine/MapLoad.h"
+#include "GfxEngine/Script/Script_Objects.h"
+#include "GfxEngine/Settings.h"
 #include "GfxEngine/output/Inventory.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
-#include "GfxEngine/Script/Script_Objects.h"
-#include "GfxEngine/Settings.h"
 #include "GfxEngine/texture/DynamicLights.h"
 #include "Script.h"
 

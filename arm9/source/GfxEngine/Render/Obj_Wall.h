@@ -5,8 +5,8 @@
 #include "GfxEngine/Limits.h"
 
 // textureslots for objects
-extern int ObjektTex[Object_Count];  // Standard slot for objects
-//extern int ObjektTexA[Object_Count];
+extern int ObjektTex[Object_Count]; // Standard slot for objects
+// extern int ObjektTexA[Object_Count];
 extern int ObjektTexB[Object_Count]; // Advanced slot for objects(bumpmapping)
 extern int ObjektTexC[Object_Count]; // Advanced slot for objects(bumpmapping)
 

@@ -1,6 +1,6 @@
 #include "GfxEngine/Model/MD2Format.h"
 #include "GfxEngine/Model/MD2Models.h"
-#include "GfxEngine/texture/Light.h"
+#include "GfxEngine/Texture/Light.h"
 
 MD2Entity Models[MD2_Count];
 bool ModelEnable[MD2_Count];

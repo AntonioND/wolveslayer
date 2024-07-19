@@ -1,5 +1,5 @@
-#ifndef GFXENGINE_ENEMYS_H__
-#define GFXENGINE_ENEMYS_H__
+#ifndef GFXENGINE_ENEMIES_H__
+#define GFXENGINE_ENEMIES_H__
 
 extern int GegnerX[10], GegnerY[10];     // its the HardPos on the Map(on which tile it stands)
 extern float GegnerSX[10], GegnerSY[10]; // Its softpos...goes from -.5 to .5
@@ -18,4 +18,4 @@ void ResetEnemys(void);
 void AddEnemy(int x, int y, int texnum, int atp, int hp, float rad, bool boss);
 void UpdateEnemy();
 
-#endif // GFXENGINE_ENEMYS_H__
+#endif // GFXENGINE_ENEMIES_H__

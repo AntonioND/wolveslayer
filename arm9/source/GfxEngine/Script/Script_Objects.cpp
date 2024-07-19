@@ -1,6 +1,6 @@
 #include "GfxEngine/Model/MD2Load.h"
 #include "GfxEngine/Script/Script_Objects.h"
-#include "GfxEngine/Script/Script_others.h"
+#include "GfxEngine/Script/Script_Others.h"
 #include "GfxEngine/Script/Script_Textures.h"
 
 int ObjectTextureID[Object_Count];

@@ -1,6 +1,6 @@
 #include "GfxEngine/3D.h"
-#include "GfxEngine/render/Obj_House.h"
-#include "GfxEngine/texture/Light.h"
+#include "GfxEngine/Render/Obj_House.h"
+#include "GfxEngine/Texture/Light.h"
 
 int WallX, WallY;
 bool walltrans = false;

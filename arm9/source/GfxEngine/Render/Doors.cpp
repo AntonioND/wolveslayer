@@ -1,8 +1,8 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/Files.h"
 #include "GfxEngine/MapLoad.h"
-#include "GfxEngine/render/Obj_House.h"
-#include "GfxEngine/texture/Light.h"
+#include "GfxEngine/Render/Obj_House.h"
+#include "GfxEngine/Texture/Light.h"
 
 int Door[1];
 

@@ -1,5 +1,5 @@
 #include "GfxEngine/3D.h"
-#include "GfxEngine/output/Touchscreen.h"
+#include "GfxEngine/Output/Touchscreen.h"
 
 int npctalk = -1;
 

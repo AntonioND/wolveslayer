@@ -1,9 +1,9 @@
 #include "GfxEngine/3D.h"
-#include "GfxEngine/input/Input.h"
+#include "GfxEngine/Input/Input.h"
 #include "GfxEngine/MapLoad.h"
-#include "GfxEngine/output/Touchscreen.h"
+#include "GfxEngine/Output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
-#include "GfxEngine/texture/DynamicLights.h"
+#include "GfxEngine/Texture/DynamicLights.h"
 
 int Blend = 8;
 u8 EnvR = 255, EnvG = 255, EnvB = 255;

@@ -1,6 +1,6 @@
 #include "GfxEngine/3D.h"
-#include "GfxEngine/Script/ScripLoad.h"
-#include "GfxEngine/texture/Light.h"
+#include "GfxEngine/Script/Script_Load.h"
+#include "GfxEngine/Texture/Light.h"
 
 static float sTackt = 0;
 

@@ -1,8 +1,8 @@
-#include "3D.h"
-#include "GfxEngine/input/circlestuff.h"
-#include "GfxEngine/input/Input.h"
-#include "GfxEngine/output/Touchscreen.h"
-#include "GfxEngine/render/Render.h"
+#include "GfxEngine/3D.h"
+#include "GfxEngine/Input/Circlestuff.h"
+#include "GfxEngine/Input/Input.h"
+#include "GfxEngine/Output/Touchscreen.h"
+#include "GfxEngine/Render/Render.h"
 #include "GfxEngine/Villagers.h"
 
 int GegnerX[10], GegnerY[10];     // its the HardPos on the Map(on which tile it stands)

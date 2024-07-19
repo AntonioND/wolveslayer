@@ -1,7 +1,6 @@
 #include "GfxEngine/Model/MD2Load.h"
-#include "GfxEngine/render/Obj_Wall.h"
-#include "GfxEngine/texture/bumpmapping.h"
-
+#include "GfxEngine/Render/Obj_Wall.h"
+#include "GfxEngine/Texture/Bumpmapping.h"
 #include "XML/tinyxml.h"
 
 int TextureWidthHeight[Object_Count];

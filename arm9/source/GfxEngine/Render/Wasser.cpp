@@ -1,5 +1,5 @@
 #include "GfxEngine/3D.h"
-#include "GfxEngine/texture/Light.h"
+#include "GfxEngine/Texture/Light.h"
 
 int Wasser[1];
 u32 WasserKey;

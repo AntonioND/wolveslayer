@@ -1,9 +1,9 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/Files.h"
 #include "GfxEngine/PreCalc.h"
-#include "GfxEngine/render/Autotiles.h"
-#include "GfxEngine/render/Boden.h"
-#include "GfxEngine/texture/Light.h"
+#include "GfxEngine/Render/Autotiles.h"
+#include "GfxEngine/Render/Boden.h"
+#include "GfxEngine/Texture/Light.h"
 
 int AutotileTextur[4][3];
 u32 AutotileColorKeyMaster[4];

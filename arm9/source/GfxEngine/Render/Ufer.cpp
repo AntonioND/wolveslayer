@@ -1,10 +1,10 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/Files.h"
-#include "GfxEngine/input/Input.h"
+#include "GfxEngine/Input/Input.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/PreCalc.h"
-#include "GfxEngine/texture/DynamicLights.h"
-#include "GfxEngine/texture/Light.h"
+#include "GfxEngine/Texture/DynamicLights.h"
+#include "GfxEngine/Texture/Light.h"
 
 int Ufer[10];
 int UferB[10];

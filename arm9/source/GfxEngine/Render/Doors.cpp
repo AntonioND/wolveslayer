@@ -4,7 +4,7 @@
 #include "GfxEngine/Render/Obj_House.h"
 #include "GfxEngine/Texture/Light.h"
 
-int Door[1];
+static int Door[1];
 
 static const t16 overdoor = inttot16(17);
 static const t16 ldoor    = inttot16(13);
@@ -12,17 +12,6 @@ static const t16 rdoor    = inttot16(21);
 
 static int newcol1[3]; // for interpolated lights...
 static int newcol2[3]; // stored to recycle
-
-char DoorSpeech[25][10][256]; // to hold 10 textes for each door with 256 chars
-int DoorSpeechCount[25];      // Holds the Number of speeches a Door has...
-
-void AddTexttoDoor(char txt[256])
-{
-    if (DoorSpeechCount[MapChangeCounter - 1] < 10) {
-        strcpy(DoorSpeech[MapChangeCounter - 1][DoorSpeechCount[MapChangeCounter - 1]], txt);
-        DoorSpeechCount[MapChangeCounter - 1]++;
-    }
-}
 
 void LoadDoorTexture(char filename[])
 {
@@ -390,15 +379,18 @@ void RenderWallBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y,
     newcol1[0] = f32toint(mulf32(floattov16(.625), inttof32(col1[0])) + mulf32(floattov16(1 - .625), inttof32(col2[0])));
     newcol1[1] = f32toint(mulf32(floattov16(.625), inttof32(col1[1])) + mulf32(floattov16(1 - .625), inttof32(col2[1])));
     newcol1[2] = f32toint(mulf32(floattov16(.625), inttof32(col1[2])) + mulf32(floattov16(1 - .625), inttof32(col2[2])));
+
     if (newcol1[0] > 255)
         newcol1[0] = 255;
     if (newcol1[1] > 255)
         newcol1[1] = 255;
     if (newcol1[2] > 255)
         newcol1[2] = 255;
+
     newcol2[0] = f32toint(mulf32(floattov16(.625), inttof32(col2[0])) + mulf32(floattov16(1 - .625), inttof32(col1[0])));
     newcol2[1] = f32toint(mulf32(floattov16(.625), inttof32(col2[1])) + mulf32(floattov16(1 - .625), inttof32(col1[1])));
     newcol2[2] = f32toint(mulf32(floattov16(.625), inttof32(col2[2])) + mulf32(floattov16(1 - .625), inttof32(col1[2])));
+
     if (newcol2[0] > 255)
         newcol2[0] = 255;
     if (newcol2[1] > 255)

@@ -20,13 +20,22 @@ u8 MapLightB[128 * 128];
 static int MapW, MapH;
 static int MapWreal, MapHreal;
 
-static char Mapchange[25][60];
-static int MapChangePosX[25], MapChangePosY[25];
-static int MapChangeTOPosX[25], MapChangeTOPosY[25];
-static bool MapChangeDoor[25]; // Set to true if the change is a door
-static int MapDoorKey[25];
-static int MapDoorAngle[25];
-int MapChangeCounter;
+typedef struct {
+    char Name[60];
+
+    int PosX, PosY; // Location of the player in the origin map
+    int TOPosX, TOPosY; // Destination of the player in the destination map
+
+    bool IsDoor; // Set to true if the change is a door
+    int DoorKey;
+    int DoorAngle;
+    char DoorSpeech[10][256]; // to hold 10 textes for each door with 256 chars
+    int DoorSpeechCount;      // Holds the Number of speeches a Door has...
+} MapChangeInfo;
+
+static MapChangeInfo MapChange[25];
+
+static int MapChangeCounter;
 
 v16 GetTerrain(int x, int y, int num)
 {
@@ -38,43 +47,54 @@ void ResetMapChange(void)
     MapChangeCounter = 0;
 
     for (int a = 0; a < 25; a++) {
-        MapChangeDoor[a]   = false; // Is no door
-        MapDoorKey[a]      = 0;     // so it doesnt need a key
-        MapChangePosX[a]   = -1;
-        MapChangePosY[a]   = -1;
-        MapChangeTOPosX[a] = -1;
-        MapChangeTOPosY[a] = -1;
-        strcpy(Mapchange[a], "");
-        MapDoorAngle[a] = 0;
+        MapChange[a].IsDoor  = false;
+        MapChange[a].DoorKey = 0;
+        MapChange[a].PosX    = -1;
+        MapChange[a].PosY    = -1;
+        MapChange[a].TOPosX  = -1;
+        MapChange[a].TOPosY  = -1;
+        strcpy(MapChange[a].Name, "");
+        MapChange[a].DoorAngle = 0;
         for (int b = 0; b < 10; b++)
-            strcpy(DoorSpeech[a][b], "");
-        DoorSpeechCount[a] = 0;
+            strcpy(MapChange[a].DoorSpeech[b], "");
+        MapChange[a].DoorSpeechCount = 0;
     }
 }
 
 void AddMapChange(int x, int y, char Filename[], int tox, int toy)
 {
-    MapChangeDoor[MapChangeCounter]   = false; // Is no door
-    MapDoorKey[MapChangeCounter]      = 0;     // so it doesnt need a key
-    MapChangePosX[MapChangeCounter]   = x;
-    MapChangePosY[MapChangeCounter]   = y;
-    MapChangeTOPosX[MapChangeCounter] = tox;
-    MapChangeTOPosY[MapChangeCounter] = toy;
-    snprintf(Mapchange[MapChangeCounter], sizeof(Mapchange[MapChangeCounter]), "%s", Filename);
+    MapChange[MapChangeCounter].IsDoor  = false; // It isn't a door
+    MapChange[MapChangeCounter].DoorKey = 0;     // So it doesnt need a key
+    MapChange[MapChangeCounter].PosX    = x;
+    MapChange[MapChangeCounter].PosY    = y;
+    MapChange[MapChangeCounter].TOPosX  = tox;
+    MapChange[MapChangeCounter].TOPosY  = toy;
+    snprintf(MapChange[MapChangeCounter].Name, sizeof(MapChange[MapChangeCounter].Name), "%s", Filename);
     MapChangeCounter++;
 }
 
 void AddMapDoor(int x, int y, char Filename[], int tox, int toy, int key)
 {
-    MapChangeDoor[MapChangeCounter]   = true; // Is a door
-    MapDoorKey[MapChangeCounter]      = key;  // so it needs a key
-    MapChangePosX[MapChangeCounter]   = x;
-    MapChangePosY[MapChangeCounter]   = y;
-    MapChangeTOPosX[MapChangeCounter] = tox;
-    MapChangeTOPosY[MapChangeCounter] = toy;
-    snprintf(Mapchange[MapChangeCounter], sizeof(Mapchange[MapChangeCounter]), "%s", Filename);
+    MapChange[MapChangeCounter].IsDoor    = true; // It is a door
+    MapChange[MapChangeCounter].DoorKey   = key;  // So it needs a key
+    MapChange[MapChangeCounter].PosX      = x;
+    MapChange[MapChangeCounter].PosY      = y;
+    MapChange[MapChangeCounter].TOPosX    = tox;
+    MapChange[MapChangeCounter].TOPosY    = toy;
+    MapChange[MapChangeCounter].DoorAngle = 0;
+    snprintf(MapChange[MapChangeCounter].Name, sizeof(MapChange[MapChangeCounter].Name), "%s", Filename);
     MapChangeCounter++;
-    MapDoorAngle[MapChangeCounter] = 0;
+}
+
+// TODO: This is unused
+void AddTexttoDoor(char txt[256])
+{
+    int a = MapChangeCounter - 1;
+    int count = MapChange[a].DoorSpeechCount;
+    if (count < 10) {
+        strcpy(MapChange[a].DoorSpeech[count], txt);
+        MapChange[a].DoorSpeechCount++;
+    }
 }
 
 void GetRGBfromMap(int x, int y, u8 &r, u8 &g, u8 &b)
@@ -87,8 +107,8 @@ void GetRGBfromMap(int x, int y, u8 &r, u8 &g, u8 &b)
 const char *GetMapDoor(int x, int y)
 {
     for (int i = 0; i < MapChangeCounter; i++) {
-        if (MapChangePosX[i] == x && MapChangePosY[i] == y && MapChangeDoor[i] == true)
-            return Mapchange[i];
+        if (MapChange[i].PosX == x && MapChange[i].PosY == y && MapChange[i].IsDoor)
+            return MapChange[i].Name;
     }
     return ".";
 }
@@ -96,8 +116,8 @@ const char *GetMapDoor(int x, int y)
 int GetMapDoorAngle(int x, int y)
 {
     for (int i = 0; i < MapChangeCounter; i++) {
-        if (MapChangePosX[i] == x && MapChangePosY[i] == y && MapChangeDoor[i] == true)
-            return MapDoorAngle[i];
+        if (MapChange[i].PosX == x && MapChange[i].PosY == y && MapChange[i].IsDoor)
+            return MapChange[i].DoorAngle;
     }
     return -1;
 }
@@ -105,9 +125,9 @@ int GetMapDoorAngle(int x, int y)
 void OpenMapDoor(int x, int y)
 {
     for (int i = 0; i < MapChangeCounter; i++) {
-        if (MapChangePosX[i] == x && MapChangePosY[i] == y && MapChangeDoor[i] == true && MapDoorAngle[i] == 0) {
-            MapDoorAngle[i] = 10;
-            // else TextBoxmode(DoorSpeech[i], DoorSpeechCount[i], -1);
+        if (MapChange[i].PosX == x && MapChange[i].PosY == y && MapChange[i].IsDoor && MapChange[i].DoorAngle == 0) {
+            MapChange[i].DoorAngle = 10;
+            // else TextBoxmode(MapChange[i].DoorSpeech, MapChange[i].DoorSpeechCount, -1);
         }
     }
 }
@@ -115,17 +135,17 @@ void OpenMapDoor(int x, int y)
 void MapDoorHandle(void)
 {
     for (int i = 0; i < MapChangeCounter; i++) {
-        if (MapDoorAngle[i] >= 1 && MapDoorAngle[i] <= 80)
-            MapDoorAngle[i] += 10;
+        if (MapChange[i].DoorAngle >= 1 && MapChange[i].DoorAngle <= 80)
+            MapChange[i].DoorAngle += 10;
 
         // Mapchange if door is opened
-        if (MapDoorAngle[i] >= 80) {
+        if (MapChange[i].DoorAngle >= 80) {
             char Filename[50];
             int newx = 0, newy = 0;
-            snprintf(Filename, sizeof(Filename), "%s", GetMapChange(MapChangePosX[i], MapChangePosY[i]));
+            snprintf(Filename, sizeof(Filename), "%s", GetMapChange(MapChange[i].PosX, MapChange[i].PosY));
             if (Filename[0] != '.') {
-                newx = MapChangeTOPosX[i] - 6;
-                newy = MapChangeTOPosY[i] - 8;
+                newx = MapChange[i].TOPosX - 6;
+                newy = MapChange[i].TOPosY - 8;
                 printf("\x1b[2J");
 
                 for (int b = 8; b >= 0; b--) {
@@ -159,8 +179,8 @@ void MapDoorHandle(void)
 const char *GetMapChange(int x, int y)
 {
     for (int i = 0; i < MapChangeCounter; i++) {
-        if (MapChangePosX[i] == x && MapChangePosY[i] == y)
-            return Mapchange[i];
+        if (MapChange[i].PosX == x && MapChange[i].PosY == y)
+            return MapChange[i].Name;
     }
     return ".";
 }
@@ -168,8 +188,8 @@ const char *GetMapChange(int x, int y)
 int GetMapChangePOSX(int x, int y)
 {
     for (int i = 0; i < MapChangeCounter; i++) {
-        if (MapChangePosX[i] == x && MapChangePosY[i] == y)
-            return MapChangeTOPosX[i];
+        if (MapChange[i].PosX == x && MapChange[i].PosY == y)
+            return MapChange[i].TOPosX;
     }
     return 0;
 }
@@ -177,8 +197,8 @@ int GetMapChangePOSX(int x, int y)
 int GetMapChangePOSY(int x, int y)
 {
     for (int i = 0; i < MapChangeCounter; i++) {
-        if (MapChangePosX[i] == x && MapChangePosY[i] == y)
-            return MapChangeTOPosY[i];
+        if (MapChange[i].PosX == x && MapChange[i].PosY == y)
+            return MapChange[i].TOPosY;
     }
     return 0;
 }

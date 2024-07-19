@@ -7,8 +7,6 @@ extern u8 MapLightR[128 * 128];
 extern u8 MapLightG[128 * 128];
 extern u8 MapLightB[128 * 128];
 
-extern int MapChangeCounter;
-
 // MAP
 
 u32 MapGroundGetRGB(int x, int y);
@@ -45,6 +43,8 @@ void AddMapChange(int x, int y, char Filename[], int tox, int toy);
 
 // Adds a door
 void AddMapDoor(int x, int y, char Filename[], int tox, int toy, int key);
+
+void AddTexttoDoor(char txt[256]);
 
 const char *GetMapChange(int x, int y);
 int GetMapChangePOSX(int x, int y);

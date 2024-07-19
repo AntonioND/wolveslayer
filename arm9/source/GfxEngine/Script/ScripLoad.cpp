@@ -66,7 +66,6 @@ static void UnloadStuff(void)
     CamPosSX = 0;
     CamPosSY = 0;
     outside  = true;
-    // srand (-(~IPC->curtime[7]) - 1);
 }
 
 void LoadScrip(char filename[])

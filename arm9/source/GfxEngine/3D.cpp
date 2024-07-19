@@ -16,7 +16,7 @@
 
 void Splash(void)
 {
-    srand(0xDEADBEEF);
+    srand(0xDEADBEEF); // TODO: Replace by `srand(time(NULL))`?
 
     InitSound();
     StartSong("/wolveslayer/bgfx/title.mod");

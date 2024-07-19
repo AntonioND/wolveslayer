@@ -49,7 +49,8 @@ void LoadDynamicLightCommand(TiXmlElement *map)
             if (firefly->Attribute("color"))
                 sscanf(firefly->Attribute("color"), "%i,%i,%i", &r, &g, &b);
 
-            if (x + y + r + g + b > 0)
+            // Check if any value is negative
+            if ((x | y | r | g | b) >= 0)
                 AddDynamic(x, y, r, g, b);
 
             firefly = firefly->NextSiblingElement("firefly");
@@ -79,7 +80,8 @@ void LoadMapChangeCommand(TiXmlElement *map)
         char FileNameCom[60];
         snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/maps/%s", mc->Attribute("targetmap"));
 
-        if (x + y + x2 + y2 > -1)
+        // Check if any value is negative
+        if ((x | y | x2 | y2) >= 0)
             AddMapChange(x, y, FileNameCom, x2, y2);
 
         mc = mc->NextSiblingElement("mapchange");
@@ -118,7 +120,8 @@ void LoadDoorCommand(TiXmlElement *map)
         char FileNameCom[60];
         snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/maps/%s", door->Attribute("targetmap"));
 
-        if (x + y + x2 + y2 > -1)
+        // Check if any value is negative
+        if ((x | y | x2 | y2) >= 0)
             AddMapDoor(x, y, FileNameCom, x2, y2, 0);
 
         door = door->NextSiblingElement("door");

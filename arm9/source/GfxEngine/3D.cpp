@@ -10,6 +10,7 @@
 #include "GfxEngine/output/Textbox.h"
 #include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/render/Boden.h"
+#include "GfxEngine/render/Render.h"
 #include "GfxEngine/Tackt.h"
 #include "Music.h"
 
@@ -309,6 +310,22 @@ void E3D_StartRender()
 
     // Move away from the camera
     glTranslate3f32(0, 0, floattov16(-0.1));
+}
+
+void E3D_Render()
+{
+    Refresh3D();
+}
+
+void E3D_EndRender()
+{
+    loopCounter++;
+#ifdef ShowPolyCount
+    if (loopCounter == 2)
+        glGetInt(GL_GET_POLYGON_RAM_COUNT, &polycount);
+#endif
+
+    glFlush(GL_WBUFFERING);
 }
 
 __attribute__((noreturn)) void Crash(const char *msg, ...)

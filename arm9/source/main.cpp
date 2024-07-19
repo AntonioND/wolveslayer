@@ -4,7 +4,6 @@
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/output/Touchscreen.h"
-#include "GfxEngine/render/Render.h"
 #include "GfxEngine/Settings.h"
 #include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/Villagers.h"
@@ -18,12 +17,11 @@ int main(int argc, char *argv[])
     // Script loading for new game
     ReadSettings();
 
-    extern int loopCounter;
-    extern int polycount;
-
     while (1) {
         scanKeys();
+
         CheckEndGame();
+
         ScreenModeHandler(); // For screenshots
         if (screenmode < 2)
             inputs();
@@ -36,18 +34,14 @@ int main(int argc, char *argv[])
 
         MapDoorHandle();
 
-        E3D_StartRender(); // Start render (if select is hold the perspective is different)
+        E3D_StartRender();
+        E3D_Render();
+        E3D_EndRender();
 
-        // rendering
-        Refresh3D();
-
-        loopCounter++;
-#ifdef ShowPolyCount
-        if (loopCounter == 2)
-            glGetInt(GL_GET_POLYGON_RAM_COUNT, &polycount);
-#endif
-
-        glFlush(GL_WBUFFERING); // Stop render
+        // TODO: If we enable this, the CPU usage of the ARM9 drops a lot.
+        // However, in areas where the framerate drops below 60 FPS it is forced
+        // to go to 30 FPS. Without this wait the framerate will only drop as
+        // much as it is needed, not directly to 30 FPS.
         // swiWaitForVBlank();
     }
     return 0;

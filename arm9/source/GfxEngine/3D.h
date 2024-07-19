@@ -33,10 +33,12 @@ typedef int32_t f32;
 __attribute__((noreturn)) void Crash(const char *msg, ...);
 
 void WaitForFreeVblank(void); // important for multitask buffering and loading to vram
-
 void vBlank(void);
+
 void E3D_Init(void);
 void E3D_StartRender();
+void E3D_Render();
+void E3D_EndRender();
 
 ///>>>>>>>>>>>>>>>3D
 

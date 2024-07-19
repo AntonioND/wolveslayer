@@ -2,13 +2,8 @@
 #define GFXENGINE_3D_H__
 
 #include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 #include <nds.h>
-#include <nds/arm9/image.h>
-#include <nds/arm9/trig_lut.h>
 
 typedef int32_t f32;
 

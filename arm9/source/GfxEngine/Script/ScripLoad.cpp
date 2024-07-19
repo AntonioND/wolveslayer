@@ -41,10 +41,6 @@ static void UnloadStuff(void)
     ResetEnemys();
     ResetEvent();
 
-    extern u32 ObjektColorKey[Object_Count];
-    extern char ObjektTyp[Object_Count][13];
-    extern float ObjectRadius[Object_Count];
-
     int a;
     for (a = 0; a < Ground_Count; a++)
         BodenColorKey[a] = 0;

@@ -12,6 +12,8 @@ extern int PlStatus;
 extern int PlFrame;
 extern int PlHP;
 
+extern int CellSelect;
+
 int GetPX(void);
 int GetPY(void);
 float GetSY(void);

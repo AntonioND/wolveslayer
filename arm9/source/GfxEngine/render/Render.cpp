@@ -7,6 +7,8 @@
 #include "GfxEngine/output/Textbox.h"
 #include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
+#include "GfxEngine/Script/Script_Chars.h"
+#include "GfxEngine/Script/Script_Objects.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/render/Doors.h"
@@ -17,13 +19,6 @@
 #include "GfxEngine/Tackt.h"
 #include "GfxEngine/texture/Light.h"
 #include "GfxEngine/Villagers.h"
-
-// Texturen zum anzeigen
-int Figuren[10];
-
-extern char ObjektTyp[Object_Count][13];
-extern char ObjektColorKey[Object_Count][7];
-extern bool ObjectCulling[Object_Count];
 
 const f32 waterheight = floattof32(-.1);
 
@@ -51,7 +46,6 @@ static void RefreshMap(void)
     // return;
     int x = 0, y = 0;
 
-    extern bool ObjectNoGround[Object_Count];
     int Wallbor = Obj_WallBor;
 
     int subset;
@@ -140,12 +134,6 @@ static void RefreshMap(void)
 // Welt
 static void RefreshWelt(void)
 {
-    // extern bool Mirrow[128][128];
-
-    extern bool ObjectMirrow[Object_Count];
-    extern int ObjectTextureID[Object_Count];
-    extern bool ObjectIllumination[Object_Count];
-
     int x = 0, y = 0;
 
     int model     = Obj_MD2;

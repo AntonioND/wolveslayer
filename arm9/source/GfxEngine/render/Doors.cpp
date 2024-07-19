@@ -1,5 +1,6 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/Files.h"
+#include "GfxEngine/MapLoad.h"
 #include "GfxEngine/render/Obj_House.h"
 #include "GfxEngine/texture/Light.h"
 
@@ -17,7 +18,6 @@ int DoorSpeechCount[25];      // Holds the Number of speeches a Door has...
 
 void AddTexttoDoor(char txt[256])
 {
-    extern int MapChangeCounter;
     if (DoorSpeechCount[MapChangeCounter - 1] < 10) {
         strcpy(DoorSpeech[MapChangeCounter - 1][DoorSpeechCount[MapChangeCounter - 1]], txt);
         DoorSpeechCount[MapChangeCounter - 1]++;

@@ -6,7 +6,7 @@
 #include "GfxEngine/output/Inventory.h"
 #include "GfxEngine/output/Textbox.h"
 
-extern u8 textbox_bin[246 * 96];
+// extern u8 textbox_bin[246 * 96];
 
 u8 Font1[668 * 11];
 u16 scrL_bin[256 * 192];
@@ -14,10 +14,6 @@ u16 touch_bin[256 * 192];
 u16 textbox_pal[256];
 
 int screenmode = 0;
-
-int MouseOnButt = -1;
-
-int CellSelect = 0;
 
 void ScreenModeLOADING(void)
 {

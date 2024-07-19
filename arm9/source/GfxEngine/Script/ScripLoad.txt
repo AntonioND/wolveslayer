@@ -3,6 +3,7 @@
 #include "GfxEngine/output/Inventory.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
+#include "GfxEngine/Script/Script_Objects.h"
 #include "GfxEngine/Settings.h"
 #include "GfxEngine/texture/DynamicLights.h"
 #include "Script.h"
@@ -42,10 +43,6 @@ extern void LoadBodenCommand(char *Com, int index); // Gets the filename and col
 extern void LoadWasserCommand(char *Com);           // Gets the filename and colorkey out of the command ,for loading a wassertexture
 extern void LoadAutotileCommand(char *Com, int num);
 extern void AddAutotileIgnoreCommand(char *Com, int num);
-
-extern u32 ObjektColorKey[Object_Count];
-extern char ObjektTyp[Object_Count][13];
-extern float ObjectRadius[Object_Count];
 
 int aut  = -1;
 int obj  = -1;

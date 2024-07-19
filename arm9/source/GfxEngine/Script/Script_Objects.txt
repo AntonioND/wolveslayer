@@ -1,14 +1,6 @@
+#include "GfxEngine/Script/Script_Objects.h"
 #include "GfxEngine/render/Obj_Wall.h"
 #include "script.h"
-
-extern char ObjektTyp[Object_Count][13];
-extern u32 ObjektColorKey[Object_Count];
-extern float ObjectRadius[Object_Count];
-extern bool ObjectMirrow[Object_Count];
-extern bool ObjectNoGround[Object_Count];
-extern int ObjTexSize[Object_Count];
-
-// int ObjectTextureID[26];
 
 void LoadDoorCommand(char *Com)
 {

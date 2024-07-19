@@ -1,7 +1,5 @@
 #include "script.h"
 
-extern int Figuren[10];
-
 void LoadCharCommand(char *Com, int num)
 {
     char FileName[60];

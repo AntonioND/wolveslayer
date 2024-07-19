@@ -9,6 +9,8 @@ extern u8 MapLightR[128 * 128];
 extern u8 MapLightG[128 * 128];
 extern u8 MapLightB[128 * 128];
 
+extern int MapChangeCounter;
+
 extern bool outside;
 
 // MAP

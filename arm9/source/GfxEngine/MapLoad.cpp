@@ -3,10 +3,11 @@
 #include "GfxEngine/input/Input.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/PreCalc.h"
+#include "GfxEngine/Script/ScripLoad.h"
+#include "GfxEngine/Script/Script_Objects.h"
 #include "GfxEngine/render/Doors.h"
 #include "GfxEngine/render/Obj_Wall.h"
 #include "GfxEngine/render/Render.h"
-#include "GfxEngine/Script/ScripLoad.h"
 #include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/texture/Light.h"
 
@@ -24,13 +25,10 @@ static int MapWreal, MapHreal;
 static char Mapchange[25][60];
 static int MapChangePosX[25], MapChangePosY[25];
 static int MapChangeTOPosX[25], MapChangeTOPosY[25];
-static int MapChangeCounter;
 static bool MapChangeDoor[25];
 static int MapDoorKey[25];
 static int MapDoorAngle[25];
-
-extern char ObjektTyp[Object_Count][13];
-extern u32 ObjektColorKey[Object_Count]; // For managing mapchange attributes
+int MapChangeCounter;
 
 v16 GetTerrain(int x, int y, int num)
 {
@@ -101,7 +99,6 @@ int GetMapDoorAngle(int x, int y)
 
 void OpenMapDoor(int x, int y)
 {
-    // extern bool Key[100];
     for (int i = 0; i < MapChangeCounter; i++) {
         if (MapChangePosX[i] == x && MapChangePosY[i] == y && MapChangeDoor[i] == true && MapDoorAngle[i] == 0) {
             MapDoorAngle[i] = 10;

@@ -4,7 +4,7 @@
 
 #include "XML/tinyxml.h"
 
-extern int Figuren[10];
+int Figuren[10];
 
 char Names[8][20];
 int Atps[8];

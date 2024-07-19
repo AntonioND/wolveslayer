@@ -3,15 +3,16 @@
 #include "GfxEngine/Script/Script_others.h"
 #include "GfxEngine/Script/Script_Textures.h"
 
-extern char ObjektTyp[Object_Count][13];
-extern u32 ObjektColorKey[Object_Count];
+int ObjectTextureID[Object_Count];
 
-extern bool ObjectMirrow[Object_Count];
-extern bool ObjectIllumination[Object_Count];
-extern bool ObjectNoGround[Object_Count];
-extern float ObjectRadius[Object_Count];
-extern int ObjectTextureID[Object_Count];
-extern bool ObjectCulling[Object_Count];
+char ObjektTyp[Object_Count][13];
+u32 ObjektColorKey[Object_Count];
+
+float ObjectRadius[Object_Count];
+bool ObjectMirrow[Object_Count];
+bool ObjectIllumination[Object_Count];
+bool ObjectNoGround[Object_Count];
+bool ObjectCulling[Object_Count];
 
 int OBJCOUNT;
 

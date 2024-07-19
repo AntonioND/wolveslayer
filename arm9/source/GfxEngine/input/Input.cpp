@@ -25,6 +25,10 @@ int PlStatus   = 0; // aviable :D
 int PlFrame    = 0;
 int PlHP       = 100;
 
+// static int MouseOnButt = -1;
+
+int CellSelect = 0;
+
 //**************************************************
 // DATENBESCHAFFUNGEN
 
@@ -75,15 +79,13 @@ float GetSX(void)
 void Menu(void)
 {
 #if 0
-    extern int MouseOnButt;
     touchPosition touch;
-    extern int CellSelect;
 
-    int Old, Old2;
-    Old = MouseOnButt;
+    int Old  = MouseOnButt;
+    int Old2 = CellSelect;
 
     MouseOnButt = -1;
-    Old2        = CellSelect;
+
     if (keysHeld() & KEY_TOUCH) {
         touch = touchReadXY();
 

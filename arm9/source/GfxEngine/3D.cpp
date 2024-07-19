@@ -14,19 +14,6 @@
 #include "GfxEngine/Tackt.h"
 #include "Music.h"
 
-//*******************Globale variablen
-
-int ObjectTextureID[Object_Count];
-
-// and 26 objects...but u can map textures twice....
-char ObjektTyp[Object_Count][13];
-u32 ObjektColorKey[Object_Count];
-float ObjectRadius[Object_Count];
-bool ObjectMirrow[Object_Count];
-bool ObjectIllumination[Object_Count];
-bool ObjectNoGround[Object_Count];
-bool ObjectCulling[Object_Count];
-
 void Splash(void)
 {
     srand(0xDEADBEEF);
@@ -114,12 +101,13 @@ void Splash(void)
     }
 }
 
-int frameCounter  = 0;
-int loopCounter   = 0;
-int elapsedFrames = 0;
-int frameold      = 0;
-int polycount     = 0;
-int capcount      = 0;
+static int frameCounter  = 0;
+static int loopCounter   = 0;
+static int elapsedFrames = 0;
+static int frameold      = 0;
+static int polycount     = 0;
+
+// static int capcount = 0;
 
 static int frcapture = -1;
 
@@ -154,8 +142,6 @@ void DisplCapture(void)
 
 void vBlank(void)
 {
-    // extern int frcapture;
-
     ++elapsedFrames;
     ++frameCounter;
 

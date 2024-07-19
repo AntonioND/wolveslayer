@@ -2,6 +2,7 @@
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/Model/MD2Collision.h"
+#include "GfxEngine/Script/Script_Objects.h"
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/render/Wasser.h"
@@ -24,9 +25,6 @@ bool Bump[128][128];
 
 v16x4 Terrain[128][128];
 v16 TerrainMid[128][128];
-
-extern char ObjektTyp[Object_Count][13];
-extern u32 ObjektColorKey[Object_Count];
 
 signed char TexBod[128][128];
 signed char TexABod[128][128];
@@ -977,7 +975,6 @@ static void PrecalcStaticBump(void)
 
 bool Passable(int x, int y, int sxx, int syy)
 {
-    extern float ObjectRadius[10];
     if (sxx >= 21) {
         sxx -= 21;
         x++;

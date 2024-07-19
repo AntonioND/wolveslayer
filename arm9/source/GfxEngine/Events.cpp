@@ -68,8 +68,8 @@ void CheckEndGame(void)
         }
 
         // check if endboss died
-        for (int a = 0; a <= GegnerCount; a++) {
-            if (GegnerIsBoss[a] == true && GegnerHP[a] <= 0) {
+        for (int a = 0; a <= EnemyCount; a++) {
+            if (Enemies[a].IsBoss == true && Enemies[a].HP <= 0) {
                 Gameended = true;
                 StartSong("/wolveslayer/bgfx/game-finished.mod");
                 PlStatus = -1;

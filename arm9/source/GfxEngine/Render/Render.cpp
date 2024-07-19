@@ -340,7 +340,7 @@ static void RefreshPlayer(void)
     // walk/standing
     int aniwaffe = stackt11;
     if (PlStatus == 0) {
-        if (GegnerCount >= 0)
+        if (EnemyCount >= 0)
             aniwaffe = 22 + stackt11;
         if (screenmode < 2 && ((keysHeld() & KEY_DOWN) || (keysHeld() & KEY_UP) || (keysHeld() & KEY_LEFT) || (keysHeld() & KEY_RIGHT)))
             aniwaffe += 11;
@@ -538,33 +538,33 @@ static void RefreshEnemys(void)
     float spos[2];
     float hpos, vsx, vsy;
 
-    for (a = 0; a <= GegnerCount; a++) {
+    for (a = 0; a <= EnemyCount; a++) {
         blend = 31;
         // walking arround or following
         aniset = 11 + stackt11;
         // attacking
-        if (GegnerStatus[a] == 1)
-            aniset = 22 + float(GegnerFrame[a] / 22.0 * 18);
+        if (Enemies[a].Status == 1)
+            aniset = 22 + float(Enemies[a].Frame / 22.0 * 18);
         // being hitten
-        if (GegnerStatus[a] == 2)
-            aniset = 33 + GegnerFrame[a];
+        if (Enemies[a].Status == 2)
+            aniset = 33 + Enemies[a].Frame;
         // dies
-        if (GegnerStatus[a] == 3) {
-            aniset = 55 + (GegnerFrame[a] / 4);
-            blend  = 31 - float(GegnerFrame[a] / 44 * 31);
+        if (Enemies[a].Status == 3) {
+            aniset = 55 + (Enemies[a].Frame / 4);
+            blend  = 31 - float(Enemies[a].Frame / 44 * 31);
         }
 
-        hpos = GetHight(GegnerX[a], GegnerY[a]);
-        glBindTexture(GL_TEXTURE_2D, Figuren[GegnerTextNum[a]]);
+        hpos = GetHight(Enemies[a].X, Enemies[a].Y);
+        glBindTexture(GL_TEXTURE_2D, Figuren[Enemies[a].TextNum]);
 
-        if ((GegnerX[a] - 6) + GegnerSX[a] - (CamPosX)-CamPosSX > -4)
-            if ((GegnerX[a] - 6) + GegnerSX[a] - (CamPosX)-CamPosSX < 4)
-                if ((GegnerY[a] - 8) + GegnerSY[a] - (CamPosY)-CamPosSY > -6)
-                    if ((GegnerY[a] - 8) + GegnerSY[a] - (CamPosY)-CamPosSY < 3) {
-                        vx  = GegnerX[a];
-                        vy  = GegnerY[a];
-                        vsx = GegnerSX[a];
-                        vsy = GegnerSY[a];
+        if ((Enemies[a].X - 6) + Enemies[a].SX - (CamPosX)-CamPosSX > -4)
+            if ((Enemies[a].X - 6) + Enemies[a].SX - (CamPosX)-CamPosSX < 4)
+                if ((Enemies[a].Y - 8) + Enemies[a].SY - (CamPosY)-CamPosSY > -6)
+                    if ((Enemies[a].Y - 8) + Enemies[a].SY - (CamPosY)-CamPosSY < 3) {
+                        vx  = Enemies[a].X;
+                        vy  = Enemies[a].Y;
+                        vsx = Enemies[a].SX;
+                        vsy = Enemies[a].SY;
                         if (vsy >= -.5)
                             vy++;
                         if (vsy <= .5)
@@ -573,9 +573,9 @@ static void RefreshEnemys(void)
                             vx++;
                         if (vsx <= .5)
                             vx--; // This is needed to get a better position
-                        vsx = GegnerSX[a] + .5;
-                        vsy = GegnerSY[a] + .5;
-                        dir = GegnerRichtung[a];
+                        vsx = Enemies[a].SX + .5;
+                        vsy = Enemies[a].SY + .5;
+                        dir = Enemies[a].Direction;
 
                         pos[0]  = vx;
                         pos[1]  = vy;
@@ -586,34 +586,34 @@ static void RefreshEnemys(void)
                         hpos = GetInterPolY(vx, vy, vsx, vsy);
 
                         glPushMatrix();
-                        glPolyFmt(POLY_ALPHA(blend) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(GegnerTextNum[a] + 1));
-                        glTranslatef((GegnerX[a] - 6) + GegnerSX[a] - (CamPosX), hpos, (GegnerY[a] - 8) + GegnerSY[a] - (CamPosY));
+                        glPolyFmt(POLY_ALPHA(blend) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(Enemies[a].TextNum + 1));
+                        glTranslatef((Enemies[a].X - 6) + Enemies[a].SX - (CamPosX), hpos, (Enemies[a].Y - 8) + Enemies[a].SY - (CamPosY));
                         glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
                         glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
-                        Precalcmd2light(aniset, GegnerTextNum[a]);
-                        RenderMD2Model(aniset, GegnerTextNum[a]);
+                        Precalcmd2light(aniset, Enemies[a].TextNum);
+                        RenderMD2Model(aniset, Enemies[a].TextNum);
                         glPopMatrix(1);
 
-                        if (Precalcdata[GegnerX[a]][GegnerY[a]] & (1 << mirrow)) {
+                        if (Precalcdata[Enemies[a].X][Enemies[a].Y] & (1 << mirrow)) {
                             glPushMatrix();
                             glPolyFmt(POLY_ALPHA(blend) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
-                            glTranslatef((GegnerX[a] - 6) + GegnerSX[a] - (CamPosX), -hpos, (GegnerY[a] - 8) + GegnerSY[a] - (CamPosY));
+                            glTranslatef((Enemies[a].X - 6) + Enemies[a].SX - (CamPosX), -hpos, (Enemies[a].Y - 8) + Enemies[a].SY - (CamPosY));
                             glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
                             glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
-                            RenderMD2ModelMirrowed(aniset, GegnerTextNum[a]);
+                            RenderMD2ModelMirrowed(aniset, Enemies[a].TextNum);
                             glPopMatrix(1);
                         }
 
                         // increasing frame
-                        if (GegnerStatus[a] == 1) {
-                            GegnerFrame[a]++;
-                            if (GegnerFrame[a] >= 18) {
-                                GegnerFrame[a]  = 0;
-                                GegnerStatus[a] = -1;
+                        if (Enemies[a].Status == 1) {
+                            Enemies[a].Frame++;
+                            if (Enemies[a].Frame >= 18) {
+                                Enemies[a].Frame  = 0;
+                                Enemies[a].Status = -1;
                                 if (PlStatus != 3 && PlStatus != 2) { // player gets some
                                     PlStatus = 2;
                                     PlFrame  = 0;
-                                    PlHP -= rand() % GegnerATP[a];
+                                    PlHP -= rand() % Enemies[a].ATP;
                                     if (PlHP <= 0) {
                                         PlStatus = 3;
                                         PlHP     = 0;
@@ -622,15 +622,15 @@ static void RefreshEnemys(void)
                                 }
                             }
                         }
-                        if (GegnerStatus[a] >= 2) {
-                            GegnerFrame[a]++;
-                            if (GegnerFrame[a] > 11 && GegnerStatus[a] != 3) {
-                                GegnerFrame[a]  = 0;
-                                GegnerStatus[a] = -1;
+                        if (Enemies[a].Status >= 2) {
+                            Enemies[a].Frame++;
+                            if (Enemies[a].Frame > 11 && Enemies[a].Status != 3) {
+                                Enemies[a].Frame  = 0;
+                                Enemies[a].Status = -1;
                             }
 
-                            if (GegnerFrame[a] > 44 && GegnerStatus[a] == 3)
-                                GegnerFrame[a] = 44;
+                            if (Enemies[a].Frame > 44 && Enemies[a].Status == 3)
+                                Enemies[a].Frame = 44;
                         }
                     }
     }

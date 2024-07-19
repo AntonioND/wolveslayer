@@ -109,7 +109,7 @@ void Menu(void)
             if (strncmp("WEAPON", GiveItemType(Inventory[CellSelect]), 6) == 0) {
                 if (touch.py > 87 && touch.py < 119)
                     if (touch.px > 45 && touch.px < 109)
-                        if (GegnerCount == -1)
+                        if (EnemyCount == -1)
                             MouseOnButt = 10;
             }
         }
@@ -204,7 +204,7 @@ void Interact(void)
 
         if (keysDown() & KEY_B) {
             // Attack if possible
-            if (GegnerCount >= 0) {
+            if (EnemyCount >= 0) {
                 PlStatus = 1; // hit him!
                 PlFrame  = 0;
             }
@@ -224,88 +224,88 @@ void Interact(void)
         Px = GetPX() + (PlPosSX + .5);
         Py = GetPY() + (PlPosSY + .5);
 
-        for (NPCnum = 0; NPCnum <= GegnerCount; NPCnum++) {
-            NPx = GegnerX[NPCnum];
-            NPy = GegnerY[NPCnum];
-            if (GegnerSY[NPCnum] >= -.5)
+        for (NPCnum = 0; NPCnum <= EnemyCount; NPCnum++) {
+            NPx = Enemies[NPCnum].X;
+            NPy = Enemies[NPCnum].Y;
+            if (Enemies[NPCnum].SY >= -.5)
                 NPy++;
-            if (GegnerSY[NPCnum] <= .5)
+            if (Enemies[NPCnum].SY <= .5)
                 NPy--;
-            if (GegnerSX[NPCnum] >= -.5)
+            if (Enemies[NPCnum].SX >= -.5)
                 NPx++;
-            if (GegnerSX[NPCnum] <= .5)
+            if (Enemies[NPCnum].SX <= .5)
                 NPx--;
-            NPx += GegnerSX[NPCnum] + .5;
-            NPy += GegnerSY[NPCnum] + .5;
+            NPx += Enemies[NPCnum].SX + .5;
+            NPy += Enemies[NPCnum].SY + .5;
             // Wow strange code....but should work to compare those positions right
             // now lets compace
-            if (Py > NPy - GegnerRadius[NPCnum] && Py < NPy + GegnerRadius[NPCnum] && GegnerStatus[NPCnum] < 2) {
-                if (Px < NPx && Px + GegnerRadius[NPCnum] > NPx)
+            if (Py > NPy - Enemies[NPCnum].Radius && Py < NPy + Enemies[NPCnum].Radius && Enemies[NPCnum].Status < 2) {
+                if (Px < NPx && Px + Enemies[NPCnum].Radius > NPx)
                     nr = NPCnum;
-                if (Px > NPx && Px - GegnerRadius[NPCnum] < NPx)
+                if (Px > NPx && Px - Enemies[NPCnum].Radius < NPx)
                     nl = NPCnum;
             }
-            if (Px > NPx - GegnerRadius[NPCnum] && Px < NPx + GegnerRadius[NPCnum] && GegnerStatus[NPCnum] < 2) {
-                if (Py < NPy && Py + GegnerRadius[NPCnum] > NPy)
+            if (Px > NPx - Enemies[NPCnum].Radius && Px < NPx + Enemies[NPCnum].Radius && Enemies[NPCnum].Status < 2) {
+                if (Py < NPy && Py + Enemies[NPCnum].Radius > NPy)
                     nd = NPCnum;
-                if (Py > NPy && Py - GegnerRadius[NPCnum] < NPy)
+                if (Py > NPy && Py - Enemies[NPCnum].Radius < NPy)
                     nu = NPCnum;
             }
         }
 
         if (d && nd > -1) {
-            GegnerHP[nd] -= rand() % 5;
+            Enemies[nd].HP -= rand() % 5;
 
-            if (GegnerHP[nd] > 0) {
-                GegnerStatus[nd] = 2;
-                GegnerFrame[nd]  = 0;
+            if (Enemies[nd].HP > 0) {
+                Enemies[nd].Status = 2;
+                Enemies[nd].Frame  = 0;
             }
 
-            if (GegnerHP[nd] <= 0) {
-                GegnerStatus[nd] = 3;
-                GegnerFrame[nd]  = 0;
+            if (Enemies[nd].HP <= 0) {
+                Enemies[nd].Status = 3;
+                Enemies[nd].Frame  = 0;
             }
         }
 
         if (l && nl > -1) {
-            GegnerHP[nl] -= rand() % 5;
+            Enemies[nl].HP -= rand() % 5;
 
-            if (GegnerHP[nl] > 0) {
-                GegnerStatus[nl] = 2;
-                GegnerFrame[nl]  = 0;
+            if (Enemies[nl].HP > 0) {
+                Enemies[nl].Status = 2;
+                Enemies[nl].Frame  = 0;
             }
 
-            if (GegnerHP[nl] <= 0) {
-                GegnerStatus[nl] = 3;
-                GegnerFrame[nl]  = 0;
+            if (Enemies[nl].HP <= 0) {
+                Enemies[nl].Status = 3;
+                Enemies[nl].Frame  = 0;
             }
         }
 
         if (u && nu > -1) {
-            GegnerHP[nu] -= rand() % 5;
+            Enemies[nu].HP -= rand() % 5;
 
-            if (GegnerHP[nu] > 0) {
-                GegnerStatus[nu] = 2;
-                GegnerFrame[nu]  = 0;
+            if (Enemies[nu].HP > 0) {
+                Enemies[nu].Status = 2;
+                Enemies[nu].Frame  = 0;
             }
 
-            if (GegnerHP[nu] <= 0) {
-                GegnerStatus[nu] = 3;
-                GegnerFrame[nu]  = 0;
+            if (Enemies[nu].HP <= 0) {
+                Enemies[nu].Status = 3;
+                Enemies[nu].Frame  = 0;
             }
         }
 
         if (r && nr > -12) {
-            GegnerHP[nu] -= rand() % 5;
+            Enemies[nu].HP -= rand() % 5;
 
-            if (GegnerHP[nu] > 0) {
-                GegnerStatus[nu] = 2;
-                GegnerFrame[nu]  = 0;
+            if (Enemies[nu].HP > 0) {
+                Enemies[nu].Status = 2;
+                Enemies[nu].Frame  = 0;
             }
 
-            if (GegnerHP[nu] <= 0) {
-                GegnerStatus[nu] = 3;
-                GegnerFrame[nu]  = 0;
+            if (Enemies[nu].HP <= 0) {
+                Enemies[nu].Status = 3;
+                Enemies[nu].Frame  = 0;
             }
         }
     }
@@ -490,19 +490,19 @@ void inputs(void)
     Px = GetPX() + (PlPosSX + .5);
     Py = GetPY() + (PlPosSY + .5);
 
-    for (NPCnum = 0; NPCnum <= GegnerCount; NPCnum++) {
-        NPx = GegnerX[NPCnum];
-        NPy = GegnerY[NPCnum];
-        if (GegnerSY[NPCnum] >= -.5)
+    for (NPCnum = 0; NPCnum <= EnemyCount; NPCnum++) {
+        NPx = Enemies[NPCnum].X;
+        NPy = Enemies[NPCnum].Y;
+        if (Enemies[NPCnum].SY >= -.5)
             NPy++;
-        if (GegnerSY[NPCnum] <= .5)
+        if (Enemies[NPCnum].SY <= .5)
             NPy--;
-        if (GegnerSX[NPCnum] >= -.5)
+        if (Enemies[NPCnum].SX >= -.5)
             NPx++;
-        if (GegnerSX[NPCnum] <= .5)
+        if (Enemies[NPCnum].SX <= .5)
             NPx--;
-        NPx += GegnerSX[NPCnum] + .5;
-        NPy += GegnerSY[NPCnum] + .5;
+        NPx += Enemies[NPCnum].SX + .5;
+        NPy += Enemies[NPCnum].SY + .5;
         // Wow strange code....but should work to compare those positions right
         // first check distance
         dx = Px - NPx;
@@ -513,17 +513,17 @@ void inputs(void)
             dy *= -1;
         // now lets compace
         if (dx > dy)
-            if (Py > NPy - GegnerRadius[NPCnum] && Py < NPy + GegnerRadius[NPCnum] && GegnerStatus[NPCnum] != 3) {
-                if (Px < NPx && Px + GegnerRadius[NPCnum] > NPx)
+            if (Py > NPy - Enemies[NPCnum].Radius && Py < NPy + Enemies[NPCnum].Radius && Enemies[NPCnum].Status != 3) {
+                if (Px < NPx && Px + Enemies[NPCnum].Radius > NPx)
                     r = false;
-                if (Px > NPx && Px - GegnerRadius[NPCnum] < NPx)
+                if (Px > NPx && Px - Enemies[NPCnum].Radius < NPx)
                     l = false;
             }
         if (dy > dx)
-            if (Px > NPx - GegnerRadius[NPCnum] && Px < NPx + GegnerRadius[NPCnum] && GegnerStatus[NPCnum] != 3) {
-                if (Py < NPy && Py + GegnerRadius[NPCnum] > NPy)
+            if (Px > NPx - Enemies[NPCnum].Radius && Px < NPx + Enemies[NPCnum].Radius && Enemies[NPCnum].Status != 3) {
+                if (Py < NPy && Py + Enemies[NPCnum].Radius > NPy)
                     d = false;
-                if (Py > NPy && Py - GegnerRadius[NPCnum] < NPy)
+                if (Py > NPy && Py - Enemies[NPCnum].Radius < NPy)
                     u = false;
             }
     }

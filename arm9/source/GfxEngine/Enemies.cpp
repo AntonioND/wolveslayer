@@ -1,49 +1,42 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/Enemies.h"
 #include "GfxEngine/Input/Circlestuff.h"
 #include "GfxEngine/Input/Input.h"
 #include "GfxEngine/Output/Touchscreen.h"
 #include "GfxEngine/Render/Render.h"
 #include "GfxEngine/Villagers.h"
 
-int GegnerX[10], GegnerY[10];     // its the HardPos on the Map(on which tile it stands)
-float GegnerSX[10], GegnerSY[10]; // Its softpos...goes from -.5 to .5
-int GegnerTextNum[10];            // The Index for texture
-int GegnerRichtung[10];           // The Direcction for each NPC
-int GegnerCount = -1;             // Its the count of NPCs
-int GegnerStatus[10];
-int GegnerFrame[10];
-int GegnerATP[10];
-int GegnerHP[10];
-float GegnerRadius[10];
-bool GegnerIsBoss[10];
+EnemyInfo Enemies[10];
+
+int EnemyCount = -1;
 
 void ResetEnemys(void)
 {
-    GegnerCount = -1;
+    EnemyCount = -1;
 
     for (int a = 0; a < 10; a++) {
-        GegnerX[a]        = -1;
-        GegnerY[a]        = -1;
-        GegnerSX[a]       = 0;
-        GegnerSY[a]       = 0;
-        GegnerTextNum[a]  = -1;
-        GegnerRichtung[a] = 0;
-        GegnerStatus[a]   = -1;
-        GegnerFrame[a]    = 0;
+        Enemies[a].X         = -1;
+        Enemies[a].Y         = -1;
+        Enemies[a].SX        = 0;
+        Enemies[a].SY        = 0;
+        Enemies[a].TextNum   = -1;
+        Enemies[a].Direction = 0;
+        Enemies[a].Status    = -1;
+        Enemies[a].Frame     = 0;
     }
 }
 
 void AddEnemy(int x, int y, int texnum, int atp, int hp, float rad, bool boss)
 {
-    if (10 > GegnerCount + 1) {
-        GegnerCount++;
-        GegnerX[GegnerCount]       = x;
-        GegnerY[GegnerCount]       = y;
-        GegnerTextNum[GegnerCount] = texnum;
-        GegnerATP[GegnerCount]     = atp;
-        GegnerHP[GegnerCount]      = hp;
-        GegnerRadius[GegnerCount]  = rad;
-        GegnerIsBoss[GegnerCount]  = boss;
+    if (10 > EnemyCount + 1) {
+        EnemyCount++;
+        Enemies[EnemyCount].X       = x;
+        Enemies[EnemyCount].Y       = y;
+        Enemies[EnemyCount].TextNum = texnum;
+        Enemies[EnemyCount].ATP     = atp;
+        Enemies[EnemyCount].HP      = hp;
+        Enemies[EnemyCount].Radius  = rad;
+        Enemies[EnemyCount].IsBoss  = boss;
     }
 }
 
@@ -69,7 +62,7 @@ static void TurnEnemy(int a, bool l, bool r, bool u, bool d)
             ok = false;
     }
 
-    GegnerRichtung[a] = dirnew;
+    Enemies[a].Direction = dirnew;
 }
 
 static void TurnittoPlayer(int a)
@@ -81,18 +74,18 @@ static void TurnittoPlayer(int a)
     NPx = GetPX() + (PlPosSX + .5); // its playerpos here...
     NPy = GetPY() + (PlPosSY + .5); // why? copy/paste/change a bit...easy
 
-    Px = GegnerX[a];
-    Py = GegnerY[a];
-    if (GegnerSY[a] >= -.5)
+    Px = Enemies[a].X;
+    Py = Enemies[a].Y;
+    if (Enemies[a].SY >= -.5)
         Py++;
-    if (GegnerSY[a] <= .5)
+    if (Enemies[a].SY <= .5)
         Py--;
-    if (GegnerSX[a] >= -.5)
+    if (Enemies[a].SX >= -.5)
         Px++;
-    if (GegnerSX[a] <= .5)
+    if (Enemies[a].SX <= .5)
         Px--;
-    Px += GegnerSX[a] + .5;
-    Py += GegnerSY[a] + .5;
+    Px += Enemies[a].SX + .5;
+    Py += Enemies[a].SY + .5;
 
     dx = Px - NPx;
     if (dx < 0)
@@ -102,38 +95,38 @@ static void TurnittoPlayer(int a)
         dy *= -1;
 
     // now we got the distance, and can look how to turn the NPC
-    GegnerRichtung[a] = -1;
+    Enemies[a].Direction = -1;
     if (Px > NPx) {                // right
         if ((dx / 2) > dy) {       // more side then up/down
-            GegnerRichtung[a] = 2; // right
+            Enemies[a].Direction = 2; // right
         }
         if ((dy / 2) > dx) { // more up/down then side
             if (Py > NPy)
-                GegnerRichtung[a] = 4; // down
+                Enemies[a].Direction = 4; // down
             else
-                GegnerRichtung[a] = 0; // up
+                Enemies[a].Direction = 0; // up
         }
-        if (GegnerRichtung[a] == -1) { // both
+        if (Enemies[a].Direction == -1) { // both
             if (Py > NPy)
-                GegnerRichtung[a] = 3; // down-right
+                Enemies[a].Direction = 3; // down-right
             else
-                GegnerRichtung[a] = 1; // up-right
+                Enemies[a].Direction = 1; // up-right
         }
     } else {                       // left
         if ((dx / 2) > dy) {       // more side then up/down
-            GegnerRichtung[a] = 6; // left
+            Enemies[a].Direction = 6; // left
         }
         if ((dy / 2) > dx) { // more up/down then side
             if (Py > NPy)
-                GegnerRichtung[a] = 4; // down
+                Enemies[a].Direction = 4; // down
             else
-                GegnerRichtung[a] = 0; // up
+                Enemies[a].Direction = 0; // up
         }
-        if (GegnerRichtung[a] == -1) { // both
+        if (Enemies[a].Direction == -1) { // both
             if (Py > NPy)
-                GegnerRichtung[a] = 5; // down-left
+                Enemies[a].Direction = 5; // down-left
             else
-                GegnerRichtung[a] = 7; // up-left
+                Enemies[a].Direction = 7; // up-left
         }
     }
 }
@@ -143,10 +136,10 @@ static float gethposfromenemy(int a, float sx, float sy)
     float vsx, vsy;
     int vx, vy;
 
-    vx  = GegnerX[a];
-    vy  = GegnerY[a];
-    vsx = GegnerSX[a] + sx;
-    vsy = GegnerSY[a] + sy;
+    vx  = Enemies[a].X;
+    vy  = Enemies[a].Y;
+    vsx = Enemies[a].SX + sx;
+    vsy = Enemies[a].SY + sy;
     if (vsy >= -.5)
         vy++;
     if (vsy <= .5)
@@ -155,8 +148,8 @@ static float gethposfromenemy(int a, float sx, float sy)
         vx++;
     if (vsx <= .5)
         vx--; // This is needed to get a better position
-    vsx = GegnerSX[a] + .5;
-    vsy = GegnerSY[a] + .5;
+    vsx = Enemies[a].SX + .5;
+    vsy = Enemies[a].SY + .5;
 
     return GetInterPolY(vx, vy, vsx, vsy);
 }
@@ -170,19 +163,19 @@ void UpdateEnemy()
     bool l, r, u, d;
 
     if (screenmode < 3) {
-        for (int a = 0; a <= GegnerCount; a++) {
+        for (int a = 0; a <= EnemyCount; a++) {
             // check coolision just if enemy walks or follows player
-            if (GegnerStatus[a] < 1) {
+            if (Enemies[a].Status < 1) {
                 l = true;
                 r = true;
                 u = true;
                 d = true;
 
-                float sx = GegnerSX[a] * 20;
-                float sy = GegnerSY[a] * 20;
+                float sx = Enemies[a].SX * 20;
+                float sy = Enemies[a].SY * 20;
 
                 bool val[8];
-                Checkcolision(GegnerX[a], GegnerY[a], sx + 10, sy + 10, 5, (bool *)&val);
+                Checkcolision(Enemies[a].X, Enemies[a].Y, sx + 10, sy + 10, 5, (bool *)&val);
                 u = val[0];
                 if (gethposfromenemy(a, 0, -.025) != gethposfromenemy(a, 0, 0))
                     u = false;
@@ -200,18 +193,18 @@ void UpdateEnemy()
                 NPx = GetPX() + (PlPosSX + .5); // its playerpos here...
                 NPy = GetPY() + (PlPosSY + .5); // why? copy/paste/change a bit...easy
 
-                Px = GegnerX[a];
-                Py = GegnerY[a];
-                if (GegnerSY[a] >= -.5)
+                Px = Enemies[a].X;
+                Py = Enemies[a].Y;
+                if (Enemies[a].SY >= -.5)
                     Py++;
-                if (GegnerSY[a] <= .5)
+                if (Enemies[a].SY <= .5)
                     Py--;
-                if (GegnerSX[a] >= -.5)
+                if (Enemies[a].SX >= -.5)
                     Px++;
-                if (GegnerSX[a] <= .5)
+                if (Enemies[a].SX <= .5)
                     Px--;
-                Px += GegnerSX[a] + .5;
-                Py += GegnerSY[a] + .5;
+                Px += Enemies[a].SX + .5;
+                Py += Enemies[a].SY + .5;
                 // Wow strange code....but should work to compare those positions right
                 // first check distance
                 dx = Px - NPx;
@@ -222,76 +215,76 @@ void UpdateEnemy()
                     dy *= -1;
                 // now lets compare
                 // near enough to see player
-                GegnerStatus[a] = -1; // enemy wont follow player
+                Enemies[a].Status = -1; // enemy wont follow player
                 if (PlStatus != 3) {
                     if (dx > dy)
-                        if (Py > NPy - (.9 + GegnerRadius[a]) && Py < NPy + (.9 + GegnerRadius[a])) {
-                            if (Px < NPx && Px + (.9 + GegnerRadius[a]) > NPx) {
-                                GegnerStatus[a] = 0;
+                        if (Py > NPy - (.9 + Enemies[a].Radius) && Py < NPy + (.9 + Enemies[a].Radius)) {
+                            if (Px < NPx && Px + (.9 + Enemies[a].Radius) > NPx) {
+                                Enemies[a].Status = 0;
                                 TurnittoPlayer(a);
-                            } // follow the player}
-                            if (Px > NPx && Px - (.9 + GegnerRadius[a]) < NPx) {
-                                GegnerStatus[a] = 0;
+                            } // follow the player
+                            if (Px > NPx && Px - (.9 + Enemies[a].Radius) < NPx) {
+                                Enemies[a].Status = 0;
                                 TurnittoPlayer(a);
-                            } // follow the player}
+                            } // follow the player
                         }
                     if (dy > dx)
-                        if (Px > NPx - (.9 + GegnerRadius[a]) && Px < NPx + (.9 + GegnerRadius[a])) {
-                            if (Py < NPy && Py + (.9 + GegnerRadius[a]) > NPy) {
-                                GegnerStatus[a] = 0;
+                        if (Px > NPx - (.9 + Enemies[a].Radius) && Px < NPx + (.9 + Enemies[a].Radius)) {
+                            if (Py < NPy && Py + (.9 + Enemies[a].Radius) > NPy) {
+                                Enemies[a].Status = 0;
                                 TurnittoPlayer(a);
-                            } // follow the player}
-                            if (Py > NPy && Py - (.9 + GegnerRadius[a]) < NPy) {
-                                GegnerStatus[a] = 0;
+                            } // follow the player
+                            if (Py > NPy && Py - (.9 + Enemies[a].Radius) < NPy) {
+                                Enemies[a].Status = 0;
                                 TurnittoPlayer(a);
-                            } // follow the player}
+                            } // follow the player
                         }
                     // near enough to attack and to near to get closer
                     if (dx > dy)
-                        if (Py > NPy - GegnerRadius[a] && Py < NPy + GegnerRadius[a]) {
-                            if (Px < NPx && Px + GegnerRadius[a] > NPx) {
+                        if (Py > NPy - Enemies[a].Radius && Py < NPy + Enemies[a].Radius) {
+                            if (Px < NPx && Px + Enemies[a].Radius > NPx) {
                                 r = false;
                                 if (rand() % 17 == 2)
-                                    GegnerStatus[a] = 1;
+                                    Enemies[a].Status = 1;
                             }
-                            if (Px > NPx && Px - GegnerRadius[a] < NPx) {
+                            if (Px > NPx && Px - Enemies[a].Radius < NPx) {
                                 l = false;
                                 if (rand() % 17 == 2)
-                                    GegnerStatus[a] = 1;
+                                    Enemies[a].Status = 1;
                             }
                         }
                     if (dy > dx)
-                        if (Px > NPx - GegnerRadius[a] && Px < NPx + GegnerRadius[a]) {
-                            if (Py < NPy && Py + GegnerRadius[a] > NPy) {
+                        if (Px > NPx - Enemies[a].Radius && Px < NPx + Enemies[a].Radius) {
+                            if (Py < NPy && Py + Enemies[a].Radius > NPy) {
                                 d = false;
                                 if (rand() % 17 == 2)
-                                    GegnerStatus[a] = 1;
+                                    Enemies[a].Status = 1;
                             }
-                            if (Py > NPy && Py - GegnerRadius[a] < NPy) {
+                            if (Py > NPy && Py - Enemies[a].Radius < NPy) {
                                 u = false;
                                 if (rand() % 17 == 2)
-                                    GegnerStatus[a] = 1;
+                                    Enemies[a].Status = 1;
                             }
                         }
                 }
                 // Chrash mit anderen NPCs verhindern
-                NPx = GegnerX[a];
-                NPy = GegnerY[a];
+                NPx = Enemies[a].X;
+                NPy = Enemies[a].Y;
 
-                for (int NPCnum = 0; NPCnum <= GegnerCount; NPCnum++) {
+                for (int NPCnum = 0; NPCnum <= EnemyCount; NPCnum++) {
                     if (NPCnum != a) {
-                        Px = GegnerX[NPCnum];
-                        Py = GegnerY[NPCnum];
-                        if (GegnerSY[NPCnum] >= -.5)
+                        Px = Enemies[NPCnum].X;
+                        Py = Enemies[NPCnum].Y;
+                        if (Enemies[NPCnum].SY >= -.5)
                             Py++;
-                        if (GegnerSY[NPCnum] <= .5)
+                        if (Enemies[NPCnum].SY <= .5)
                             Py--;
-                        if (GegnerSX[NPCnum] >= -.5)
+                        if (Enemies[NPCnum].SX >= -.5)
                             Px++;
-                        if (GegnerSX[NPCnum] <= .5)
+                        if (Enemies[NPCnum].SX <= .5)
                             Px--;
-                        Px += GegnerSX[NPCnum] + .5;
-                        Py += GegnerSY[NPCnum] + .5;
+                        Px += Enemies[NPCnum].SX + .5;
+                        Py += Enemies[NPCnum].SY + .5;
                         // Wow strange code....but should work to compare those positions right
                         // first check distance
                         dx = Px - NPx;
@@ -300,19 +293,19 @@ void UpdateEnemy()
                         dy = Py - NPy;
                         if (dy < 0)
                             dy *= -1;
-                        // now lets compace
+                        // now lets compare
                         if (dx > dy)
-                            if (Py > NPy - GegnerRadius[NPCnum] && Py < NPy + GegnerRadius[NPCnum] && GegnerStatus[NPCnum] != 3) {
-                                if (Px < NPx && Px + GegnerRadius[NPCnum] > NPx)
+                            if (Py > NPy - Enemies[NPCnum].Radius && Py < NPy + Enemies[NPCnum].Radius && Enemies[NPCnum].Status != 3) {
+                                if (Px < NPx && Px + Enemies[NPCnum].Radius > NPx)
                                     r = false;
-                                if (Px > NPx && Px - GegnerRadius[NPCnum] < NPx)
+                                if (Px > NPx && Px - Enemies[NPCnum].Radius < NPx)
                                     l = false;
                             }
                         if (dy > dx)
-                            if (Px > NPx - GegnerRadius[NPCnum] && Px < NPx + GegnerRadius[NPCnum] && GegnerStatus[NPCnum] != 3) {
-                                if (Py < NPy && Py + GegnerRadius[NPCnum] > NPy)
+                            if (Px > NPx - Enemies[NPCnum].Radius && Px < NPx + Enemies[NPCnum].Radius && Enemies[NPCnum].Status != 3) {
+                                if (Py < NPy && Py + Enemies[NPCnum].Radius > NPy)
                                     d = false;
-                                if (Py > NPy && Py - GegnerRadius[NPCnum] < NPy)
+                                if (Py > NPy && Py - Enemies[NPCnum].Radius < NPy)
                                     u = false;
                             }
                     }
@@ -321,15 +314,15 @@ void UpdateEnemy()
 
             // Movement
             // Direction change (random walking)
-            if (GegnerStatus[a] == -1) {
+            if (Enemies[a].Status == -1) {
                 change = false;
-                if ((GegnerRichtung[a] == 0 || GegnerRichtung[a] == 1 || GegnerRichtung[a] == 7) && d == false)
+                if ((Enemies[a].Direction == 0 || Enemies[a].Direction == 1 || Enemies[a].Direction == 7) && d == false)
                     change = true;
-                if ((GegnerRichtung[a] == 1 || GegnerRichtung[a] == 2 || GegnerRichtung[a] == 3) && l == false)
+                if ((Enemies[a].Direction == 1 || Enemies[a].Direction == 2 || Enemies[a].Direction == 3) && l == false)
                     change = true;
-                if ((GegnerRichtung[a] == 6 || GegnerRichtung[a] == 5 || GegnerRichtung[a] == 7) && r == false)
+                if ((Enemies[a].Direction == 6 || Enemies[a].Direction == 5 || Enemies[a].Direction == 7) && r == false)
                     change = true;
-                if ((GegnerRichtung[a] == 4 || GegnerRichtung[a] == 3 || GegnerRichtung[a] == 5) && u == false)
+                if ((Enemies[a].Direction == 4 || Enemies[a].Direction == 3 || Enemies[a].Direction == 5) && u == false)
                     change = true;
                 if (rand() % 60 == 0)
                     change = true;
@@ -338,32 +331,32 @@ void UpdateEnemy()
                     TurnEnemy(a, l, r, u, d);
             }
 
-            if (GegnerStatus[a] < 1) {
+            if (Enemies[a].Status < 1) {
                 // Horizontal
-                if ((GegnerRichtung[a] == 6 || GegnerRichtung[a] == 5 || GegnerRichtung[a] == 7) && r)
-                    GegnerSX[a] += .025;
-                if (GegnerSX[a] > .5) {
-                    GegnerX[a] += 1;
-                    GegnerSX[a] -= 1;
+                if ((Enemies[a].Direction == 6 || Enemies[a].Direction == 5 || Enemies[a].Direction == 7) && r)
+                    Enemies[a].SX += .025;
+                if (Enemies[a].SX > .5) {
+                    Enemies[a].X += 1;
+                    Enemies[a].SX -= 1;
                 }
-                if ((GegnerRichtung[a] == 1 || GegnerRichtung[a] == 2 || GegnerRichtung[a] == 3) && l)
-                    GegnerSX[a] -= .025;
-                if (GegnerSX[a] < -.5) {
-                    GegnerX[a] -= 1;
-                    GegnerSX[a] += 1;
+                if ((Enemies[a].Direction == 1 || Enemies[a].Direction == 2 || Enemies[a].Direction == 3) && l)
+                    Enemies[a].SX -= .025;
+                if (Enemies[a].SX < -.5) {
+                    Enemies[a].X -= 1;
+                    Enemies[a].SX += 1;
                 }
                 // Vertikal
-                if ((GegnerRichtung[a] == 0 || GegnerRichtung[a] == 1 || GegnerRichtung[a] == 7) && d)
-                    GegnerSY[a] += .025;
-                if (GegnerSY[a] > .5) {
-                    GegnerY[a] += 1;
-                    GegnerSY[a] -= 1;
+                if ((Enemies[a].Direction == 0 || Enemies[a].Direction == 1 || Enemies[a].Direction == 7) && d)
+                    Enemies[a].SY += .025;
+                if (Enemies[a].SY > .5) {
+                    Enemies[a].Y += 1;
+                    Enemies[a].SY -= 1;
                 }
-                if ((GegnerRichtung[a] == 4 || GegnerRichtung[a] == 3 || GegnerRichtung[a] == 5) && u)
-                    GegnerSY[a] -= .025;
-                if (GegnerSY[a] < -.5) {
-                    GegnerY[a] -= 1;
-                    GegnerSY[a] += 1;
+                if ((Enemies[a].Direction == 4 || Enemies[a].Direction == 3 || Enemies[a].Direction == 5) && u)
+                    Enemies[a].SY -= .025;
+                if (Enemies[a].SY < -.5) {
+                    Enemies[a].Y -= 1;
+                    Enemies[a].SY += 1;
                 }
             }
         }

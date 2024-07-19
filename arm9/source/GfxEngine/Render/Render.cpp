@@ -446,7 +446,7 @@ static void RefreshPlayer(void)
 
 //*******************************************************************************
 // Villagers
-#if 0
+// TODO: This is currently unused
 static void RefreshVillagers(void)
 {
     int dir, a, vx, vy;
@@ -523,7 +523,6 @@ static void RefreshVillagers(void)
         }
     }
 }
-#endif
 
 //*******************************************************************************
 // Gegner (Enemys)
@@ -638,7 +637,7 @@ static void RefreshEnemys(void)
 void Refresh3D(void)
 {
     RefreshEnemys();
-    // RefreshVillagers();
+    RefreshVillagers();
     RefreshPlayer();
     RefreshWelt();
     RefreshMap();

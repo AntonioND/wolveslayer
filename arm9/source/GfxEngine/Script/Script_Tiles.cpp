@@ -1,7 +1,7 @@
 #include "GfxEngine/Model/MD2Load.h"
 #include "GfxEngine/Render/Autotiles.h"
 #include "GfxEngine/Render/Ground.h"
-#include "GfxEngine/Render/Ufer.h"
+#include "GfxEngine/Render/Edge.h"
 #include "GfxEngine/Render/Wasser.h"
 #include "GfxEngine/Texture/Bumpmapping.h"
 #include "XML/tinyxml.h"
@@ -125,11 +125,11 @@ void LoadTerrainBorderCommand(TiXmlElement *map)
             snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", terrainborder->Attribute("file"));
 
             if (bumpmapping == false)
-                LoadUferTexture(FileNameCom, &Ufer[0], 0);
+                LoadEdgeTexture(FileNameCom, &Edge[0], 0);
             else
-                LoadMBump3Texture(FileNameCom, 0, &Ufer[0], &UferB[0], &UferC[0]);
+                LoadMBump3Texture(FileNameCom, 0, &Edge[0], &EdgeB[0], &EdgeC[0]);
 
-            UferBump[0] = bumpmapping;
+            EdgeBump[0] = bumpmapping;
         }
     }
 }

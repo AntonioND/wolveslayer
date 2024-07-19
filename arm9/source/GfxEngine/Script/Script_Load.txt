@@ -37,7 +37,7 @@ extern void LoadMapCommand(char *Com);    // Gets the filename out of the comman
 extern void LoadMapChange(char *Com);     // adds the attributes for exits of map
 extern void LoadMapChangeDoor(char *Com); // adds the attributes for exits of map through a door which could need a key
 extern void LoadDoorCommand(char *Com);
-void LoadUferCommand(char *Com);
+void LoadEdgeCommand(char *Com);
 
 extern void LoadGroundCommand(char *Com, int index); // Gets the filename and colorkey out of the command ,for loading a groundtexture
 extern void LoadWasserCommand(char *Com);           // Gets the filename and colorkey out of the command ,for loading a wassertexture

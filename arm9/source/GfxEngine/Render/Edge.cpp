@@ -6,10 +6,10 @@
 #include "GfxEngine/Texture/DynamicLights.h"
 #include "GfxEngine/Texture/Light.h"
 
-int Ufer[10];
-int UferB[10];
-int UferC[10];
-bool UferBump[10];
+int Edge[10];
+int EdgeB[10];
+int EdgeC[10];
+bool EdgeBump[10];
 
 static u8 left;
 static u8 right;
@@ -42,7 +42,7 @@ static t16 heightot16down(v16 h)
     // return minusterrain;
 }
 
-static void WallUfer(int x, int y, f32 xx, f32 yy)
+static void WallEdge(int x, int y, f32 xx, f32 yy)
 {
     v16 bl, tl, br, tr;
     t16 tbl, ttl, tbr, ttr;
@@ -50,7 +50,7 @@ static void WallUfer(int x, int y, f32 xx, f32 yy)
     int b = 0;
 
     if (left == 3) {
-        if (UferBump[0] && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
+        if (EdgeBump[0] && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
             b = 0;
@@ -66,13 +66,13 @@ static void WallUfer(int x, int y, f32 xx, f32 yy)
 
         for (a = -b; a <= b; a++) {
             if (a == -1)
-                glBindTexture(GL_TEXTURE_2D, UferC[0]);
+                glBindTexture(GL_TEXTURE_2D, EdgeC[0]);
             // if (a == 0 && b != 0)
-            //     glBindTexture(GL_TEXTURE_2D, UferA[0]);
+            //     glBindTexture(GL_TEXTURE_2D, EdgeA[0]);
             if (a == 0)
-                glBindTexture(GL_TEXTURE_2D, Ufer[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0]);
             if (a == 1)
-                glBindTexture(GL_TEXTURE_2D, UferB[0]);
+                glBindTexture(GL_TEXTURE_2D, EdgeB[0]);
 
             glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
             glPushMatrix();
@@ -106,7 +106,7 @@ static void WallUfer(int x, int y, f32 xx, f32 yy)
     }
 
     if (right == 3) {
-        if (UferBump[0] && ViewportMapBumpWallE[x - CamPosX + 5][y - CamPosY + 3])
+        if (EdgeBump[0] && ViewportMapBumpWallE[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
             b = 0;
@@ -124,13 +124,13 @@ static void WallUfer(int x, int y, f32 xx, f32 yy)
 
         for (a = -b; a <= b; a++) {
             if (a == -1)
-                glBindTexture(GL_TEXTURE_2D, UferC[0]);
+                glBindTexture(GL_TEXTURE_2D, EdgeC[0]);
             // if (a == 0 && b != 0)
-            //     glBindTexture(GL_TEXTURE_2D, UferA[0]);
+            //     glBindTexture(GL_TEXTURE_2D, EdgeA[0]);
             if (a == 0)
-                glBindTexture(GL_TEXTURE_2D, Ufer[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0]);
             if (a == 1)
-                glBindTexture(GL_TEXTURE_2D, UferB[0]);
+                glBindTexture(GL_TEXTURE_2D, EdgeB[0]);
 
             glPushMatrix();
             glTranslatef32(xx, 0, yy);
@@ -163,7 +163,7 @@ static void WallUfer(int x, int y, f32 xx, f32 yy)
     }
 
     if (front == 3) {
-        if (UferBump[0] && ViewportMapBumpWallS[x - CamPosX + 5][y - CamPosY + 3])
+        if (EdgeBump[0] && ViewportMapBumpWallS[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
             b = 0;
@@ -181,13 +181,13 @@ static void WallUfer(int x, int y, f32 xx, f32 yy)
 
         for (a = -b; a <= b; a++) {
             if (a == -1)
-                glBindTexture(GL_TEXTURE_2D, UferC[0]);
+                glBindTexture(GL_TEXTURE_2D, EdgeC[0]);
             // if (a == 0 && b != 0)
-            //     glBindTexture(GL_TEXTURE_2D, UferA[0]);
+            //     glBindTexture(GL_TEXTURE_2D, EdgeA[0]);
             if (a == 0)
-                glBindTexture(GL_TEXTURE_2D, Ufer[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0]);
             if (a == 1)
-                glBindTexture(GL_TEXTURE_2D, UferB[0]);
+                glBindTexture(GL_TEXTURE_2D, EdgeB[0]);
 
             glPushMatrix();
             glTranslatef32(xx, 0, yy);
@@ -220,7 +220,7 @@ static void WallUfer(int x, int y, f32 xx, f32 yy)
     }
 }
 
-static void HalfWallUferA(int x, int y, f32 xx, f32 yy)
+static void HalfWallEdgeA(int x, int y, f32 xx, f32 yy)
 {
     v16 bl, tl, br;
     // v16 tr;
@@ -230,7 +230,7 @@ static void HalfWallUferA(int x, int y, f32 xx, f32 yy)
     int b = 0;
 
     if (left == 1) {
-        if (UferBump[0] && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
+        if (EdgeBump[0] && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
             b = 0;
@@ -246,13 +246,13 @@ static void HalfWallUferA(int x, int y, f32 xx, f32 yy)
 
         for (a = -b; a <= b; a++) {
             if (a == -1)
-                glBindTexture(GL_TEXTURE_2D, UferC[0]);
+                glBindTexture(GL_TEXTURE_2D, EdgeC[0]);
             // if (a == 0 && b != 0)
-            //     glBindTexture(GL_TEXTURE_2D, UferA[0]);
+            //     glBindTexture(GL_TEXTURE_2D, EdgeA[0]);
             if (a == 0)
-                glBindTexture(GL_TEXTURE_2D, Ufer[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0]);
             if (a == 1)
-                glBindTexture(GL_TEXTURE_2D, UferB[0]);
+                glBindTexture(GL_TEXTURE_2D, EdgeB[0]);
 
             glPushMatrix();
             glTranslatef32(xx, 0, yy);
@@ -281,7 +281,7 @@ static void HalfWallUferA(int x, int y, f32 xx, f32 yy)
     }
 
     if (right == 1) {
-        if (UferBump[0] && ViewportMapBumpWallE[x - CamPosX + 5][y - CamPosY + 3])
+        if (EdgeBump[0] && ViewportMapBumpWallE[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
             b = 0;
@@ -299,13 +299,13 @@ static void HalfWallUferA(int x, int y, f32 xx, f32 yy)
 
         for (a = -b; a <= b; a++) {
             if (a == -1)
-                glBindTexture(GL_TEXTURE_2D, UferC[0]);
+                glBindTexture(GL_TEXTURE_2D, EdgeC[0]);
             // if (a == 0 && b != 0)
-            //     glBindTexture(GL_TEXTURE_2D, UferA[0]);
+            //     glBindTexture(GL_TEXTURE_2D, EdgeA[0]);
             if (a == 0)
-                glBindTexture(GL_TEXTURE_2D, Ufer[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0]);
             if (a == 1)
-                glBindTexture(GL_TEXTURE_2D, UferB[0]);
+                glBindTexture(GL_TEXTURE_2D, EdgeB[0]);
 
             glPushMatrix();
             glTranslatef32(xx, 0, yy);
@@ -334,7 +334,7 @@ static void HalfWallUferA(int x, int y, f32 xx, f32 yy)
     }
 
     if (front == 1) {
-        if (UferBump[0] && ViewportMapBumpWallS[x - CamPosX + 5][y - CamPosY + 3])
+        if (EdgeBump[0] && ViewportMapBumpWallS[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
             b = 0;
@@ -352,13 +352,13 @@ static void HalfWallUferA(int x, int y, f32 xx, f32 yy)
 
         for (a = -b; a <= b; a++) {
             if (a == -1)
-                glBindTexture(GL_TEXTURE_2D, UferC[0]);
+                glBindTexture(GL_TEXTURE_2D, EdgeC[0]);
             // if (a == 0 && b != 0)
-            //     glBindTexture(GL_TEXTURE_2D, UferA[0]);
+            //     glBindTexture(GL_TEXTURE_2D, EdgeA[0]);
             if (a == 0)
-                glBindTexture(GL_TEXTURE_2D, Ufer[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0]);
             if (a == 1)
-                glBindTexture(GL_TEXTURE_2D, UferB[0]);
+                glBindTexture(GL_TEXTURE_2D, EdgeB[0]);
 
             glPushMatrix();
             glTranslatef32(xx, 0, yy);
@@ -387,7 +387,7 @@ static void HalfWallUferA(int x, int y, f32 xx, f32 yy)
     }
 }
 
-static void HalfWallUferB(int x, int y, f32 xx, f32 yy)
+static void HalfWallEdgeB(int x, int y, f32 xx, f32 yy)
 {
     v16 bl, br, tr;
     // v16 tl;
@@ -397,7 +397,7 @@ static void HalfWallUferB(int x, int y, f32 xx, f32 yy)
     int b = 0;
 
     if (left == 2) {
-        if (UferBump[0] && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
+        if (EdgeBump[0] && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
             b = 0;
@@ -415,13 +415,13 @@ static void HalfWallUferB(int x, int y, f32 xx, f32 yy)
 
         for (a = -b; a <= b; a++) {
             if (a == -1)
-                glBindTexture(GL_TEXTURE_2D, UferC[0]);
+                glBindTexture(GL_TEXTURE_2D, EdgeC[0]);
             // if (a == 0 && b != 0)
-            //     glBindTexture(GL_TEXTURE_2D, UferA[0]);
+            //     glBindTexture(GL_TEXTURE_2D, EdgeA[0]);
             if (a == 0)
-                glBindTexture(GL_TEXTURE_2D, Ufer[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0]);
             if (a == 1)
-                glBindTexture(GL_TEXTURE_2D, UferB[0]);
+                glBindTexture(GL_TEXTURE_2D, EdgeB[0]);
 
             glPushMatrix();
             glTranslatef32(xx, 0, yy);
@@ -450,7 +450,7 @@ static void HalfWallUferB(int x, int y, f32 xx, f32 yy)
     }
 
     if (right == 2) {
-        if (UferBump[0] && ViewportMapBumpWallE[x - CamPosX + 5][y - CamPosY + 3])
+        if (EdgeBump[0] && ViewportMapBumpWallE[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
             b = 0;
@@ -468,13 +468,13 @@ static void HalfWallUferB(int x, int y, f32 xx, f32 yy)
 
         for (a = -b; a <= b; a++) {
             if (a == -1)
-                glBindTexture(GL_TEXTURE_2D, UferC[0]);
+                glBindTexture(GL_TEXTURE_2D, EdgeC[0]);
             // if (a == 0 && b != 0)
-            //     glBindTexture(GL_TEXTURE_2D, UferA[0]);
+            //     glBindTexture(GL_TEXTURE_2D, EdgeA[0]);
             if (a == 0)
-                glBindTexture(GL_TEXTURE_2D, Ufer[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0]);
             if (a == 1)
-                glBindTexture(GL_TEXTURE_2D, UferB[0]);
+                glBindTexture(GL_TEXTURE_2D, EdgeB[0]);
 
             glPushMatrix();
             glTranslatef32(xx, 0, yy);
@@ -503,7 +503,7 @@ static void HalfWallUferB(int x, int y, f32 xx, f32 yy)
     }
 
     if (front == 2) {
-        if (UferBump[0] && ViewportMapBumpWallS[x - CamPosX + 5][y - CamPosY + 3])
+        if (EdgeBump[0] && ViewportMapBumpWallS[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
             b = 0;
@@ -521,13 +521,13 @@ static void HalfWallUferB(int x, int y, f32 xx, f32 yy)
 
         for (a = -b; a <= b; a++) {
             if (a == -1)
-                glBindTexture(GL_TEXTURE_2D, UferC[0]);
+                glBindTexture(GL_TEXTURE_2D, EdgeC[0]);
             // if(a == 0 && b != 0)
-            //     glBindTexture(GL_TEXTURE_2D, UferA[0]);
+            //     glBindTexture(GL_TEXTURE_2D, EdgeA[0]);
             if (a == 0)
-                glBindTexture(GL_TEXTURE_2D, Ufer[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0]);
             if (a == 1)
-                glBindTexture(GL_TEXTURE_2D, UferB[0]);
+                glBindTexture(GL_TEXTURE_2D, EdgeB[0]);
 
             glPushMatrix();
             glTranslatef32(xx, 0, yy);
@@ -556,7 +556,7 @@ static void HalfWallUferB(int x, int y, f32 xx, f32 yy)
     }
 }
 
-void RenderUfer(int x, int y, f32 xx, f32 yy)
+void RenderEdge(int x, int y, f32 xx, f32 yy)
 {
     u8 sidewalls = Terrain[x][y].sidewalls;
 
@@ -573,13 +573,13 @@ void RenderUfer(int x, int y, f32 xx, f32 yy)
 
         front = (sidewalls & (3 << 4)) >> 4;
 
-        WallUfer(x, y, xx, yy);
-        HalfWallUferA(x, y, xx, yy);
-        HalfWallUferB(x, y, xx, yy);
+        WallEdge(x, y, xx, yy);
+        HalfWallEdgeA(x, y, xx, yy);
+        HalfWallEdgeB(x, y, xx, yy);
     }
 }
 
-void LoadUferTexture(char filename[], int *Target, int num)
+void LoadEdgeTexture(char filename[], int *Target, int num)
 {
     u8 *buffer8;
     u16 *pal;

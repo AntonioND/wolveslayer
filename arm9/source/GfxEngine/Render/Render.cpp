@@ -12,7 +12,7 @@
 #include "GfxEngine/Render/Doors.h"
 #include "GfxEngine/Render/Obj_House.h"
 #include "GfxEngine/Render/Obj_Wall.h"
-#include "GfxEngine/Render/Ufer.h"
+#include "GfxEngine/Render/Edge.h"
 #include "GfxEngine/Render/Wasser.h"
 #include "GfxEngine/Script/Script_Chars.h"
 #include "GfxEngine/Script/Script_Objects.h"
@@ -119,9 +119,9 @@ static void RefreshMap(void)
                             RenderWasser(tackt32, inttof32(xx - 6), waterheight, inttof32(yy - 8));
                         }
 
-                        // Ufer
+                        // Edge
                         if (Terrain[x][y].sidewalls) {
-                            RenderUfer(x, y, inttof32(xx - 6), inttof32(yy - 8));
+                            RenderEdge(x, y, inttof32(xx - 6), inttof32(yy - 8));
                         }
                     }
                 }

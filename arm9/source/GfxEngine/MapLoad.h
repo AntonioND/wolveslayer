@@ -3,8 +3,6 @@
 
 #include <nds.h>
 
-extern u32 MapImage[256][256];
-
 extern u8 MapLightR[128 * 128];
 extern u8 MapLightG[128 * 128];
 extern u8 MapLightB[128 * 128];
@@ -20,6 +18,8 @@ u32 MapBodenGetRGB(int x, int y);
 // For getting tiled size of map
 int MapGetWr(void);
 int MapGetHr(void);
+
+void GetRGBfromMap(int x, int y, u8 &r, u8 &g, u8 &b);
 
 // For getting ObjectDatas
 u32 MapObjectGetRGB(int x, int y);

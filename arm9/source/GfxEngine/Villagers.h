@@ -3,13 +3,19 @@
 
 #include "GfxEngine/Limits.h"
 
-extern int VillagerX[Villagers_Max], VillagerY[Villagers_Max];
-extern float VillagerSX[Villagers_Max], VillagerSY[Villagers_Max];
-extern int VillagerTextNum[Villagers_Max];
-extern int VillagerRichtung[Villagers_Max];
+typedef struct {
+    int X, Y;             // It's the HardPos on the Map(on which tile it stands)
+    float SX, SY;         // It's the softpos. It goes from -.5 to .5
+    int TextNum;          // The Index for texture
+    int Direction;        // The direction for each NPC
+    int Count = -1;       // Its the count of NPCs
+    char Speech[10][256]; // to hold 10 textes for each NPC with 300 chars
+    int SpeechCount;      // Holds the Number of speeches a NPC has...
+} VillagerInfo;
+
+extern VillagerInfo Villager[Villagers_Max];
+
 extern int VillagerCount;
-extern char VillagerSpeech[Villagers_Max][10][256];
-extern int VillagerSpeechCount[Villagers_Max];
 
 extern int SpriteX, SpriteY;
 extern float SpriteSX, SpriteSY;

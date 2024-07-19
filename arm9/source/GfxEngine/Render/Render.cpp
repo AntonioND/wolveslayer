@@ -455,18 +455,17 @@ static void RefreshVillagers(void)
     float hpos, vsx, vsy;
 
     for (a = 0; a <= VillagerCount; a++) {
-        hpos = GetHight(VillagerX[a], VillagerY[a]);
-        glBindTexture(GL_TEXTURE_2D, Figuren[VillagerTextNum[a]]);
-        glColorTable(GL_RGB256, ...); // TODO: Update this if needed
+        hpos = GetHight(Villager[a].X, Villager[a].Y);
+        glBindTexture(GL_TEXTURE_2D, Figuren[Villager[a].TextNum]);
 
-        if ((VillagerX[a] - 6) + VillagerSX[a] - (CamPosX)-CamPosSX > -4) {
-            if ((VillagerX[a] - 6) + VillagerSX[a] - (CamPosX)-CamPosSX < 4) {
-                if ((VillagerY[a] - 8) + VillagerSY[a] - (CamPosY)-CamPosSY > -8) {
-                    if ((VillagerY[a] - 8) + VillagerSY[a] - (CamPosY)-CamPosSY < 3) {
-                        vx  = VillagerX[a];
-                        vy  = VillagerY[a];
-                        vsx = VillagerSX[a];
-                        vsy = VillagerSY[a];
+        if ((Villager[a].X - 6) + Villager[a].SX - (CamPosX)-CamPosSX > -4) {
+            if ((Villager[a].X - 6) + Villager[a].SX - (CamPosX)-CamPosSX < 4) {
+                if ((Villager[a].Y - 8) + Villager[a].SY - (CamPosY)-CamPosSY > -8) {
+                    if ((Villager[a].Y - 8) + Villager[a].SY - (CamPosY)-CamPosSY < 3) {
+                        vx  = Villager[a].X;
+                        vy  = Villager[a].Y;
+                        vsx = Villager[a].SX;
+                        vsy = Villager[a].SY;
                         if (vsy >= -.5)
                             vy++;
                         if (vsy <= .5)
@@ -475,9 +474,9 @@ static void RefreshVillagers(void)
                             vx++;
                         if (vsx <= .5)
                             vx--; // This is needed to get a better position
-                        vsx = VillagerSX[a] + .5;
-                        vsy = VillagerSY[a] + .5;
-                        dir = VillagerRichtung[a];
+                        vsx = Villager[a].SX + .5;
+                        vsy = Villager[a].SY + .5;
+                        dir = Villager[a].Direction;
                         if (a == npctalk && screenmode == 2) {
                             dir = PlRichtung + 4;
                             if (dir > 7)
@@ -493,29 +492,29 @@ static void RefreshVillagers(void)
                         hpos = GetInterPolY(vx, vy, vsx, vsy);
 
                         glPushMatrix();
-                        glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(VillagerTextNum[a] + 1));
-                        glTranslatef((VillagerX[a] - 6) + VillagerSX[a] - (CamPosX), hpos, (VillagerY[a] - 8) + VillagerSY[a] - (CamPosY));
+                        glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(Villager[a].TextNum + 1));
+                        glTranslatef((Villager[a].X - 6) + Villager[a].SX - (CamPosX), hpos, (Villager[a].Y - 8) + Villager[a].SY - (CamPosY));
                         glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
                         glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
                         if ((screenmode != 2 || a != npctalk) && screenmode <= 2) {
-                            Precalcmd2light(stackt11 + 11, VillagerTextNum[a]);
-                            RenderMD2Model(stackt11 + 11, VillagerTextNum[a]);
+                            Precalcmd2light(stackt11 + 11, Villager[a].TextNum);
+                            RenderMD2Model(stackt11 + 11, Villager[a].TextNum);
                         } else {
-                            Precalcmd2light(stackt11, VillagerTextNum[a]);
-                            RenderMD2Model(stackt11, VillagerTextNum[a]);
+                            Precalcmd2light(stackt11, Villager[a].TextNum);
+                            RenderMD2Model(stackt11, Villager[a].TextNum);
                         }
                         glPopMatrix(1);
 
-                        if (Precalcdata[VillagerX[a]][VillagerY[a]] & (1 << B_Mirrowable)) {
+                        if (Precalcdata[Villager[a].X][Villager[a].Y] & (1 << B_Mirrowable)) {
                             glPushMatrix();
                             glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
-                            glTranslatef((VillagerX[a] - 6) + VillagerSX[a] - (CamPosX), -hpos, (VillagerY[a] - 8) + VillagerSY[a] - (CamPosY));
+                            glTranslatef((Villager[a].X - 6) + Villager[a].SX - (CamPosX), -hpos, (Villager[a].Y - 8) + Villager[a].SY - (CamPosY));
                             glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
                             glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
                             if ((screenmode != 2 || a != npctalk) && screenmode <= 2)
-                                RenderMD2ModelMirrowed(stackt11 + 11, VillagerTextNum[a]);
+                                RenderMD2ModelMirrowed(stackt11 + 11, Villager[a].TextNum);
                             else
-                                RenderMD2ModelMirrowed(stackt11, VillagerTextNum[a]);
+                                RenderMD2ModelMirrowed(stackt11, Villager[a].TextNum);
                             glPopMatrix(1);
                         }
                     }

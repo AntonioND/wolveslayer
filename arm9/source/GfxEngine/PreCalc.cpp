@@ -10,19 +10,6 @@
 
 u8 Precalcdata[128][128];
 
-#if 0
-bool Water[128][128];
-bool Mirrow[128][128];
-
-bool BumpGroundS[128][128];
-bool BumpGroundW[128][128];
-bool BumpGroundE[128][128];
-bool BumpWallS[128][128];
-bool BumpWallW[128][128];
-bool BumpWallE[128][128];
-bool Bump[128][128];
-#endif
-
 v16x4 Terrain[128][128];
 v16 TerrainMid[128][128];
 

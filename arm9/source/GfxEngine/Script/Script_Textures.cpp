@@ -1,7 +1,8 @@
 #include "GfxEngine/Model/MD2Load.h"
 #include "GfxEngine/render/Obj_Wall.h"
 #include "GfxEngine/texture/bumpmapping.h"
-#include "Script.h"
+
+#include "XML/tinyxml.h"
 
 int TextureWidthHeight[Object_Count];
 bool TexturehasBump[Object_Count];

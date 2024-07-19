@@ -6,6 +6,7 @@
 #include "GfxEngine/render/Doors.h"
 #include "GfxEngine/render/Obj_Wall.h"
 #include "GfxEngine/render/Render.h"
+#include "GfxEngine/Script/ScripLoad.h"
 #include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/texture/Light.h"
 

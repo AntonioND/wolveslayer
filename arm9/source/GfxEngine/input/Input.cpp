@@ -8,6 +8,7 @@
 #include "GfxEngine/output/Touchscreen.h"
 #include "GfxEngine/render/Obj_House.h"
 #include "GfxEngine/render/Render.h"
+#include "GfxEngine/Script/ScripLoad.h"
 #include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/texture/Light.h"
 #include "GfxEngine/Villagers.h"

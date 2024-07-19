@@ -1,8 +1,7 @@
 #include "GfxEngine/Model/MD2Load.h"
-#include "Script.h"
-
-extern int TextureWidthHeight[Object_Count];
-extern bool TexturehasBump[Object_Count];
+#include "GfxEngine/Script/Script_Objects.h"
+#include "GfxEngine/Script/Script_others.h"
+#include "GfxEngine/Script/Script_Textures.h"
 
 extern char ObjektTyp[Object_Count][13];
 extern u32 ObjektColorKey[Object_Count];

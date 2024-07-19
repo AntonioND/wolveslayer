@@ -38,9 +38,6 @@ void vBlank(void);
 void E3D_Init(void);
 void E3D_StartRender();
 
-//>>>>>>>>>>>>>>>>Script
-void LoadScrip(char filename[]);        // Loads a new script
-
 ///>>>>>>>>>>>>>>>3D
 
 // Sprite

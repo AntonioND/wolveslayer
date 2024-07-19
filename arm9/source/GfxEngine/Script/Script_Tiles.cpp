@@ -4,7 +4,8 @@
 #include "GfxEngine/render/Ufer.h"
 #include "GfxEngine/render/Wasser.h"
 #include "GfxEngine/texture/bumpmapping.h"
-#include "Script.h"
+
+#include "XML/tinyxml.h"
 
 void LoadBodenCommand(TiXmlElement *map)
 {

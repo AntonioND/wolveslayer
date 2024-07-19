@@ -1,4 +1,5 @@
-#include "3D.h"
+#include "GfxEngine/3D.h"
+#include "GfxEngine/Script/ScripLoad.h"
 #include "GfxEngine/texture/Light.h"
 
 static float sTackt = 0;
@@ -9,8 +10,6 @@ int tackt32  = 0;
 // Needed to animate things...
 void tackt(void)
 {
-    extern bool LoadingNow;
-
     if (!LoadingNow) {
         RunTime(); // Recalcs lightcolors
 

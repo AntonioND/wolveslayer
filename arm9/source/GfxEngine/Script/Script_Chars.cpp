@@ -1,7 +1,8 @@
 #include "GfxEngine/Enemys.h"
 #include "GfxEngine/Model/MD2Load.h"
 #include "GfxEngine/Settings.h"
-#include "Script.h"
+
+#include "XML/tinyxml.h"
 
 extern int Figuren[10];
 

@@ -10,28 +10,18 @@
 #include "GfxEngine/render/Autotiles.h"
 #include "GfxEngine/render/Boden.h"
 #include "GfxEngine/render/Doors.h"
+#include "GfxEngine/Script/Script_Chars.h"
+#include "GfxEngine/Script/Script_Objects.h"
+#include "GfxEngine/Script/Script_others.h"
+#include "GfxEngine/Script/Script_Tiles.h"
+#include "GfxEngine/Script/Script_Textures.h"
 #include "GfxEngine/texture/DynamicLights.h"
 #include "GfxEngine/Villagers.h"
 #include "Music.h"
-#include "Script.h"
 
 bool LoadingNow;
 
-extern void LoadChars(TiXmlElement *map);
-
-extern void LoadTextureCommand(TiXmlElement *map);
-
-extern void LoadBodenCommand(TiXmlElement *map);
-extern void LoadObjectCommand(TiXmlElement *map);
-extern void LoadAutoBodenCommand(TiXmlElement *map);
-extern void LoadWaterCommand(TiXmlElement *map);
-extern void LoadTerrainBorderCommand(TiXmlElement *map);
-
-extern void LoadMapChangeCommand(TiXmlElement *map);
-extern void LoadDoorCommand(TiXmlElement *map);
-
-extern void LoadDynamicLightCommand(TiXmlElement *map);
-
+// Returns capital lettered text of the given text
 void ucase(char *character, char *New)
 {
     strcpy(New, character);
@@ -42,9 +32,7 @@ void ucase(char *character, char *New)
     }
 }
 
-char SongFile[40];
-
-void UnloadStuff(void)
+static void UnloadStuff(void)
 {
     // Reset all datas
     ResetMapChange();
@@ -93,6 +81,7 @@ void LoadScrip(char filename[])
     ResetCounter();  // for percentbar
     UpdateCounter(); // for percentbar
 
+    char SongFile[40];
     strcpy(SongFile, "");
 
     // erst schaun ob alles da is
@@ -173,7 +162,8 @@ void LoadScrip(char filename[])
     irqSet(IRQ_VBLANK, vBlank);
 }
 
-void LoadMapChange(char *Com)
+#if 0
+static void LoadMapChange(char *Com)
 {
     // scan out Map-FileName
     char FileName[40];
@@ -195,7 +185,7 @@ void LoadMapChange(char *Com)
     AddMapChange(x, y, FileNameCom, tox, toy);
 }
 
-void LoadMapChangeDoor(char *Com)
+static void LoadMapChangeDoor(char *Com)
 {
     // Example:
     //   MapChangeDoor Key0 25 5 Map2.txt 1 6
@@ -226,7 +216,7 @@ void LoadMapChangeDoor(char *Com)
     AddMapDoor(x, y, FileNameCom, tox, toy, Keynum);
 }
 
-void AddEvent(char *com)
+static void AddEvent(char *com)
 {
     // If it is 0 we know that AddText was called after Loading a NPC
     char *pch;
@@ -236,7 +226,7 @@ void AddEvent(char *com)
     AddTexttoEvent(pch);
 }
 
-void AddDoorTXT(char *com)
+static void AddDoorTXT(char *com)
 {
     // If it is 0 we know that AddText was called after Loading a NPC
     char *pch;
@@ -245,3 +235,4 @@ void AddDoorTXT(char *com)
 
     AddTexttoDoor(pch);
 }
+#endif

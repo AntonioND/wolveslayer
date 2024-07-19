@@ -1,9 +1,12 @@
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/render/Doors.h"
+#include "GfxEngine/output/Touchscreen.h"
+#include "GfxEngine/Script/Script_Objects.h"
+#include "GfxEngine/Script/Script_others.h"
 #include "GfxEngine/texture/DynamicLights.h"
-#include "Script.h"
 
-int Counter;
+static int Counter;
+
 void ResetCounter(void)
 {
     Counter = 0;
@@ -13,16 +16,15 @@ void IncreaseCounter(void)
     Counter++;
 }
 
-// int ReturnCounter(void)
-// {
-//     return Counter;
-// }
+int ReturnCounter(void)
+{
+    return Counter;
+}
 
 void UpdateCounter(void)
 {
     int countofstuff = ReturnObjectsCount();
 
-    extern void PercentBar(int cur, int max);
     PercentBar(Counter, countofstuff);
 }
 

@@ -3,11 +3,13 @@
 
 #include <nds.h>
 
+#define Autotile_Ignorecolors_Max 10
+
 typedef struct {
     int Texture[3];
     u32 ColorKeyMaster;
 
-    u32 Ignorecolors[10];
+    u32 Ignorecolors[Autotile_Ignorecolors_Max];
     int IgnorecolorsNum;
 } AutotileInfo;
 

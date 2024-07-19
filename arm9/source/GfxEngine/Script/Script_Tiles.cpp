@@ -70,9 +70,10 @@ void LoadAutoGroundCommand(TiXmlElement *map)
         LoadAutotileTexture(FileNameCom, a);
 
         // load the ignore commands
+        // TODO: This is unused
         ig = aground->FirstChildElement("ignore");
         int aa = 0;
-        while (ig && aa < 10) {
+        while (ig && aa < Autotile_Ignorecolors_Max) {
             // color-id
             int r = 0, g = 0, b = 0;
             if (ig->Attribute("colorkey")) {
@@ -81,7 +82,7 @@ void LoadAutoGroundCommand(TiXmlElement *map)
             }
 
             ig = ig->NextSiblingElement("ignore");
-            a++; // TODO: Should this be aa?
+            aa++;
         }
 
         aground = aground->NextSiblingElement("autoground");

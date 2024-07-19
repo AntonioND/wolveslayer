@@ -59,6 +59,10 @@ void AddAutIgnore(int Tilenum, u32 Col)
 {
     // IgnorecolorsNum is initialized to -1, so this will start writing index 0
     Autotile[Tilenum].IgnorecolorsNum++;
+
+    if (Autotile[Tilenum].IgnorecolorsNum >= Autotile_Ignorecolors_Max)
+        Crash("Too many ignored colors");
+
     Autotile[Tilenum].Ignorecolors[Autotile[Tilenum].IgnorecolorsNum] = Col;
 }
 

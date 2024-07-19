@@ -34,19 +34,18 @@ void LoadDynamicLightCommand(TiXmlElement *map)
 
     while (dynamiclight) {
         // Fireflys
-        int x, y, r, g, b;
         TiXmlElement *firefly = dynamiclight->FirstChildElement("firefly");
         while (firefly) {
             // POSITION
-            x = -1;
-            y = -1;
+            int x = -1;
+            int y = -1;
             if (firefly->Attribute("pos"))
                 sscanf(firefly->Attribute("pos"), "%i,%i", &x, &y);
 
             // COLOR
-            r = -1;
-            g = -1;
-            b = -1;
+            int r = -1;
+            int g = -1;
+            int b = -1;
             if (firefly->Attribute("color"))
                 sscanf(firefly->Attribute("color"), "%i,%i,%i", &r, &g, &b);
 
@@ -61,25 +60,23 @@ void LoadDynamicLightCommand(TiXmlElement *map)
 
 void LoadMapChangeCommand(TiXmlElement *map)
 {
-    int x, y;
-    int x2, y2;
-    char FileNameCom[60];
-
     TiXmlElement *mc = map->FirstChildElement("mapchange");
+
     while (mc) {
         // POSITION
-        x = -1;
-        y = -1;
+        int x = -1;
+        int y = -1;
         if (mc->Attribute("pos"))
             sscanf(mc->Attribute("pos"), "%i,%i", &x, &y);
 
         // TARGET POSITION
-        x2 = -1;
-        y2 = -1;
+        int x2 = -1;
+        int y2 = -1;
         if (mc->Attribute("targetpos"))
             sscanf(mc->Attribute("targetpos"), "%i,%i", &x2, &y2);
 
         // filename
+        char FileNameCom[60];
         snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/maps/%s", mc->Attribute("targetmap"));
 
         if (x + y + x2 + y2 > -1)
@@ -91,34 +88,34 @@ void LoadMapChangeCommand(TiXmlElement *map)
 
 void LoadDoorCommand(TiXmlElement *map)
 {
-    int x, y;
-    int x2, y2;
-    char FileNameCom[60];
-
     TiXmlElement *doortext = map->FirstChildElement("doortexture");
+
     if (doortext) {
         // filename
         if (doortext->Attribute("file")) {
+            char FileNameCom[60];
             snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/obj/%s", doortext->Attribute("file"));
             LoadDoorTexture(FileNameCom);
         }
     }
 
     TiXmlElement *door = map->FirstChildElement("door");
+
     while (door) {
         // POSITION
-        x = -1;
-        y = -1;
+        int x = -1;
+        int y = -1;
         if (door->Attribute("pos"))
             sscanf(door->Attribute("pos"), "%i,%i", &x, &y);
 
         // TARGET POSITION
-        x2 = -1;
-        y2 = -1;
+        int x2 = -1;
+        int y2 = -1;
         if (door->Attribute("targetpos"))
             sscanf(door->Attribute("targetpos"), "%i,%i", &x2, &y2);
 
         // filename
+        char FileNameCom[60];
         snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/maps/%s", door->Attribute("targetmap"));
 
         if (x + y + x2 + y2 > -1)

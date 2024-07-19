@@ -30,24 +30,12 @@ void LoadObjectCommand(TiXmlElement *map)
     OBJCOUNT = CountObjectsCommand(map);
 
     char FileNameCom[60];
-    // char usca[60];
-    const char *ObjTyp = NULL;
-    int id;
     int num = 0;
-    uint r, g, b;
-    int scale;
-    bool dontrenderground;
-    bool mirrowable;
-    bool ilu;
-    bool cull;
-    float rad;
 
-    TiXmlElement *light;
-    int lightnum;
     TiXmlElement *object = map->FirstChildElement("object");
 
     while (object) {
-        id = -1;
+        int id = -1;
 
         // id
         if (object->Attribute("textureid"))
@@ -55,6 +43,7 @@ void LoadObjectCommand(TiXmlElement *map)
         Objects[num].TextureID = id;
 
         // filename
+        const char *ObjTyp = NULL;
         strcpy(FileNameCom, "");
         if (object->Attribute("mesh")) {
             if (strncmp("[wall]", object->Attribute("mesh"), 6) == 0) {
@@ -71,21 +60,19 @@ void LoadObjectCommand(TiXmlElement *map)
         }
 
         // color-id
-        r = 0;
-        g = 0;
-        b = 0;
         if (object->Attribute("colorkey")) {
+            int r = 0, g = 0, b = 0;
             sscanf(object->Attribute("colorkey"), "%i,%i,%i", &r, &g, &b);
-            Objects[num].ColorKey = (r) | (g << 8) | (b << 16) | (0 << 24);
+            Objects[num].ColorKey = r | (g << 8) | (b << 16) | (0 << 24);
         }
 
         // scale
-        scale = 40;
+        int scale = 40;
         if (object->Attribute("scale"))
             sscanf(object->Attribute("scale"), "%i", &scale);
 
         // radius
-        rad = -1;
+        float rad = -1;
         if (object->Attribute("radius")) {
             sscanf(object->Attribute("radius"), "%f", &rad);
             if (rad < 0)
@@ -96,7 +83,7 @@ void LoadObjectCommand(TiXmlElement *map)
         Objects[num].Radius = rad;
 
         // render ground?
-        dontrenderground = false;
+        bool dontrenderground = false;
         if (object->Attribute("renderground")) {
             if (strncmp("false", object->Attribute("renderground"), 5) == 0)
                 dontrenderground = true;
@@ -104,7 +91,7 @@ void LoadObjectCommand(TiXmlElement *map)
         Objects[num].NoGround = dontrenderground;
 
         // mirrowable?
-        mirrowable = true;
+        bool mirrowable = true;
         if (object->Attribute("mirrowable")) {
             if (strncmp("false", object->Attribute("mirrowable"), 5) == 0)
                 mirrowable = false;
@@ -112,7 +99,7 @@ void LoadObjectCommand(TiXmlElement *map)
         Objects[num].Mirrowable = mirrowable;
 
         // selfilluminated?
-        ilu = false;
+        bool ilu = false;
         if (object->Attribute("selfilluminated")) {
             if (strncmp("true", object->Attribute("selfilluminated"), 4) == 0)
                 ilu = true;
@@ -120,7 +107,7 @@ void LoadObjectCommand(TiXmlElement *map)
         Objects[num].Illumination = ilu;
 
         // cullfront?
-        cull = false;
+        bool cull = false;
         if (object->Attribute("culling")) {
             if (strncmp("true", object->Attribute("culling"), 4) == 0)
                 cull = true;
@@ -135,8 +122,9 @@ void LoadObjectCommand(TiXmlElement *map)
             LoadMD2Model(FileNameCom, num + 10, TextureWidthHeight[id], scale);
 
         // Light (objects children)
-        light    = object->FirstChildElement("light");
-        lightnum = 0;
+        int lightnum = 0;
+
+        TiXmlElement *light = object->FirstChildElement("light");
         while (light && lightnum < 10) {
             light = object->NextSiblingElement("light");
             lightnum++;

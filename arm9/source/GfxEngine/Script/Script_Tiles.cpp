@@ -9,22 +9,17 @@
 void LoadBodenCommand(TiXmlElement *map)
 {
     int a = 0;
-    char FileNameCom[60];
-    uint r, g, b;
-
     TiXmlElement *boden = map->FirstChildElement("ground");
 
     while (boden && a < Ground_Count) {
-        // filename
+        char FileNameCom[60];
         snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", boden->Attribute("file"));
 
         // color-id
-        r = 0;
-        g = 0;
-        b = 0;
         if (boden->Attribute("colorkey")) {
+            int r = 0, g = 0, b = 0;
             sscanf(boden->Attribute("colorkey"), "%i,%i,%i", &r, &g, &b);
-            BodenColorKey[a] = (r) | (g << 8) | (b << 16) | (0 << 24);
+            BodenColorKey[a] = r | (g << 8) | (b << 16) | (0 << 24);
         }
 
         // mirrowing
@@ -55,25 +50,20 @@ void LoadBodenCommand(TiXmlElement *map)
 
 void LoadAutoBodenCommand(TiXmlElement *map)
 {
-    int a  = 0;
-    int aa = 0;
-    char FileNameCom[60];
-    uint r, g, b;
+    int a = 0;
 
     TiXmlElement *aboden = map->FirstChildElement("autoground");
     TiXmlElement *ig;
 
     while (aboden && a < 16) {
-        // filename
+        char FileNameCom[60];
         snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", aboden->Attribute("file"));
 
         // color-id
-        r = 0;
-        g = 0;
-        b = 0;
         if (aboden->Attribute("colorkey")) {
+            int r = 0, g = 0, b = 0;
             sscanf(aboden->Attribute("colorkey"), "%i,%i,%i", &r, &g, &b);
-            AutotileColorKeyMaster[a] = (r) | (g << 8) | (b << 16) | (0 << 24);
+            AutotileColorKeyMaster[a] = r | (g << 8) | (b << 16) | (0 << 24);
         }
 
         // Here is that final call to load that texture
@@ -81,19 +71,17 @@ void LoadAutoBodenCommand(TiXmlElement *map)
 
         // load the ignore commands
         ig = aboden->FirstChildElement("ignore");
-        aa = 0;
+        int aa = 0;
         while (ig && aa < 10) {
             // color-id
-            r = 0;
-            g = 0;
-            b = 0;
+            int r = 0, g = 0, b = 0;
             if (ig->Attribute("colorkey")) {
                 sscanf(ig->Attribute("colorkey"), "%i,%i,%i", &r, &g, &b);
-                AddAutIgnore(a, u32((r) | (g << 8) | (b << 16) | (0 << 24)));
+                AddAutIgnore(a, u32(r | (g << 8) | (b << 16) | (0 << 24)));
             }
 
             ig = ig->NextSiblingElement("ignore");
-            a++;
+            a++; // TODO: Should this be aa?
         }
 
         aboden = aboden->NextSiblingElement("autoground");
@@ -103,51 +91,43 @@ void LoadAutoBodenCommand(TiXmlElement *map)
 
 void LoadWaterCommand(TiXmlElement *map)
 {
-    char FileNameCom[60];
-    uint r, g, b;
-    int size;
-
     TiXmlElement *wasser = map->FirstChildElement("water");
 
     if (wasser) {
-        // filename
+        char FileNameCom[60];
         snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", wasser->Attribute("file"));
 
-        // color-id
-        r = 0;
-        g = 0;
-        b = 0;
         if (wasser->Attribute("colorkey")) {
+            int r = 0, g = 0, b = 0;
             sscanf(wasser->Attribute("colorkey"), "%i,%i,%i", &r, &g, &b);
-            WasserKey = (r) | (g << 8) | (b << 16) | (0 << 24);
+            WasserKey = r | (g << 8) | (b << 16) | (0 << 24);
         }
+
+        int size;
         LoadModelTexture(FileNameCom, &Wasser[0], 0, &size);
     }
 }
 
 void LoadTerrainBorderCommand(TiXmlElement *map)
 {
-    // int x,y;
-    // int x2,y2;
-    char FileNameCom[60];
-    bool bumpmapping;
     TiXmlElement *terrainborder = map->FirstChildElement("terrainborder");
+
     if (terrainborder) {
-        // bump atribute
-        bumpmapping = false;
+        bool bumpmapping = false;
         if (terrainborder->Attribute("bumpmapping")) {
             if (strncmp("true", terrainborder->Attribute("bumpmapping"), 4) == 0)
                 bumpmapping = true;
         }
 
-        // filename
         if (terrainborder->Attribute("file")) {
+            char FileNameCom[60];
             snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", terrainborder->Attribute("file"));
 
             if (bumpmapping == false)
                 LoadUferTexture(FileNameCom, &Ufer[0], 0);
             else
                 LoadMBump3Texture(FileNameCom, 0, &Ufer[0], &UferB[0], &UferC[0]);
+
             UferBump[0] = bumpmapping;
         }
     }

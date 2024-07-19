@@ -23,7 +23,7 @@ static int MapWreal, MapHreal;
 static char Mapchange[25][60];
 static int MapChangePosX[25], MapChangePosY[25];
 static int MapChangeTOPosX[25], MapChangeTOPosY[25];
-static bool MapChangeDoor[25];
+static bool MapChangeDoor[25]; // Set to true if the change is a door
 static int MapDoorKey[25];
 static int MapDoorAngle[25];
 int MapChangeCounter;
@@ -199,16 +199,11 @@ u32 MapGroundGetRGB(int x, int y)
     int xx = (x * 3) + 1;
     int yy = (y * 3) + 1;
 
-    if (x < 0)
+    // Return invalid value for the graphics engine
+    if ((x < 0) || (y < 0) || (x >= MapWreal) || (y >= MapHreal))
         return 0;
-    if (y < 0)
-        return 0;
-    if (x >= MapWreal)
-        return 0;
-    if (y >= MapHreal)
-        return 0; // Provides engine to draw shit arround the level
+
     return MapImage[xx][yy];
-    // return (MapColors[xx + yy * MapW].w);
 }
 
 u8 MapObjGetRot(int x, int y)
@@ -218,14 +213,9 @@ u8 MapObjGetRot(int x, int y)
     int rot = 0;
     u8 rot2 = 0;
 
-    if (x < 0)
+    // Return invalid value for the graphics engine
+    if ((x < 0) || (y < 0) || (x >= MapWreal) || (y >= MapHreal))
         return 0;
-    if (y < 0)
-        return 0;
-    if (x >= MapWreal)
-        return 0;
-    if (y >= MapHreal)
-        return 0; // Provides engine to draw shit arround the level
 
     rot = u8(MapImage[xx][yy] & 255);
     if (rot >= 0)
@@ -236,6 +226,7 @@ u8 MapObjGetRot(int x, int y)
         rot2 = 4;
     if (rot >= 191)
         rot2 = 6;
+
     return rot2;
 }
 
@@ -245,7 +236,7 @@ u32 MapObjectGetRGB(int x, int y)
         if (x < MapGetWr() && y < MapGetHr()) {
             int xx = (x * 3) + 2;
             int yy = (y * 3) + 1;
-            // return (MapColors[xx + yy * MapW].w);
+
             return MapImage[xx][yy];
         }
     }
@@ -254,58 +245,64 @@ u32 MapObjectGetRGB(int x, int y)
 
 bool IsObjHouse(int x, int y)
 {
-    u32 Obj;
-    int texturecounter, choose = -1;
+    int choose = -1;
 
     if (x > -1 && y > -1) {
         if (x < MapGetWr() && y < MapGetHr()) {
-            Obj = MapObjectGetRGB(x, y);
-            for (texturecounter = 0; texturecounter < 10; texturecounter++)
+            u32 Obj = MapObjectGetRGB(x, y);
+
+            for (int texturecounter = 0; texturecounter < 10; texturecounter++) {
                 if (Obj == Objects[texturecounter].ColorKey)
                     choose = texturecounter;
+            }
 
             if (choose != -1 && strncmp(Objects[choose].Type, "HOUSE", 5) == 0)
                 return true;
         }
     }
+
     return false;
 }
 
 bool IsObjWall(int x, int y)
 {
-    u32 Obj;
-    int texturecounter, choose = -1;
+    int choose = -1;
 
     if (x > -1 && y > -1) {
         if (x < MapGetWr() && y < MapGetHr()) {
-            Obj = MapObjectGetRGB(x, y);
-            for (texturecounter = 0; texturecounter < 10; texturecounter++)
+            u32 Obj = MapObjectGetRGB(x, y);
+
+            for (int texturecounter = 0; texturecounter < 10; texturecounter++) {
                 if (Obj == Objects[texturecounter].ColorKey)
                     choose = texturecounter;
+            }
 
             if (choose != -1 && strncmp(Objects[choose].Type, "WALL", 4) == 0)
                 return true;
         }
     }
+
     return false;
 }
 
 bool IsObjBumpWall(int x, int y)
 {
-    u32 Obj;
-    int texturecounter, choose = -1;
+    int choose = -1;
 
     if (x > -1 && y > -1) {
         if (x < MapGetWr() && y < MapGetHr()) {
-            Obj = MapObjectGetRGB(x, y);
-            for (texturecounter = 0; texturecounter < 10; texturecounter++)
+            u32 Obj = MapObjectGetRGB(x, y);
+
+            for (int texturecounter = 0; texturecounter < 10; texturecounter++) {
                 if (Obj == Objects[texturecounter].ColorKey)
                     choose = texturecounter;
+            }
 
             if (choose != -1 && strncmp(Objects[choose].Type, "BUMPWALL", 8) == 0)
                 return true;
         }
     }
+
     return false;
 }
 
@@ -314,19 +311,11 @@ float GetHight(int x, int y)
     int xx = (x * 3) + 2;
     int yy = (y * 3) + 2;
 
-    if (x < 0)
+    // Return invalid value for the graphics engine
+    if ((x < 0) || (y < 0) || (x >= MapWreal) || (y >= MapHreal))
         return 0;
-    if (y < 0)
-        return 0;
-    if (x >= MapWreal)
-        return 0;
-    if (y >= MapHreal)
-        return 0; // Provides engine to draw shit arround the level
 
-    uint r = 0;
-
-    // sscanf(MapColors[xx + yy * MapW].w, "%02X", &r);
-    r = MapImage[xx][yy] & 255;
+    uint r = MapImage[xx][yy] & 255;
 
     float r2 = float((r >> 5) / 4.0f);
 

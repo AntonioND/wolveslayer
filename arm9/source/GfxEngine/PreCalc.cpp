@@ -601,7 +601,6 @@ static void PrecalcTerrain(void)
             y = (yy * 3) + 2;
 
             // current
-            // sscanf(MapColors[x + ((y) * MapW)].w, "%02X%02X%02X", &r, &g, &b);
             GetRGBfromMap(x, y, r, g, b);
 
             // horizontal/vertikal

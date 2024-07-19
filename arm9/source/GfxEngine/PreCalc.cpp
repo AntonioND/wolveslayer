@@ -4,7 +4,7 @@
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/Render/Autotiles.h"
 #include "GfxEngine/Render/Ground.h"
-#include "GfxEngine/Render/Wasser.h"
+#include "GfxEngine/Render/Water.h"
 #include "GfxEngine/Script/Script_Objects.h"
 #include "GfxEngine/Texture/DynamicLights.h"
 
@@ -70,9 +70,9 @@ static void PreCalcWater(void)
 {
     for (int yy = 0; yy < MapGetHr(); yy++) {
         for (int xx = 0; xx < MapGetWr(); xx++) {
-            if (WasserKey != (0 | BIT(15)) && WasserKey != 0)
-                if (MapGroundGetRGB(xx, yy) == WasserKey)
-                    Precalcdata[xx][yy] |= (1 << water);
+            if (WaterKey != (0 | BIT(15)) && WaterKey != 0)
+                if (MapGroundGetRGB(xx, yy) == WaterKey)
+                    Precalcdata[xx][yy] |= (1 << B_Water);
         }
     }
 }
@@ -861,7 +861,7 @@ static void PrecalcMirrow(void)
                             if (Ground[TexGround[mx][my]].TransEnable && GetHight(mx, my) == 0)
                                 Precalcdata[xx][yy] |= (1 << mirrow);
 
-                        if (Precalcdata[xx][yy] & (1 << water))
+                        if (Precalcdata[xx][yy] & (1 << B_Water))
                             Precalcdata[xx][yy] |= (1 << mirrow);
                     }
                 }

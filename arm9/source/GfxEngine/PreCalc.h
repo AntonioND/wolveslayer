@@ -10,7 +10,7 @@ typedef struct {
 
 extern u8 Precalcdata[128][128];
 
-// Ground,Autotiles,Wasser  & Terrainseitenwände
+// Ground, Autotiles, Water & terrain side walls
 extern v16x4 Terrain[128][128];
 extern v16 TerrainMid[128][128];
 

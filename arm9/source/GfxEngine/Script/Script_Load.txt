@@ -40,7 +40,7 @@ extern void LoadDoorCommand(char *Com);
 void LoadEdgeCommand(char *Com);
 
 extern void LoadGroundCommand(char *Com, int index); // Gets the filename and colorkey out of the command ,for loading a groundtexture
-extern void LoadWasserCommand(char *Com);           // Gets the filename and colorkey out of the command ,for loading a wassertexture
+extern void LoadWaterCommand(char *Com);           // Gets the filename and colorkey out of the command ,for loading a watertexture
 extern void LoadAutotileCommand(char *Com, int num);
 extern void AddAutotileIgnoreCommand(char *Com, int num);
 

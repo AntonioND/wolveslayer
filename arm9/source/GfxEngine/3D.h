@@ -13,7 +13,7 @@ typedef int32_t f32;
 #define ShowPolyCount
 
 // Some replacers for bitshifting inside precalcdata
-#define water       0
+#define B_Water       0
 #define mirrow      1
 #define BumpgroundS 2
 #define BumpgroundW 3

@@ -2,7 +2,7 @@
 #include "GfxEngine/Render/Autotiles.h"
 #include "GfxEngine/Render/Ground.h"
 #include "GfxEngine/Render/Edge.h"
-#include "GfxEngine/Render/Wasser.h"
+#include "GfxEngine/Render/Water.h"
 #include "GfxEngine/Texture/Bumpmapping.h"
 #include "XML/tinyxml.h"
 
@@ -92,20 +92,20 @@ void LoadAutoGroundCommand(TiXmlElement *map)
 
 void LoadWaterCommand(TiXmlElement *map)
 {
-    TiXmlElement *wasser = map->FirstChildElement("water");
+    TiXmlElement *water = map->FirstChildElement("water");
 
-    if (wasser) {
+    if (water) {
         char FileNameCom[60];
-        snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", wasser->Attribute("file"));
+        snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", water->Attribute("file"));
 
-        if (wasser->Attribute("colorkey")) {
+        if (water->Attribute("colorkey")) {
             int r = 0, g = 0, b = 0;
-            sscanf(wasser->Attribute("colorkey"), "%i,%i,%i", &r, &g, &b);
-            WasserKey = r | (g << 8) | (b << 16) | (0 << 24);
+            sscanf(water->Attribute("colorkey"), "%i,%i,%i", &r, &g, &b);
+            WaterKey = r | (g << 8) | (b << 16) | (0 << 24);
         }
 
         int size;
-        LoadModelTexture(FileNameCom, &Wasser[0], 0, &size);
+        LoadModelTexture(FileNameCom, &Water[0], 0, &size);
     }
 }
 

@@ -13,7 +13,7 @@
 #include "GfxEngine/Render/Obj_House.h"
 #include "GfxEngine/Render/Obj_Wall.h"
 #include "GfxEngine/Render/Edge.h"
-#include "GfxEngine/Render/Wasser.h"
+#include "GfxEngine/Render/Water.h"
 #include "GfxEngine/Script/Script_Chars.h"
 #include "GfxEngine/Script/Script_Objects.h"
 #include "GfxEngine/Tackt.h"
@@ -86,7 +86,7 @@ static void RefreshMap(void)
                 SetCurGround(x, y); // We tell the renderengine where the ground is to set up maplight
 
                 // Levelrand
-                if ((TexGround[x][y] <= -1 && TexAGround[x][y] <= -1 && !(Precalcdata[x][y] & (1 << water))) || (ShapeObj[x][y] == Wallbor)) {
+                if ((TexGround[x][y] <= -1 && TexAGround[x][y] <= -1 && !(Precalcdata[x][y] & (1 << B_Water))) || (ShapeObj[x][y] == Wallbor)) {
                     glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_ID(0));
                     glBindTexture(GL_TEXTURE_2D, Ground[0].Texture);
                     RenderLevelBorderGround(xx - 6, 0, yy - 8);
@@ -113,10 +113,10 @@ static void RefreshMap(void)
                             RenderAutoGround(xx - 6, 0, yy - 8, TexAGround[x][y] - (subset * 16));
                         }
 
-                        // Wasser
-                        if ((Precalcdata[x][y] & (1 << water)) && ShapeObj[x][y] != Wallbor) {
-                            glBindTexture(GL_TEXTURE_2D, Wasser[0]);
-                            RenderWasser(tackt32, inttof32(xx - 6), waterheight, inttof32(yy - 8));
+                        // Water
+                        if ((Precalcdata[x][y] & (1 << B_Water)) && ShapeObj[x][y] != Wallbor) {
+                            glBindTexture(GL_TEXTURE_2D, Water[0]);
+                            RenderWater(tackt32, inttof32(xx - 6), waterheight, inttof32(yy - 8));
                         }
 
                         // Edge

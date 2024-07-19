@@ -1,10 +1,10 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/Texture/Light.h"
 
-int Wasser[1];
-u32 WasserKey;
+int Water[1];
+u32 WaterKey;
 
-void RenderWasser(int floating, f32 x, f32 y, f32 z)
+void RenderWater(int floating, f32 x, f32 y, f32 z)
 {
     v16 size = floattov16(.6);
     glPolyFmt(POLY_ALPHA(10) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_FORMAT_LIGHT1 | POLY_ID(1));

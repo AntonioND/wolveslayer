@@ -4,7 +4,7 @@
 #include "GfxEngine/Settings.h"
 #include "GfxEngine/output/Inventory.h"
 #include "GfxEngine/render/Autotiles.h"
-#include "GfxEngine/render/Boden.h"
+#include "GfxEngine/render/Ground.h"
 #include "GfxEngine/texture/DynamicLights.h"
 #include "Script.h"
 
@@ -39,7 +39,7 @@ extern void LoadMapChangeDoor(char *Com); // adds the attributes for exits of ma
 extern void LoadDoorCommand(char *Com);
 void LoadUferCommand(char *Com);
 
-extern void LoadBodenCommand(char *Com, int index); // Gets the filename and colorkey out of the command ,for loading a bodentexture
+extern void LoadGroundCommand(char *Com, int index); // Gets the filename and colorkey out of the command ,for loading a groundtexture
 extern void LoadWasserCommand(char *Com);           // Gets the filename and colorkey out of the command ,for loading a wassertexture
 extern void LoadAutotileCommand(char *Com, int num);
 extern void AddAutotileIgnoreCommand(char *Com, int num);
@@ -68,9 +68,9 @@ void LoadScript(char filename[])
     ResetEnemys();
     ResetEvent();
     for (a = 0; a < 16; a++)
-        BodenColorKey[a] = 0;
+        GroundColorKey[a] = 0;
     for (a = 0; a < 16; a++)
-        BodenTransEnable[a] = false;
+        GroundTransEnable[a] = false;
     for (a = 0; a < 4; a++) {
         AutotileColorKeyMaster[a]  = 0;
         AutotileIgnorecolorsNum[a] = -1;

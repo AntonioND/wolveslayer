@@ -1,68 +1,68 @@
 #include "GfxEngine/Model/MD2Load.h"
 #include "GfxEngine/Render/Autotiles.h"
-#include "GfxEngine/Render/Boden.h"
+#include "GfxEngine/Render/Ground.h"
 #include "GfxEngine/Render/Ufer.h"
 #include "GfxEngine/Render/Wasser.h"
 #include "GfxEngine/Texture/Bumpmapping.h"
 #include "XML/tinyxml.h"
 
-void LoadBodenCommand(TiXmlElement *map)
+void LoadGroundCommand(TiXmlElement *map)
 {
     int a = 0;
-    TiXmlElement *boden = map->FirstChildElement("ground");
+    TiXmlElement *ground = map->FirstChildElement("ground");
 
-    while (boden && a < Ground_Count) {
+    while (ground && a < Ground_Count) {
         char FileNameCom[60];
-        snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", boden->Attribute("file"));
+        snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", ground->Attribute("file"));
 
         // color-id
-        if (boden->Attribute("colorkey")) {
+        if (ground->Attribute("colorkey")) {
             int r = 0, g = 0, b = 0;
-            sscanf(boden->Attribute("colorkey"), "%i,%i,%i", &r, &g, &b);
+            sscanf(ground->Attribute("colorkey"), "%i,%i,%i", &r, &g, &b);
             Ground[a].ColorKey = r | (g << 8) | (b << 16) | (0 << 24);
         }
 
         // mirrowing
-        if (boden->Attribute("mirrowing"))
-            if (strncmp("true", boden->Attribute("mirrowing"), 4) == 0)
+        if (ground->Attribute("mirrowing"))
+            if (strncmp("true", ground->Attribute("mirrowing"), 4) == 0)
                 Ground[a].TransEnable = true;
 
         // Here is that final call to load that texture
         Ground[a].Enable = true;
 
-        if (boden->Attribute("bump-mapping")) {
-            if (strncmp("true", boden->Attribute("bump-mapping"), 4) != 0) {
-                LoadBodenTexture(FileNameCom, a);
+        if (ground->Attribute("bump-mapping")) {
+            if (strncmp("true", ground->Attribute("bump-mapping"), 4) != 0) {
+                LoadGroundTexture(FileNameCom, a);
                 Ground[a].BumpEnable = false;
             } else {
                 LoadMBump5Texture(FileNameCom, a);
                 Ground[a].BumpEnable = true;
             }
         } else {
-            LoadBodenTexture(FileNameCom, a);
+            LoadGroundTexture(FileNameCom, a);
             Ground[a].BumpEnable = false;
         }
 
-        boden = boden->NextSiblingElement("ground");
+        ground = ground->NextSiblingElement("ground");
         a++;
     }
 }
 
-void LoadAutoBodenCommand(TiXmlElement *map)
+void LoadAutoGroundCommand(TiXmlElement *map)
 {
     int a = 0;
 
-    TiXmlElement *aboden = map->FirstChildElement("autoground");
+    TiXmlElement *aground = map->FirstChildElement("autoground");
     TiXmlElement *ig;
 
-    while (aboden && a < 16) {
+    while (aground && a < 16) {
         char FileNameCom[60];
-        snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", aboden->Attribute("file"));
+        snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", aground->Attribute("file"));
 
         // color-id
-        if (aboden->Attribute("colorkey")) {
+        if (aground->Attribute("colorkey")) {
             int r = 0, g = 0, b = 0;
-            sscanf(aboden->Attribute("colorkey"), "%i,%i,%i", &r, &g, &b);
+            sscanf(aground->Attribute("colorkey"), "%i,%i,%i", &r, &g, &b);
             Autotile[a].ColorKeyMaster = r | (g << 8) | (b << 16) | (0 << 24);
         }
 
@@ -70,7 +70,7 @@ void LoadAutoBodenCommand(TiXmlElement *map)
         LoadAutotileTexture(FileNameCom, a);
 
         // load the ignore commands
-        ig = aboden->FirstChildElement("ignore");
+        ig = aground->FirstChildElement("ignore");
         int aa = 0;
         while (ig && aa < 10) {
             // color-id
@@ -84,7 +84,7 @@ void LoadAutoBodenCommand(TiXmlElement *map)
             a++; // TODO: Should this be aa?
         }
 
-        aboden = aboden->NextSiblingElement("autoground");
+        aground = aground->NextSiblingElement("autoground");
         a++;
     }
 }

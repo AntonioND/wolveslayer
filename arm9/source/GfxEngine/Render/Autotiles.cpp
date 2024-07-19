@@ -2,12 +2,12 @@
 #include "GfxEngine/Files.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/Render/Autotiles.h"
-#include "GfxEngine/Render/Boden.h"
+#include "GfxEngine/Render/Ground.h"
 #include "GfxEngine/Texture/Light.h"
 
 AutotileInfo Autotile[4];
 
-// The way a Bodentexture should be loaded
+// The way a ground texture should be loaded
 void LoadAutotileTexture(char filename[], int num)
 {
     u8 *buffer8;
@@ -62,8 +62,8 @@ void AddAutIgnore(int Tilenum, u32 Col)
     Autotile[Tilenum].Ignorecolors[Autotile[Tilenum].IgnorecolorsNum] = Col;
 }
 
-// The way a bodentexture should be rendered
-void RenderAutoBoden(int x, int y, int z, int num)
+// The way a ground texture should be rendered
+void RenderAutoGround(int x, int y, int z, int num)
 {
     int cx = 0, cy = 0;
     v16x4 pointer = Terrain[GroundX][GroundY];
@@ -145,23 +145,23 @@ void RenderAutoBoden(int x, int y, int z, int num)
         glBegin(GL_QUADS);
         // Bottom left
         GrapLight(GroundX, GroundY);
-        glTexCoord2t16(BodenTextPosStart[cx], BodenTextPosStart[cy]);
-        glVertex3v16(BodenVertex2, pointer.v[0], BodenVertex2);
+        glTexCoord2t16(GroundTextPosStart[cx], GroundTextPosStart[cy]);
+        glVertex3v16(GroundVertex2, pointer.v[0], GroundVertex2);
 
         // Top left
         GrapLight(GroundX, GroundY + 1);
-        glTexCoord2t16(BodenTextPosStart[cx], BodenTextPosEnd[cy]);
-        glVertex3v16(BodenVertex2, pointer.v[2], BodenVertex1);
+        glTexCoord2t16(GroundTextPosStart[cx], GroundTextPosEnd[cy]);
+        glVertex3v16(GroundVertex2, pointer.v[2], GroundVertex1);
 
         // Top right
         GrapLight(GroundX + 1, GroundY + 1);
-        glTexCoord2t16(BodenTextPosEnd[cx], BodenTextPosEnd[cy]);
-        glVertex3v16(BodenVertex1, pointer.v[3], BodenVertex1);
+        glTexCoord2t16(GroundTextPosEnd[cx], GroundTextPosEnd[cy]);
+        glVertex3v16(GroundVertex1, pointer.v[3], GroundVertex1);
 
         // Bottom right
         GrapLight(GroundX + 1, GroundY);
-        glTexCoord2t16(BodenTextPosEnd[cx], BodenTextPosStart[cy]);
-        glVertex3v16(BodenVertex1, pointer.v[1], BodenVertex2);
+        glTexCoord2t16(GroundTextPosEnd[cx], GroundTextPosStart[cy]);
+        glVertex3v16(GroundVertex1, pointer.v[1], GroundVertex2);
         glEnd();
     }
 
@@ -171,35 +171,35 @@ void RenderAutoBoden(int x, int y, int z, int num)
         {
             // Bottom left
             GrapLight(GroundX, GroundY);
-            glTexCoord2t16(BodenTextPosStart[cx], BodenTextPosStart[cy]);
-            glVertex3v16(BodenVertex2, pointer.v[0], BodenVertex2);
+            glTexCoord2t16(GroundTextPosStart[cx], GroundTextPosStart[cy]);
+            glVertex3v16(GroundVertex2, pointer.v[0], GroundVertex2);
 
             // Top left
             GrapLight(GroundX, GroundY + 1);
-            glTexCoord2t16(BodenTextPosStart[cx], BodenTextPosEnd[cy]);
-            glVertex3v16(BodenVertex2, pointer.v[2], BodenVertex1);
+            glTexCoord2t16(GroundTextPosStart[cx], GroundTextPosEnd[cy]);
+            glVertex3v16(GroundVertex2, pointer.v[2], GroundVertex1);
 
             // Top right
             GrapLight(GroundX + 1, GroundY + 1);
-            glTexCoord2t16(BodenTextPosEnd[cx], BodenTextPosEnd[cy]);
-            glVertex3v16(BodenVertex1, pointer.v[3], BodenVertex1);
+            glTexCoord2t16(GroundTextPosEnd[cx], GroundTextPosEnd[cy]);
+            glVertex3v16(GroundVertex1, pointer.v[3], GroundVertex1);
 
             // ***********************
 
             // Top right
             GrapLight(GroundX + 1, GroundY + 1);
-            glTexCoord2t16(BodenTextPosEnd[cx], BodenTextPosEnd[cy]);
-            glVertex3v16(BodenVertex1, pointer.v[3], BodenVertex1);
+            glTexCoord2t16(GroundTextPosEnd[cx], GroundTextPosEnd[cy]);
+            glVertex3v16(GroundVertex1, pointer.v[3], GroundVertex1);
 
             // Bottom right
             GrapLight(GroundX + 1, GroundY);
-            glTexCoord2t16(BodenTextPosEnd[cx], BodenTextPosStart[cy]);
-            glVertex3v16(BodenVertex1, pointer.v[1], BodenVertex2);
+            glTexCoord2t16(GroundTextPosEnd[cx], GroundTextPosStart[cy]);
+            glVertex3v16(GroundVertex1, pointer.v[1], GroundVertex2);
 
             // Bottom left
             GrapLight(GroundX, GroundY);
-            glTexCoord2t16(BodenTextPosStart[cx], BodenTextPosStart[cy]);
-            glVertex3v16(BodenVertex2, pointer.v[0], BodenVertex2);
+            glTexCoord2t16(GroundTextPosStart[cx], GroundTextPosStart[cy]);
+            glVertex3v16(GroundVertex2, pointer.v[0], GroundVertex2);
         }
 
         glEnd();
@@ -211,35 +211,35 @@ void RenderAutoBoden(int x, int y, int z, int num)
         {
             // Bottom left
             GrapLight(GroundX, GroundY);
-            glTexCoord2t16(BodenTextPosStart[cx], BodenTextPosStart[cy]);
-            glVertex3v16(BodenVertex2, pointer.v[0], BodenVertex2);
+            glTexCoord2t16(GroundTextPosStart[cx], GroundTextPosStart[cy]);
+            glVertex3v16(GroundVertex2, pointer.v[0], GroundVertex2);
 
             // Top left
             GrapLight(GroundX, GroundY + 1);
-            glTexCoord2t16(BodenTextPosStart[cx], BodenTextPosEnd[cy]);
-            glVertex3v16(BodenVertex2, pointer.v[2], BodenVertex1);
+            glTexCoord2t16(GroundTextPosStart[cx], GroundTextPosEnd[cy]);
+            glVertex3v16(GroundVertex2, pointer.v[2], GroundVertex1);
 
             // Bottom right
             GrapLight(GroundX + 1, GroundY);
-            glTexCoord2t16(BodenTextPosEnd[cx], BodenTextPosStart[cy]);
-            glVertex3v16(BodenVertex1, pointer.v[1], BodenVertex2);
+            glTexCoord2t16(GroundTextPosEnd[cx], GroundTextPosStart[cy]);
+            glVertex3v16(GroundVertex1, pointer.v[1], GroundVertex2);
 
             // ***********************
 
             // Top right
             GrapLight(GroundX + 1, GroundY + 1);
-            glTexCoord2t16(BodenTextPosEnd[cx], BodenTextPosEnd[cy]);
-            glVertex3v16(BodenVertex1, pointer.v[3], BodenVertex1);
+            glTexCoord2t16(GroundTextPosEnd[cx], GroundTextPosEnd[cy]);
+            glVertex3v16(GroundVertex1, pointer.v[3], GroundVertex1);
 
             // Bottom right
             GrapLight(GroundX + 1, GroundY);
-            glTexCoord2t16(BodenTextPosEnd[cx], BodenTextPosStart[cy]);
-            glVertex3v16(BodenVertex1, pointer.v[1], BodenVertex2);
+            glTexCoord2t16(GroundTextPosEnd[cx], GroundTextPosStart[cy]);
+            glVertex3v16(GroundVertex1, pointer.v[1], GroundVertex2);
 
             // Top left
             GrapLight(GroundX, GroundY + 1);
-            glTexCoord2t16(BodenTextPosStart[cx], BodenTextPosEnd[cy]);
-            glVertex3v16(BodenVertex2, pointer.v[2], BodenVertex1);
+            glTexCoord2t16(GroundTextPosStart[cx], GroundTextPosEnd[cy]);
+            glVertex3v16(GroundVertex2, pointer.v[2], GroundVertex1);
         }
 
         glEnd();

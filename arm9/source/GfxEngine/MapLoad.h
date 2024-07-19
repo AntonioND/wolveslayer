@@ -11,7 +11,7 @@ extern int MapChangeCounter;
 
 // MAP
 
-u32 MapBodenGetRGB(int x, int y);
+u32 MapGroundGetRGB(int x, int y);
 
 // For getting tiled size of map
 int MapGetWr(void);

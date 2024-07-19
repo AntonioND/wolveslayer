@@ -193,8 +193,8 @@ int MapGetHr(void)
     return MapHreal;
 }
 
-// For getting BodenDatas
-u32 MapBodenGetRGB(int x, int y)
+// For getting ground colors
+u32 MapGroundGetRGB(int x, int y)
 {
     int xx = (x * 3) + 1;
     int yy = (y * 3) + 1;

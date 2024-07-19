@@ -8,7 +8,7 @@
 #include "GfxEngine/Output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/Render/Autotiles.h"
-#include "GfxEngine/Render/Boden.h"
+#include "GfxEngine/Render/Ground.h"
 #include "GfxEngine/Render/Doors.h"
 #include "GfxEngine/Render/Obj_House.h"
 #include "GfxEngine/Render/Obj_Wall.h"
@@ -83,34 +83,34 @@ static void RefreshMap(void)
             x = xx + CamPosX;
             y = yy + CamPosY;
             if (Objects[TexObj[x][y]].NoGround == false) {
-                SetCurBod(x, y); // We tell the renderengine where the boden is to set up maplight
+                SetCurGround(x, y); // We tell the renderengine where the ground is to set up maplight
 
                 // Levelrand
-                if ((TexBod[x][y] <= -1 && TexABod[x][y] <= -1 && !(Precalcdata[x][y] & (1 << water))) || (ShapeObj[x][y] == Wallbor)) {
+                if ((TexGround[x][y] <= -1 && TexAGround[x][y] <= -1 && !(Precalcdata[x][y] & (1 << water))) || (ShapeObj[x][y] == Wallbor)) {
                     glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_ID(0));
                     glBindTexture(GL_TEXTURE_2D, Ground[0].Texture);
-                    RenderLevelBorderBoden(xx - 6, 0, yy - 8);
+                    RenderLevelBorderGround(xx - 6, 0, yy - 8);
                 }
 
                 if (x < MapGetWr() && y < MapGetHr() && ShapeObj[x][y] != Wallbor) {
                     if (x > -1 && y > -1) {
-                        // Boden
-                        if (TexBod[x][y] >= 0 && SetABod[x][y] < 0) {
-                            if (TexBod[x][y] >= 0)
-                                RenderBoden(xx - 6, 0, yy - 8, TexBod[x][y]);
+                        // Ground
+                        if (TexGround[x][y] >= 0 && SetAGround[x][y] < 0) {
+                            if (TexGround[x][y] >= 0)
+                                RenderGround(xx - 6, 0, yy - 8, TexGround[x][y]);
                         }
 
-                        // AutoBoden
-                        if (TexABod[x][y] != -2 && SetABod[x][y] >= 0 && SetABod[x][y] <= 3 && TexBod[x][y] == -2 && ShapeObj[x][y] != Wallbor) {
+                        // AutoGround
+                        if (TexAGround[x][y] != -2 && SetAGround[x][y] >= 0 && SetAGround[x][y] <= 3 && TexGround[x][y] == -2 && ShapeObj[x][y] != Wallbor) {
                             subset = 0;
-                            if (TexABod[x][y] > 15)
+                            if (TexAGround[x][y] > 15)
                                 subset = 1;
-                            if (TexABod[x][y] > 31)
+                            if (TexAGround[x][y] > 31)
                                 subset = 2;
                             glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
-                            glBindTexture(GL_TEXTURE_2D, Autotile[SetABod[x][y]].Texture[subset]);
+                            glBindTexture(GL_TEXTURE_2D, Autotile[SetAGround[x][y]].Texture[subset]);
 
-                            RenderAutoBoden(xx - 6, 0, yy - 8, TexABod[x][y] - (subset * 16));
+                            RenderAutoGround(xx - 6, 0, yy - 8, TexAGround[x][y] - (subset * 16));
                         }
 
                         // Wasser

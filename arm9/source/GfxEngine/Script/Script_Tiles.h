@@ -3,10 +3,10 @@
 
 #include "XML/tinyxml.h"
 
-// Gets the filename out of the command, for loading a bodentexture
-void LoadBodenCommand(TiXmlElement *map);
+// Gets the filename out of the command, for loading a groundtexture
+void LoadGroundCommand(TiXmlElement *map);
 
-void LoadAutoBodenCommand(TiXmlElement *map);
+void LoadAutoGroundCommand(TiXmlElement *map);
 
 // Gets the filename out of the command, for loading a wassertexture
 void LoadWaterCommand(TiXmlElement *map);

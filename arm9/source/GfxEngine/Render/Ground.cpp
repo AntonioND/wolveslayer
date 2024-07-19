@@ -3,26 +3,26 @@
 #include "GfxEngine/Input/Input.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/PreCalc.h"
-#include "GfxEngine/Render/Boden.h"
+#include "GfxEngine/Render/Ground.h"
 #include "GfxEngine/Texture/DynamicLights.h"
 #include "GfxEngine/Texture/Light.h"
 
 int GroundX, GroundY;
 
 // Speeds up a bit when thoose values are used (which are used often and are fixed)
-const t16 BodenTextPosStart[4] = { inttot16(0), inttot16(32), inttot16(64), inttot16(96) };
-const t16 BodenTextPosEnd[4] = { inttot16(32), inttot16(64), inttot16(96), inttot16(128) };
+const t16 GroundTextPosStart[4] = { inttot16(0), inttot16(32), inttot16(64), inttot16(96) };
+const t16 GroundTextPosEnd[4] = { inttot16(32), inttot16(64), inttot16(96), inttot16(128) };
 
 GroundInfo Ground[Ground_Count];
 
-void SetCurBod(int x, int y)
+void SetCurGround(int x, int y)
 {
     GroundX = x;
     GroundY = y;
 }
 
-// The way a Bodentexture should be loaded
-void LoadBodenTexture(char filename[], int num)
+// The way a ground texture should be loaded
+void LoadGroundTexture(char filename[], int num)
 {
     u8 *buffer8;
     u16 *pal;
@@ -47,21 +47,21 @@ void LoadBodenTexture(char filename[], int num)
 
 const v16 vmini = floattov16(0.025f);
 
-// The way a bodentexture should be rendered (floor inside and outside buildings).
-void RenderBoden(int x, int y, int z, int textnum)
+// The way a ground texture should be rendered (floor inside and outside buildings).
+void RenderGround(int x, int y, int z, int textnum)
 {
     v16x4 pointer = Terrain[GroundX][GroundY];
 
     int mode = (pointer.sidewalls >> 6) & 3;
     int a;
-    int bodx, body;
+    int ground_x, ground_y;
 
-    t16 start = BodenTextPosStart[0];
+    t16 start = GroundTextPosStart[0];
     t16 end;
     if (Ground[textnum].Size == 64)
-        end = BodenTextPosEnd[1];
+        end = GroundTextPosEnd[1];
     else
-        end = BodenTextPosEnd[0];
+        end = GroundTextPosEnd[0];
 
     if (Ground[textnum].BumpEnable == true)
         a = 3;
@@ -77,15 +77,15 @@ void RenderBoden(int x, int y, int z, int textnum)
 
         if (b == 0) {
             glBindTexture(GL_TEXTURE_2D, Ground[textnum].Texture);
-            bodx = GroundX;
-            body = GroundY;
+            ground_x = GroundX;
+            ground_y = GroundY;
             v1   = pointer.v[0];
             v2   = pointer.v[1];
             v3   = pointer.v[2];
             v4   = pointer.v[3];
             doit = true;
 
-            if (Ground[TexBod[GroundX][GroundY]].TransEnable == false)
+            if (Ground[TexGround[GroundX][GroundY]].TransEnable == false)
                 glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
             else
                 glPolyFmt(POLY_ALPHA(15) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
@@ -100,22 +100,22 @@ void RenderBoden(int x, int y, int z, int textnum)
 
         if (b == 1 && ViewportMapBumpGroundS[GroundX - CamPosX + 5][GroundY - CamPosY + 3]) {
             glBindTexture(GL_TEXTURE_2D, Ground[textnum].TextureS);
-            bodx = GroundX;
-            body = GroundY + 1;
+            ground_x = GroundX;
+            ground_y = GroundY + 1;
             doit = true;
         }
 
         if (b == 2 && ViewportMapBumpGroundW[GroundX - CamPosX + 5][GroundY - CamPosY + 3]) {
             glBindTexture(GL_TEXTURE_2D, Ground[textnum].TextureW);
-            bodx = GroundX - 1;
-            body = GroundY;
+            ground_x = GroundX - 1;
+            ground_y = GroundY;
             doit = true;
         }
 
         if (b == 3 && ViewportMapBumpGroundE[GroundX - CamPosX + 5][GroundY - CamPosY + 3]) {
             glBindTexture(GL_TEXTURE_2D, Ground[textnum].TextureE);
-            bodx = GroundX + 1;
-            body = GroundY;
+            ground_x = GroundX + 1;
+            ground_y = GroundY;
             doit = true;
         }
 
@@ -124,24 +124,24 @@ void RenderBoden(int x, int y, int z, int textnum)
 
             {
                 // Bottom left
-                GrapLight(bodx, body);
+                GrapLight(ground_x, ground_y);
                 glTexCoord2t16(start, start);
-                glVertex3v16(BodenVertex2, v1, BodenVertex2);
+                glVertex3v16(GroundVertex2, v1, GroundVertex2);
 
                 // Top left
-                GrapLight(bodx, body + 1);
+                GrapLight(ground_x, ground_y + 1);
                 glTexCoord2t16(start, end);
-                glVertex3v16(BodenVertex2, v3, BodenVertex1);
+                glVertex3v16(GroundVertex2, v3, GroundVertex1);
 
                 // Top right
-                GrapLight(bodx + 1, body + 1);
+                GrapLight(ground_x + 1, ground_y + 1);
                 glTexCoord2t16(end, end);
-                glVertex3v16(BodenVertex1, v4, BodenVertex1);
+                glVertex3v16(GroundVertex1, v4, GroundVertex1);
 
                 // Bottom right
-                GrapLight(bodx + 1, body);
+                GrapLight(ground_x + 1, ground_y);
                 glTexCoord2t16(end, start);
-                glVertex3v16(BodenVertex1, v2, BodenVertex2);
+                glVertex3v16(GroundVertex1, v2, GroundVertex2);
             }
 
             glEnd();
@@ -152,34 +152,34 @@ void RenderBoden(int x, int y, int z, int textnum)
 
             {
                 // Bottom left
-                GrapLight(bodx, body);
+                GrapLight(ground_x, ground_y);
                 glTexCoord2t16(start, start);
-                glVertex3v16(BodenVertex2, v1, BodenVertex2);
+                glVertex3v16(GroundVertex2, v1, GroundVertex2);
 
                 // Top left
-                GrapLight(bodx, body + 1);
+                GrapLight(ground_x, ground_y + 1);
                 glTexCoord2t16(start, end);
-                glVertex3v16(BodenVertex2, v3, BodenVertex1);
+                glVertex3v16(GroundVertex2, v3, GroundVertex1);
 
                 // Top right
-                GrapLight(bodx + 1, body + 1);
+                GrapLight(ground_x + 1, ground_y + 1);
                 glTexCoord2t16(end, end);
-                glVertex3v16(BodenVertex1, v4, BodenVertex1);
+                glVertex3v16(GroundVertex1, v4, GroundVertex1);
                 //***********************
                 // Top right
-                GrapLight(bodx + 1, body + 1);
+                GrapLight(ground_x + 1, ground_y + 1);
                 glTexCoord2t16(end, end);
-                glVertex3v16(BodenVertex1, v4, BodenVertex1);
+                glVertex3v16(GroundVertex1, v4, GroundVertex1);
 
                 // Bottom right
-                GrapLight(bodx + 1, body);
+                GrapLight(ground_x + 1, ground_y);
                 glTexCoord2t16(end, start);
-                glVertex3v16(BodenVertex1, v2, BodenVertex2);
+                glVertex3v16(GroundVertex1, v2, GroundVertex2);
 
                 // Bottom left
-                GrapLight(bodx, body);
+                GrapLight(ground_x, ground_y);
                 glTexCoord2t16(start, start);
-                glVertex3v16(BodenVertex2, v1, BodenVertex2);
+                glVertex3v16(GroundVertex2, v1, GroundVertex2);
             }
 
             glEnd();
@@ -190,34 +190,34 @@ void RenderBoden(int x, int y, int z, int textnum)
 
             {
                 // Bottom left
-                GrapLight(bodx, body);
+                GrapLight(ground_x, ground_y);
                 glTexCoord2t16(start, start);
-                glVertex3v16(BodenVertex2, v1, BodenVertex2);
+                glVertex3v16(GroundVertex2, v1, GroundVertex2);
 
                 // Top left
-                GrapLight(bodx, body + 1);
+                GrapLight(ground_x, ground_y + 1);
                 glTexCoord2t16(start, end);
-                glVertex3v16(BodenVertex2, v3, BodenVertex1);
+                glVertex3v16(GroundVertex2, v3, GroundVertex1);
 
                 // Bottom right
-                GrapLight(bodx + 1, body);
+                GrapLight(ground_x + 1, ground_y);
                 glTexCoord2t16(end, start);
-                glVertex3v16(BodenVertex1, v2, BodenVertex2);
+                glVertex3v16(GroundVertex1, v2, GroundVertex2);
                 //***********************
                 // Top right
-                GrapLight(bodx + 1, body + 1);
+                GrapLight(ground_x + 1, ground_y + 1);
                 glTexCoord2t16(end, end);
-                glVertex3v16(BodenVertex1, v4, BodenVertex1);
+                glVertex3v16(GroundVertex1, v4, GroundVertex1);
 
                 // Bottom right
-                GrapLight(bodx + 1, body);
+                GrapLight(ground_x + 1, ground_y);
                 glTexCoord2t16(end, start);
-                glVertex3v16(BodenVertex1, v2, BodenVertex2);
+                glVertex3v16(GroundVertex1, v2, GroundVertex2);
 
                 // Top left
-                GrapLight(bodx, body + 1);
+                GrapLight(ground_x, ground_y + 1);
                 glTexCoord2t16(start, end);
-                glVertex3v16(BodenVertex2, v3, BodenVertex1);
+                glVertex3v16(GroundVertex2, v3, GroundVertex1);
             }
 
             glEnd();
@@ -227,12 +227,12 @@ void RenderBoden(int x, int y, int z, int textnum)
 }
 
 // The way a levelborder should be rendered
-void RenderLevelBorderBoden(int x, int y, int z)
+void RenderLevelBorderGround(int x, int y, int z)
 {
     t16 cx = 0, cy = 0;
 
-    v16 BodenVert1 = floattov16(-.5);
-    v16 BodenVert2 = floattov16(.5);
+    v16 GroundVert1 = floattov16(-.5);
+    v16 GroundVert2 = floattov16(.5);
 
     glPushMatrix();
     glTranslatef32(inttof32(x), inttof32(0), inttof32(z));
@@ -244,19 +244,19 @@ void RenderLevelBorderBoden(int x, int y, int z)
     {
         // Bottom left
         glTexCoord2t16(cy, cx);
-        glVertex3v16(BodenVert2, GetTerrain(GroundX, GroundY, 0), BodenVert2);
+        glVertex3v16(GroundVert2, GetTerrain(GroundX, GroundY, 0), GroundVert2);
 
         // Top left
         glTexCoord2t16(cy, cx);
-        glVertex3v16(BodenVert2, GetTerrain(GroundX, GroundY, 2), BodenVert1);
+        glVertex3v16(GroundVert2, GetTerrain(GroundX, GroundY, 2), GroundVert1);
 
         // Top right
         glTexCoord2t16(cy, cx);
-        glVertex3v16(BodenVert1, GetTerrain(GroundX, GroundY, 3), BodenVert1);
+        glVertex3v16(GroundVert1, GetTerrain(GroundX, GroundY, 3), GroundVert1);
 
         // Bottom right
         glTexCoord2t16(cy, cx);
-        glVertex3v16(BodenVert1, GetTerrain(GroundX, GroundY, 1), BodenVert2);
+        glVertex3v16(GroundVert1, GetTerrain(GroundX, GroundY, 1), GroundVert2);
     }
 
     glEnd();

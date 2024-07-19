@@ -10,14 +10,14 @@ typedef struct {
 
 extern u8 Precalcdata[128][128];
 
-// Boden,Autotiles,Wasser  & Terrainseitenwände
+// Ground,Autotiles,Wasser  & Terrainseitenwände
 extern v16x4 Terrain[128][128];
 extern v16 TerrainMid[128][128];
 
 // MapDatas
-extern signed char TexBod[128][128];
-extern signed char TexABod[128][128];
-extern signed char SetABod[128][128];
+extern signed char TexGround[128][128];
+extern signed char TexAGround[128][128];
+extern signed char SetAGround[128][128];
 
 extern signed char TexObj[128][128];
 extern signed char ShapeObj[128][128];

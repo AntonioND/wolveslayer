@@ -8,7 +8,7 @@
 #include "GfxEngine/Output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/Render/Autotiles.h"
-#include "GfxEngine/Render/Boden.h"
+#include "GfxEngine/Render/Ground.h"
 #include "GfxEngine/Render/Doors.h"
 #include "GfxEngine/Script/Script_Chars.h"
 #include "GfxEngine/Script/Script_Objects.h"
@@ -124,8 +124,8 @@ void LoadScript(char filename[])
     }
 
     // load the grounds
-    LoadBodenCommand(map);
-    LoadAutoBodenCommand(map);
+    LoadGroundCommand(map);
+    LoadAutoGroundCommand(map);
     LoadWaterCommand(map);
     LoadTerrainBorderCommand(map);
     // load textures for objects

@@ -7,8 +7,8 @@
 
 extern int GroundX, GroundY;
 
-extern t16 BodenTextPosStart[4];
-extern t16 BodenTextPosEnd[4];
+extern const t16 BodenTextPosStart[4];
+extern const t16 BodenTextPosEnd[4];
 
 static const v16 BodenVertex1 = floattov16(.508);
 static const v16 BodenVertex2 = floattov16(-.508);

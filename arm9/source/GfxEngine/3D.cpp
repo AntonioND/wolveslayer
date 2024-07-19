@@ -9,7 +9,6 @@
 #include "GfxEngine/Model/MD2Load.h"
 #include "GfxEngine/Output/Textbox.h"
 #include "GfxEngine/Output/Touchscreen.h"
-#include "GfxEngine/Render/Boden.h"
 #include "GfxEngine/Render/Render.h"
 #include "GfxEngine/Tackt.h"
 #include "Sound/Music.h"
@@ -262,17 +261,6 @@ void E3D_Init(void)
     glEnable(GL_TEXTURE);
     glEnable(GL_ANTIALIAS);
     glEnable(GL_BLEND);
-
-    // Speeds up a bit when thoose values are used (which are used often and are fixed)
-    BodenTextPosStart[0] = inttot16(0);
-    BodenTextPosStart[1] = inttot16(32);
-    BodenTextPosStart[2] = inttot16(64);
-    BodenTextPosStart[3] = inttot16(96);
-
-    BodenTextPosEnd[0] = inttot16(32);
-    BodenTextPosEnd[1] = inttot16(64);
-    BodenTextPosEnd[2] = inttot16(96);
-    BodenTextPosEnd[3] = inttot16(128);
 
     InitTableOfNormal();
     swiWaitForVBlank();

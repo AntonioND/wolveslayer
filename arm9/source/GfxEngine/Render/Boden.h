@@ -9,8 +9,9 @@ extern int BodenX, BodenY;
 
 extern t16 BodenTextPosStart[4];
 extern t16 BodenTextPosEnd[4];
-extern v16 BodenVertex1;
-extern v16 BodenVertex2;
+
+static const v16 BodenVertex1 = floattov16(.508);
+static const v16 BodenVertex2 = floattov16(-.508);
 
 extern int BodenTexture[Ground_Count];
 // extern int BodenTextureN[Ground_Count];

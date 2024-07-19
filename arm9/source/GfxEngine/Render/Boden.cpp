@@ -11,8 +11,6 @@ int BodenX, BodenY;
 
 t16 BodenTextPosStart[4];
 t16 BodenTextPosEnd[4];
-v16 BodenVertex1 = floattov16(.508);
-v16 BodenVertex2 = floattov16(-.508);
 
 int BodenTexture[Ground_Count];
 // int BodenTextureN[Ground_Count];

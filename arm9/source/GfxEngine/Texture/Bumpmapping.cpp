@@ -107,30 +107,30 @@ void LoadMBump5Texture(char filename[], int num)
         }
     }
 
-    BodenSize[num] = height;
+    Ground[num].Size = height;
 
-    glGenTextures(1, &BodenTexture[num]);
-    glGenTextures(1, &BodenTextureS[num]);
-    glGenTextures(1, &BodenTextureW[num]);
-    glGenTextures(1, &BodenTextureE[num]);
+    glGenTextures(1, &(Ground[num].Texture));
+    glGenTextures(1, &(Ground[num].TextureS));
+    glGenTextures(1, &(Ground[num].TextureW));
+    glGenTextures(1, &(Ground[num].TextureE));
 
     WaitForFreeVblank();
 
-    glBindTexture(0, BodenTexture[num]);
+    glBindTexture(0, Ground[num].Texture);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, height, height, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffNorm);
     glColorTableEXT(GL_TEXTURE_2D, 0, 256, 0, 0, pal);
 
-    glBindTexture(0, BodenTextureS[num]);
+    glBindTexture(0, Ground[num].TextureS);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, height, height, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffDown);
-    glAssignColorTable(0, BodenTexture[num]);
+    glAssignColorTable(0, Ground[num].Texture);
 
-    glBindTexture(0, BodenTextureW[num]);
+    glBindTexture(0, Ground[num].TextureW);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, height, height, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffLeft);
-    glAssignColorTable(0, BodenTexture[num]);
+    glAssignColorTable(0, Ground[num].Texture);
 
-    glBindTexture(0, BodenTextureE[num]);
+    glBindTexture(0, Ground[num].TextureE);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, height, height, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffRight);
-    glAssignColorTable(0, BodenTexture[num]);
+    glAssignColorTable(0, Ground[num].Texture);
 
     free(buffNorm);
     free(buffLeft);

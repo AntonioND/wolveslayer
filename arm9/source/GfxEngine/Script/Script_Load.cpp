@@ -45,11 +45,11 @@ static void UnloadStuff(void)
 
     int a;
     for (a = 0; a < Ground_Count; a++)
-        BodenColorKey[a] = 0;
+        Ground[a].ColorKey = 0;
     for (a = 0; a < Ground_Count; a++)
-        BodenTransEnable[a] = false;
+        Ground[a].TransEnable = false;
     for (a = 0; a < Ground_Count; a++)
-        BodenBumpEnable[a] = false;
+        Ground[a].BumpEnable = false;
     for (a = 0; a < 4; a++) {
         AutotileColorKeyMaster[a]  = 0;
         AutotileIgnorecolorsNum[a] = -1;

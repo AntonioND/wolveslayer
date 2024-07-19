@@ -88,7 +88,7 @@ static void RefreshMap(void)
                 // Levelrand
                 if ((TexBod[x][y] <= -1 && TexABod[x][y] <= -1 && !(Precalcdata[x][y] & (1 << water))) || (ShapeObj[x][y] == Wallbor)) {
                     glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_ID(0));
-                    glBindTexture(GL_TEXTURE_2D, BodenTexture[0]);
+                    glBindTexture(GL_TEXTURE_2D, Ground[0].Texture);
                     RenderLevelBorderBoden(xx - 6, 0, yy - 8);
                 }
 

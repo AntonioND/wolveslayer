@@ -7,27 +7,17 @@
 #include "GfxEngine/Texture/DynamicLights.h"
 #include "GfxEngine/Texture/Light.h"
 
-int BodenX, BodenY;
+int GroundX, GroundY;
 
 t16 BodenTextPosStart[4];
 t16 BodenTextPosEnd[4];
 
-int BodenTexture[Ground_Count];
-// int BodenTextureN[Ground_Count];
-int BodenTextureS[Ground_Count];
-int BodenTextureW[Ground_Count];
-int BodenTextureE[Ground_Count];
-
-bool BodenEnable[Ground_Count];
-u32 BodenColorKey[Ground_Count];
-bool BodenTransEnable[Ground_Count];
-bool BodenBumpEnable[Ground_Count];
-u8 BodenSize[Ground_Count];
+GroundInfo Ground[Ground_Count];
 
 void SetCurBod(int x, int y)
 {
-    BodenX = x;
-    BodenY = y;
+    GroundX = x;
+    GroundY = y;
 }
 
 // The way a Bodentexture should be loaded
@@ -41,12 +31,12 @@ void LoadBodenTexture(char filename[], int num)
     if (width != height || (width != 32 && width != 64))
         Crash("Texture isn't 32x32 or 64x64\nSize: %lux%lu\n%s", width, height, filename);
 
-    glGenTextures(1, &BodenTexture[num]);
-    glBindTexture(0, BodenTexture[num]);
+    glGenTextures(1, &(Ground[num].Texture));
+    glBindTexture(0, Ground[num].Texture);
 
     WaitForFreeVblank();
 
-    BodenSize[num] = width;
+    Ground[num].Size = width;
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, width, width, 0, TEXGEN_TEXCOORD, buffer8);
     glColorTableEXT(GL_TEXTURE_2D, 0, 256, 0, 0, pal);
 
@@ -59,7 +49,7 @@ const v16 vmini = floattov16(0.025f);
 // The way a bodentexture should be rendered (floor inside and outside buildings).
 void RenderBoden(int x, int y, int z, int textnum)
 {
-    v16x4 pointer = Terrain[BodenX][BodenY];
+    v16x4 pointer = Terrain[GroundX][GroundY];
 
     int mode = (pointer.sidewalls >> 6) & 3;
     int a;
@@ -67,12 +57,12 @@ void RenderBoden(int x, int y, int z, int textnum)
 
     t16 start = BodenTextPosStart[0];
     t16 end;
-    if (BodenSize[textnum] == 64)
+    if (Ground[textnum].Size == 64)
         end = BodenTextPosEnd[1];
     else
         end = BodenTextPosEnd[0];
 
-    if (BodenBumpEnable[textnum] == true)
+    if (Ground[textnum].BumpEnable == true)
         a = 3;
     else
         a = 0;
@@ -85,17 +75,18 @@ void RenderBoden(int x, int y, int z, int textnum)
         bool doit = false;
 
         if (b == 0) {
-            glBindTexture(GL_TEXTURE_2D, BodenTexture[textnum]);
-            bodx = BodenX;
-            body = BodenY;
+            glBindTexture(GL_TEXTURE_2D, Ground[textnum].Texture);
+            bodx = GroundX;
+            body = GroundY;
             v1   = pointer.v[0];
             v2   = pointer.v[1];
             v3   = pointer.v[2];
             v4   = pointer.v[3];
             doit = true;
-            if (BodenTransEnable[TexBod[BodenX][BodenY]] == false)
+
+            if (Ground[TexBod[GroundX][GroundY]].TransEnable == false)
                 glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
-            if (BodenTransEnable[TexBod[BodenX][BodenY]] == true)
+            else
                 glPolyFmt(POLY_ALPHA(15) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
         }
 
@@ -106,24 +97,24 @@ void RenderBoden(int x, int y, int z, int textnum)
             v4 += vmini;
         }
 
-        if (b == 1 && ViewportMapBumpGroundS[BodenX - CamPosX + 5][BodenY - CamPosY + 3]) {
-            glBindTexture(GL_TEXTURE_2D, BodenTextureS[textnum]);
-            bodx = BodenX;
-            body = BodenY + 1;
+        if (b == 1 && ViewportMapBumpGroundS[GroundX - CamPosX + 5][GroundY - CamPosY + 3]) {
+            glBindTexture(GL_TEXTURE_2D, Ground[textnum].TextureS);
+            bodx = GroundX;
+            body = GroundY + 1;
             doit = true;
         }
 
-        if (b == 2 && ViewportMapBumpGroundW[BodenX - CamPosX + 5][BodenY - CamPosY + 3]) {
-            glBindTexture(GL_TEXTURE_2D, BodenTextureW[textnum]);
-            bodx = BodenX - 1;
-            body = BodenY;
+        if (b == 2 && ViewportMapBumpGroundW[GroundX - CamPosX + 5][GroundY - CamPosY + 3]) {
+            glBindTexture(GL_TEXTURE_2D, Ground[textnum].TextureW);
+            bodx = GroundX - 1;
+            body = GroundY;
             doit = true;
         }
 
-        if (b == 3 && ViewportMapBumpGroundE[BodenX - CamPosX + 5][BodenY - CamPosY + 3]) {
-            glBindTexture(GL_TEXTURE_2D, BodenTextureE[textnum]);
-            bodx = BodenX + 1;
-            body = BodenY;
+        if (b == 3 && ViewportMapBumpGroundE[GroundX - CamPosX + 5][GroundY - CamPosY + 3]) {
+            glBindTexture(GL_TEXTURE_2D, Ground[textnum].TextureE);
+            bodx = GroundX + 1;
+            body = GroundY;
             doit = true;
         }
 
@@ -252,19 +243,19 @@ void RenderLevelBorderBoden(int x, int y, int z)
     {
         // Bottom left
         glTexCoord2t16(cy, cx);
-        glVertex3v16(BodenVert2, GetTerrain(BodenX, BodenY, 0), BodenVert2);
+        glVertex3v16(BodenVert2, GetTerrain(GroundX, GroundY, 0), BodenVert2);
 
         // Top left
         glTexCoord2t16(cy, cx);
-        glVertex3v16(BodenVert2, GetTerrain(BodenX, BodenY, 2), BodenVert1);
+        glVertex3v16(BodenVert2, GetTerrain(GroundX, GroundY, 2), BodenVert1);
 
         // Top right
         glTexCoord2t16(cy, cx);
-        glVertex3v16(BodenVert1, GetTerrain(BodenX, BodenY, 3), BodenVert1);
+        glVertex3v16(BodenVert1, GetTerrain(GroundX, GroundY, 3), BodenVert1);
 
         // Bottom right
         glTexCoord2t16(cy, cx);
-        glVertex3v16(BodenVert1, GetTerrain(BodenX, BodenY, 1), BodenVert2);
+        glVertex3v16(BodenVert1, GetTerrain(GroundX, GroundY, 1), BodenVert2);
     }
 
     glEnd();

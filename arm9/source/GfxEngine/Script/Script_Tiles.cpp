@@ -19,28 +19,28 @@ void LoadBodenCommand(TiXmlElement *map)
         if (boden->Attribute("colorkey")) {
             int r = 0, g = 0, b = 0;
             sscanf(boden->Attribute("colorkey"), "%i,%i,%i", &r, &g, &b);
-            BodenColorKey[a] = r | (g << 8) | (b << 16) | (0 << 24);
+            Ground[a].ColorKey = r | (g << 8) | (b << 16) | (0 << 24);
         }
 
         // mirrowing
         if (boden->Attribute("mirrowing"))
             if (strncmp("true", boden->Attribute("mirrowing"), 4) == 0)
-                BodenTransEnable[a] = true;
+                Ground[a].TransEnable = true;
 
         // Here is that final call to load that texture
-        BodenEnable[a] = true;
+        Ground[a].Enable = true;
 
         if (boden->Attribute("bump-mapping")) {
             if (strncmp("true", boden->Attribute("bump-mapping"), 4) != 0) {
                 LoadBodenTexture(FileNameCom, a);
-                BodenBumpEnable[a] = false;
+                Ground[a].BumpEnable = false;
             } else {
                 LoadMBump5Texture(FileNameCom, a);
-                BodenBumpEnable[a] = true;
+                Ground[a].BumpEnable = true;
             }
         } else {
             LoadBodenTexture(FileNameCom, a);
-            BodenBumpEnable[a] = false;
+            Ground[a].BumpEnable = false;
         }
 
         boden = boden->NextSiblingElement("ground");

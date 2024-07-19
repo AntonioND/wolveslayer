@@ -61,7 +61,7 @@ static void PreCalcBod(void)
 
             // Here we look which texture to use
             for (texturecounter = 0; texturecounter < Ground_Count; texturecounter++)
-                if (Bod == BodenColorKey[texturecounter])
+                if (Bod == Ground[texturecounter].ColorKey)
                     choose = texturecounter;
 
             TexBod[xx][yy] = -2;
@@ -872,7 +872,7 @@ static void PrecalcMirrow(void)
                 for (int my = yy; my <= yy + 3; my++) {
                     if (mx >= 0 && my >= 0) {
                         if (TexBod[mx][my] > -1)
-                            if (BodenTransEnable[TexBod[mx][my]] == true && GetHight(mx, my) == 0)
+                            if (Ground[TexBod[mx][my]].TransEnable && GetHight(mx, my) == 0)
                                 Precalcdata[xx][yy] |= (1 << mirrow);
 
                         if (Precalcdata[xx][yy] & (1 << water))

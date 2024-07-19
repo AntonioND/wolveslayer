@@ -3,7 +3,7 @@
 
 #include <nds.h>
 
-#define Autotile_Ignorecolors_Max 10
+#include "GfxEngine/Limits.h"
 
 typedef struct {
     int Texture[3];
@@ -13,7 +13,7 @@ typedef struct {
     int IgnorecolorsNum;
 } AutotileInfo;
 
-extern AutotileInfo Autotile[4];
+extern AutotileInfo Autotile[Autotile_Max];
 
 // Autotiles
 void LoadAutotileTexture(char filename[], int num);

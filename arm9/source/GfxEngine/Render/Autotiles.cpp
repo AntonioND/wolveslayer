@@ -5,7 +5,7 @@
 #include "GfxEngine/Render/Ground.h"
 #include "GfxEngine/Texture/Light.h"
 
-AutotileInfo Autotile[4];
+AutotileInfo Autotile[Autotile_Max];
 
 // The way a ground texture should be loaded
 void LoadAutotileTexture(char filename[], int num)

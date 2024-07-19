@@ -2,6 +2,7 @@
 #include "GfxEngine/Files.h"
 #include "GfxEngine/Input/Input.h"
 #include "GfxEngine/MapLoad.h"
+#include "GfxEngine/Output/Textbox.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/Render/Doors.h"
 #include "GfxEngine/Render/Obj_Wall.h"
@@ -127,7 +128,9 @@ void OpenMapDoor(int x, int y)
     for (int i = 0; i < MapChangeCounter; i++) {
         if (MapChange[i].PosX == x && MapChange[i].PosY == y && MapChange[i].IsDoor && MapChange[i].DoorAngle == 0) {
             MapChange[i].DoorAngle = 10;
-            // else TextBoxmode(MapChange[i].DoorSpeech, MapChange[i].DoorSpeechCount, -1);
+            // TODO: This can be used if a door can't be opened due to not
+            // having a key or something like that.
+            // TextBoxmode(MapChange[i].DoorSpeech, MapChange[i].DoorSpeechCount, -1);
         }
     }
 }

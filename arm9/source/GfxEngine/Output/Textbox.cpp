@@ -1,4 +1,5 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/Output/Items.h"
 #include "GfxEngine/Output/Touchscreen.h"
 
 int npctalk = -1;
@@ -15,9 +16,12 @@ bool nextpage;
 
 void TextBoxmode(char TxtOffset[10][256], int cnt, int num)
 {
+#if 0
+    // TODO: Restore this
     // extern u8 textbox_bin[256 * 96];
     // extern u16 textbox_pal[256];
-#if 0
+#endif
+
     char *chunker;
     char Temp[256];
     // Lets chunk the text in sinlge owrds first..
@@ -55,13 +59,17 @@ void TextBoxmode(char TxtOffset[10][256], int cnt, int num)
     if (wordnum > 0) {
         if (num != -1)
             npctalk = num;
+
+#if 0
         // Blue box
         WaitForFreeVblank();
-        int i, j;
-        for (i = 0; i < 256; i++)
-            for (j = 0; j < 96; j++)
+
+        // TODO: Restore this
+        for (int i = 0; i < 256; i++)
+            for (int j = 0; j < 96; j++)
                 if (textbox_bin[i + (j * 256)] != 0)
                     BG_GFX_SUB[i + ((j + 5) * 256)] = textbox_pal[textbox_bin[i + (j * 256)]];
+#endif
 
         Ni = 0;
         Nj = 0;
@@ -71,7 +79,6 @@ void TextBoxmode(char TxtOffset[10][256], int cnt, int num)
         screenmode = 2;
         nextpage   = false;
     }
-#endif
 }
 
 void TextBoxmodeHandler(void)

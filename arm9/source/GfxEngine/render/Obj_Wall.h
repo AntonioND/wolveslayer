@@ -2,6 +2,7 @@
 #define GFXENGINE_RENDER_OBJ_WALL_H__
 
 #include "GfxEngine/3D.h"
+#include "GfxEngine/Limits.h"
 
 // textureslots for objects
 extern int ObjektTex[Object_Count];  // Standard slot for objects

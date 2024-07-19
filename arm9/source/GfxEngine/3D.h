@@ -12,9 +12,6 @@ typedef int32_t f32;
 #define ShowPosition
 #define ShowPolyCount
 
-// Other settings
-#define Object_Count 26
-
 // Some replacers for bitshifting inside precalcdata
 #define water       0
 #define mirrow      1
@@ -44,7 +41,7 @@ void E3D_EndRender();
 #define Obj_WallBor   11;
 #define Obj_WallDoor  12;
 
-// #define Obj_WallCor 12;//not visible thing in fact
+// #define Obj_WallCor 12; // not visible thing in fact
 
 // Houseparts
 #define Obj_HouseMid  20;

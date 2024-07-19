@@ -1,7 +1,7 @@
 #ifndef GFXENGINE_VILLAGERS_H__
 #define GFXENGINE_VILLAGERS_H__
 
-#define Dorf_Max 5 // The max. count of NPCs
+#include "GfxEngine/Limits.h"
 
 extern int DorfiX[Dorf_Max], DorfiY[Dorf_Max];
 extern float DorfiSX[Dorf_Max], DorfiSY[Dorf_Max];

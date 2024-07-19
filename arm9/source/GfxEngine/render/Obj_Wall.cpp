@@ -1,6 +1,7 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/render/Obj_House.h"
+#include "GfxEngine/render/Obj_Wall.h"
 #include "GfxEngine/texture/Light.h"
 
 int ObjektTex[Object_Count];  // Standard slot for objects

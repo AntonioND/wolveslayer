@@ -1,6 +1,7 @@
 #ifndef GFXENGINE_SCRIPT_SCRIPT_TEXTURES_H__
 #define GFXENGINE_SCRIPT_SCRIPT_TEXTURES_H__
 
+#include "GfxEngine/Limits.h"
 #include "GfxEngine/render/Obj_Wall.h"
 
 #include "XML/tinyxml.h"

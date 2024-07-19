@@ -1,7 +1,9 @@
 #ifndef GFXENGINE_SCRIPT_SCRIPT_OBJECTS_H__
 #define GFXENGINE_SCRIPT_SCRIPT_OBJECTS_H__
 
-#include "GfxEngine/3D.h"
+#include <nds.h>
+
+#include "GfxEngine/Limits.h"
 
 #include "XML/tinyxml.h"
 

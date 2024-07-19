@@ -3,7 +3,7 @@
 
 #include <nds.h>
 
-#define Ground_Count 31
+#include "GfxEngine/Limits.h"
 
 extern int BodenX, BodenY;
 

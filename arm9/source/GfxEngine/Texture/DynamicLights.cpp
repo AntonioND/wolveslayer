@@ -278,12 +278,12 @@ static void UpdateViewableLights(void)
 
             // reset Bump-mapping status
             if (x >= 0 && y >= 0 && y <= MapGetHr() && x <= MapGetWr()) {
-                ViewportMapBumpGroundS[xx + 5][yy + 3] = Precalcdata[x][y] & (1 << BumpgroundS);
-                ViewportMapBumpGroundW[xx + 5][yy + 3] = Precalcdata[x][y] & (1 << BumpgroundW);
-                ViewportMapBumpGroundE[xx + 5][yy + 3] = Precalcdata[x][y] & (1 << BumpgroundE);
-                ViewportMapBumpWallS[xx + 5][yy + 3]   = Precalcdata[x][y] & (1 << BumpwallS);
-                ViewportMapBumpWallW[xx + 5][yy + 3]   = Precalcdata[x][y] & (1 << BumpwallW);
-                ViewportMapBumpWallE[xx + 5][yy + 3]   = Precalcdata[x][y] & (1 << BumpwallE);
+                ViewportMapBumpGroundS[xx + 5][yy + 3] = Precalcdata[x][y] & (1 << B_BumpgroundS);
+                ViewportMapBumpGroundW[xx + 5][yy + 3] = Precalcdata[x][y] & (1 << B_BumpgroundW);
+                ViewportMapBumpGroundE[xx + 5][yy + 3] = Precalcdata[x][y] & (1 << B_BumpgroundE);
+                ViewportMapBumpWallS[xx + 5][yy + 3]   = Precalcdata[x][y] & (1 << B_BumpwallS);
+                ViewportMapBumpWallW[xx + 5][yy + 3]   = Precalcdata[x][y] & (1 << B_BumpwallW);
+                ViewportMapBumpWallE[xx + 5][yy + 3]   = Precalcdata[x][y] & (1 << B_BumpwallE);
             }
         }
     }

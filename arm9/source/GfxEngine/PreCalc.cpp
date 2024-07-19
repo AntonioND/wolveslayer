@@ -852,17 +852,17 @@ static void PrecalcMirrow(void)
 {
     for (int yy = 0; yy <= MapGetHr(); yy++) {
         for (int xx = 0; xx <= MapGetWr(); xx++) {
-            // Precalcdata[xx][yy] |= (0 << mirrow);
+            // Precalcdata[xx][yy] |= (0 << B_Mirrowable);
 
             for (int mx = xx - 1; mx <= xx + 1; mx++) {
                 for (int my = yy; my <= yy + 3; my++) {
                     if (mx >= 0 && my >= 0) {
                         if (TexGround[mx][my] > -1)
                             if (Ground[TexGround[mx][my]].TransEnable && GetHight(mx, my) == 0)
-                                Precalcdata[xx][yy] |= (1 << mirrow);
+                                Precalcdata[xx][yy] |= (1 << B_Mirrowable);
 
                         if (Precalcdata[xx][yy] & (1 << B_Water))
-                            Precalcdata[xx][yy] |= (1 << mirrow);
+                            Precalcdata[xx][yy] |= (1 << B_Mirrowable);
                     }
                 }
             }
@@ -895,58 +895,58 @@ static void PrecalcStaticBump(void)
         for (int xx = 0; xx <= MapGetWr(); xx++) {
             // left-up
             if (Lightu16(xx, yy, 0) != Lightu16(xx, yy - 1, 0))
-                Precalcdata[xx][yy] |= (1 << BumpwallW);
+                Precalcdata[xx][yy] |= (1 << B_BumpwallW);
             if (Lightu16(xx, yy, 0) != Lightu16(xx - 1, yy, 0))
-                Precalcdata[xx][yy] |= (1 << BumpgroundW);
+                Precalcdata[xx][yy] |= (1 << B_BumpgroundW);
             if (Lightu16(xx, yy, 0) != Lightu16(xx, yy + 1, 0)) {
-                Precalcdata[xx][yy] |= (1 << BumpgroundS);
-                Precalcdata[xx][yy] |= (1 << BumpwallW);
+                Precalcdata[xx][yy] |= (1 << B_BumpgroundS);
+                Precalcdata[xx][yy] |= (1 << B_BumpwallW);
             }
             if (Lightu16(xx, yy, 0) != Lightu16(xx + 1, yy, 0))
-                Precalcdata[xx][yy] |= (1 << BumpgroundE);
+                Precalcdata[xx][yy] |= (1 << B_BumpgroundE);
 
             // right-up
             if (Lightu16(xx, yy, 1) != Lightu16(xx, yy - 1, 1))
-                Precalcdata[xx][yy] |= (1 << BumpwallE);
+                Precalcdata[xx][yy] |= (1 << B_BumpwallE);
             if (Lightu16(xx, yy, 1) != Lightu16(xx - 1, yy, 1))
-                Precalcdata[xx][yy] |= (1 << BumpgroundW);
+                Precalcdata[xx][yy] |= (1 << B_BumpgroundW);
             if (Lightu16(xx, yy, 1) != Lightu16(xx, yy + 1, 1)) {
-                Precalcdata[xx][yy] |= (1 << BumpgroundS);
-                Precalcdata[xx][yy] |= (1 << BumpwallE);
+                Precalcdata[xx][yy] |= (1 << B_BumpgroundS);
+                Precalcdata[xx][yy] |= (1 << B_BumpwallE);
             }
             if (Lightu16(xx, yy, 1) != Lightu16(xx + 1, yy, 1))
-                Precalcdata[xx][yy] |= (1 << BumpgroundE);
+                Precalcdata[xx][yy] |= (1 << B_BumpgroundE);
 
             // left-down
             if (Lightu16(xx, yy, 2) != Lightu16(xx, yy - 1, 2))
-                Precalcdata[xx][yy] |= (1 << BumpwallW);
+                Precalcdata[xx][yy] |= (1 << B_BumpwallW);
             if (Lightu16(xx, yy, 2) != Lightu16(xx - 1, yy, 2)) {
-                Precalcdata[xx][yy] |= (1 << BumpgroundW);
-                Precalcdata[xx][yy] |= (1 << BumpwallS);
+                Precalcdata[xx][yy] |= (1 << B_BumpgroundW);
+                Precalcdata[xx][yy] |= (1 << B_BumpwallS);
             }
             if (Lightu16(xx, yy, 2) != Lightu16(xx, yy + 1, 2)) {
-                Precalcdata[xx][yy] |= (1 << BumpgroundS);
-                Precalcdata[xx][yy] |= (1 << BumpwallW);
+                Precalcdata[xx][yy] |= (1 << B_BumpgroundS);
+                Precalcdata[xx][yy] |= (1 << B_BumpwallW);
             }
             if (Lightu16(xx, yy, 2) != Lightu16(xx + 1, yy, 2)) {
-                Precalcdata[xx][yy] |= (1 << BumpgroundE);
-                Precalcdata[xx][yy] |= (1 << BumpwallS);
+                Precalcdata[xx][yy] |= (1 << B_BumpgroundE);
+                Precalcdata[xx][yy] |= (1 << B_BumpwallS);
             }
 
             // right-down
             if (Lightu16(xx, yy, 3) != Lightu16(xx, yy - 1, 3))
-                Precalcdata[xx][yy] |= (1 << BumpwallE);
+                Precalcdata[xx][yy] |= (1 << B_BumpwallE);
             if (Lightu16(xx, yy, 3) != Lightu16(xx - 1, yy, 3)) {
-                Precalcdata[xx][yy] |= (1 << BumpgroundW);
-                Precalcdata[xx][yy] |= (1 << BumpwallS);
+                Precalcdata[xx][yy] |= (1 << B_BumpgroundW);
+                Precalcdata[xx][yy] |= (1 << B_BumpwallS);
             }
             if (Lightu16(xx, yy, 3) != Lightu16(xx, yy + 1, 3)) {
-                Precalcdata[xx][yy] |= (1 << BumpgroundS);
-                Precalcdata[xx][yy] |= (1 << BumpwallE);
+                Precalcdata[xx][yy] |= (1 << B_BumpgroundS);
+                Precalcdata[xx][yy] |= (1 << B_BumpwallE);
             }
             if (Lightu16(xx, yy, 3) != Lightu16(xx + 1, yy, 3)) {
-                Precalcdata[xx][yy] |= (1 << BumpgroundE);
-                Precalcdata[xx][yy] |= (1 << BumpwallS);
+                Precalcdata[xx][yy] |= (1 << B_BumpgroundE);
+                Precalcdata[xx][yy] |= (1 << B_BumpwallS);
             }
         }
     }

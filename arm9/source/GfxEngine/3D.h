@@ -14,13 +14,13 @@ typedef int32_t f32;
 
 // Some replacers for bitshifting inside precalcdata
 #define B_Water       0
-#define mirrow      1
-#define BumpgroundS 2
-#define BumpgroundW 3
-#define BumpgroundE 4
-#define BumpwallS   5
-#define BumpwallW   6
-#define BumpwallE   7
+#define B_Mirrowable  1
+#define B_BumpgroundS 2
+#define B_BumpgroundW 3
+#define B_BumpgroundE 4
+#define B_BumpwallS   5
+#define B_BumpwallW   6
+#define B_BumpwallE   7
 
 __attribute__((noreturn)) void Crash(const char *msg, ...);
 

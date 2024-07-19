@@ -214,7 +214,7 @@ static void RefreshWelt(void)
                         pos[1] = y;
 
                         // SetMdlLights(pos,spos,.4,0);   DirObj[x][y]
-                        if (yy > -1 || ((Precalcdata[x][y] & (1 << mirrow)) && obj->Mirrowable == true)) {
+                        if (yy > -1 || ((Precalcdata[x][y] & (1 << B_Mirrowable)) && obj->Mirrowable)) {
                             if (!obj->Illumination)
                                 SetObjLights(pos, DirObj[x][y] * 64); // way faster and enough for objects
                             else
@@ -235,7 +235,7 @@ static void RefreshWelt(void)
                             glPopMatrix(1);
                         }
                         // Same for mirrowing
-                        if ((Precalcdata[x][y] & (1 << mirrow)) && obj->Mirrowable == true) {
+                        if ((Precalcdata[x][y] & (1 << B_Mirrowable)) && obj->Mirrowable == true) {
                             glPushMatrix();
                             glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(obj->TextureID + 11 + 3));
                             glTranslatef32(posx, -height, posy);
@@ -258,7 +258,7 @@ static void RefreshWelt(void)
                         SetCurWall(xx + CamPosX, yy + CamPosY);
                         if (yy > -1)
                             RenderHouseBorder(0, DirObj[x][y], posx, floattof32(1.0 + GetHight(x, y)), posy); // Normal
-                        if ((Precalcdata[x][y] & (1 << mirrow)))
+                        if ((Precalcdata[x][y] & (1 << B_Mirrowable)))
                             RenderHouseBorder(1, DirObj[x][y], posx, floattof32(-.9 - GetHight(x, y)), posy); // Gespiegelt
                     }
 
@@ -267,7 +267,7 @@ static void RefreshWelt(void)
                         SetCurWall(xx + CamPosX, yy + CamPosY);
                         if (yy > -1)
                             RenderHouseCorner(0, DirObj[x][y], posx, floattof32(1.0 + GetHight(x, y)), posy); // Normal
-                        if ((Precalcdata[x][y] & (1 << mirrow)))
+                        if ((Precalcdata[x][y] & (1 << B_Mirrowable)))
                             RenderHouseCorner(1, DirObj[x][y], posx, floattof32(-.9 - GetHight(x, y)), posy); // Gespiegelt
                     }
 
@@ -277,7 +277,7 @@ static void RefreshWelt(void)
                         if (yy > -1)
                             RenderHouseBorderDoor(0, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx,
                                                   floattof32(1.0 + GetHight(x, y)), posy); // Türslot Normal
-                        if ((Precalcdata[x][y] & (1 << mirrow))) {
+                        if ((Precalcdata[x][y] & (1 << B_Mirrowable))) {
                             glBindTexture(GL_TEXTURE_2D,
                                           ObjektTex[TexObj[x][y]]); // We need that to set again...after rendering houspart with doorslot it
                             RenderHouseBorderDoor(1, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx,
@@ -294,7 +294,7 @@ static void RefreshWelt(void)
                         SetCurWall(xx + CamPosX, yy + CamPosY);
                         if (yy > -1)
                             RenderWallBorder(0, DirObj[x][y], posx, floattof32(1.0 + GetHight(x, y)), posy, TexObj[x][y]); // Normal
-                        if ((Precalcdata[x][y] & (1 << mirrow)))
+                        if ((Precalcdata[x][y] & (1 << B_Mirrowable)))
                             RenderWallBorder(1, DirObj[x][y], posx, floattof32(-1 - GetHight(x, y)), posy, TexObj[x][y]); // Gespiegelt
                     }
 
@@ -304,7 +304,7 @@ static void RefreshWelt(void)
                         if (yy > -1)
                             RenderWallBorderDoor(0, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx, floattof32(1 + GetHight(x, y)),
                                                  posy); // Türslot Normal
-                        if ((Precalcdata[x][y] & (1 << mirrow))) {
+                        if ((Precalcdata[x][y] & (1 << B_Mirrowable))) {
                             glBindTexture(GL_TEXTURE_2D,
                                           ObjektTex[TexObj[x][y]]); // We need that to set again...after rendering houspart with doorslot it
                             RenderWallBorderDoor(1, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx,
@@ -377,7 +377,7 @@ static void RefreshPlayer(void)
 
     // Hero (mirrowed)
 
-    if (Precalcdata[GetPX()][GetPY()] & (1 << mirrow)) {
+    if (Precalcdata[GetPX()][GetPY()] & (1 << B_Mirrowable)) {
         glPushMatrix();
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
         glTranslatef(CamPosSX, -.1 - hpos, CamPosSY);
@@ -402,7 +402,7 @@ static void RefreshPlayer(void)
     glPopMatrix(1);
 
     // Waffe (mirrowed)
-    if (Precalcdata[GetPX()][GetPY()] & (1 << mirrow)) {
+    if (Precalcdata[GetPX()][GetPY()] & (1 << B_Mirrowable)) {
         glPushMatrix();
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
         glTranslatef(CamPosSX, -.1 - hpos, CamPosSY);
@@ -506,7 +506,7 @@ static void RefreshDorfis(void)
                         }
                         glPopMatrix(1);
 
-                        if (Precalcdata[DorfiX[a]][DorfiY[a]] & (1 << mirrow)) {
+                        if (Precalcdata[DorfiX[a]][DorfiY[a]] & (1 << B_Mirrowable)) {
                             glPushMatrix();
                             glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
                             glTranslatef((DorfiX[a] - 6) + DorfiSX[a] - (CamPosX), -hpos, (DorfiY[a] - 8) + DorfiSY[a] - (CamPosY));
@@ -594,7 +594,7 @@ static void RefreshEnemys(void)
                         RenderMD2Model(aniset, Enemies[a].TextNum);
                         glPopMatrix(1);
 
-                        if (Precalcdata[Enemies[a].X][Enemies[a].Y] & (1 << mirrow)) {
+                        if (Precalcdata[Enemies[a].X][Enemies[a].Y] & (1 << B_Mirrowable)) {
                             glPushMatrix();
                             glPolyFmt(POLY_ALPHA(blend) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
                             glTranslatef((Enemies[a].X - 6) + Enemies[a].SX - (CamPosX), -hpos, (Enemies[a].Y - 8) + Enemies[a].SY - (CamPosY));

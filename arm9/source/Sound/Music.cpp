@@ -1,5 +1,6 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/Files.h"
+#include "Sound/Music.h"
 #include "Sound/Sound9.h"
 
 // some sounds
@@ -64,9 +65,8 @@ void StartSong(const char *Name)
     if (ModFilename == NULL)
         Crash("No memory for ModFilename:\n%s", Name);
 
-    // Stop song and wait for it to stop playing
-    SndStopMOD();
-    swiWaitForVBlank();
+    // Stop song before loading a new one
+    StopSong();
 
     // Free old buffer
     if (ModBuffer != NULL)

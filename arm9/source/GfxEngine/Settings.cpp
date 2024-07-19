@@ -76,5 +76,5 @@ void ReadSettings(void)
     ClearItems();
     ResetInventory();
     LoadItemList();
-    LoadScrip(StartMap);
+    LoadScript(StartMap);
 }

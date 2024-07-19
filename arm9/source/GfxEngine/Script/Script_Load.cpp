@@ -70,7 +70,7 @@ static void UnloadStuff(void)
     outside  = true;
 }
 
-void LoadScrip(char filename[])
+void LoadScript(char filename[])
 {
     irqSet(IRQ_VBLANK, NULL);
     ScreenModeLOADING();

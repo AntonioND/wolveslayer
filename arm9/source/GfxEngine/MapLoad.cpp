@@ -137,7 +137,7 @@ void MapDoorHandle(void)
                     E3D_EndRender();
                 }
 
-                LoadScrip(Filename);
+                LoadScript(Filename);
                 PlPosX  = newx;
                 PlPosY  = newy;
                 CamPosX = newx;

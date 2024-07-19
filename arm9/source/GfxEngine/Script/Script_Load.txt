@@ -54,7 +54,7 @@ char SongFile[40];
 
 char Script[256][256];
 
-void LoadScrip(char filename[])
+void LoadScript(char filename[])
 {
     int a;
     // LoadingNow = true;

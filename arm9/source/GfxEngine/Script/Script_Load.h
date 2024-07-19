@@ -9,7 +9,7 @@ extern bool LoadingNow;
 void ucase(char *character, char *New);
 
 // Loads a new script
-void LoadScrip(char filename[]);
+void LoadScript(char filename[]);
 
 // This returns true if the map is outdoors, false if it is indoors.
 bool IsMapOutside(void);

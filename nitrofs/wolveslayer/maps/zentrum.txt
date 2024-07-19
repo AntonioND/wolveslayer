@@ -50,8 +50,8 @@
 
 	<enemydef name="Wolve1">
 		<mesh		file="enemys/wolf.md2"	scale="30"	radius=".8"/>
-		<texture	file="enemys/wolf2.bmp"			/>
-		<atributes	healthpower="10"	attackpower="2"	/>
+		<texture	file="enemys/wolf2.bmp"/>
+		<atributes	healthpower="10"	attackpower="2"/>
 	</enemydef>
 
 	<enemy name="Wolve1" pos="16,5"/>
@@ -72,5 +72,4 @@
 		<firefly pos="3,3" color="213,78,47"/>
 		<firefly pos="6,4" color="213,78,47"/>
 	</dynamiclight>
-
 </map>

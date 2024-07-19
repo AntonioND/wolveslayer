@@ -43,12 +43,11 @@
 
 	<enemydef name="Wolve1">
 		<mesh		file="enemys/wolf.md2"	scale="30"	radius=".8"/>
-		<texture	file="enemys/wolf2.bmp"			/>
-		<atributes	healthpower="10"	attackpower="2"	/>
+		<texture	file="enemys/wolf2.bmp"/>
+		<atributes	healthpower="10"	attackpower="2"/>
 	</enemydef>
 
 	<enemy name="Wolve1" pos="15,2"/>
 	<enemy name="Wolve1" pos="10,2"/>
 	<enemy name="Wolve1" pos="4,2"/>
-
 </map>

@@ -27,7 +27,7 @@
 	<object mesh="other/kuerbis-mdm.mdm" colorkey="67,63,229" textureid="1" scale="35"/>
 	<object mesh="other/grabstein1-mdm.mdm" colorkey="177,127,41" textureid="13" scale="40"/>
 	<object mesh="other/pfeil-ani-mdm.mdm" colorkey="195,3,166" textureid="12" scale="50" radius="0" selfilluminated="true"/>
-	<object mesh="other/grabstein2-mdm.mdm" colorkey="245,20,70" textureid="13" scale="40" />
+	<object mesh="other/grabstein2-mdm.mdm" colorkey="245,20,70" textureid="13" scale="40"/>
 
 	<texture id="1" file="other/kuerbis.bmp"/>
 	<texture id="3" file="nature/toterbaum.bmp"/>
@@ -46,8 +46,8 @@
 
 	<enemydef name="Wolve1">
 		<mesh		file="enemys/wolf.md2"	scale="30"	radius=".8"/>
-		<texture	file="enemys/wolf2.bmp"			/>
-		<atributes	healthpower="10"	attackpower="2"	/>
+		<texture	file="enemys/wolf2.bmp"/>
+		<atributes	healthpower="10"	attackpower="2"/>
 	</enemydef>
 
 	<enemy name="Wolve1" pos="9,5"/>

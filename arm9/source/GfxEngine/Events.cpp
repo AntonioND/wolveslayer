@@ -6,7 +6,7 @@
 #include "GfxEngine/Settings.h"
 #include "GfxEngine/Texture/DynamicLights.h"
 #include "GfxEngine/Texture/Light.h"
-#include "Music.h"
+#include "Sound/Music.h"
 
 char EventSpeech[10][256]; // to hold 10 textes for event with 256 chars
 int EventSpeechCount;      // Holds the Number of speeches a event has...

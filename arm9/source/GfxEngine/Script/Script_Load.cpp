@@ -17,7 +17,7 @@
 #include "GfxEngine/Script/Script_Tiles.h"
 #include "GfxEngine/Texture/DynamicLights.h"
 #include "GfxEngine/Villagers.h"
-#include "Music.h"
+#include "Sound/Music.h"
 
 bool LoadingNow;
 

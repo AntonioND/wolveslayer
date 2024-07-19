@@ -12,7 +12,7 @@
 #include "GfxEngine/Render/Boden.h"
 #include "GfxEngine/Render/Render.h"
 #include "GfxEngine/Tackt.h"
-#include "Music.h"
+#include "Sound/Music.h"
 
 void Splash(void)
 {

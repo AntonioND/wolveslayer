@@ -349,14 +349,16 @@ static void RefreshPlayer(void)
     if (PlStatus == 0) {
         if (EnemyCount >= 0)
             aniwaffe = 22 + ticks11;
-        if (screenmode < 2 && ((keysHeld() & KEY_DOWN) || (keysHeld() & KEY_UP) || (keysHeld() & KEY_LEFT) || (keysHeld() & KEY_RIGHT)))
+
+        if ((screenmode < ScreenModeTextBox) && (keysHeld() & (KEY_DOWN | KEY_UP | KEY_LEFT | KEY_RIGHT)))
             aniwaffe += 11;
     }
 
     // Attacking
     if (PlStatus == 1) {
         aniwaffe = 77 + (PlFrame / 3);
-        if ((keysHeld() & KEY_DOWN) || (keysHeld() & KEY_UP) || (keysHeld() & KEY_LEFT) || (keysHeld() & KEY_RIGHT))
+
+        if ((keysHeld() & (KEY_DOWN | KEY_UP | KEY_LEFT | KEY_RIGHT)))
             aniwaffe = 144 + (PlFrame / 3);
     }
 
@@ -485,7 +487,7 @@ static void RefreshVillagers(void)
             vsx = Villager[a].SX + .5;
             vsy = Villager[a].SY + .5;
             dir = Villager[a].Direction;
-            if (a == npctalk && screenmode == 2) {
+            if (a == npctalk && screenmode == ScreenModeTextBox) {
                 dir = PlRichtung + 4;
                 if (dir > 7)
                     dir -= 8;
@@ -504,7 +506,7 @@ static void RefreshVillagers(void)
             glTranslatef((Villager[a].X - 6) + Villager[a].SX - (CamPosX), hpos, (Villager[a].Y - 8) + Villager[a].SY - (CamPosY));
             glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
             glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
-            if ((screenmode != 2 || a != npctalk) && screenmode <= 2) {
+            if ((screenmode != ScreenModeTextBox || a != npctalk) && screenmode <= ScreenModeTextBox) {
                 Precalcmd2light(ticks11 + 11, Villager[a].TextNum);
                 RenderMD2Model(ticks11 + 11, Villager[a].TextNum);
             } else {
@@ -519,7 +521,7 @@ static void RefreshVillagers(void)
                 glTranslatef((Villager[a].X - 6) + Villager[a].SX - (CamPosX), -hpos, (Villager[a].Y - 8) + Villager[a].SY - (CamPosY));
                 glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
                 glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
-                if ((screenmode != 2 || a != npctalk) && screenmode <= 2)
+                if ((screenmode != ScreenModeTextBox || a != npctalk) && screenmode <= ScreenModeTextBox)
                     RenderMD2ModelMirrowed(ticks11 + 11, Villager[a].TextNum);
                 else
                     RenderMD2ModelMirrowed(ticks11, Villager[a].TextNum);

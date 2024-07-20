@@ -89,7 +89,7 @@ static void UpdateFireFlys(void)
     float Gcol1, Gcol2, Gcol3, Gcol4;
     float Bcol1, Bcol2, Bcol3, Bcol4;
 
-    if (screenmode < 3) {
+    if (screenmode < ScreenModeItem) {
         for (a = 0; a < 10; a++) {
             if (Fireflys[a].Enable == true) {
                 l = true;

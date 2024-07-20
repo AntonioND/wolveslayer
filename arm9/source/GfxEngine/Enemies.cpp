@@ -160,7 +160,7 @@ void UpdateEnemy()
     bool change;
     bool l, r, u, d;
 
-    if (screenmode < 3) {
+    if (screenmode < ScreenModeItem) {
         for (int a = 0; a <= EnemyCount; a++) {
             // check coolision just if enemy walks or follows player
             if (Enemies[a].Status < 1) {

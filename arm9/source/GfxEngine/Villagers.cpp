@@ -87,7 +87,7 @@ void TurnVillager(int a, bool l, bool r, bool u, bool d)
 
 void UpdateVillagers()
 {
-    if (screenmode < 3) {
+    if (screenmode < ScreenModeItem) {
         for (int a = 0; a <= VillagerCount; a++) {
             bool l = true;
             bool r = true;
@@ -200,7 +200,7 @@ void UpdateVillagers()
             }
 
             // Movement
-            if (screenmode != 2 || a != npctalk) { // talking NPCs cant move
+            if (screenmode != ScreenModeTextBox || a != npctalk) { // talking NPCs cant move
                 // Direction change
                 bool change = false;
                 if ((Villager[a].Direction == 0 || Villager[a].Direction == 1 || Villager[a].Direction == 7) && d == false)

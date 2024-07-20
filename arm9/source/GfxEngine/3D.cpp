@@ -164,12 +164,14 @@ void vBlank(void)
         loopCounter  = 0;
     }
 
-    if (screenmode == 2 && frameCounter % 2 == 1 && (keysHeld() & KEY_A))
-        TextBoxmodeHandler();
-    if (screenmode == 2 && frameCounter % 6 == 1 && !(keysHeld() & KEY_A))
-        TextBoxmodeHandler();
+    if (screenmode == ScreenModeTextBox) {
+        if (frameCounter % 2 == 1 && (keysHeld() & KEY_A))
+            TextBoxmodeHandler();
+        if (frameCounter % 6 == 1 && !(keysHeld() & KEY_A))
+            TextBoxmodeHandler();
+    }
 
-    if (screenmode != 2 && frameCounter % 59 == 0 && (keysHeld() & KEY_R)) {
+    if (screenmode != ScreenModeTextBox && frameCounter % 59 == 0 && (keysHeld() & KEY_R)) {
         char Tmp[50];
 
 #ifdef ShowHeapUsage

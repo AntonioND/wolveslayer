@@ -29,7 +29,7 @@ void TextBoxmode(char TxtOffset[10][256], int cnt, int num)
     // it will turn out a valid text for that defined case...hopefully
     wordnum = 0;
     for (int a = 0; a < 10; a++) {
-        if (screenmode != 2 && cnt > a) {
+        if (screenmode != ScreenModeTextBox && cnt > a) {
             // we start with next #1
             strcpy(Temp, TxtOffset[a]);
             chunker = strtok(Temp, " ");
@@ -76,7 +76,7 @@ void TextBoxmode(char TxtOffset[10][256], int cnt, int num)
 
         CurChar    = 1;
         CurWord    = 0;
-        screenmode = 2;
+        screenmode = ScreenModeTextBox;
         nextpage   = false;
     }
 }

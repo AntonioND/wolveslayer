@@ -96,7 +96,7 @@ void Menu(void)
                 MouseOnButt = 2;
         }
 
-        if (screenmode == 3) {
+        if (screenmode == ScreenModeItem) {
             if (touch.py > 22 && touch.py < 220)
                 if (touch.px > 134 && touch.px < 227)
                     CellSelect = (touch.py - 22) / 10;
@@ -131,7 +131,7 @@ void Menu(void)
         ItemMode();
         s = 1;
     }
-    if (!(keysHeld() & KEY_TOUCH) && Old == 2 && screenmode < 3) {
+    if (!(keysHeld() & KEY_TOUCH) && Old == 2 && screenmode < ScreenModePause) {
         PauseMode();
         s = 1;
     }

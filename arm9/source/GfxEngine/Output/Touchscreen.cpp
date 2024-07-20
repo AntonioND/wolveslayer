@@ -4,6 +4,7 @@
 #include "GfxEngine/Input/Input.h"
 #include "GfxEngine/Output/Inventory.h"
 #include "GfxEngine/Output/Textbox.h"
+#include "GfxEngine/Output/Touchscreen.h"
 
 // extern u8 textbox_bin[246 * 96];
 
@@ -12,11 +13,11 @@ u16 scrL_bin[256 * 192];
 u16 touch_bin[256 * 192];
 u16 textbox_pal[256];
 
-int screenmode = 0;
+ScreenModes screenmode = ScreenModeNormal;
 
 void ScreenModeLOADING(void)
 {
-    screenmode = -1;
+    screenmode = ScreenModeLoading;
 
     WaitForFreeVblank();
     for (int i = 0; i < 256 * 192; i++)
@@ -54,7 +55,7 @@ void UpdateBar(void)
 
 void ScreenMode(void)
 {
-    screenmode = 0;
+    screenmode = ScreenModeNormal;
 
     // Draw IngameBG
     WaitForFreeVblank();
@@ -67,15 +68,17 @@ void ScreenMode(void)
 
 void ScreenModeHandler(void)
 {
-    if (screenmode == 2 && (keysDown() & KEY_A) && CurWord == wordnum && nextpage == false) {
-        npctalk = -1;
-        ScreenMode();
-        CurWord = -1;
-        wordnum = -1;
-    }
+    if (screenmode == ScreenModeTextBox) {
+        if ((keysDown() & KEY_A) && CurWord == wordnum && nextpage == false) {
+            npctalk = -1;
+            ScreenMode();
+            CurWord = -1;
+            wordnum = -1;
+        }
 
-    if (screenmode == 2 && (keysDown() & KEY_A) && nextpage == true)
-        ShownextPage();
+        if ((keysDown() & KEY_A) && nextpage == true)
+            ShownextPage();
+    }
 }
 
 void Print(const char *Text, int x, int y)
@@ -101,11 +104,13 @@ void Print(const char *Text, int x, int y)
                 if (Font1[xx + yy * 668] == 1) {
                     i = x + xx - Char * sw + Counter * (sw + 1);
                     j = y + yy;
-                    if (screenmode == 0)
+
+                    if (screenmode == ScreenModeNormal)
                         if (i < 256 && j < 192)
                             if (i > -1 && j > -1)
                                 BG_GFX_SUB[i + (j * 256)] = ((u16 *)touch_bin)[i + (j * 256)] | BIT(15);
-                    if (screenmode == -1)
+
+                    if (screenmode == ScreenModeLoading)
                         if (i < 256 && j < 192)
                             if (i > -1 && j > -1)
                                 BG_GFX_SUB[i + (j * 256)] = ((u16 *)scrL_bin)[i + (j * 256)] | BIT(15);
@@ -172,7 +177,7 @@ void ItemMode(void)
 {
 #if 0
     int i, j;
-    screenmode = 3;
+    screenmode = ScreenModeItem;
 
     // Draw IngameBG
     WaitForFreeVblank();
@@ -233,7 +238,7 @@ void PauseMode(void)
 {
 #if 0
     int i, j;
-    screenmode = 4;
+    screenmode = ScreenModePause;
     // Draw IngameBG
     WaitForFreeVblank();
     for (i = 0; i < 256 * 256; i++)

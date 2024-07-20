@@ -25,7 +25,7 @@ void SetRot(int rot)
 
 void RunTime(void)
 {
-    if (screenmode < 2)
+    if (screenmode < ScreenModeTextBox)
         Time2++;
     if (Time2 > 2400)
         Time2 = 0;

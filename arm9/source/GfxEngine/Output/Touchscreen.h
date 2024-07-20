@@ -5,7 +5,15 @@
 
 // Touchscreen Functions
 
-extern int screenmode;
+typedef enum {
+    ScreenModeLoading = -1,
+    ScreenModeNormal  = 0,
+    ScreenModeTextBox = 2,
+    ScreenModeItem    = 3,
+    ScreenModePause   = 4,
+} ScreenModes;
+
+extern ScreenModes screenmode;
 
 extern u8 Font1[668 * 11];
 extern u16 scrL_bin[256 * 192];

@@ -146,6 +146,7 @@ void LoadScript(char filename[])
     ScreenMode();
 
     // ShowCollisionMap(12);
+    // AddTexttoEvent(filename);
 
     TextBoxmode(EventSpeech, EventSpeechCount, -1);
 

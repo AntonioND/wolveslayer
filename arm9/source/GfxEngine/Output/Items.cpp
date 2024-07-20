@@ -1,13 +1,12 @@
 #include "GfxEngine/3D.h"
-#include "GfxEngine/Script/Script_Load.h"
 #include "GfxEngine/Output/Inventory.h"
+#include "GfxEngine/Script/Script_Load.h"
 
 bool Key[100];
 bool Bool[100];
 
 // Items
-typedef struct
-{
+typedef struct {
     char Name[20];
     char Type[20];
     char ImgFileName[40];

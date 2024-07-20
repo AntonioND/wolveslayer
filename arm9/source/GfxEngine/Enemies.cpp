@@ -94,8 +94,8 @@ static void TurnittoPlayer(int a)
 
     // now we got the distance, and can look how to turn the NPC
     Enemies[a].Direction = -1;
-    if (Px > NPx) {                // right
-        if ((dx / 2) > dy) {       // more side then up/down
+    if (Px > NPx) {                   // right
+        if ((dx / 2) > dy) {          // more side then up/down
             Enemies[a].Direction = 2; // right
         }
         if ((dy / 2) > dx) { // more up/down then side
@@ -110,8 +110,8 @@ static void TurnittoPlayer(int a)
             else
                 Enemies[a].Direction = 1; // up-right
         }
-    } else {                       // left
-        if ((dx / 2) > dy) {       // more side then up/down
+    } else {                          // left
+        if ((dx / 2) > dy) {          // more side then up/down
             Enemies[a].Direction = 6; // left
         }
         if ((dy / 2) > dx) { // more up/down then side

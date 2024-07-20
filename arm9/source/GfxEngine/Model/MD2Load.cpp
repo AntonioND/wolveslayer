@@ -229,6 +229,7 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
             if (texturereverse) {
                 s = (float)m->texcoords[m->triangles[I].st[j]].s / m->header.skinwidth;
                 t = (float)m->texcoords[m->triangles[I].st[j]].t / m->header.skinheight;
+
                 m->flaechenkoords[m->triangles[I].st[j]].s = floattot16(float(s) * widthheight);
                 m->flaechenkoords[m->triangles[I].st[j]].t = floattot16(float(1 - t) * widthheight);
             }
@@ -236,6 +237,7 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
             if (!texturereverse) {
                 s = (float)m->texcoords[m->triangles[I].st[j]].s / m->header.skinwidth;
                 t = (float)m->texcoords[m->triangles[I].st[j]].t / m->header.skinheight;
+
                 m->flaechenkoords[m->triangles[I].st[j]].s = floattot16(float(s) * widthheight);
                 m->flaechenkoords[m->triangles[I].st[j]].t = floattot16(float(t) * widthheight);
             }

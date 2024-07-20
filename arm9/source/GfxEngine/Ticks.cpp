@@ -1,7 +1,7 @@
 static float sTicks = 0;
 
 int ticks11 = 0;
-int ticks32  = 0;
+int ticks32 = 0;
 
 // Needed to animate things...
 void HandleTicks(void)

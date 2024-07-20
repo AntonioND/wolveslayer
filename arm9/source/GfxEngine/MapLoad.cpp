@@ -24,7 +24,7 @@ static int MapWreal, MapHreal;
 typedef struct {
     char Name[60];
 
-    int PosX, PosY; // Location of the player in the origin map
+    int PosX, PosY;     // Location of the player in the origin map
     int TOPosX, TOPosY; // Destination of the player in the destination map
 
     bool IsDoor; // Set to true if the change is a door
@@ -97,6 +97,7 @@ void AddMapDoor(int x, int y, char Filename[], int tox, int toy, int key)
 void AddTexttoDoor(char txt[256])
 {
     int a = MapChangeCounter - 1;
+
     int count = MapChange[a].DoorSpeechCount;
     if (count >= 10)
         Crash("Too many texts in door");

@@ -11,7 +11,7 @@ int GroundX, GroundY;
 
 // Speeds up a bit when thoose values are used (which are used often and are fixed)
 const t16 GroundTextPosStart[4] = { inttot16(0), inttot16(32), inttot16(64), inttot16(96) };
-const t16 GroundTextPosEnd[4] = { inttot16(32), inttot16(64), inttot16(96), inttot16(128) };
+const t16 GroundTextPosEnd[4]   = { inttot16(32), inttot16(64), inttot16(96), inttot16(128) };
 
 GroundInfo Ground[Ground_Max];
 

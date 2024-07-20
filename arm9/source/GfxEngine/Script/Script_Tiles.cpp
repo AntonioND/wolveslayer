@@ -1,7 +1,7 @@
 #include "GfxEngine/Model/MD2Load.h"
 #include "GfxEngine/Render/Autotiles.h"
-#include "GfxEngine/Render/Ground.h"
 #include "GfxEngine/Render/Edge.h"
+#include "GfxEngine/Render/Ground.h"
 #include "GfxEngine/Render/Water.h"
 #include "GfxEngine/Texture/Bumpmapping.h"
 #include "XML/tinyxml.h"

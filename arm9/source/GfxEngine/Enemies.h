@@ -4,9 +4,9 @@
 #include "GfxEngine/Limits.h"
 
 typedef struct {
-    int X, Y;     // It's the HardPos on the Map(on which tile it stands)
-    float SX, SY; // It's softpos. It goes from -.5 to .5
-    int TextNum;  // The Index for texture
+    int X, Y;      // It's the HardPos on the Map(on which tile it stands)
+    float SX, SY;  // It's softpos. It goes from -.5 to .5
+    int TextNum;   // The Index for texture
     int Direction; // The Direcction for each NPC
     int Status;
     int Frame;

@@ -20,11 +20,11 @@ float CamPosSX = 0, CamPosSY = 0;
 
 float PlPosX = 15, PlPosY = 0;
 float PlPosSX = 0, PlPosSY = 0;
-float PlHeight = 0;
+float PlHeight  = 0;
 int PlDirection = 0;
-int PlStatus   = 0; // aviable :D
-int PlFrame    = 0;
-int PlHP       = 100;
+int PlStatus    = 0; // aviable :D
+int PlFrame     = 0;
+int PlHP        = 100;
 
 static int MouseOnButt = -1;
 

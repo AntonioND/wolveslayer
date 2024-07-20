@@ -8,8 +8,8 @@
 #include "GfxEngine/Output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/Render/Autotiles.h"
-#include "GfxEngine/Render/Ground.h"
 #include "GfxEngine/Render/Doors.h"
+#include "GfxEngine/Render/Ground.h"
 #include "GfxEngine/Script/Script_Chars.h"
 #include "GfxEngine/Script/Script_Objects.h"
 #include "GfxEngine/Script/Script_Others.h"
@@ -42,12 +42,12 @@ static void UnloadStuff(void)
     ResetEvent();
 
     for (int a = 0; a < Ground_Max; a++) {
-        Ground[a].ColorKey = 0;
+        Ground[a].ColorKey    = 0;
         Ground[a].TransEnable = false;
-        Ground[a].BumpEnable = false;
+        Ground[a].BumpEnable  = false;
     }
     for (int a = 0; a < Autotile_Max; a++) {
-        Autotile[a].ColorKeyMaster = 0;
+        Autotile[a].ColorKeyMaster  = 0;
         Autotile[a].IgnorecolorsNum = -1;
     }
     for (int a = 0; a < Object_Max; a++) {

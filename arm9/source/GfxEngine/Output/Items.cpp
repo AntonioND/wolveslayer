@@ -1,6 +1,5 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/Output/Inventory.h"
-#include "GfxEngine/Script/Script_Load.h"
 
 bool Key[100];
 bool Bool[100];
@@ -18,6 +17,17 @@ typedef struct {
 } Item_Types;
 
 Item_Types List[25];
+
+// Returns capital lettered text of the given text
+static void ucase(const char *old, char *new_)
+{
+    strcpy(new_, old);
+
+    for (u32 a = 0; a < strlen(old); a++) {
+        if ((old[a] > 0x60) && (old[a] < 0x7B))
+            new_[a] = old[a] - 0x20;
+    }
+}
 
 void LoadItemList(void)
 {

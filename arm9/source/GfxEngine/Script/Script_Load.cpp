@@ -21,17 +21,6 @@
 
 static bool outside;
 
-// Returns capital lettered text of the given text
-void ucase(const char *old, char *new_)
-{
-    strcpy(new_, old);
-
-    for (u32 a = 0; a < strlen(old); a++) {
-        if ((old[a] > 0x60) && (old[a] < 0x7B))
-            new_[a] = old[a] - 0x20;
-    }
-}
-
 static void UnloadStuff(void)
 {
     // Reset all datas

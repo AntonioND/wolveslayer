@@ -35,4 +35,7 @@
 
 #define EventSpeech_Max 10 // Max. number of speech strings
 
+#define MapChange_Max       25 // Max. number of map changes and doors
+#define MapChangeSpeech_Max 10 // Max. number of speech strings of a map change
+
 #endif // GFXENGINE_LIMITS_H__

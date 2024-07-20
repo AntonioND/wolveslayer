@@ -30,11 +30,11 @@ typedef struct {
     bool IsDoor; // Set to true if the change is a door
     int DoorKey;
     int DoorAngle;
-    char DoorSpeech[10][256]; // to hold 10 textes for each door with 256 chars
-    int DoorSpeechCount;      // Holds the Number of speeches a Door has...
+    char DoorSpeech[MapChangeSpeech_Max][256]; // to hold texts for each door with 256 chars
+    int DoorSpeechCount;                       // Holds the Number of speeches a Door has...
 } MapChangeInfo;
 
-static MapChangeInfo MapChange[25];
+static MapChangeInfo MapChange[MapChange_Max];
 
 static int MapChangeCounter;
 
@@ -47,7 +47,7 @@ void ResetMapChange(void)
 {
     MapChangeCounter = 0;
 
-    for (int a = 0; a < 25; a++) {
+    for (int a = 0; a < MapChange_Max; a++) {
         MapChange[a].IsDoor  = false;
         MapChange[a].DoorKey = 0;
         MapChange[a].PosX    = -1;
@@ -64,7 +64,7 @@ void ResetMapChange(void)
 
 void AddMapChange(int x, int y, char Filename[], int tox, int toy)
 {
-    if (MapChangeCounter >= 25)
+    if (MapChangeCounter >= MapChange_Max)
         Crash("Too many map changes");
 
     MapChange[MapChangeCounter].IsDoor  = false; // It isn't a door
@@ -79,7 +79,7 @@ void AddMapChange(int x, int y, char Filename[], int tox, int toy)
 
 void AddMapDoor(int x, int y, char Filename[], int tox, int toy, int key)
 {
-    if (MapChangeCounter >= 25)
+    if (MapChangeCounter >= MapChange_Max)
         Crash("Too many map doors");
 
     MapChange[MapChangeCounter].IsDoor    = true; // It is a door

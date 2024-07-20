@@ -34,9 +34,9 @@ void LoadTextureCommand(TiXmlElement *map)
         // Final call to load that shit
         if (id < Object_Max && id >= 0) {
             if (bump == false)
-                LoadModelTexture(FileNameCom, &ObjektTex[id], &TextureWidthHeight[id]);
+                LoadModelTexture(FileNameCom, &(ObjectTexture[id].Texture), &TextureWidthHeight[id]);
             else
-                LoadMBump3Texture(FileNameCom, &ObjektTex[id], &ObjektTexB[id], &ObjektTexC[id]);
+                LoadMBump3Texture(FileNameCom, &(ObjectTexture[id].Texture), &(ObjectTexture[id].TextureB), &(ObjectTexture[id].TextureC));
         }
 
         TexturehasBump[id] = bump;

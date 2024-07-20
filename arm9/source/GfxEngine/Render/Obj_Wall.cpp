@@ -4,10 +4,7 @@
 #include "GfxEngine/Render/Obj_Wall.h"
 #include "GfxEngine/Texture/Light.h"
 
-int ObjektTex[Object_Max]; // Standard slot for objects
-// int ObjektTexA[Object_Max];
-int ObjektTexB[Object_Max]; // Advanced slot for objects(bumpmapping)
-int ObjektTexC[Object_Max]; // Advanced slot for objects(bumpmapping)
+ObjectTextureInfo ObjectTexture[Object_Max];
 
 // Renders walls inside buildings
 void RenderWallBorder(int mode, int dirrection, f32 x, f32 y, f32 z, int textnum)
@@ -99,10 +96,10 @@ void RenderWallBorder(int mode, int dirrection, f32 x, f32 y, f32 z, int textnum
 
     for (int a = 0; a <= layers; a++) {
         if (a == 1)
-            glBindTexture(GL_TEXTURE_2D, ObjektTexB[textnum]);
+            glBindTexture(GL_TEXTURE_2D, ObjectTexture[textnum].TextureB);
 
         if (a == 2)
-            glBindTexture(GL_TEXTURE_2D, ObjektTexC[textnum]);
+            glBindTexture(GL_TEXTURE_2D, ObjectTexture[textnum].TextureC);
 
         // Wand Down
         glBegin(GL_QUADS);

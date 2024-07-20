@@ -202,7 +202,7 @@ static void RefreshWelt(void)
                 if (TexObj[x][y] >= 0) {
                     ObjectInfo *obj = &Objects[TexObj[x][y]];
 
-                    glBindTexture(GL_TEXTURE_2D, ObjektTex[obj->TextureID]);
+                    glBindTexture(GL_TEXTURE_2D, ObjectTexture[obj->TextureID].Texture);
 
                     height = TerrainMid[x][y];
                     posx   = inttof32(xx - 6);
@@ -278,17 +278,18 @@ static void RefreshWelt(void)
                             RenderHouseBorderDoor(0, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx,
                                                   floattof32(1.0 + GetHight(x, y)), posy); // Türslot Normal
                         if ((Precalcdata[x][y] & (1 << B_Mirrowable))) {
-                            glBindTexture(GL_TEXTURE_2D,
-                                          ObjektTex[TexObj[x][y]]); // We need that to set again...after rendering houspart with doorslot it
+                            // We need that to set again...after rendering houspart with doorslot it
+                            glBindTexture(GL_TEXTURE_2D, ObjectTexture[TexObj[x][y]].Texture);
+                            // Türslot Gespiegelt
                             RenderHouseBorderDoor(1, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx,
-                                                  floattof32(-.9 - GetHight(x, y)), posy); // Türslot Gespiegelt
+                                                  floattof32(-.9 - GetHight(x, y)), posy);
                         }
                     }
 
                     // wallParts...finaly
                     // Wall border
                     // if (IsObjBumpWall(x, y) == true)
-                    //     glBindTexture(GL_TEXTURE_2D, ObjektTexA[Object[TexObj[x][y]].TextureID]);
+                    //     glBindTexture(GL_TEXTURE_2D, ObjectTexture[Object[TexObj[x][y]].TextureID].TextureA);
 
                     if (ShapeObj[x][y] == Wallbor) {
                         SetCurWall(xx + CamPosX, yy + CamPosY);
@@ -305,10 +306,11 @@ static void RefreshWelt(void)
                             RenderWallBorderDoor(0, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx, floattof32(1 + GetHight(x, y)),
                                                  posy); // Türslot Normal
                         if ((Precalcdata[x][y] & (1 << B_Mirrowable))) {
-                            glBindTexture(GL_TEXTURE_2D,
-                                          ObjektTex[TexObj[x][y]]); // We need that to set again...after rendering houspart with doorslot it
+                            // We need that to set again...after rendering houspart with doorslot it
+                            glBindTexture(GL_TEXTURE_2D, ObjectTexture[TexObj[x][y]].Texture);
+                            // Türslot Gespiegelt
                             RenderWallBorderDoor(1, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx,
-                                                 floattof32(-1.02 - GetHight(x, y)), posy); // Türslot Gespiegelt
+                                                 floattof32(-1.02 - GetHight(x, y)), posy);
                         }
                     }
                 }

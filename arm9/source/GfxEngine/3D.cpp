@@ -10,7 +10,8 @@
 #include "GfxEngine/Output/Textbox.h"
 #include "GfxEngine/Output/Touchscreen.h"
 #include "GfxEngine/Render/Render.h"
-#include "GfxEngine/Tackt.h"
+#include "GfxEngine/Texture/Light.h"
+#include "GfxEngine/Ticks.h"
 #include "Sound/Music.h"
 
 #define ENABLE_SPLASH
@@ -150,8 +151,12 @@ void vBlank(void)
     ++elapsedFrames;
     ++frameCounter;
 
-    if (frameCounter % 2 == 1)
-        tackt();
+    if (frameCounter % 2 == 1) {
+        // Recalcs lightcolors based on the time of the day
+        RunTime();
+
+        HandleTicks();
+    }
 
     if (frameCounter >= 60) {
         frameold     = loopCounter;

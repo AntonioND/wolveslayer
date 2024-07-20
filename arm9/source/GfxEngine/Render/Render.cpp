@@ -16,8 +16,8 @@
 #include "GfxEngine/Render/Water.h"
 #include "GfxEngine/Script/Script_Chars.h"
 #include "GfxEngine/Script/Script_Objects.h"
-#include "GfxEngine/Tackt.h"
 #include "GfxEngine/Texture/Light.h"
+#include "GfxEngine/Ticks.h"
 #include "GfxEngine/Villagers.h"
 
 const f32 waterheight = floattof32(-.1);
@@ -119,7 +119,7 @@ static void RefreshMap(void)
                     // Water
                     if ((Precalcdata[x][y] & (1 << B_Water)) && ShapeObj[x][y] != Wallbor) {
                         glBindTexture(GL_TEXTURE_2D, Water[0]);
-                        RenderWater(tackt32, inttof32(xx - 6), waterheight, inttof32(yy - 8));
+                        RenderWater(ticks32, inttof32(xx - 6), waterheight, inttof32(yy - 8));
                     }
 
                     // Edge
@@ -226,7 +226,7 @@ static void RefreshWelt(void)
                     else
                         SetObjLightsSelfilluminated();
 
-                    Precalcmd2light(stackt11, TexObj[x][y] + 10); // mesh1 lights
+                    Precalcmd2light(ticks11, TexObj[x][y] + 10); // mesh1 lights
                 }
                 if (yy > -1) {
                     // Mesh
@@ -238,7 +238,7 @@ static void RefreshWelt(void)
                     glTranslatef32(posx, height, posy);
                     glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
                     glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + (DirObj[x][y] * -64)));
-                    RenderMD2Model(stackt11, TexObj[x][y] + 10);
+                    RenderMD2Model(ticks11, TexObj[x][y] + 10);
                     glPopMatrix(1);
                 }
                 // Same for mirrowing
@@ -248,7 +248,7 @@ static void RefreshWelt(void)
                     glTranslatef32(posx, -height, posy);
                     glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
                     glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + (DirObj[x][y] * -64)));
-                    RenderMD2ModelMirrowed(stackt11, TexObj[x][y] + 10);
+                    RenderMD2ModelMirrowed(ticks11, TexObj[x][y] + 10);
                     glPopMatrix(1);
                 }
             }
@@ -345,10 +345,10 @@ static void RefreshPlayer(void)
     PlHeight   = hpos;
 
     // walk/standing
-    int aniwaffe = stackt11;
+    int aniwaffe = ticks11;
     if (PlStatus == 0) {
         if (EnemyCount >= 0)
-            aniwaffe = 22 + stackt11;
+            aniwaffe = 22 + ticks11;
         if (screenmode < 2 && ((keysHeld() & KEY_DOWN) || (keysHeld() & KEY_UP) || (keysHeld() & KEY_LEFT) || (keysHeld() & KEY_RIGHT)))
             aniwaffe += 11;
     }
@@ -505,11 +505,11 @@ static void RefreshVillagers(void)
             glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
             glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
             if ((screenmode != 2 || a != npctalk) && screenmode <= 2) {
-                Precalcmd2light(stackt11 + 11, Villager[a].TextNum);
-                RenderMD2Model(stackt11 + 11, Villager[a].TextNum);
+                Precalcmd2light(ticks11 + 11, Villager[a].TextNum);
+                RenderMD2Model(ticks11 + 11, Villager[a].TextNum);
             } else {
-                Precalcmd2light(stackt11, Villager[a].TextNum);
-                RenderMD2Model(stackt11, Villager[a].TextNum);
+                Precalcmd2light(ticks11, Villager[a].TextNum);
+                RenderMD2Model(ticks11, Villager[a].TextNum);
             }
             glPopMatrix(1);
 
@@ -520,9 +520,9 @@ static void RefreshVillagers(void)
                 glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
                 glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
                 if ((screenmode != 2 || a != npctalk) && screenmode <= 2)
-                    RenderMD2ModelMirrowed(stackt11 + 11, Villager[a].TextNum);
+                    RenderMD2ModelMirrowed(ticks11 + 11, Villager[a].TextNum);
                 else
-                    RenderMD2ModelMirrowed(stackt11, Villager[a].TextNum);
+                    RenderMD2ModelMirrowed(ticks11, Villager[a].TextNum);
                 glPopMatrix(1);
             }
         }
@@ -544,7 +544,7 @@ static void RefreshEnemys(void)
     for (a = 0; a <= EnemyCount; a++) {
         blend = 31;
         // walking arround or following
-        aniset = 11 + stackt11;
+        aniset = 11 + ticks11;
         // attacking
         if (Enemies[a].Status == 1)
             aniset = 22 + float(Enemies[a].Frame / 22.0 * 18);

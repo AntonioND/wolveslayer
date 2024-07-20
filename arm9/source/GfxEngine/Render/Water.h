@@ -3,6 +3,8 @@
 
 #include "GfxEngine/3D.h"
 
+// TODO: Currently there isn't any map that uses water
+
 extern int Water[1];
 extern u32 WaterKey;
 

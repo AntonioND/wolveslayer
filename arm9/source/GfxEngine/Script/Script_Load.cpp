@@ -146,6 +146,8 @@ void LoadScript(char filename[])
     ScreenMode();
 
     // ShowCollisionMap(12);
+
+    // TODO: You can use this to display a message when a new room is loaded
     // AddTexttoEvent(filename);
 
     TextBoxmode(EventSpeech, EventSpeechCount, -1);

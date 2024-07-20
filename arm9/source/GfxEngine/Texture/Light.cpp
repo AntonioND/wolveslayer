@@ -98,10 +98,9 @@ void GiveLight(int x, int y, u8 *col)
         return;
     }
 
-    int r, g, b;
-    r      = EnvR;
-    g      = EnvG;
-    b      = EnvB;
+    int r  = EnvR;
+    int g  = EnvG;
+    int b  = EnvB;
     int nx = 0;
     int ny = 0;
     // OK we have the standard terrain light...
@@ -168,48 +167,38 @@ void GrapLight(int x, int y)
 // internal interpolation function
 static void GrapLightInterpolate(int x, int y, float sx, float sy, int *col)
 {
-    v16 ssx, ssy;
-    v16 msx, msy;
+    v16 ssx = floattov16(sx);
+    v16 ssy = floattov16(sy);
+    v16 msx = inttov16(1) - floattov16(sx);
+    v16 msy = inttov16(1) - floattov16(sy);
 
-    ssx = floattov16(sx);
-    ssy = floattov16(sy);
-    msx = inttov16(1) - floattov16(sx);
-    msy = inttov16(1) - floattov16(sy);
-
-    f32 r1, r2, r3, r4;
-    f32 g1, g2, g3, g4;
-    f32 b1, b2, b3, b4;
-
-    r1 = inttof32(WorldLightR[x + (y * 128)]);
-    g1 = inttof32(WorldLightG[x + (y * 128)]);
-    b1 = inttof32(WorldLightB[x + (y * 128)]);
-    r2 = inttof32(WorldLightR[x + 1 + (y * 128)]);
-    g2 = inttof32(WorldLightG[x + 1 + (y * 128)]);
-    b2 = inttof32(WorldLightB[x + 1 + (y * 128)]);
-    r3 = inttof32(WorldLightR[x + ((y + 1) * 128)]);
-    g3 = inttof32(WorldLightG[x + ((y + 1) * 128)]);
-    b3 = inttof32(WorldLightB[x + ((y + 1) * 128)]);
-    r4 = inttof32(WorldLightR[x + 1 + ((y + 1) * 128)]);
-    g4 = inttof32(WorldLightG[x + 1 + ((y + 1) * 128)]);
-    b4 = inttof32(WorldLightB[x + 1 + ((y + 1) * 128)]);
+    f32 r1 = inttof32(WorldLightR[x + (y * 128)]);
+    f32 g1 = inttof32(WorldLightG[x + (y * 128)]);
+    f32 b1 = inttof32(WorldLightB[x + (y * 128)]);
+    f32 r2 = inttof32(WorldLightR[x + 1 + (y * 128)]);
+    f32 g2 = inttof32(WorldLightG[x + 1 + (y * 128)]);
+    f32 b2 = inttof32(WorldLightB[x + 1 + (y * 128)]);
+    f32 r3 = inttof32(WorldLightR[x + ((y + 1) * 128)]);
+    f32 g3 = inttof32(WorldLightG[x + ((y + 1) * 128)]);
+    f32 b3 = inttof32(WorldLightB[x + ((y + 1) * 128)]);
+    f32 r4 = inttof32(WorldLightR[x + 1 + ((y + 1) * 128)]);
+    f32 g4 = inttof32(WorldLightG[x + 1 + ((y + 1) * 128)]);
+    f32 b4 = inttof32(WorldLightB[x + 1 + ((y + 1) * 128)]);
 
     // Ok now we got values for 4 corners
     // we just need to interpolate them using sx,sy
-    f32 rl, gl, bl;
-    f32 rr, gr, br;
-    f32 r, g, b;
 
-    rl = mulf32(r3, ssy) + mulf32(r1, msy);
-    gl = mulf32(g3, ssy) + mulf32(g1, msy);
-    bl = mulf32(b3, ssy) + mulf32(b1, msy);
+    f32 rl = mulf32(r3, ssy) + mulf32(r1, msy);
+    f32 gl = mulf32(g3, ssy) + mulf32(g1, msy);
+    f32 bl = mulf32(b3, ssy) + mulf32(b1, msy);
 
-    rr = mulf32(r4, ssy) + mulf32(r2, msy);
-    gr = mulf32(g4, ssy) + mulf32(g2, msy);
-    br = mulf32(b4, ssy) + mulf32(b2, msy);
+    f32 rr = mulf32(r4, ssy) + mulf32(r2, msy);
+    f32 gr = mulf32(g4, ssy) + mulf32(g2, msy);
+    f32 br = mulf32(b4, ssy) + mulf32(b2, msy);
 
-    r = mulf32(rr, ssx) + mulf32(rl, msx);
-    g = mulf32(gr, ssx) + mulf32(gl, msx);
-    b = mulf32(br, ssx) + mulf32(bl, msx);
+    f32 r = mulf32(rr, ssx) + mulf32(rl, msx);
+    f32 g = mulf32(gr, ssx) + mulf32(gl, msx);
+    f32 b = mulf32(br, ssx) + mulf32(bl, msx);
 
     // we have what we neededlets use the color
     col[0] = (u8)f32toint(r);

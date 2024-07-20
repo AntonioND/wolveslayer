@@ -94,22 +94,19 @@ void LoadMBump5Texture(char filename[], int num)
     // now we create 5 textures
     for (u32 x = 0; x < height; x++) {
         for (u32 y = 0; y < height; y++) {
-            buffNorm[x + (y * height)]  = buffer8[(x) + (y * width)];
+            buffNorm[x + (y * height)]  = buffer8[x + (y * width)];
             buffLeft[x + (y * height)]  = 0;
             buffRight[x + (y * height)] = 0;
             buffDown[x + (y * height)]  = 0;
 
-            if (pal[buffer8[(x + height) + (y * width)]] == red) {
-                buffRight[x + (y * height)] = buffer8[(x) + (y * width)];
-            }
+            if (pal[buffer8[(x + height) + (y * width)]] == red)
+                buffRight[x + (y * height)] = buffer8[x + (y * width)];
 
-            if (pal[buffer8[(x + height) + (y * width)]] == blue) {
-                buffLeft[x + (y * height)] = buffer8[(x) + (y * width)];
-            }
+            if (pal[buffer8[(x + height) + (y * width)]] == blue)
+                buffLeft[x + (y * height)] = buffer8[x + (y * width)];
 
-            if (pal[buffer8[(x + height) + (y * width)]] == green) {
-                buffDown[x + (y * height)] = buffer8[(x) + (y * width)];
-            }
+            if (pal[buffer8[(x + height) + (y * width)]] == green)
+                buffDown[x + (y * height)] = buffer8[x + (y * width)];
         }
     }
 

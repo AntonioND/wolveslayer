@@ -3,6 +3,8 @@
 
 #include "GfxEngine/Limits.h"
 
+// TODO: The functions in this file are unused
+
 typedef struct {
     int X, Y;             // It's the HardPos on the Map(on which tile it stands)
     float SX, SY;         // It's the softpos. It goes from -.5 to .5

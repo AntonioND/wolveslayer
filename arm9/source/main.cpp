@@ -23,9 +23,9 @@ int main(int argc, char *argv[])
         CheckEndGame();
 
         ScreenModeHandler(); // For screenshots
-        if (screenmode < 2)
+        if (screenmode < ScreenModeTextBox)
             inputs();
-        if (screenmode > 2)
+        if (screenmode > ScreenModeTextBox)
             Menu();
 
         UpdateVillagers();

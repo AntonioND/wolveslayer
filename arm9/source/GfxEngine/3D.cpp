@@ -165,6 +165,7 @@ void vBlank(void)
     }
 
     if (screenmode == ScreenModeTextBox) {
+        // If the player holds A, print message 3 times faster
         if (frameCounter % 2 == 1 && (keysHeld() & KEY_A))
             TextBoxmodeHandler();
         if (frameCounter % 6 == 1 && !(keysHeld() & KEY_A))
@@ -202,6 +203,8 @@ void vBlank(void)
     }
 
 #if 0
+    // If this code is enabled, fatInitDefault() needs to be called at init.
+
     if ((keysHeld() & KEY_L))
         DisplCapture();
 
@@ -211,13 +214,13 @@ void vBlank(void)
         capcount++;
 
         char filename[20];
-        sprintf(filename, "/%d.raw", capcount);
-        FILE *bmp = fopen(filename, "w");
-        // if (bmp == NULL) {
+        sprintf(filename, "fat:/%d.raw", capcount);
+        FILE *f = fopen(filename, "w");
+        // if (f == NULL) {
         //     return;
         // }
-        fwrite(BG_GFX_SUB, 256 * 256 * 2, 1, bmp);
-        fclose(bmp);
+        fwrite(BG_GFX_SUB, 256 * 256 * 2, 1, f);
+        fclose(f);
     }
 #endif
 }

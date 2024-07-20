@@ -4,7 +4,7 @@
 #include "GfxEngine/Limits.h"
 #include "XML/tinyxml.h"
 
-extern int Figuren[Figures_Max];
+extern int FigureTextures[FigureTex_Max];
 
 void LoadChars(TiXmlElement *map);
 

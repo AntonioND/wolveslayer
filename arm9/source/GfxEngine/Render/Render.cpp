@@ -325,7 +325,7 @@ static void RefreshWelt(void)
 }
 
 //*******************************************************************************
-// Spieler
+
 static void RefreshPlayer(void)
 {
     float sx = PlPosSX + .5;
@@ -339,7 +339,7 @@ static void RefreshPlayer(void)
     spos[1] = sy;
     SetMdlLights(pos, spos, .4, PlDirection * 64);
 
-    glBindTexture(GL_TEXTURE_2D, Figuren[0]);
+    glBindTexture(GL_TEXTURE_2D, FigureTextures[CharacterFigureTex_ID]);
 
     float hpos = GetInterPolY(GetPX(), GetPY(), sx, sy);
     PlHeight   = hpos;
@@ -398,7 +398,7 @@ static void RefreshPlayer(void)
 
     // if (EquipedWeapon > -1) {
 
-    glBindTexture(GL_TEXTURE_2D, Figuren[1]);
+    glBindTexture(GL_TEXTURE_2D, FigureTextures[WeaponFigureTex_ID]);
 
     // Waffe
     glPushMatrix();
@@ -465,7 +465,7 @@ static void RefreshVillagers(void)
 
     for (a = 0; a <= VillagerCount; a++) {
         hpos = GetHight(Villager[a].X, Villager[a].Y);
-        glBindTexture(GL_TEXTURE_2D, Figuren[Villager[a].TextNum]);
+        glBindTexture(GL_TEXTURE_2D, FigureTextures[Villager[a].TextNum]);
 
         if (((Villager[a].X - 6) + Villager[a].SX - (CamPosX)-CamPosSX > -4)
            && ((Villager[a].X - 6) + Villager[a].SX - (CamPosX)-CamPosSX < 4)
@@ -560,7 +560,7 @@ static void RefreshEnemys(void)
         }
 
         hpos = GetHight(Enemies[a].X, Enemies[a].Y);
-        glBindTexture(GL_TEXTURE_2D, Figuren[Enemies[a].TextNum]);
+        glBindTexture(GL_TEXTURE_2D, FigureTextures[Enemies[a].TextNum]);
 
         if (((Enemies[a].X - 6) + Enemies[a].SX - (CamPosX)-CamPosSX > -4)
            && ((Enemies[a].X - 6) + Enemies[a].SX - (CamPosX)-CamPosSX < 4)

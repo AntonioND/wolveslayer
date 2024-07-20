@@ -4,28 +4,30 @@
 #include "GfxEngine/Settings.h"
 #include "XML/tinyxml.h"
 
-int Figuren[Figures_Max];
+int FigureTextures[FigureTex_Max];
 
-char Names[8][20];
-int Atps[8];
-int Hps[8];
-float rads[8];
-bool boss[8];
+static char Names[EnemyFigureTex_Max][20];
+static int Atps[EnemyFigureTex_Max];
+static int Hps[EnemyFigureTex_Max];
+static float rads[EnemyFigureTex_Max];
+static bool boss[EnemyFigureTex_Max];
 
 void LoadChars(TiXmlElement *map)
 {
     int textsize;
-    // loadmainchar and weapon
-    LoadModelTexture(MaincharText, &Figuren[0], &textsize);
-    LoadMD2Model(MaincharMd2, 0, textsize, 35);
 
-    LoadModelTexture(waffeText, &Figuren[1], &textsize);
-    LoadMD2Model(waffeMd2, 1, textsize, 35);
+    // Load main character and weapon
+    LoadModelTexture(MaincharText, &FigureTextures[CharacterFigureTex_ID], &textsize);
+    LoadMD2Model(MaincharMd2, CharacterFigureTex_ID, textsize, 35);
 
-    // load enemy defenition stuff
+    LoadModelTexture(waffeText, &FigureTextures[WeaponFigureTex_ID], &textsize);
+    LoadMD2Model(waffeMd2, WeaponFigureTex_ID, textsize, 35);
+
+    // Load enemy defenition:
+    //
     // <enemydef name="Wolve1">
     //     <mesh        file="enemys/wolf.md2" scale="40" radius=".8"/>
-    //     <texture     file="enemys/wolf.bmp" />
+    //     <texture     file="enemys/wolf.bmp"/>
     //     <atributes   healthpower="100" attackpower="2" endgame="true"/>
     // </enemydef>
 
@@ -34,12 +36,11 @@ void LoadChars(TiXmlElement *map)
     int Num = -1;
     int scale;
     TiXmlElement *endef = map->FirstChildElement("enemydef");
-    // TiXmlElement *atributes;
 
-    for (int a = 0; a < 8; a++)
+    for (int a = 0; a < EnemyFigureTex_Max; a++)
         strcpy(Names[a], "-.-öäüß");
 
-    while (endef && Num < 7) {
+    while (endef && (Num < (EnemyFigureTex_Max - 1))) {
         TiXmlElement *texture   = endef->FirstChildElement("texture");
         TiXmlElement *mesh      = endef->FirstChildElement("mesh");
         TiXmlElement *atributes = endef->FirstChildElement("atributes");
@@ -83,11 +84,12 @@ void LoadChars(TiXmlElement *map)
 
             // loadstuff
             if (texture->Attribute("file") && mesh->Attribute("file")) {
-                if (2 + Num >= Figures_Max)
+                int id = EnemyFigureBaseTex_ID + Num;
+                if (id >= FigureTex_Max)
                     Crash("Too many figures");
 
-                LoadModelTexture(TextureNameCom, &Figuren[2 + Num], &textsize);
-                LoadMD2Model(FileNameCom, 2 + Num, textsize, scale);
+                LoadModelTexture(TextureNameCom, &FigureTextures[id], &textsize);
+                LoadMD2Model(FileNameCom, id, textsize, scale);
             }
         }
 
@@ -113,7 +115,9 @@ void LoadChars(TiXmlElement *map)
             if (ene->Attribute("pos") && enenum >= 0) {
                 int x, y;
                 sscanf(ene->Attribute("pos"), "%i,%i", &x, &y);
-                AddEnemy(x, y, enenum + 2, Atps[enenum], Hps[enenum], rads[enenum], boss[enenum]);
+
+                int id = EnemyFigureBaseTex_ID + enenum;
+                AddEnemy(x, y, id, Atps[enenum], Hps[enenum], rads[enenum], boss[enenum]);
             }
         }
 

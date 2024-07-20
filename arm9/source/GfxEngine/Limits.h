@@ -9,12 +9,22 @@
 #define Villagers_Max        5  // Max. number of NPCs
 #define VillagerSpeeches_Max 10 // Max. number of speech strings of an NPC
 
-#define Enemies_Max   10 // Max. number of enemies
+#define Enemies_Max 10 // Max. number of enemies in the map at the same time
 
+// Object-related definitions
 #define Object_Max        26 // Max. number of objects
 #define ObjectTexture_Max 23 // Max. number of textures available for objects
 
-#define Figures_Max 10 // Max number of figures
+// Hardcoded IDs used for textures for figures (character, weapon, enemies and villagers)
+#define CharacterFigureTex_ID   0
+#define WeaponFigureTex_ID      1
+#define EnemyFigureBaseTex_ID   2
+
+// Amount of textures for figures (character, weapon, enemies and villagers)
+#define CharacterFigureTex_Max 1 // Max. number of figures for characters
+#define WeaponFigureTex_Max    1 // Max. number of figures for weapons
+#define EnemyFigureTex_Max     8 // Max. number of figures for enemies and villagers
+#define FigureTex_Max          (CharacterFigureTex_Max + WeaponFigureTex_Max + EnemyFigureTex_Max)
 
 #define MD2_Max 62 // Max. number of MD2 models loaded (enemies, objects, etc)
 

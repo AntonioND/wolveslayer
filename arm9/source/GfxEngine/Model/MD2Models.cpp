@@ -3,7 +3,6 @@
 #include "GfxEngine/Texture/Light.h"
 
 MD2Entity Models[MD2_Max];
-bool ModelEnable[MD2_Max];
 
 static u16 *ColorContainer;
 
@@ -15,7 +14,7 @@ void Precalcmd2light(int n, int num)
     if ((n < 0) || (n > Models[num].header.num_frames - 1))
         n = Models[num].header.num_frames - 1;
 
-    if (ModelEnable[num] == false)
+    if (Models[num].Enabled == false)
         return;
 
     nds_vertex_t *vert = Models[num].rahmen[n].verts;
@@ -35,24 +34,26 @@ void RenderMD2Model(int n, int num)
     if ((num < 0) || (num >= MD2_Max))
         Crash("Invalid number:%d\n%s", num, __func__);
 
-    int i, j, stnum, vertnum;
-    // MD2Entity mod = Models[num];
+    if (Models[num].Enabled == false)
+        Crash("Drawing disabled MD2:%d\n%s", num, __func__);
+
     if ((n < 0) || (n > Models[num].header.num_frames - 1))
-        n = Models[num].header.num_frames - 1;
-    if (ModelEnable[num] == false)
-        return;
+        Crash("Invalid MD2 frame:%d\n%s", n, __func__);
+
+    glBegin(GL_TRIANGLES);
 
     nds_vertex_t *vert = Models[num].rahmen[n].verts;
-    glBegin(GL_TRIANGLES);
-    for (i = 0; i < Models[num].header.num_tris; ++i) {
-        for (j = 0; j < 3; ++j) {
-            stnum     = Models[num].dreiecke[i].st[j];
-            vertnum   = Models[num].dreiecke[i].vertex[j];
+    for (int i = 0; i < Models[num].header.num_tris; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            int stnum   = Models[num].dreiecke[i].st[j];
+            int vertnum = Models[num].dreiecke[i].vertex[j];
+
             GFX_COLOR = (vuint32)ColorContainer[vertnum];
             glTexCoord2t16(Models[num].flaechenkoords[stnum].s, Models[num].flaechenkoords[stnum].t);
             glVertex3v16(vert[vertnum].v[0], vert[vertnum].v[1], vert[vertnum].v[2]);
         }
     }
+
     glEnd();
 }
 
@@ -61,23 +62,25 @@ void RenderMD2ModelMirrowed(int n, int num)
     if ((num < 0) || (num >= MD2_Max))
         Crash("Invalid number:%d\n%s", num, __func__);
 
-    int i, j, stnum, vertnum;
-    // MD2Entity mod = &Models[num];
+    if (Models[num].Enabled == false)
+        Crash("Drawing disabled MD2:%d\n%s", num, __func__);
+
     if ((n < 0) || (n > Models[num].header.num_frames - 1))
-        n = Models[num].header.num_frames - 1;
-    if (ModelEnable[num] == false)
-        return;
+        Crash("Invalid MD2 frame:%d\n%s", n, __func__);
+
+    glBegin(GL_TRIANGLES);
 
     nds_vertex_t *vert = Models[num].rahmen[n].verts;
-    glBegin(GL_TRIANGLES);
-    for (i = 0; i < Models[num].header.num_tris; ++i) {
-        for (j = 0; j < 3; ++j) {
-            stnum     = Models[num].dreiecke[i].st[j];
-            vertnum   = Models[num].dreiecke[i].vertex[j];
+    for (int i = 0; i < Models[num].header.num_tris; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            int stnum   = Models[num].dreiecke[i].st[j];
+            int vertnum = Models[num].dreiecke[i].vertex[j];
+
             GFX_COLOR = (vuint32)ColorContainer[vertnum];
             glTexCoord2t16(Models[num].flaechenkoords[stnum].s, Models[num].flaechenkoords[stnum].t);
             glVertex3v16(vert[vertnum].v[0], vert[vertnum].v[1], -vert[vertnum].v[2]);
         }
     }
+
     glEnd();
 }

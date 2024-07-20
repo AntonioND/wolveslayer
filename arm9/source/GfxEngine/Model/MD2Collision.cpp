@@ -13,6 +13,12 @@ static void Putpixel(int x, int y, int modelnum)
 
 bool GetModelCollsisionXY(int num, int x, int y, int rot)
 {
+    if (num < 0 || num >= MD2_Max)
+        Crash("Invalid number: %d\n%s", num, __func__);
+
+    if (Models[num].Enabled == false)
+        return true;
+
     int X = 0, Y = 0;
     if (rot == 0) {
         X = x;
@@ -34,11 +40,6 @@ bool GetModelCollsisionXY(int num, int x, int y, int rot)
         Y = x;
     }
 
-    if (num < 0 || num >= MD2_Max)
-        Crash("Invalid number: %d\n%s", num, __func__);
-
-    if (ModelEnable[num] == false)
-        return true;
     // return Models[num].Image[y];
     if ((Models[num].Image[Y] & (1 << X)) != 0)
         return false;
@@ -81,7 +82,10 @@ static void Line(int a, int b, int c, int d, int modelnum)
 
 void MakeCollisionMap(int modelnum)
 {
-    if (ModelEnable[modelnum] == false)
+    if (modelnum < 0 || modelnum >= MD2_Max)
+        Crash("Invalid number: %d\n%s", modelnum, __func__);
+
+    if (Models[modelnum].Enabled == false)
         return;
 
     // Fist we clear the 2D coolision image of the model
@@ -141,6 +145,12 @@ void MakeCollisionMap(int modelnum)
 // is displayed with "modelnum = 0".
 void ShowCollisionMap(int modelnum)
 {
+    if (modelnum < 0 || modelnum >= MD2_Max)
+        Crash("Invalid number: %d\n%s", modelnum, __func__);
+
+    if (Models[modelnum].Enabled == false)
+        return;
+
     for (int y = 0; y < 21; y++) {
         for (int x = 0; x < 21; x++) {
             if (GetModelCollsisionXY(modelnum, x, y, 0))

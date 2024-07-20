@@ -96,6 +96,9 @@ typedef struct {
 
     // holds an 2d image for collision
     u32 Image[21];
+
+    // True if the model is enabled
+    bool Enabled;
 } MD2Entity;
 
 #endif // GFXENGINE_MODEL_MD2_H__

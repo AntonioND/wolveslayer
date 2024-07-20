@@ -6,7 +6,7 @@
 extern bool LoadingNow;
 
 // Returns capital lettered text of the given text
-void ucase(char *character, char *New);
+void ucase(const char *old, char *new_);
 
 // Loads a new script
 void LoadScript(char filename[]);

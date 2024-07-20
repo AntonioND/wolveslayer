@@ -25,10 +25,9 @@ void InitTableOfNormal(void)
 
 void FreeModels(void)
 {
-    int a, N;
-    for (a = 0; a < MD2_Max; a++) {
+    for (int a = 0; a < MD2_Max; a++) {
         if (ModelEnable[a] == true) {
-            for (N = 0; N < Models[a].header.num_frames; ++N)
+            for (int N = 0; N < Models[a].header.num_frames; ++N)
                 free(Models[a].rahmen[N].verts);
             free(Models[a].rahmen);
             free(Models[a].flaechenkoords);
@@ -40,6 +39,9 @@ void FreeModels(void)
 
 void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
 {
+    if ((num < 0) || (num >= MD2_Max))
+        Crash("Invalid number:%d\n%s", num, __func__);
+
     bool texturereverse = true;
 
     // If the last character of the name is m, reverse the texture. This is done
@@ -117,16 +119,15 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
     }
 
     // nun schön brav eins nach dem anderen von float und den dreck in fixed point math konvertieren
-    int I, j, N;
     float s, t;
     vec3_t v;
     md2_frame_t *pframe;
     md2_vertex_t *pvert; // der kram is nötig dafür
 
     // also framedata in rahmendaten umwandeln
-    for (N = 0; N < Models[num].header.num_frames; ++N) {
-        for (I = 0; I < Models[num].header.num_tris; ++I) {
-            for (j = 0; j < 3; ++j) {
+    for (int N = 0; N < Models[num].header.num_frames; ++N) {
+        for (int I = 0; I < Models[num].header.num_tris; ++I) {
+            for (int j = 0; j < 3; ++j) {
                 pframe = &Models[num].frames[N];
                 pvert  = &pframe->verts[Models[num].triangles[I].vertex[j]];
                 // dekomresse die aktuelle framedate
@@ -143,11 +144,10 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
 
     f32 normx = 0, normz = 0;
     // Normal indices
-    int g;
-    for (N = 0; N < Models[num].header.num_frames; ++N) {
-        for (I = 0; I < Models[num].header.num_vertices; ++I) {
+    for (int N = 0; N < Models[num].header.num_frames; ++N) {
+        for (int I = 0; I < Models[num].header.num_vertices; ++I) {
             Models[num].rahmen[N].verts[I].colorindex = 0;
-            for (g = 0; g < 4; g++) {
+            for (int g = 0; g < 4; g++) {
                 if (g == 0) {
                     normz = anormtable16[Models[num].frames[N].verts[I].normalIndex][0];
                     normx = anormtable16[Models[num].frames[N].verts[I].normalIndex][1];
@@ -223,8 +223,8 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
     }
 
     // Nun zu den texturkooridinaten
-    for (I = 0; I < Models[num].header.num_tris; ++I) {
-        for (j = 0; j < 3; ++j) {
+    for (int I = 0; I < Models[num].header.num_tris; ++I) {
+        for (int j = 0; j < 3; ++j) {
             if (texturereverse) {
                 s = (float)Models[num].texcoords[Models[num].triangles[I].st[j]].s / Models[num].header.skinwidth;
                 t = (float)Models[num].texcoords[Models[num].triangles[I].st[j]].t / Models[num].header.skinheight;
@@ -243,7 +243,7 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
         }
     }
 
-    for (N = 0; N < Models[num].header.num_frames; ++N)
+    for (int N = 0; N < Models[num].header.num_frames; ++N)
         free(Models[num].frames[N].verts);
     free(Models[num].frames);
     free(Models[num].texcoords);
@@ -256,6 +256,9 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
 
 void LoadModelTexture(char filename[], int *Target, int *w)
 {
+    if (Target == NULL || w == NULL)
+        Crash("Invalid arguments:\n%s", __func__);
+
     u8 *picbuff;
     u16 *palbuff;
     u32 height, width;

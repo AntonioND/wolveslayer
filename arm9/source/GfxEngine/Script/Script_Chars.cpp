@@ -1,3 +1,4 @@
+#include "GfxEngine/3D.h"
 #include "GfxEngine/Enemies.h"
 #include "GfxEngine/Model/MD2Load.h"
 #include "GfxEngine/Settings.h"
@@ -82,6 +83,9 @@ void LoadChars(TiXmlElement *map)
 
             // loadstuff
             if (texture->Attribute("file") && mesh->Attribute("file")) {
+                if (2 + Num >= 10)
+                    Crash("Too many figures");
+
                 LoadModelTexture(TextureNameCom, &Figuren[2 + Num], &textsize);
                 LoadMD2Model(FileNameCom, 2 + Num, textsize, scale);
             }

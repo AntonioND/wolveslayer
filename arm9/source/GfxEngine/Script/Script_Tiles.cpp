@@ -55,7 +55,7 @@ void LoadAutoGroundCommand(TiXmlElement *map)
     TiXmlElement *aground = map->FirstChildElement("autoground");
     TiXmlElement *ig;
 
-    while (aground && a < 16) {
+    while (aground && a < Autotile_Max) {
         char FileNameCom[60];
         snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", aground->Attribute("file"));
 

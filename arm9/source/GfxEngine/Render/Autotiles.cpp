@@ -10,6 +10,9 @@ AutotileInfo Autotile[Autotile_Max];
 // The way a ground texture should be loaded
 void LoadAutotileTexture(char filename[], int num)
 {
+    if ((num < 0) || (num >= Autotile_Max))
+        Crash("Invalid number:%d\n%s", num, __func__);
+
     u8 *buffer8;
     u16 *pal;
     u32 height, width;

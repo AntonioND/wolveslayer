@@ -185,21 +185,17 @@ void Interact(void)
     // doors
     if (PlStatus == 0 && Gameended == false) {
         if (keysDown() & KEY_A) {
-            if (d) {
+            if (d)
                 OpenMapDoor(GetPX(), GetPY() + 1);
-            }
 
-            if (l) {
+            if (l)
                 OpenMapDoor(GetPX() - 1, GetPY());
-            }
 
-            if (u) {
+            if (u)
                 OpenMapDoor(GetPX(), GetPY() - 1);
-            }
 
-            if (r) {
+            if (r)
                 OpenMapDoor(GetPX() + 1, GetPY());
-            }
         }
 
         if (keysDown() & KEY_B) {

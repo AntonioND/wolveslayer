@@ -64,6 +64,9 @@ void ResetMapChange(void)
 
 void AddMapChange(int x, int y, char Filename[], int tox, int toy)
 {
+    if (MapChangeCounter >= 25)
+        Crash("Too many map changes");
+
     MapChange[MapChangeCounter].IsDoor  = false; // It isn't a door
     MapChange[MapChangeCounter].DoorKey = 0;     // So it doesnt need a key
     MapChange[MapChangeCounter].PosX    = x;
@@ -76,6 +79,9 @@ void AddMapChange(int x, int y, char Filename[], int tox, int toy)
 
 void AddMapDoor(int x, int y, char Filename[], int tox, int toy, int key)
 {
+    if (MapChangeCounter >= 25)
+        Crash("Too many map doors");
+
     MapChange[MapChangeCounter].IsDoor    = true; // It is a door
     MapChange[MapChangeCounter].DoorKey   = key;  // So it needs a key
     MapChange[MapChangeCounter].PosX      = x;
@@ -92,10 +98,11 @@ void AddTexttoDoor(char txt[256])
 {
     int a = MapChangeCounter - 1;
     int count = MapChange[a].DoorSpeechCount;
-    if (count < 10) {
-        strcpy(MapChange[a].DoorSpeech[count], txt);
-        MapChange[a].DoorSpeechCount++;
-    }
+    if (count >= 10)
+        Crash("Too many texts in door");
+
+    strcpy(MapChange[a].DoorSpeech[count], txt);
+    MapChange[a].DoorSpeechCount++;
 }
 
 void GetRGBfromMap(int x, int y, u8 &r, u8 &g, u8 &b)
@@ -255,14 +262,12 @@ u8 MapObjGetRot(int x, int y)
 
 u32 MapObjectGetRGB(int x, int y)
 {
-    if (x > -1 && y > -1) {
-        if (x < MapGetWr() && y < MapGetHr()) {
-            int xx = (x * 3) + 2;
-            int yy = (y * 3) + 1;
-
-            return MapImage[xx][yy];
-        }
+    if ((x > -1 && y > -1) && (x < MapGetWr() && y < MapGetHr())) {
+        int xx = (x * 3) + 2;
+        int yy = (y * 3) + 1;
+        return MapImage[xx][yy];
     }
+
     return 0;
 }
 

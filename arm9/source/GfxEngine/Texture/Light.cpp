@@ -361,6 +361,7 @@ void SetObjLightsSelfilluminated(void)
     MdlLight16[2] = white;
     MdlLight16[3] = white;
 }
+
 int GetLightRot(void)
 {
     return rotation;

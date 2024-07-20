@@ -24,6 +24,9 @@ void SetCurGround(int x, int y)
 // The way a ground texture should be loaded
 void LoadGroundTexture(char filename[], int num)
 {
+    if ((num < 0) || (num >= Ground_Max))
+        Crash("Invalid ground number:\n%d (max %d)", num, Ground_Max);
+
     u8 *buffer8;
     u16 *pal;
     u32 height, width;

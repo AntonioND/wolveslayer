@@ -28,16 +28,17 @@ void ResetEnemys(void)
 
 void AddEnemy(int x, int y, int texnum, int atp, int hp, float rad, bool boss)
 {
-    if (10 > EnemyCount + 1) {
-        EnemyCount++;
-        Enemies[EnemyCount].X       = x;
-        Enemies[EnemyCount].Y       = y;
-        Enemies[EnemyCount].TextNum = texnum;
-        Enemies[EnemyCount].ATP     = atp;
-        Enemies[EnemyCount].HP      = hp;
-        Enemies[EnemyCount].Radius  = rad;
-        Enemies[EnemyCount].IsBoss  = boss;
-    }
+    if (EnemyCount >= 10)
+        Crash("Too many enemies");
+
+    EnemyCount++;
+    Enemies[EnemyCount].X       = x;
+    Enemies[EnemyCount].Y       = y;
+    Enemies[EnemyCount].TextNum = texnum;
+    Enemies[EnemyCount].ATP     = atp;
+    Enemies[EnemyCount].HP      = hp;
+    Enemies[EnemyCount].Radius  = rad;
+    Enemies[EnemyCount].IsBoss  = boss;
 }
 
 static void TurnEnemy(int a, bool l, bool r, bool u, bool d)
@@ -67,15 +68,11 @@ static void TurnEnemy(int a, bool l, bool r, bool u, bool d)
 
 static void TurnittoPlayer(int a)
 {
-    float Px, Py;
-    float NPx, NPy;
-    float dx, dy;
+    float NPx = GetPX() + (PlPosSX + .5); // its playerpos here...
+    float NPy = GetPY() + (PlPosSY + .5); // why? copy/paste/change a bit...easy
 
-    NPx = GetPX() + (PlPosSX + .5); // its playerpos here...
-    NPy = GetPY() + (PlPosSY + .5); // why? copy/paste/change a bit...easy
-
-    Px = Enemies[a].X;
-    Py = Enemies[a].Y;
+    float Px = Enemies[a].X;
+    float Py = Enemies[a].Y;
     if (Enemies[a].SY >= -.5)
         Py++;
     if (Enemies[a].SY <= .5)
@@ -87,10 +84,10 @@ static void TurnittoPlayer(int a)
     Px += Enemies[a].SX + .5;
     Py += Enemies[a].SY + .5;
 
-    dx = Px - NPx;
+    float dx = Px - NPx;
     if (dx < 0)
         dx *= -1;
-    dy = Py - NPy;
+    float dy = Py - NPy;
     if (dy < 0)
         dy *= -1;
 
@@ -133,13 +130,11 @@ static void TurnittoPlayer(int a)
 
 static float gethposfromenemy(int a, float sx, float sy)
 {
-    float vsx, vsy;
-    int vx, vy;
+    float vx  = Enemies[a].X;
+    float vy  = Enemies[a].Y;
+    float vsx = Enemies[a].SX + sx;
+    float vsy = Enemies[a].SY + sy;
 
-    vx  = Enemies[a].X;
-    vy  = Enemies[a].Y;
-    vsx = Enemies[a].SX + sx;
-    vsy = Enemies[a].SY + sy;
     if (vsy >= -.5)
         vy++;
     if (vsy <= .5)

@@ -41,20 +41,22 @@ void ResetVillagers(void)
 void AddTexttoVillager(char txt[256])
 {
     int count = Villager[VillagerCount].SpeechCount;
-    if (count < 10) {
-        strcpy(Villager[VillagerCount].Speech[count], txt);
-        Villager[VillagerCount].SpeechCount++;
-    }
+    if (count >= Villagers_Max)
+        Crash("Too many text strings\n%s", __func__);
+
+    strcpy(Villager[VillagerCount].Speech[count], txt);
+    Villager[VillagerCount].SpeechCount++;
 }
 
 void AddVillager(int x, int y, int texnum)
 {
-    if (Villagers_Max > VillagerCount + 1) {
-        VillagerCount++;
-        Villager[VillagerCount].X       = x;
-        Villager[VillagerCount].Y       = y;
-        Villager[VillagerCount].TextNum = texnum;
-    }
+    if (VillagerCount >= Villagers_Max)
+        Crash("Too many villagers\n%s", __func__);
+
+    VillagerCount++;
+    Villager[VillagerCount].X       = x;
+    Villager[VillagerCount].Y       = y;
+    Villager[VillagerCount].TextNum = texnum;
 }
 
 void TurnVillager(int a, bool l, bool r, bool u, bool d)
@@ -85,14 +87,12 @@ void TurnVillager(int a, bool l, bool r, bool u, bool d)
 
 void UpdateVillagers()
 {
-    bool l, r, u, d;
-
     if (screenmode < 3) {
         for (int a = 0; a <= VillagerCount; a++) {
-            l = true;
-            r = true;
-            u = true;
-            d = true;
+            bool l = true;
+            bool r = true;
+            bool u = true;
+            bool d = true;
 
             float sx = Villager[a].SX * 10;
             float sy = Villager[a].SY * 10;
@@ -109,14 +109,12 @@ void UpdateVillagers()
             }
 
             // Chrash mit Player verhindern
-            float Px, Py;
-            float NPx, NPy;
-            float dx, dy;
-            NPx = GetPX() + (PlPosSX + .5); // its playerpos here...
-            NPy = GetPY() + (PlPosSY + .5); // why? copy/paste/change a bit...easy
 
-            Px = Villager[a].X;
-            Py = Villager[a].Y;
+            float NPx = GetPX() + (PlPosSX + .5); // its playerpos here...
+            float NPy = GetPY() + (PlPosSY + .5); // why? copy/paste/change a bit...easy
+
+            float Px = Villager[a].X;
+            float Py = Villager[a].Y;
             if (Villager[a].SY >= -.5)
                 Py++;
             if (Villager[a].SY <= .5)
@@ -129,27 +127,30 @@ void UpdateVillagers()
             Py += Villager[a].SY + .5;
             // Wow strange code....but should work to compare those positions right
             // first check distance
-            dx = Px - NPx;
+            float dx = Px - NPx;
             if (dx < 0)
                 dx *= -1;
-            dy = Py - NPy;
+            float dy = Py - NPy;
             if (dy < 0)
                 dy *= -1;
+
             // now lets compace
-            if (dx > dy)
+            if (dx > dy) {
                 if (Py > NPy - .6 && Py < NPy + .6) {
                     if (Px < NPx && Px + .6 > NPx)
                         r = false;
                     if (Px > NPx && Px - .6 < NPx)
                         l = false;
                 }
-            if (dy > dx)
+            }
+            if (dy > dx) {
                 if (Px > NPx - .6 && Px < NPx + .6) {
                     if (Py < NPy && Py + .6 > NPy)
                         d = false;
                     if (Py > NPy && Py - .6 < NPy)
                         u = false;
                 }
+            }
 
             // Chrash mit anderen NPCs verhindern
             int NPCnum;

@@ -35,11 +35,15 @@ void LoadObjectCommand(TiXmlElement *map)
     TiXmlElement *object = map->FirstChildElement("object");
 
     while (object) {
-        int id = -1;
-
         // id
+        int id = -1;
         if (object->Attribute("textureid"))
             sscanf(object->Attribute("textureid"), "%i", &id);
+        if (id < 0)
+            Crash("Invalid texture ID:\n%s", __func__);
+        if (id >= Object_Max)
+            Crash("Object texture ID too high:\n%d >= %d", id, Object_Max);
+
         Objects[num].TextureID = id;
 
         // filename

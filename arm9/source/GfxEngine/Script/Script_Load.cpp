@@ -24,13 +24,13 @@ static bool outside;
 bool LoadingNow;
 
 // Returns capital lettered text of the given text
-void ucase(char *character, char *New)
+void ucase(const char *old, char *new_)
 {
-    strcpy(New, character);
+    strcpy(new_, old);
 
-    for (u32 a = 0; a < strlen(character); a++) {
-        if ((character[a] > 0x60) && (character[a] < 0x7B))
-            New[a] = character[a] - 0x20;
+    for (u32 a = 0; a < strlen(old); a++) {
+        if ((old[a] > 0x60) && (old[a] < 0x7B))
+            new_[a] = old[a] - 0x20;
     }
 }
 

@@ -19,6 +19,10 @@ void LoadTextureCommand(TiXmlElement *map)
         int id = -1;
         if (texture->Attribute("id"))
             sscanf(texture->Attribute("id"), "%i", &id);
+        if (id < 0)
+            Crash("Invalid texture ID:\n%d", id);
+        if (id >= Object_Max)
+            Crash("Too many object textures:\n%d >= %d", id, Object_Max);
 
         // bumpmapping
         bool bump = false;

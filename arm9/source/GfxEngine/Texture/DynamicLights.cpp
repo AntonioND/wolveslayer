@@ -41,6 +41,9 @@ void ResetDynamic(void)
 
 void AddDynamic(int x, int y, u8 r, u8 g, u8 b)
 {
+    if (DynamicLightCount >= 10)
+        Crash("Too many dynamic lights:\n%d > %d", DynamicLightCount, 10);
+
     DynamicLightCount++;
     Fireflys[DynamicLightCount].X      = x;
     Fireflys[DynamicLightCount].Y      = y;

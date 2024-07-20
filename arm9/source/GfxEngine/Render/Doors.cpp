@@ -184,9 +184,11 @@ void RenderHouseBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y
         newcol1[1] = 255;
     if (newcol1[2] > 255)
         newcol1[2] = 255;
+
     newcol2[0] = f32toint(mulf32(floattov16(.625), inttof32(col2[0])) + mulf32(floattov16(1 - .625), inttof32(col1[0])));
     newcol2[1] = f32toint(mulf32(floattov16(.625), inttof32(col2[1])) + mulf32(floattov16(1 - .625), inttof32(col1[1])));
     newcol2[2] = f32toint(mulf32(floattov16(.625), inttof32(col2[2])) + mulf32(floattov16(1 - .625), inttof32(col1[2])));
+
     if (newcol2[0] > 255)
         newcol2[0] = 255;
     if (newcol2[1] > 255)

@@ -4,6 +4,9 @@
 
 void LoadMBump3Texture(char filename[], int *target, int *targetb, int *targetc)
 {
+    if (target == NULL || targetb == NULL || targetc == NULL)
+        Crash("Invalid arguments:\n%s", __func__);
+
     u8 *buffer8;
     u16 *pal;
     u32 height, width;
@@ -64,6 +67,9 @@ void LoadMBump3Texture(char filename[], int *target, int *targetb, int *targetc)
 
 void LoadMBump5Texture(char filename[], int num)
 {
+    if (num >= Ground_Max)
+        Crash("Ground index too big:\n%d > %d", num, Ground_Max);
+
     u8 *buffer8;
     u16 *pal;
     u32 height, width;

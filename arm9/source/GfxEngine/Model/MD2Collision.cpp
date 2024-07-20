@@ -35,7 +35,8 @@ bool GetModelCollsisionXY(int num, int x, int y, int rot)
     }
 
     if (num < 0 || num >= MD2_Max)
-        return true;
+        Crash("Invalid number: %d\n%s", num, __func__);
+
     if (ModelEnable[num] == false)
         return true;
     // return Models[num].Image[y];

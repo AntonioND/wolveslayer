@@ -20,10 +20,11 @@ void ResetEvent(void)
 
 void AddTexttoEvent(char txt[256])
 {
-    if (EventSpeechCount < 10) {
-        strcpy(EventSpeech[EventSpeechCount], txt);
-        EventSpeechCount++;
-    }
+    if (EventSpeechCount >= 10)
+        Crash("Too many event speeches");
+
+    strcpy(EventSpeech[EventSpeechCount], txt);
+    EventSpeechCount++;
 }
 
 bool Gameended = false;

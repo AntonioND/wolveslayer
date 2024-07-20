@@ -9,8 +9,12 @@ static u16 *ColorContainer;
 
 void Precalcmd2light(int n, int num)
 {
+    if ((num < 0) || (num >= MD2_Max))
+        Crash("Invalid number:%d\n%s", num, __func__);
+
     if ((n < 0) || (n > Models[num].header.num_frames - 1))
         n = Models[num].header.num_frames - 1;
+
     if (ModelEnable[num] == false)
         return;
 
@@ -28,6 +32,9 @@ void Precalcmd2light(int n, int num)
 // This renders MD2 objects, which is almost everything that you see in the world.
 void RenderMD2Model(int n, int num)
 {
+    if ((num < 0) || (num >= MD2_Max))
+        Crash("Invalid number:%d\n%s", num, __func__);
+
     int i, j, stnum, vertnum;
     // MD2Entity mod = Models[num];
     if ((n < 0) || (n > Models[num].header.num_frames - 1))
@@ -51,6 +58,9 @@ void RenderMD2Model(int n, int num)
 
 void RenderMD2ModelMirrowed(int n, int num)
 {
+    if ((num < 0) || (num >= MD2_Max))
+        Crash("Invalid number:%d\n%s", num, __func__);
+
     int i, j, stnum, vertnum;
     // MD2Entity mod = &Models[num];
     if ((n < 0) || (n > Models[num].header.num_frames - 1))

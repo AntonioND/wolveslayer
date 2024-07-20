@@ -13,6 +13,8 @@
 #include "GfxEngine/Tackt.h"
 #include "Sound/Music.h"
 
+#define ENABLE_SPLASH
+
 void Splash(void)
 {
     srand(0xDEADBEEF); // TODO: Replace by `srand(time(NULL))`?
@@ -46,6 +48,7 @@ void Splash(void)
     REG_BG3X_SUB   = 0;
     REG_BG3Y_SUB   = 0;
 
+#ifdef ENABLE_SPLASH
     REG_BLDY     = 15;
     REG_BLDY_SUB = 15;
 
@@ -57,6 +60,7 @@ void Splash(void)
         REG_BLDY_SUB = u;
         swiWaitForVBlank();
     }
+#endif // ENABLE_SPLASH
 
     InitCircles();
 
@@ -66,6 +70,7 @@ void Splash(void)
 
     // LoadBmptoBuffer8("/rd/pic/box.bmp", textbox_bin, textbox_pal);
 
+#ifdef ENABLE_SPLASH
     int pressed;
     for (int u = 0; u < 360; u++) {
         scanKeys();
@@ -98,6 +103,7 @@ void Splash(void)
         scanKeys();
         pressed = keysDown();
     }
+#endif // ENABLE_SPLASH
 }
 
 static int frameCounter  = 0;

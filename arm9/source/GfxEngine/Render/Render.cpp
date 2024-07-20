@@ -42,8 +42,6 @@ float GetInterPolY(int x, int y, float sx, float sy)
 
 static void RefreshMap(void)
 {
-    // RefreshWelt();
-    // return;
     int x = 0, y = 0;
 
     int Wallbor = Obj_WallBor;
@@ -86,7 +84,7 @@ static void RefreshMap(void)
             if (Objects[TexObj[x][y]].NoGround)
                 continue;
 
-            SetCurGround(x, y); // We tell the renderengine where the ground is to set up maplight
+            SetCurGround(x, y); // We tell the render engine where the ground is to set up maplight
 
             // Levelrand
             if ((TexGround[x][y] <= -1 && TexAGround[x][y] <= -1 && !(Precalcdata[x][y] & (1 << B_Water))) || (ShapeObj[x][y] == Wallbor)) {
@@ -133,8 +131,8 @@ static void RefreshMap(void)
 }
 
 //*******************************************************************************
-// Welt
-static void RefreshWelt(void)
+
+static void RefreshWorld(void)
 {
     int x = 0, y = 0;
 
@@ -647,6 +645,6 @@ void Refresh3D(void)
     RefreshEnemys();
     RefreshVillagers();
     RefreshPlayer();
-    RefreshWelt();
+    RefreshWorld();
     RefreshMap();
 }

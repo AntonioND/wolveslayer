@@ -171,7 +171,7 @@ void RenderHouseBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y
         LightY2 = WallY;
     }
 
-    // here comes that interpolation
+    // Here comes that interpolation
 
     GiveLight(LightX1, LightY1, col1);
     GiveLight(LightX2, LightY2, col2);
@@ -197,7 +197,7 @@ void RenderHouseBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y
     if (newcol2[2] > 255)
         newcol2[2] = 255;
 
-    // Wand Oben
+    // Wall top
     glBegin(GL_QUADS);
 
     {
@@ -222,7 +222,7 @@ void RenderHouseBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y
 
     glEnd();
 
-    // Wand links
+    // Wall left
     glBegin(GL_QUADS);
 
     {
@@ -247,7 +247,7 @@ void RenderHouseBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y
 
     glEnd();
 
-    // Wand rechts
+    // Wall right
     glBegin(GL_QUADS);
 
     {
@@ -272,7 +272,7 @@ void RenderHouseBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y
 
     glEnd();
 
-    // Dach Unten
+    // Roof bottom
     if (mode == 0) {
         if (!walltrans) {
             if (Blend != 8) {
@@ -407,7 +407,7 @@ void RenderWallBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y,
         glTranslatef32(x, y, z);
         glRotateYi((DEGREES_IN_CIRCLE / 512) * (dirrection * -128));
 
-        // Wand Oben
+        // Wall top
         glBegin(GL_QUADS);
 
         {
@@ -432,7 +432,7 @@ void RenderWallBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y,
 
         glEnd();
 
-        // Wand links
+        // Wall left
         glBegin(GL_QUADS);
 
         {
@@ -457,7 +457,7 @@ void RenderWallBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y,
 
         glEnd();
 
-        // Wand rechts
+        // Wall right
         glBegin(GL_QUADS);
 
         {

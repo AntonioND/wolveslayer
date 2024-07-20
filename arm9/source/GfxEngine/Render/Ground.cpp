@@ -168,7 +168,9 @@ void RenderGround(int x, int y, int z, int textnum)
                 GrapLight(ground_x + 1, ground_y + 1);
                 glTexCoord2t16(end, end);
                 glVertex3v16(GroundVertex1, v4, GroundVertex1);
+
                 //***********************
+
                 // Top right
                 GrapLight(ground_x + 1, ground_y + 1);
                 glTexCoord2t16(end, end);
@@ -206,7 +208,9 @@ void RenderGround(int x, int y, int z, int textnum)
                 GrapLight(ground_x + 1, ground_y);
                 glTexCoord2t16(end, start);
                 glVertex3v16(GroundVertex1, v2, GroundVertex2);
+
                 //***********************
+
                 // Top right
                 GrapLight(ground_x + 1, ground_y + 1);
                 glTexCoord2t16(end, end);
@@ -229,7 +233,7 @@ void RenderGround(int x, int y, int z, int textnum)
     glPopMatrix(1);
 }
 
-// The way a levelborder should be rendered
+// The way a level border should be rendered
 void RenderLevelBorderGround(int x, int y, int z)
 {
     t16 cx = 0, cy = 0;

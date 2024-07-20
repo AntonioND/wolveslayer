@@ -200,7 +200,7 @@ static void GrapLightInterpolate(int x, int y, float sx, float sy, int *col)
     f32 g = mulf32(gr, ssx) + mulf32(gl, msx);
     f32 b = mulf32(br, ssx) + mulf32(bl, msx);
 
-    // we have what we neededlets use the color
+    // We have what we needed. Let's use the color
     col[0] = (u8)f32toint(r);
     col[1] = (u8)f32toint(g);
     col[2] = (u8)f32toint(b);

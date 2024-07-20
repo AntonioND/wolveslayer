@@ -6,6 +6,7 @@ int ticks32 = 0;
 // Needed to animate things...
 void HandleTicks(void)
 {
+    // Increase ticks32 every frame
     ticks32 += 1;
     if (ticks32 >= 32)
         ticks32 = 0;

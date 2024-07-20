@@ -108,7 +108,7 @@ void UpdateVillagers()
                     r = false;
             }
 
-            // Chrash mit Player verhindern
+            // Prevent crash with player
 
             float NPx = GetPX() + (PlPosSX + .5); // its playerpos here...
             float NPy = GetPY() + (PlPosSY + .5); // why? copy/paste/change a bit...easy
@@ -134,7 +134,7 @@ void UpdateVillagers()
             if (dy < 0)
                 dy *= -1;
 
-            // now lets compace
+            // now lets compare
             if (dx > dy) {
                 if (Py > NPy - .6 && Py < NPy + .6) {
                     if (Px < NPx && Px + .6 > NPx)
@@ -152,7 +152,8 @@ void UpdateVillagers()
                 }
             }
 
-            // Chrash mit anderen NPCs verhindern
+            // Prevent crashes with other NPCs
+
             int NPCnum;
             // NPx = GetPX() + (PlPosSX + .5); // its playerpos here...
             // NPy = GetPY() + (PlPosSY + .5); // why? copy/paste/change a bit...easy

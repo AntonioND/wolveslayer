@@ -119,7 +119,7 @@ void RenderHouseBorder(int mode, int dirrection, f32 x, f32 y, f32 z)
         LightY2 = WallY;
     }
 
-    // Wand Down
+    // Wall down
     glBegin(GL_QUADS);
 
     {
@@ -144,7 +144,7 @@ void RenderHouseBorder(int mode, int dirrection, f32 x, f32 y, f32 z)
 
     glEnd();
 
-    // Dach Unten
+    // Roof bottom
     if (mode == 0 && !walltrans) {
         if (Blend != 8) {
             r = EnvR / 8 * Blend;

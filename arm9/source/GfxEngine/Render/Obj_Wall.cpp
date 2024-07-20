@@ -101,7 +101,7 @@ void RenderWallBorder(int mode, int dirrection, f32 x, f32 y, f32 z, int textnum
         if (a == 2)
             glBindTexture(GL_TEXTURE_2D, ObjectTexture[textnum].TextureC);
 
-        // Wand Down
+        // Wall Down
         glBegin(GL_QUADS);
 
         {

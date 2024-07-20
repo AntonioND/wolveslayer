@@ -121,7 +121,7 @@ static void PreCalcAGround(void)
                     URGnd = false;
                     DRGnd = false;
 
-                    // Compare neighbours with Mastercolor
+                    // Compare neighbours with master color
                     if (MapGroundGetRGB(xx - 1, yy) != Autotile[texturecounter].ColorKeyMaster)
                         LGnd = true;
                     if (MapGroundGetRGB(xx + 1, yy) != Autotile[texturecounter].ColorKeyMaster)
@@ -139,7 +139,7 @@ static void PreCalcAGround(void)
                     if (MapGroundGetRGB(xx + 1, yy + 1) != Autotile[texturecounter].ColorKeyMaster)
                         DRGnd = true;
 
-                    // Compare neighbours with Ignore colors
+                    // Compare neighbours with ignore colors
                     for (int ign = 0; ign <= Autotile[texturecounter].IgnorecolorsNum; ign++) {
                         if (MapGroundGetRGB(xx - 1, yy) == Autotile[texturecounter].Ignorecolors[ign])
                             LGnd = false;
@@ -159,11 +159,11 @@ static void PreCalcAGround(void)
                             DRGnd = false;
                     }
 
-                    // Tex alone
+                    // Texture alone
                     if ((LGnd == true) && (RGnd == true) && (UGnd == true) && (DGnd == true))
                         TexAGround[xx][yy] = 31;
 
-                    // tex surounded others
+                    // Texture surounded by others
                     if ((LGnd == false) && (RGnd == false) && (UGnd == false) && (DGnd == false)) {
                         if (ULGnd == false && URGnd == false && DLGnd == false && DRGnd == false)
                             TexAGround[xx][yy] = 9; // no diagonal oponents
@@ -203,7 +203,7 @@ static void PreCalcAGround(void)
                             TexAGround[xx][yy] = 27; // 4 oponents
                     }
 
-                    // tex with border over it
+                    // Texture with border over it
                     if ((LGnd == false) && (RGnd == false) && (UGnd == true) && (DGnd == false)) {
                         if (DLGnd == false && DRGnd == false)
                             TexAGround[xx][yy] = 5;
@@ -216,7 +216,7 @@ static void PreCalcAGround(void)
                             TexAGround[xx][yy] = 41;
                     }
 
-                    // tex with border under it
+                    // Texture with border under it
                     if ((LGnd == false) && (RGnd == false) && (UGnd == false) && (DGnd == true)) {
                         if (ULGnd == false && URGnd == false)
                             TexAGround[xx][yy] = 13;
@@ -229,7 +229,7 @@ static void PreCalcAGround(void)
                             TexAGround[xx][yy] = 38;
                     }
 
-                    // tex border on the right
+                    // Texture border on the right
                     if ((LGnd == true) && (RGnd == false) && (UGnd == false) && (DGnd == false)) {
                         if (URGnd == false && DRGnd == false)
                             TexAGround[xx][yy] = 8;
@@ -242,7 +242,7 @@ static void PreCalcAGround(void)
                             TexAGround[xx][yy] = 35;
                     }
 
-                    // tex with border on the left
+                    // Texture with border on the left
                     if ((LGnd == false) && (RGnd == true) && (UGnd == false) && (DGnd == false)) {
                         if (ULGnd == false && DLGnd == false)
                             TexAGround[xx][yy] = 10;
@@ -255,7 +255,7 @@ static void PreCalcAGround(void)
                             TexAGround[xx][yy] = 47;
                     }
 
-                    // tex with border up/left
+                    // Texture with border up/left
                     if ((LGnd == true) && (RGnd == false) && (UGnd == true) && (DGnd == false)) {
                         if (DRGnd == false)
                             TexAGround[xx][yy] = 4;
@@ -263,7 +263,7 @@ static void PreCalcAGround(void)
                             TexAGround[xx][yy] = 32;
                     }
 
-                    // tex with border up/right
+                    // Texture with border up/right
                     if ((LGnd == false) && (RGnd == true) && (UGnd == true) && (DGnd == false)) {
                         if (DLGnd == false)
                             TexAGround[xx][yy] = 6;
@@ -271,7 +271,7 @@ static void PreCalcAGround(void)
                             TexAGround[xx][yy] = 36;
                     }
 
-                    // tex with border down/left
+                    // Texture with border down/left
                     if ((LGnd == true) && (RGnd == false) && (UGnd == false) && (DGnd == true)) {
                         if (URGnd == false)
                             TexAGround[xx][yy] = 12;
@@ -279,7 +279,7 @@ static void PreCalcAGround(void)
                             TexAGround[xx][yy] = 40;
                     }
 
-                    // tex with border down/right
+                    // Texture with border down/right
                     if ((LGnd == false) && (RGnd == true) && (UGnd == false) && (DGnd == true)) {
                         if (ULGnd == false)
                             TexAGround[xx][yy] = 14;
@@ -287,27 +287,27 @@ static void PreCalcAGround(void)
                             TexAGround[xx][yy] = 44;
                     }
 
-                    // tex with border up/down
+                    // Texture with border up/down
                     if ((LGnd == false) && (RGnd == false) && (UGnd == true) && (DGnd == true))
                         TexAGround[xx][yy] = 1;
 
-                    // tex with border left/down/up
+                    // Texture with border left/down/up
                     if ((LGnd == true) && (RGnd == false) && (UGnd == true) && (DGnd == true))
                         TexAGround[xx][yy] = 3;
 
-                    // tex with border right/down/up
+                    // Texture with border right/down/up
                     if ((LGnd == false) && (RGnd == true) && (UGnd == true) && (DGnd == true))
                         TexAGround[xx][yy] = 15;
 
-                    // tex with border left/right
+                    // Texture with border left/right
                     if ((LGnd == true) && (RGnd == true) && (UGnd == false) && (DGnd == false))
                         TexAGround[xx][yy] = 2;
 
-                    // tex with border left/right/up
+                    // Texture with border left/right/up
                     if ((LGnd == true) && (RGnd == true) && (UGnd == true) && (DGnd == false))
                         TexAGround[xx][yy] = 11;
 
-                    // tex with border Left/right/down
+                    // Texture with border Left/right/down
                     if ((LGnd == true) && (RGnd == true) && (UGnd == false) && (DGnd == true))
                         TexAGround[xx][yy] = 7;
 
@@ -345,14 +345,15 @@ static void PreCalcObj(void)
             ShapeObj[xx][yy] = -1;
             DirObj[xx][yy]   = 0;
 
-            //>>>>>>>>>>>>>>>>>>>>>>>>>>>
-            // MD2
-            if (choose != -1 && strncmp(Objects[choose].Type, "MODEL", 5) == 0) {
-                ShapeObj[xx][yy] = Obj_MD2;
-            }
+            // >>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-            //>>>>>>>>>>>>>>>>>>>>>>>>>>
-            // HouseParts
+            // MD2
+            if (choose != -1 && strncmp(Objects[choose].Type, "MODEL", 5) == 0)
+                ShapeObj[xx][yy] = Obj_MD2;
+
+            // >>>>>>>>>>>>>>>>>>>>>>>>>>
+
+            // House parts
             if (choose != -1 && strncmp(Objects[choose].Type, "HOUSE", 5) == 0) {
                 ObjD = IsObjHouse(xx, yy + 1);
                 ObjU = IsObjHouse(xx, yy - 1);
@@ -363,7 +364,7 @@ static void PreCalcObj(void)
                 if (strncmp(GetMapDoor(xx, yy), ".", 1) != 0)
                     wanddoor = true;
 
-                // Wand Mitte
+                // Wall middle
                 if (ObjD == true) {             // If one field under is same wall
                     if (ObjU == true) {         // If one field upper is same wall
                         if (ObjL == true) {     // If one field left is same wall
@@ -375,7 +376,7 @@ static void PreCalcObj(void)
                     }
                 }
 
-                // WandRand unten
+                // Wall edge bottom
                 if (ObjD == false) {            // If one field under is same wall
                     if (ObjU == true) {         // If one field upper is same wall
                         if (ObjL == true) {     // If one field left is same wall
@@ -389,7 +390,7 @@ static void PreCalcObj(void)
                     }
                 }
 
-                // WandRand oben
+                // Wall edge top
                 if (ObjD == true) {             // If one field under is same wall
                     if (ObjU == false) {        // If one field upper is same wall
                         if (ObjL == true) {     // If one field left is same wall
@@ -403,7 +404,7 @@ static void PreCalcObj(void)
                     }
                 }
 
-                // WandRand links
+                // Wall edge left
                 if (ObjD == true) {             // If one field under is same wall
                     if (ObjU == true) {         // If one field upper is same wall
                         if (ObjL == false) {    // If one field left is same wall
@@ -417,7 +418,7 @@ static void PreCalcObj(void)
                     }
                 }
 
-                // WandRand rechts
+                // Wall edge right
                 if (ObjD == true) {              // If one field under is same wall
                     if (ObjU == true) {          // If one field upper is same wall
                         if (ObjL == true) {      // If one field left is same wall
@@ -431,7 +432,7 @@ static void PreCalcObj(void)
                     }
                 }
 
-                // WandRand oben-links (ecke)
+                // Wall edge top-left (corner)
                 if (ObjD == true) {             // If one field under is same wall
                     if (ObjU == false) {        // If one field upper is same wall
                         if (ObjL == false) {    // If one field left is same wall
@@ -443,7 +444,7 @@ static void PreCalcObj(void)
                     }
                 }
 
-                // WandRand oben-rechts (ecke)
+                // Wall edge top-right (corner)
                 if (ObjD == true) {              // If one field under is same wall
                     if (ObjU == false) {         // If one field upper is same wall
                         if (ObjL == true) {      // If one field left is same wall
@@ -455,7 +456,7 @@ static void PreCalcObj(void)
                     }
                 }
 
-                // WandRand unten-links (ecke)
+                // Wall edge bottom left (corner)
                 if (ObjD == false) {            // If one field under is same wall
                     if (ObjU == true) {         // If one field upper is same wall
                         if (ObjL == false) {    // If one field left is same wall
@@ -467,7 +468,7 @@ static void PreCalcObj(void)
                     }
                 }
 
-                // WandRand unten-rechts (ecke)
+                // Wall edge bottom right (corner)
                 if (ObjD == false) {             // If one field under is same wall
                     if (ObjU == true) {          // If one field upper is same wall
                         if (ObjL == true) {      // If one field left is same wall
@@ -481,7 +482,8 @@ static void PreCalcObj(void)
             }
 
             //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-            // WallParts
+
+            // Wall parts
             if (choose != -1 && (strncmp(Objects[choose].Type, "WALL", 4) == 0 || strncmp(Objects[choose].Type, "BUMPWALL", 8) == 0)) {
                 if (strncmp(GetMapDoor(xx, yy), ".", 1) == 0)
                     wanddoor = false;
@@ -540,13 +542,13 @@ static void PreCalcObj(void)
                 if (strncmp(GetMapDoor(xx, yy), ".", 1) != 0)
                     wanddoor = true;
 
-                // Wand alleine (Säule)
+                // Wall alone (column)
                 if (objcnt == 0) {
                     ShapeObj[xx][yy] = Obj_WallAlone;
                     DirObj[xx][yy]   = 0;
                 }
 
-                // Wand mit 2 nachbarn (wallborder)
+                // Wall with 2 neighbors (wallborder)
                 if (objcnt == 2) {
                     if ((ObjL && ObjR) || (ObjU && ObjD))
                         ShapeObj[xx][yy] = Obj_WallBor;
@@ -556,7 +558,7 @@ static void PreCalcObj(void)
 
                     if (ObjL && ObjR) {
                         // if (yy < MapGetHr() / 2)
-                        //     DirObj[xx][yy] = 0; // wand nach rechts
+                        //     DirObj[xx][yy] = 0; // Wall to the right
                         if (!GndD)
                             DirObj[xx][yy] = 2;
                         if (!GndU)
@@ -564,9 +566,9 @@ static void PreCalcObj(void)
                     }
                     if (ObjU && ObjD) {
                         // if (xx < MapGetWr() / 2)
-                        //     DirObj[xx][yy] = 3; // wand nach rechts
+                        //     DirObj[xx][yy] = 3; // Wall to the right
                         // else
-                        //     DirObj[xx][yy] = 1; // wand nach links
+                        //     DirObj[xx][yy] = 1; // Wall to the left
                         if (!GndR)
                             DirObj[xx][yy] = 1;
                         if (!GndL)
@@ -669,7 +671,7 @@ static void PrecalcTerrain(void)
                 Terrain[xx][yy].v[2] = floattov16(GetHight(xx, yy));
                 Terrain[xx][yy].v[3] = floattov16(GetHight(xx, yy));
             } else {
-                // Oneway-dirrectinal
+                // Oneway-directional
                 Terrain[xx][yy].v[0] = floattov16(GetHight(xx, yy));
                 if (ug == 0xB || ub == 0xB)
                     if (floattov16(GetHight(xx, yy - 1)) > Terrain[xx][yy].v[0])

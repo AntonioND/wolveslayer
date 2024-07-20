@@ -10,20 +10,19 @@ int tackt32  = 0;
 // Needed to animate things...
 void tackt(void)
 {
-    if (!LoadingNow) {
-        RunTime(); // Recalcs lightcolors
+    // Recalcs lightcolors based on the time of the day
+    RunTime();
 
-        tackt32 += 1;
-        if (tackt32 >= 32)
-            tackt32 = 0;
+    tackt32 += 1;
+    if (tackt32 >= 32)
+        tackt32 = 0;
 
-        sTackt += .5;
-        if (sTackt >= 1) {
-            stackt11++;
-            sTackt = 0;
-        }
-
-        if (stackt11 > 10)
-            stackt11 = 0;
+    sTackt += .5;
+    if (sTackt >= 1) {
+        stackt11++;
+        sTackt = 0;
     }
+
+    if (stackt11 > 10)
+        stackt11 = 0;
 }

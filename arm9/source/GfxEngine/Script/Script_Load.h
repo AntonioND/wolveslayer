@@ -3,8 +3,6 @@
 
 #include <stdbool.h>
 
-extern bool LoadingNow;
-
 // Returns capital lettered text of the given text
 void ucase(const char *old, char *new_);
 

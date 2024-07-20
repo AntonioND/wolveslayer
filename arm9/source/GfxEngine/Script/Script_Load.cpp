@@ -21,8 +21,6 @@
 
 static bool outside;
 
-bool LoadingNow;
-
 // Returns capital lettered text of the given text
 void ucase(const char *old, char *new_)
 {
@@ -71,8 +69,6 @@ static void UnloadStuff(void)
 void LoadScript(char filename[])
 {
     irqSet(IRQ_VBLANK, NULL);
-
-    LoadingNow = true;
 
     ScreenModeLOADING();
     UnloadStuff();
@@ -152,8 +148,6 @@ void LoadScript(char filename[])
     // ShowCollisionMap(12);
 
     TextBoxmode(EventSpeech, EventSpeechCount, -1);
-
-    LoadingNow = false;
 
     irqSet(IRQ_VBLANK, vBlank);
 }

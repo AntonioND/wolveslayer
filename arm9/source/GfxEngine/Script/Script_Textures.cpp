@@ -3,9 +3,6 @@
 #include "GfxEngine/Texture/Bumpmapping.h"
 #include "XML/tinyxml.h"
 
-int TextureWidthHeight[Object_Max];
-bool TexturehasBump[Object_Max];
-
 void LoadTextureCommand(TiXmlElement *map)
 {
     TiXmlElement *texture = map->FirstChildElement("texture");
@@ -34,12 +31,12 @@ void LoadTextureCommand(TiXmlElement *map)
         // Final call to load that shit
         if (id < Object_Max && id >= 0) {
             if (bump == false)
-                LoadModelTexture(FileNameCom, &(ObjectTexture[id].Texture), &TextureWidthHeight[id]);
+                LoadModelTexture(FileNameCom, &(ObjectTexture[id].Texture), &(ObjectTexture[id].WidthHeight));
             else
                 LoadMBump3Texture(FileNameCom, &(ObjectTexture[id].Texture), &(ObjectTexture[id].TextureB), &(ObjectTexture[id].TextureC));
         }
 
-        TexturehasBump[id] = bump;
+        ObjectTexture[id].HasBump = bump;
 
         texture = texture->NextSiblingElement("texture");
     }

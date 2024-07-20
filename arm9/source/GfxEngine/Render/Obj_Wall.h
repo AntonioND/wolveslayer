@@ -5,6 +5,9 @@
 #include "GfxEngine/Limits.h"
 
 typedef struct {
+    int WidthHeight;
+    bool HasBump;
+
     int Texture; // Standard slot for objects
 
     // int TextureA;

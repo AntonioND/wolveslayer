@@ -1,4 +1,6 @@
+#include "GfxEngine/3D.h"
 #include "GfxEngine/Model/MD2Load.h"
+#include "GfxEngine/Render/Obj_Wall.h"
 #include "GfxEngine/Script/Script_Objects.h"
 #include "GfxEngine/Script/Script_Others.h"
 #include "GfxEngine/Script/Script_Textures.h"
@@ -51,7 +53,7 @@ void LoadObjectCommand(TiXmlElement *map)
         strcpy(FileNameCom, "");
         if (object->Attribute("mesh")) {
             if (strncmp("[wall]", object->Attribute("mesh"), 6) == 0) {
-                if (!TexturehasBump[id])
+                if (!ObjectTexture[id].HasBump)
                     ObjTyp = "WALL";
                 else
                     ObjTyp = "BUMPWALL";
@@ -123,7 +125,7 @@ void LoadObjectCommand(TiXmlElement *map)
             strcpy(Objects[num].Type, ObjTyp);
 
         if (strncmp("MODEL", Objects[num].Type, 5) == 0 && id >= 0)
-            LoadMD2Model(FileNameCom, num + 10, TextureWidthHeight[id], scale);
+            LoadMD2Model(FileNameCom, num + 10, ObjectTexture[id].WidthHeight, scale);
 
         // Light (objects children)
         int lightnum = 0;

@@ -15,9 +15,11 @@ extern bool ViewportMapBumpWallS[20][20];
 extern bool ViewportMapBumpWallW[20][20];
 extern bool ViewportMapBumpWallE[20][20];
 
-// Dynamic Lights
 void ResetDynamic(void);
+
+// Adds a randomy-flying-arround-dynamic-light(with given color)
 void AddDynamic(int x, int y, u8 r, u8 g, u8 b);
+
 void UpdateDynamic(void);
 
 #endif // GFXENGINE_TEXTURE_DYNAMICLIGHTS_H__

@@ -143,7 +143,7 @@ static void RefreshWelt(void)
     int Housedoor = Obj_HouseDoor;
 
     int Wallbor = Obj_WallBor;
-    // int WallAlone=Obj_WallAlone;
+    // int WallAlone = Obj_WallAlone;
     int WallDoor = Obj_WallDoor;
     bool seeable;
     int minx, maxx;
@@ -219,6 +219,7 @@ static void RefreshWelt(void)
                                 SetObjLights(pos, DirObj[x][y] * 64); // way faster and enough for objects
                             else
                                 SetObjLightsSelfilluminated();
+
                             Precalcmd2light(stackt11, TexObj[x][y] + 10); // mesh1 lights
                         }
                         if (yy > -1) {

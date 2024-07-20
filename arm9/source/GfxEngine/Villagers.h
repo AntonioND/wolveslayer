@@ -22,7 +22,7 @@ extern float SpriteSX, SpriteSY;
 
 // Villagers
 void ResetVillagers(void);
-void AddTexttoVillager(char txt[256]);
+void AddTexttoVillager(char txt[256]); // Adds a text to a specific villiager(npc)
 void AddVillager(int x, int y, int texnum);
 void TurnVillager(int a, bool l, bool r, bool u, bool d);
 void UpdateVillagers();

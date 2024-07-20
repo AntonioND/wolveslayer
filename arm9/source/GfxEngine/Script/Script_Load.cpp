@@ -71,6 +71,9 @@ static void UnloadStuff(void)
 void LoadScript(char filename[])
 {
     irqSet(IRQ_VBLANK, NULL);
+
+    LoadingNow = true;
+
     ScreenModeLOADING();
     UnloadStuff();
     ResetCounter();  // for percentbar
@@ -149,6 +152,9 @@ void LoadScript(char filename[])
     // ShowCollisionMap(12);
 
     TextBoxmode(EventSpeech, EventSpeechCount, -1);
+
+    LoadingNow = false;
+
     irqSet(IRQ_VBLANK, vBlank);
 }
 

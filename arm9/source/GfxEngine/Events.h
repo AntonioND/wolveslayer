@@ -10,7 +10,7 @@ extern bool Gameended;
 
 // Events
 void ResetEvent(void);
-void AddTexttoEvent(char txt[256]);
+void AddTexttoEvent(char txt[256]); // Adds an event which will be turn on when starting a map
 void CheckEndGame(void);
 
 #endif // GFXENGINE_EVENTS_H__

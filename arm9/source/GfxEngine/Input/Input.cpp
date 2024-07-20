@@ -291,17 +291,17 @@ void Interact(void)
             }
         }
 
-        if (r && nr > -12) {
-            Enemies[nu].HP -= rand() % 5;
+        if (r && nr > -1) {
+            Enemies[nr].HP -= rand() % 5;
 
-            if (Enemies[nu].HP > 0) {
-                Enemies[nu].Status = 2;
-                Enemies[nu].Frame  = 0;
+            if (Enemies[nr].HP > 0) {
+                Enemies[nr].Status = 2;
+                Enemies[nr].Frame  = 0;
             }
 
-            if (Enemies[nu].HP <= 0) {
-                Enemies[nu].Status = 3;
-                Enemies[nu].Frame  = 0;
+            if (Enemies[nr].HP <= 0) {
+                Enemies[nr].Status = 3;
+                Enemies[nr].Frame  = 0;
             }
         }
     }

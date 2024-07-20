@@ -28,6 +28,14 @@ int main(int argc, char *argv[])
         if (screenmode > ScreenModeTextBox)
             Menu();
 
+        // TODO: The item selection menu isn't finished. Also, the images
+        // displayed in the touch screen are missing. This code is here to
+        // remember how to enter pause mode (you get into item mode from pause
+        // mode).
+        //
+        // if (keysDown() & KEY_START)
+        //    PauseMode();
+
         UpdateVillagers();
         UpdateEnemy();
         UpdateDynamic();

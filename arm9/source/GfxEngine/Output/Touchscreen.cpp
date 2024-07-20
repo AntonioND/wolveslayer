@@ -1,8 +1,10 @@
 #include <math.h>
 
 #include "GfxEngine/3D.h"
+#include "GfxEngine/Files.h"
 #include "GfxEngine/Input/Input.h"
 #include "GfxEngine/Output/Inventory.h"
+#include "GfxEngine/Output/Items.h"
 #include "GfxEngine/Output/Textbox.h"
 #include "GfxEngine/Output/Touchscreen.h"
 
@@ -153,6 +155,9 @@ void PercentBar(int cur, int max)
     int PW = 131;
 
 #if 0
+    // This draws a bigger rectangle as a progress bar, but it doesn't look well
+    // with the current background.
+
     for (int a = PX; a <= PX + PW; a++) {
         BG_GFX_SUB[a + (PY * 256)]       = RGB15(31, 31, 31) | BIT(15);
         BG_GFX_SUB[a + ((PY + 8) * 256)] = RGB15(31, 31, 31) | BIT(15);
@@ -175,17 +180,19 @@ void PercentBar(int cur, int max)
 
 void ItemMode(void)
 {
-#if 0
     int i, j;
     screenmode = ScreenModeItem;
 
+#if 0
+    // TODO: Restore the images
+
     // Draw IngameBG
     WaitForFreeVblank();
-    // for(i = 0; i < 256*256; i++)
-    // BG_GFX_SUB[i] = ((u16*)touchmenu_bin)[i];
+    // for (i = 0; i < 256 * 256; i++)
+    //     BG_GFX_SUB[i] = ((u16 *)touchmenu_bin)[i];
 
     // Draw Buttons
-    for (i = 0; i < 64; i++)
+    for (i = 0; i < 64; i++) {
         for (j = 0; j < 32; j++) {
             BG_GFX_SUB[(i + 29) + ((j + 144) * 256)]       = ((u16 *)buttonsel_bin)[i + (j * 64)];
             BG_GFX_SUB[(i + 29 + 130) + ((j + 144) * 256)] = ((u16 *)button_bin)[i + (j * 64)];
@@ -200,6 +207,8 @@ void ItemMode(void)
                         BG_GFX_SUB[(i + 45) + ((j + 87) * 256)] = ((u16 *)buttonsel_bin)[i + (j * 64)];
             }
         }
+    }
+#endif
 
     PrintOUT("Item", 43, 154, true, strlen("Item"));
     PrintOUT("Back", 42 + 131, 154, true, strlen("Back"));
@@ -231,29 +240,30 @@ void ItemMode(void)
             for (j = 0; j < 32; j++)
                 BG_GFX_SUB[(i + 63) + ((j + 40) * 256)] = ((u16 *)Img)[i + (j * 32)];
     }
-#endif
 }
 
 void PauseMode(void)
 {
-#if 0
-    int i, j;
     screenmode = ScreenModePause;
+
     // Draw IngameBG
     WaitForFreeVblank();
-    for (i = 0; i < 256 * 256; i++)
+    for (int i = 0; i < 256 * 256; i++)
         BG_GFX_SUB[i] = ((u16 *)touch_bin)[i];
 
+#if 0
+    // TODO: Restore image
     // Draw Buttons
-    for (i = 0; i < 64; i++)
-        for (j = 0; j < 32; j++) {
+    for (int i = 0; i < 64; i++) {
+        for (int j = 0; j < 32; j++) {
             BG_GFX_SUB[(i + 29 + 130) + ((j + 144) * 256)] = ((u16 *)buttonsel_bin)[i + (j * 64)];
         }
+    }
+#endif
 
     PrintOUT("Item", 43, 154, true, strlen("Item"));
     PrintOUT("Back", 42 + 131, 154, true, strlen("Back"));
 
     PrintOUT("Item", 44, 155, false, strlen("Item"));
     PrintOUT("Back", 43 + 131, 155, false, strlen("Back"));
-#endif
 }

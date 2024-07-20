@@ -1,10 +1,11 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/Script/Script_Load.h"
+#include "GfxEngine/Output/Inventory.h"
 
-// bool Key[100];
-// bool Bool[100];
+bool Key[100];
+bool Bool[100];
 
 // Items
-#if 0
 typedef struct
 {
     char Name[20];
@@ -16,128 +17,131 @@ typedef struct
     int Var1;
     int Var2;
 } Item_Types;
-#endif
 
-// Item_Types List[25];
+Item_Types List[25];
 
 void LoadItemList(void)
 {
-#if 0
     FILE *ScriptFile = fopen("/rd/Items/Items.txt", "r");
 
-    if (ScriptFile != NULL) {
-        char text[256];
-        char UcaseCom[256];
-        char Tmp[256];
-        int zahl;
+    // TODO: This file doesn't exist, so don't crash here
+    if (ScriptFile == NULL)
+        return;
 
-        int Index = -1;
-        int waffe = -1;
+    char text[256];
+    char UcaseCom[256];
+    char Tmp[256];
+    int zahl;
 
-        while (!feof(ScriptFile)) {
-            fgets(text, 255, ScriptFile);
-            ucase(text, (char *)&UcaseCom);
+    int Index = -1;
+    int waffe = -1;
 
-            if (strncmp("ITEM", UcaseCom, 4) == 0) {
-                waffe = -1;
-                sscanf(UcaseCom, "ITEM%d %s", &Index, Tmp);
-                if (strncmp("WEAPON", Tmp, 6) == 0)
-                    waffe = 1;
-                strcpy(List[Index - 1].Type, Tmp);
-            }
+    while (!feof(ScriptFile)) {
+        fgets(text, 255, ScriptFile);
+        ucase(text, (char *)&UcaseCom);
 
-            if (strncmp("^^NAME", UcaseCom, 6) == 0 && Index != -1) {
-                sscanf(text, "%*s %s", Tmp);
-                strcpy(List[Index - 1].Name, Tmp);
-            }
-
-            if (strncmp("^^IMG", UcaseCom, 5) == 0 && Index != -1) {
-                sscanf(text, "%*s %s", Tmp);
-                strcpy(List[Index - 1].ImgFileName, "/rd/items/");
-                strcat(List[Index - 1].ImgFileName, Tmp);
-            }
-
-            if (strncmp("^^PRICE", UcaseCom, 7) == 0 && Index != -1) {
-                sscanf(UcaseCom, "^^PRICE %d", &zahl);
-                List[Index - 1].Price = zahl;
-            }
-
-            if (strncmp("^^DAMAGE", UcaseCom, 8) == 0 && Index != -1 && waffe != -1) {
-                sscanf(UcaseCom, "^^DAMAGE %d", &zahl);
-                List[Index - 1].Var1 = zahl;
-            }
-
-            if (strncmp("^^MD2", UcaseCom, 5) == 0 && Index != -1 && waffe != -1) {
-                sscanf(UcaseCom, "^^MD2 %s", Tmp);
-                strcpy(List[Index - 1].SrcA, "/rd/items/");
-                strcat(List[Index - 1].SrcA, Tmp);
-
-                sscanf(UcaseCom, "^^MD2 %*s %s", Tmp);
-                strcpy(List[Index - 1].SrcB, "/rd/items/");
-                strcat(List[Index - 1].SrcB, Tmp);
-            }
+        if (strncmp("ITEM", UcaseCom, 4) == 0) {
+            waffe = -1;
+            sscanf(UcaseCom, "ITEM%d %s", &Index, Tmp);
+            if (strncmp("WEAPON", Tmp, 6) == 0)
+                waffe = 1;
+            strcpy(List[Index - 1].Type, Tmp);
         }
-        fclose(ScriptFile);
-    } else
-        while (1) {
+
+        if (strncmp("^^NAME", UcaseCom, 6) == 0 && Index != -1) {
+            sscanf(text, "%*s %s", Tmp);
+            strcpy(List[Index - 1].Name, Tmp);
         }
-#endif
+
+        if (strncmp("^^IMG", UcaseCom, 5) == 0 && Index != -1) {
+            sscanf(text, "%*s %s", Tmp);
+            strcpy(List[Index - 1].ImgFileName, "/rd/items/");
+            strcat(List[Index - 1].ImgFileName, Tmp);
+        }
+
+        if (strncmp("^^PRICE", UcaseCom, 7) == 0 && Index != -1) {
+            sscanf(UcaseCom, "^^PRICE %d", &zahl);
+            List[Index - 1].Price = zahl;
+        }
+
+        if (strncmp("^^DAMAGE", UcaseCom, 8) == 0 && Index != -1 && waffe != -1) {
+            sscanf(UcaseCom, "^^DAMAGE %d", &zahl);
+            List[Index - 1].Var1 = zahl;
+        }
+
+        if (strncmp("^^MD2", UcaseCom, 5) == 0 && Index != -1 && waffe != -1) {
+            sscanf(UcaseCom, "^^MD2 %s", Tmp);
+            strcpy(List[Index - 1].SrcA, "/rd/items/");
+            strcat(List[Index - 1].SrcA, Tmp);
+
+            sscanf(UcaseCom, "^^MD2 %*s %s", Tmp);
+            strcpy(List[Index - 1].SrcB, "/rd/items/");
+            strcat(List[Index - 1].SrcB, Tmp);
+        }
+    }
+
+    fclose(ScriptFile);
 }
 
 void ClearItems(void)
 {
-#if 0
-    int a;
-    for (a = 0; a < 100; a++) {
+    for (int a = 0; a < 100; a++)
         Key[a] = false;
-    }
 
-    for (a = 0; a < 25; a++) {
-        strcpy(List[a].Name, "-");
-        strcpy(List[a].Type, "-");
-        strcpy(List[a].ImgFileName, "-");
-        strcpy(List[a].SrcA, "-");
-        strcpy(List[a].SrcB, "-");
+    for (int a = 0; a < 25; a++) {
+        strcpy(List[a].Name, "");
+        strcpy(List[a].Type, "");
+        strcpy(List[a].ImgFileName, "");
+        strcpy(List[a].SrcA, "");
+        strcpy(List[a].SrcB, "");
         List[a].Var1  = 0;
         List[a].Var2  = 0;
         List[a].Price = 0;
     }
-#endif
 }
 
 const char *GiveItemName(int Index)
 {
-    // return List[Index].Name;
-    return NULL;
+    if ((Index < 0) || (Index >= 25))
+        return "";
+
+    return List[Index].Name;
 }
 
 const char *GiveItemImgName(int Index)
 {
-    // return List[Index].ImgFileName;
-    return NULL;
+    if ((Index < 0) || (Index >= 25))
+        return "";
+
+    return List[Index].ImgFileName;
 }
 
 const char *GiveItemSrcA(int Index)
 {
-    // return List[Index].SrcA;
-    return NULL;
+    if ((Index < 0) || (Index >= 25))
+        return "";
+
+    return List[Index].SrcA;
 }
 
 const char *GiveItemSrcB(int Index)
 {
-    // return List[Index].SrcB;
-    return NULL;
+    if ((Index < 0) || (Index >= 25))
+        return "";
+
+    return List[Index].SrcB;
 }
 
 const char *GiveItemType(int Index)
 {
-    // return List[Index].Type;
-    return NULL;
+    if ((Index < 0) || (Index >= 25))
+        return "";
+
+    return List[Index].Type;
 }
 
 bool BoolCheck_Set(const char *UcaseCom)
 {
-#if 0
     bool *Container;   // Its a link to right script intern array
     char ContName[20]; // Its the name for right container
     int Index;         // index for key array
@@ -210,15 +214,13 @@ bool BoolCheck_Set(const char *UcaseCom)
             return false;
         }
     }
+
     // When it reaches here...something was made wrong...:(
-    return false;
-#endif
     return false;
 }
 
 bool ItemCheck_Set(const char *Com)
 {
-#if 0
     char UcaseCom[256];
 
     ucase(Com, (char *)&UcaseCom); // make command uppercaes for non-casesensetive
@@ -234,9 +236,7 @@ bool ItemCheck_Set(const char *Com)
         sscanf(UcaseCom, "[ADDITEM%d]", &a);
         AddItemToInventory(a - 1);
     }
-    // When it reaches here...something was made wrong...:(
-    return false;
-#endif
 
+    // When it reaches here...something was made wrong...:(
     return false;
 }

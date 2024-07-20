@@ -4,6 +4,7 @@
 #include "GfxEngine/Input/Circlestuff.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/Output/Inventory.h"
+#include "GfxEngine/Output/Items.h"
 #include "GfxEngine/Output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/Render/Obj_House.h"
@@ -25,7 +26,7 @@ int PlStatus   = 0; // aviable :D
 int PlFrame    = 0;
 int PlHP       = 100;
 
-// static int MouseOnButt = -1;
+static int MouseOnButt = -1;
 
 int CellSelect = 0;
 
@@ -78,7 +79,6 @@ float GetSX(void)
 // Menu
 void Menu(void)
 {
-#if 0
     touchPosition touch;
 
     int Old  = MouseOnButt;
@@ -87,7 +87,7 @@ void Menu(void)
     MouseOnButt = -1;
 
     if (keysHeld() & KEY_TOUCH) {
-        touch = touchReadXY();
+        touchRead(&touch);
 
         if (touch.py > 144 && touch.py < 144 + 32) { // Buttonfield
             if (touch.px > 29 && touch.px < 29 + 64)
@@ -117,6 +117,7 @@ void Menu(void)
 
     int s = 0;
 
+    // Equip/DeEquip Weapon
     if (!(keysHeld() & KEY_TOUCH) && Old == 10) {
         if (EquipedWeapon == CellSelect)
             EquipedWeapon = -1;
@@ -124,7 +125,7 @@ void Menu(void)
             EquipedWeapon = CellSelect;
         ItemMode();
         s = 1;
-    } // Equip/DeEquip Weapon
+    }
 
     if (!(keysHeld() & KEY_TOUCH) && Old == 1) {
         CellSelect = 0;
@@ -138,7 +139,6 @@ void Menu(void)
 
     if (!(keysHeld() & KEY_TOUCH) && MouseOnButt != Old && s == 0)
         ScreenMode();
-#endif
 }
 
 //******************************************************************************

@@ -7,10 +7,10 @@
 // If there is a slope, this isn't required, but it is required if the height
 // changes aren't continous.
 
-extern int Edge[10];
-extern int EdgeB[10];
-extern int EdgeC[10];
-extern bool EdgeBump[10];
+extern int Edge[Edge_Max];
+extern int EdgeB[Edge_Max];
+extern int EdgeC[Edge_Max];
+extern bool EdgeBump[Edge_Max];
 
 // Will appear where terrain meet stairs or stair meet stair
 void RenderEdge(int x, int y, f32 xx, f32 yy);

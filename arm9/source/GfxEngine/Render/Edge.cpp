@@ -1,15 +1,17 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/Files.h"
 #include "GfxEngine/Input/Input.h"
+#include "GfxEngine/Limits.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/Texture/DynamicLights.h"
 #include "GfxEngine/Texture/Light.h"
 
-int Edge[10];
-int EdgeB[10];
-int EdgeC[10];
-bool EdgeBump[10];
+// TODO: Only one edge is actually used
+int Edge[Edge_Max];
+int EdgeB[Edge_Max];
+int EdgeC[Edge_Max];
+bool EdgeBump[Edge_Max];
 
 static u8 left;
 static u8 right;

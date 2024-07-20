@@ -3,7 +3,9 @@
 
 #include <nds.h>
 
-extern int Inventory[100];
+#include "GfxEngine/Limits.h"
+
+extern int Inventory[Inventory_Max];
 extern int Inventory_Count;
 
 extern int EquipedWeapon;

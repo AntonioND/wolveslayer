@@ -4,7 +4,7 @@
 #include "GfxEngine/Settings.h"
 #include "XML/tinyxml.h"
 
-int Figuren[10];
+int Figuren[Figures_Max];
 
 char Names[8][20];
 int Atps[8];
@@ -83,7 +83,7 @@ void LoadChars(TiXmlElement *map)
 
             // loadstuff
             if (texture->Attribute("file") && mesh->Attribute("file")) {
-                if (2 + Num >= 10)
+                if (2 + Num >= Figures_Max)
                     Crash("Too many figures");
 
                 LoadModelTexture(TextureNameCom, &Figuren[2 + Num], &textsize);

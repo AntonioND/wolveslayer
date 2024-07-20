@@ -13,7 +13,7 @@ static u8 EnvR3, EnvG3, EnvB3;
 
 static int Time, Time2 = 1200;
 
-static int MdlLight[4][3];
+static int MdlLight[4][3]; // 4 directions
 static u16 MdlLight16[4];
 
 static int rotation;

@@ -3,8 +3,10 @@
 
 #include <stdbool.h>
 
-extern char EventSpeech[10][256]; // to hold 10 textes for event with 256 chars
-extern int EventSpeechCount;      // Holds the Number of speeches a event has...
+#include "GfxEngine/Limits.h"
+
+extern char EventSpeech[EventSpeech_Max][256]; // to hold textes for event with 256 chars
+extern int EventSpeechCount;                   // Holds the Number of speeches a event has...
 
 extern bool Gameended;
 

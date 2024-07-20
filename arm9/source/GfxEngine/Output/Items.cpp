@@ -1,8 +1,9 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/Limits.h"
 #include "GfxEngine/Output/Inventory.h"
 
-bool Key[100];
-bool Bool[100];
+bool Key[Inventory_Max];
+bool Bool[Inventory_Max];
 
 // Items
 typedef struct {
@@ -16,7 +17,7 @@ typedef struct {
     int Var2;
 } Item_Types;
 
-Item_Types List[25];
+static Item_Types List[ItemType_Max];
 
 // Returns capital lettered text of the given text
 static void ucase(const char *old, char *new_)
@@ -94,10 +95,10 @@ void LoadItemList(void)
 
 void ClearItems(void)
 {
-    for (int a = 0; a < 100; a++)
+    for (int a = 0; a < Inventory_Max; a++)
         Key[a] = false;
 
-    for (int a = 0; a < 25; a++) {
+    for (int a = 0; a < ItemType_Max; a++) {
         strcpy(List[a].Name, "");
         strcpy(List[a].Type, "");
         strcpy(List[a].ImgFileName, "");
@@ -111,7 +112,7 @@ void ClearItems(void)
 
 const char *GiveItemName(int Index)
 {
-    if ((Index < 0) || (Index >= 25))
+    if ((Index < 0) || (Index >= ItemType_Max))
         return "";
 
     return List[Index].Name;
@@ -119,7 +120,7 @@ const char *GiveItemName(int Index)
 
 const char *GiveItemImgName(int Index)
 {
-    if ((Index < 0) || (Index >= 25))
+    if ((Index < 0) || (Index >= ItemType_Max))
         return "";
 
     return List[Index].ImgFileName;
@@ -127,7 +128,7 @@ const char *GiveItemImgName(int Index)
 
 const char *GiveItemSrcA(int Index)
 {
-    if ((Index < 0) || (Index >= 25))
+    if ((Index < 0) || (Index >= ItemType_Max))
         return "";
 
     return List[Index].SrcA;
@@ -135,7 +136,7 @@ const char *GiveItemSrcA(int Index)
 
 const char *GiveItemSrcB(int Index)
 {
-    if ((Index < 0) || (Index >= 25))
+    if ((Index < 0) || (Index >= ItemType_Max))
         return "";
 
     return List[Index].SrcB;
@@ -143,7 +144,7 @@ const char *GiveItemSrcB(int Index)
 
 const char *GiveItemType(int Index)
 {
-    if ((Index < 0) || (Index >= 25))
+    if ((Index < 0) || (Index >= ItemType_Max))
         return "";
 
     return List[Index].Type;
@@ -195,7 +196,7 @@ bool BoolCheck_Set(const char *UcaseCom)
     }
     //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     // We get all we needed to handle now
-    if (Index > 0 && Index <= 100) {
+    if (Index > 0 && Index <= Inventory_Max) {
         // Setting a value (=)
         if (strncmp("=S", Operator, 2) == 0) {
             if (strncmp("TRUE]", Value, 5) == 0)

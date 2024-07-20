@@ -4,6 +4,7 @@
 #include "GfxEngine/Render/Obj_House.h"
 #include "GfxEngine/Texture/Light.h"
 
+// TODO: Only one door texture supported for now
 static int Door[1];
 
 static const t16 overdoor = inttot16(17);

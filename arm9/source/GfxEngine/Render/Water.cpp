@@ -1,6 +1,7 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/Texture/Light.h"
 
+// TODO: Only one water texture supported for now
 int Water[1];
 u32 WaterKey;
 

@@ -8,19 +8,19 @@
 #include "GfxEngine/Texture/Light.h"
 #include "Sound/Music.h"
 
-char EventSpeech[10][256]; // to hold 10 textes for event with 256 chars
-int EventSpeechCount;      // Holds the Number of speeches a event has...
+char EventSpeech[EventSpeech_Max][256]; // to hold textes for event with 256 chars
+int EventSpeechCount;                   // Holds the Number of speeches a event has...
 
 void ResetEvent(void)
 {
-    for (int b = 0; b < 10; b++)
+    for (int b = 0; b < EventSpeech_Max; b++)
         strcpy(EventSpeech[b], "");
     EventSpeechCount = 0;
 }
 
 void AddTexttoEvent(char txt[256])
 {
-    if (EventSpeechCount >= 10)
+    if (EventSpeechCount >= EventSpeech_Max)
         Crash("Too many event speeches");
 
     strcpy(EventSpeech[EventSpeechCount], txt);

@@ -32,7 +32,7 @@ void ResetVillagers(void)
         Villager[a].SY        = 0;
         Villager[a].TextNum   = -1;
         Villager[a].Direction = 0;
-        for (int b = 0; b < 10; b++)
+        for (int b = 0; b < VillagerSpeeches_Max; b++)
             strcpy(Villager[a].Speech[b], "");
         Villager[a].SpeechCount = 0;
     }

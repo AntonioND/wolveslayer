@@ -22,7 +22,7 @@ float PlPosX = 15, PlPosY = 0;
 float PlPosSX = 0, PlPosSY = 0;
 float PlHeight  = 0;
 int PlDirection = 0;
-int PlStatus    = 0; // aviable :D
+int PlStatus    = 0;
 int PlFrame     = 0;
 int PlHP        = 100;
 

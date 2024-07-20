@@ -38,4 +38,6 @@
 #define MapChange_Max       25 // Max. number of map changes and doors
 #define MapChangeSpeech_Max 10 // Max. number of speech strings of a map change
 
+#define DynamicLight_Max 10 // Max. number of lights that can move around the map
+
 #endif // GFXENGINE_LIMITS_H__

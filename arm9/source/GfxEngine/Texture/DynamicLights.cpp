@@ -1,5 +1,6 @@
 #include "GfxEngine/3D.h"
 #include "GfxEngine/Input/Input.h"
+#include "GfxEngine/Limits.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/Output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
@@ -9,6 +10,7 @@ u8 WorldLightR[128 * 128];
 u8 WorldLightG[128 * 128];
 u8 WorldLightB[128 * 128];
 
+// 20x20 map
 u16 ViewportMapLights[20][20];
 bool ViewportMapBumpGroundS[20][20];
 bool ViewportMapBumpGroundW[20][20];
@@ -29,20 +31,20 @@ typedef struct {
     u8 Bcolor;
 } DynamicLightSource;
 
-static DynamicLightSource Fireflys[10];
+static DynamicLightSource Fireflys[DynamicLight_Max];
 static int DynamicLightCount = -1;
 
 void ResetDynamic(void)
 {
     DynamicLightCount = -1;
-    for (int a = 0; a < 10; a++)
+    for (int a = 0; a < DynamicLight_Max; a++)
         Fireflys[a].Enable = false;
 }
 
 void AddDynamic(int x, int y, u8 r, u8 g, u8 b)
 {
-    if (DynamicLightCount >= 10)
-        Crash("Too many dynamic lights:\n%d > %d", DynamicLightCount, 10);
+    if (DynamicLightCount >= DynamicLight_Max)
+        Crash("Too many dynamic lights:\n%d > %d", DynamicLightCount, DynamicLight_Max);
 
     DynamicLightCount++;
     Fireflys[DynamicLightCount].X      = x;
@@ -90,7 +92,7 @@ static void UpdateFireFlys(void)
     float Bcol1, Bcol2, Bcol3, Bcol4;
 
     if (screenmode < ScreenModeItem) {
-        for (a = 0; a < 10; a++) {
+        for (a = 0; a < DynamicLight_Max; a++) {
             if (Fireflys[a].Enable == true) {
                 l = true;
                 r = true;
@@ -170,7 +172,7 @@ static void UpdateFireFlys(void)
             }
         }
 
-        for (a = 0; a < 10; a++) {
+        for (a = 0; a < DynamicLight_Max; a++) {
             if (Fireflys[a].Enable == true) {
                 sx = Fireflys[a].SX;
                 sy = Fireflys[a].SY;

@@ -7,7 +7,7 @@ extern float CamPosSX, CamPosSY;
 extern float PlPosX, PlPosY;
 extern float PlPosSX, PlPosSY;
 extern float PlHeight;
-extern int PlRichtung;
+extern int PlDirection;
 extern int PlStatus;
 extern int PlFrame;
 extern int PlHP;

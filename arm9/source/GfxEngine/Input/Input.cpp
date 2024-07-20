@@ -20,7 +20,7 @@ float CamPosSX = 0, CamPosSY = 0;
 float PlPosX = 15, PlPosY = 0;
 float PlPosSX = 0, PlPosSY = 0;
 float PlHeight = 0;
-int PlRichtung = 0;
+int PlDirection = 0;
 int PlStatus   = 0; // aviable :D
 int PlFrame    = 0;
 int PlHP       = 100;
@@ -153,31 +153,31 @@ void Interact(void)
     u = false;
     d = false;
 
-    if (PlRichtung == 0) {
+    if (PlDirection == 0) {
         d = true;
     }
-    if (PlRichtung == 1) {
+    if (PlDirection == 1) {
         d = true;
         l = true;
     }
-    if (PlRichtung == 2) {
+    if (PlDirection == 2) {
         l = true;
     }
-    if (PlRichtung == 3) {
+    if (PlDirection == 3) {
         u = true;
         l = true;
     }
-    if (PlRichtung == 4) {
+    if (PlDirection == 4) {
         u = true;
     }
-    if (PlRichtung == 5) {
+    if (PlDirection == 5) {
         u = true;
         r = true;
     }
-    if (PlRichtung == 6) {
+    if (PlDirection == 6) {
         r = true;
     }
-    if (PlRichtung == 7) {
+    if (PlDirection == 7) {
         d = true;
         r = true;
     }
@@ -315,31 +315,31 @@ void Interact(void)
         u = false;
         d = false;
 
-        if (PlRichtung == 0) {
+        if (PlDirection == 0) {
             d = true;
         }
-        if (PlRichtung == 1) {
+        if (PlDirection == 1) {
             d = true;
             l = true;
         }
-        if (PlRichtung == 2) {
+        if (PlDirection == 2) {
             l = true;
         }
-        if (PlRichtung == 3) {
+        if (PlDirection == 3) {
             u = true;
             l = true;
         }
-        if (PlRichtung == 4) {
+        if (PlDirection == 4) {
             u = true;
         }
-        if (PlRichtung == 5) {
+        if (PlDirection == 5) {
             u = true;
             r = true;
         }
-        if (PlRichtung == 6) {
+        if (PlDirection == 6) {
             r = true;
         }
-        if (PlRichtung == 7) {
+        if (PlDirection == 7) {
             d = true;
             r = true;
         }
@@ -527,26 +527,26 @@ void inputs(void)
     if (PlStatus != 3) {
         // Look in given dirrection
         if (keysHeld() & KEY_DOWN)
-            PlRichtung = 0;
+            PlDirection = 0;
         if (keysHeld() & KEY_LEFT)
-            PlRichtung = 2;
+            PlDirection = 2;
         if (keysHeld() & KEY_UP)
-            PlRichtung = 4;
+            PlDirection = 4;
         if (keysHeld() & KEY_RIGHT)
-            PlRichtung = 6;
+            PlDirection = 6;
 
         if (keysHeld() & KEY_DOWN)
             if (keysHeld() & KEY_LEFT)
-                PlRichtung = 1;
+                PlDirection = 1;
         if (keysHeld() & KEY_DOWN)
             if (keysHeld() & KEY_RIGHT)
-                PlRichtung = 7;
+                PlDirection = 7;
         if (keysHeld() & KEY_UP)
             if (keysHeld() & KEY_LEFT)
-                PlRichtung = 3;
+                PlDirection = 3;
         if (keysHeld() & KEY_UP)
             if (keysHeld() & KEY_RIGHT)
-                PlRichtung = 5;
+                PlDirection = 5;
 
         // Movement
         // Player(aka da playa :D)

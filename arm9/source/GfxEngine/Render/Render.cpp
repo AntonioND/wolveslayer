@@ -337,7 +337,7 @@ static void RefreshPlayer(void)
     float spos[2];
     spos[0] = sx;
     spos[1] = sy;
-    SetMdlLights(pos, spos, .4, PlRichtung * 64);
+    SetMdlLights(pos, spos, .4, PlDirection * 64);
 
     glBindTexture(GL_TEXTURE_2D, Figuren[0]);
 
@@ -379,7 +379,7 @@ static void RefreshPlayer(void)
     glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(1));
     glTranslatef(CamPosSX, hpos, CamPosSY);
     glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
-    glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + PlRichtung * -64));
+    glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + PlDirection * -64));
     Precalcmd2light(aniwaffe, 0);
     RenderMD2Model(aniwaffe, 0);
     glPopMatrix(1);
@@ -391,7 +391,7 @@ static void RefreshPlayer(void)
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
         glTranslatef(CamPosSX, -.1 - hpos, CamPosSY);
         glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
-        glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + PlRichtung * -64));
+        glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + PlDirection * -64));
         RenderMD2ModelMirrowed(aniwaffe, 0);
         glPopMatrix(1);
     }
@@ -405,7 +405,7 @@ static void RefreshPlayer(void)
     glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
     glTranslatef(CamPosSX, hpos, CamPosSY);
     glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
-    glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + PlRichtung * -64));
+    glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + PlDirection * -64));
     Precalcmd2light(aniwaffe, 1);
     RenderMD2Model(aniwaffe, 1);
     glPopMatrix(1);
@@ -416,7 +416,7 @@ static void RefreshPlayer(void)
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
         glTranslatef(CamPosSX, -.1 - hpos, CamPosSY);
         glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
-        glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + PlRichtung * -64));
+        glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + PlDirection * -64));
         RenderMD2ModelMirrowed(aniwaffe, 1);
         glPopMatrix(1);
     }
@@ -488,7 +488,7 @@ static void RefreshVillagers(void)
             vsy = Villager[a].SY + .5;
             dir = Villager[a].Direction;
             if (a == npctalk && screenmode == ScreenModeTextBox) {
-                dir = PlRichtung + 4;
+                dir = PlDirection + 4;
                 if (dir > 7)
                     dir -= 8;
             }

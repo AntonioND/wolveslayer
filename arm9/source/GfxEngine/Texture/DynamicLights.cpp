@@ -23,7 +23,7 @@ typedef struct {
     int SX;
     int SY;
     bool Enable;
-    int Richtung;
+    int Direction;
     u8 Rcolor;
     u8 Gcolor;
     u8 Bcolor;
@@ -75,7 +75,7 @@ static void TurnDyn(int a, bool l, bool r, bool u, bool d)
             ok = false;
     }
 
-    Fireflys[a].Richtung = dirnew;
+    Fireflys[a].Direction = dirnew;
 }
 
 static void UpdateFireFlys(void)
@@ -117,13 +117,13 @@ static void UpdateFireFlys(void)
                     d = false;
 
                 change = false;
-                if ((Fireflys[a].Richtung == 0 || Fireflys[a].Richtung == 1 || Fireflys[a].Richtung == 7) && d == false)
+                if ((Fireflys[a].Direction == 0 || Fireflys[a].Direction == 1 || Fireflys[a].Direction == 7) && d == false)
                     change = true;
-                if ((Fireflys[a].Richtung == 1 || Fireflys[a].Richtung == 2 || Fireflys[a].Richtung == 3) && l == false)
+                if ((Fireflys[a].Direction == 1 || Fireflys[a].Direction == 2 || Fireflys[a].Direction == 3) && l == false)
                     change = true;
-                if ((Fireflys[a].Richtung == 6 || Fireflys[a].Richtung == 5 || Fireflys[a].Richtung == 7) && r == false)
+                if ((Fireflys[a].Direction == 6 || Fireflys[a].Direction == 5 || Fireflys[a].Direction == 7) && r == false)
                     change = true;
-                if ((Fireflys[a].Richtung == 4 || Fireflys[a].Richtung == 3 || Fireflys[a].Richtung == 5) && u == false)
+                if ((Fireflys[a].Direction == 4 || Fireflys[a].Direction == 3 || Fireflys[a].Direction == 5) && u == false)
                     change = true;
                 if (rand() % 20 == 0)
                     change = true;
@@ -142,26 +142,26 @@ static void UpdateFireFlys(void)
                 }
 
                 // Horizontal
-                if ((Fireflys[a].Richtung == 6 || Fireflys[a].Richtung == 5 || Fireflys[a].Richtung == 7) && r)
+                if ((Fireflys[a].Direction == 6 || Fireflys[a].Direction == 5 || Fireflys[a].Direction == 7) && r)
                     Fireflys[a].SX += 1;
                 if (Fireflys[a].SX > 19) {
                     Fireflys[a].X += 1;
                     Fireflys[a].SX = 0;
                 }
-                if ((Fireflys[a].Richtung == 1 || Fireflys[a].Richtung == 2 || Fireflys[a].Richtung == 3) && l)
+                if ((Fireflys[a].Direction == 1 || Fireflys[a].Direction == 2 || Fireflys[a].Direction == 3) && l)
                     Fireflys[a].SX -= 1;
                 if (Fireflys[a].SX < 0) {
                     Fireflys[a].X -= 1;
                     Fireflys[a].SX = 19;
                 }
                 // Vertikal
-                if ((Fireflys[a].Richtung == 0 || Fireflys[a].Richtung == 1 || Fireflys[a].Richtung == 7) && d)
+                if ((Fireflys[a].Direction == 0 || Fireflys[a].Direction == 1 || Fireflys[a].Direction == 7) && d)
                     Fireflys[a].SY += 1;
                 if (Fireflys[a].SY > 19) {
                     Fireflys[a].Y += 1;
                     Fireflys[a].SY = 0;
                 }
-                if ((Fireflys[a].Richtung == 4 || Fireflys[a].Richtung == 3 || Fireflys[a].Richtung == 5) && u)
+                if ((Fireflys[a].Direction == 4 || Fireflys[a].Direction == 3 || Fireflys[a].Direction == 5) && u)
                     Fireflys[a].SY -= 1;
                 if (Fireflys[a].SY < 0) {
                     Fireflys[a].Y -= 1;

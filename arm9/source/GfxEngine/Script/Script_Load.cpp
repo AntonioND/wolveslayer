@@ -43,23 +43,21 @@ static void UnloadStuff(void)
     ResetEnemys();
     ResetEvent();
 
-    int a;
-    for (a = 0; a < Ground_Max; a++)
+    for (int a = 0; a < Ground_Max; a++) {
         Ground[a].ColorKey = 0;
-    for (a = 0; a < Ground_Max; a++)
         Ground[a].TransEnable = false;
-    for (a = 0; a < Ground_Max; a++)
         Ground[a].BumpEnable = false;
-    for (a = 0; a < 4; a++) {
+    }
+    for (int a = 0; a < Autotile_Max; a++) {
         Autotile[a].ColorKeyMaster = 0;
         Autotile[a].IgnorecolorsNum = -1;
     }
-    for (a = 0; a < Object_Max; a++)
+    for (int a = 0; a < Object_Max; a++) {
         Objects[a].ColorKey = 0;
-    for (a = 0; a < Object_Max; a++)
         strcpy(Objects[a].Type, ".");
-    for (a = 0; a < Object_Max; a++)
         Objects[a].Radius = 0;
+    }
+
     FreeModels();
     ResetDynamic();
 

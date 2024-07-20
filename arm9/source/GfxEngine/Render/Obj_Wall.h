@@ -15,7 +15,7 @@ typedef struct {
     int TextureC; // Advanced slot for objects with bump mapping
 } ObjectTextureInfo;
 
-extern ObjectTextureInfo ObjectTexture[Object_Max];
+extern ObjectTextureInfo ObjectTexture[ObjectTexture_Max];
 
 void RenderWallBorder(int mode, int dirrection, f32 x, f32 y, f32 z, int textnum);
 

@@ -4,7 +4,7 @@
 #include "GfxEngine/Render/Obj_Wall.h"
 #include "GfxEngine/Texture/Light.h"
 
-ObjectTextureInfo ObjectTexture[Object_Max];
+ObjectTextureInfo ObjectTexture[ObjectTexture_Max];
 
 // Renders walls inside buildings
 void RenderWallBorder(int mode, int dirrection, f32 x, f32 y, f32 z, int textnum)

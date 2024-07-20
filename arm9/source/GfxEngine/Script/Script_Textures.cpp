@@ -16,10 +16,8 @@ void LoadTextureCommand(TiXmlElement *map)
         int id = -1;
         if (texture->Attribute("id"))
             sscanf(texture->Attribute("id"), "%i", &id);
-        if (id < 0)
-            Crash("Invalid texture ID:\n%d", id);
-        if (id >= Object_Max)
-            Crash("Too many object textures:\n%d >= %d", id, Object_Max);
+        if ((id < 0) || (id >= ObjectTexture_Max))
+            Crash("Invalid texture ID:\n%d (max %d)", id, ObjectTexture_Max);
 
         // bumpmapping
         bool bump = false;
@@ -28,13 +26,11 @@ void LoadTextureCommand(TiXmlElement *map)
                 bump = true;
         }
 
-        // Final call to load that shit
-        if (id < Object_Max && id >= 0) {
-            if (bump == false)
-                LoadModelTexture(FileNameCom, &(ObjectTexture[id].Texture), &(ObjectTexture[id].WidthHeight));
-            else
-                LoadMBump3Texture(FileNameCom, &(ObjectTexture[id].Texture), &(ObjectTexture[id].TextureB), &(ObjectTexture[id].TextureC));
-        }
+        // Load the texture
+        if (bump == false)
+            LoadModelTexture(FileNameCom, &(ObjectTexture[id].Texture), &(ObjectTexture[id].WidthHeight));
+        else
+            LoadMBump3Texture(FileNameCom, &(ObjectTexture[id].Texture), &(ObjectTexture[id].TextureB), &(ObjectTexture[id].TextureC));
 
         ObjectTexture[id].HasBump = bump;
 

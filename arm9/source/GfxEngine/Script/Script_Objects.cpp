@@ -41,15 +41,12 @@ void LoadObjectCommand(TiXmlElement *map)
         int id = -1;
         if (object->Attribute("textureid"))
             sscanf(object->Attribute("textureid"), "%i", &id);
-        if (id < 0)
-            Crash("Invalid texture ID:\n%s", __func__);
-        if (id >= Object_Max)
-            Crash("Object texture ID too high:\n%d >= %d", id, Object_Max);
-
+        if ((id < 0) || (id >= Object_Max))
+            Crash("Invalid object ID:\n%d (max %d)", id, Object_Max);
         Objects[num].TextureID = id;
 
         // filename
-        const char *ObjTyp = NULL;
+        const char *ObjTyp = "";
         strcpy(FileNameCom, "");
         if (object->Attribute("mesh")) {
             if (strncmp("[wall]", object->Attribute("mesh"), 6) == 0) {
@@ -121,8 +118,7 @@ void LoadObjectCommand(TiXmlElement *map)
         Objects[num].Culling = cull;
 
         // Final call to load it
-        if (id < Object_Max && id >= 0)
-            strcpy(Objects[num].Type, ObjTyp);
+        strcpy(Objects[num].Type, ObjTyp);
 
         if (strncmp("MODEL", Objects[num].Type, 5) == 0 && id >= 0)
             LoadMD2Model(FileNameCom, num + 10, ObjectTexture[id].WidthHeight, scale);

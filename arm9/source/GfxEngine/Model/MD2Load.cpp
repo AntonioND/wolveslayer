@@ -254,7 +254,7 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
     MakeCollisionMap(num);
 }
 
-void LoadModelTexture(char filename[], int *Target, int num, int *w)
+void LoadModelTexture(char filename[], int *Target, int *w)
 {
     u8 *picbuff;
     u16 *palbuff;
@@ -264,10 +264,10 @@ void LoadModelTexture(char filename[], int *Target, int num, int *w)
     if ((width != 64 || height != 64) && (width != 128 || height != 128))
         Crash("Texture isn't 64x64 or 128x128\nSize: %lux%lu\n%s", width, height, filename);
 
-    w[num] = width;
+    *w = width;
 
-    glGenTextures(1, &Target[num]);
-    glBindTexture(0, Target[num]);
+    glGenTextures(1, Target);
+    glBindTexture(0, *Target);
 
     WaitForFreeVblank();
 

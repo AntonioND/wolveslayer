@@ -30,9 +30,9 @@ void LoadTextureCommand(TiXmlElement *map)
         // Final call to load that shit
         if (id < Object_Max && id >= 0) {
             if (bump == false)
-                LoadModelTexture(FileNameCom, &ObjektTex[0], id, &TextureWidthHeight[0]);
+                LoadModelTexture(FileNameCom, &ObjektTex[id], &TextureWidthHeight[id]);
             else
-                LoadMBump3Texture(FileNameCom, id, &ObjektTex[0], &ObjektTexB[0], &ObjektTexC[0]);
+                LoadMBump3Texture(FileNameCom, &ObjektTex[id], &ObjektTexB[id], &ObjektTexC[id]);
         }
 
         TexturehasBump[id] = bump;

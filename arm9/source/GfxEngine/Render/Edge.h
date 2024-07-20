@@ -15,6 +15,6 @@ extern bool EdgeBump[10];
 // Will appear where terrain meet stairs or stair meet stair
 void RenderEdge(int x, int y, f32 xx, f32 yy);
 
-void LoadEdgeTexture(char filename[], int *Target, int num);
+void LoadEdgeTexture(char filename[], int *Target);
 
 #endif // GFXENGINE_RENDER_EDGE_H__

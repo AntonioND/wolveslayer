@@ -2,7 +2,7 @@
 #include "GfxEngine/Files.h"
 #include "GfxEngine/Render/Ground.h"
 
-void LoadMBump3Texture(char filename[], int num, int *target, int *targetb, int *targetc)
+void LoadMBump3Texture(char filename[], int *target, int *targetb, int *targetc)
 {
     u8 *buffer8;
     u16 *pal;
@@ -40,23 +40,23 @@ void LoadMBump3Texture(char filename[], int num, int *target, int *targetb, int 
         }
     }
 
-    glGenTextures(1, &target[num]);
-    glGenTextures(1, &targetb[num]);
-    glGenTextures(1, &targetc[num]);
+    glGenTextures(1, target);
+    glGenTextures(1, targetb);
+    glGenTextures(1, targetc);
 
     WaitForFreeVblank();
 
-    glBindTexture(0, target[num]);
+    glBindTexture(0, *target);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, 32, 64, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffNorm);
     glColorTableEXT(GL_TEXTURE_2D, 0, 256, 0, 0, pal);
 
-    glBindTexture(0, targetb[num]);
+    glBindTexture(0, *targetb);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, 32, 64, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffLeft);
-    glAssignColorTable(0, target[num]);
+    glAssignColorTable(0, *target);
 
-    glBindTexture(0, targetc[num]);
+    glBindTexture(0, *targetc);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, 32, 64, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, buffRight);
-    glAssignColorTable(0, target[num]);
+    glAssignColorTable(0, *target);
 
     free(buffer8);
     free(pal);

@@ -105,7 +105,7 @@ void LoadWaterCommand(TiXmlElement *map)
         }
 
         int size;
-        LoadModelTexture(FileNameCom, &Water[0], 0, &size);
+        LoadModelTexture(FileNameCom, &Water[0], &size);
     }
 }
 
@@ -125,9 +125,9 @@ void LoadTerrainBorderCommand(TiXmlElement *map)
             snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", terrainborder->Attribute("file"));
 
             if (bumpmapping == false)
-                LoadEdgeTexture(FileNameCom, &Edge[0], 0);
+                LoadEdgeTexture(FileNameCom, &Edge[0]);
             else
-                LoadMBump3Texture(FileNameCom, 0, &Edge[0], &EdgeB[0], &EdgeC[0]);
+                LoadMBump3Texture(FileNameCom, &Edge[0], &EdgeB[0], &EdgeC[0]);
 
             EdgeBump[0] = bumpmapping;
         }

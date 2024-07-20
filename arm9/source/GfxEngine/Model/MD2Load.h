@@ -3,7 +3,7 @@
 
 void InitTableOfNormal(void);
 void FreeModels(void);
-void LoadModelTexture(char filename[], int *Target, int num, int *w);
+void LoadModelTexture(char filename[], int *Target, int *w);
 void LoadMD2Model(char Filename[], int num, int widthheight, int scale);
 
 #endif // GFXENGINE_MODEL_MD2LOAD_H__

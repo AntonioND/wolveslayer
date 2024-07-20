@@ -579,7 +579,7 @@ void RenderEdge(int x, int y, f32 xx, f32 yy)
     }
 }
 
-void LoadEdgeTexture(char filename[], int *Target, int num)
+void LoadEdgeTexture(char filename[], int *Target)
 {
     u8 *buffer8;
     u16 *pal;
@@ -589,8 +589,8 @@ void LoadEdgeTexture(char filename[], int *Target, int num)
     if (width != 32 || height != 64)
         Crash("Texture isn't 32x64\nSize: %lux%lu\n%s", width, height, filename);
 
-    glGenTextures(1, &Target[num]);
-    glBindTexture(0, Target[num]);
+    glGenTextures(1, Target);
+    glBindTexture(0, *Target);
 
     WaitForFreeVblank();
 

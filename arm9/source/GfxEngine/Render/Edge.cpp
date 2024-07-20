@@ -4,14 +4,12 @@
 #include "GfxEngine/Limits.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/PreCalc.h"
+#include "GfxEngine/Render/Edge.h"
 #include "GfxEngine/Texture/DynamicLights.h"
 #include "GfxEngine/Texture/Light.h"
 
 // TODO: Only one edge is actually used
-int Edge[Edge_Max];
-int EdgeB[Edge_Max];
-int EdgeC[Edge_Max];
-bool EdgeBump[Edge_Max];
+EdgeInfo Edge[Edge_Max];
 
 static u8 left;
 static u8 right;
@@ -52,7 +50,7 @@ static void WallEdge(int x, int y, f32 xx, f32 yy)
     int b = 0;
 
     if (left == 3) {
-        if (EdgeBump[0] && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
+        if (Edge[0].HasBump && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
             b = 0;
@@ -68,13 +66,13 @@ static void WallEdge(int x, int y, f32 xx, f32 yy)
 
         for (a = -b; a <= b; a++) {
             if (a == -1)
-                glBindTexture(GL_TEXTURE_2D, EdgeC[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].TextureC);
             // if (a == 0 && b != 0)
-            //     glBindTexture(GL_TEXTURE_2D, EdgeA[0]);
+            //     glBindTexture(GL_TEXTURE_2D, Edge[0].TextureA);
             if (a == 0)
-                glBindTexture(GL_TEXTURE_2D, Edge[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].Texture);
             if (a == 1)
-                glBindTexture(GL_TEXTURE_2D, EdgeB[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].TextureB);
 
             glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
             glPushMatrix();
@@ -108,7 +106,7 @@ static void WallEdge(int x, int y, f32 xx, f32 yy)
     }
 
     if (right == 3) {
-        if (EdgeBump[0] && ViewportMapBumpWallE[x - CamPosX + 5][y - CamPosY + 3])
+        if (Edge[0].HasBump && ViewportMapBumpWallE[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
             b = 0;
@@ -126,13 +124,13 @@ static void WallEdge(int x, int y, f32 xx, f32 yy)
 
         for (a = -b; a <= b; a++) {
             if (a == -1)
-                glBindTexture(GL_TEXTURE_2D, EdgeC[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].TextureC);
             // if (a == 0 && b != 0)
-            //     glBindTexture(GL_TEXTURE_2D, EdgeA[0]);
+            //     glBindTexture(GL_TEXTURE_2D, Edge[0].TextureA);
             if (a == 0)
-                glBindTexture(GL_TEXTURE_2D, Edge[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].Texture);
             if (a == 1)
-                glBindTexture(GL_TEXTURE_2D, EdgeB[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].TextureB);
 
             glPushMatrix();
             glTranslatef32(xx, 0, yy);
@@ -165,7 +163,7 @@ static void WallEdge(int x, int y, f32 xx, f32 yy)
     }
 
     if (front == 3) {
-        if (EdgeBump[0] && ViewportMapBumpWallS[x - CamPosX + 5][y - CamPosY + 3])
+        if (Edge[0].HasBump && ViewportMapBumpWallS[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
             b = 0;
@@ -183,13 +181,13 @@ static void WallEdge(int x, int y, f32 xx, f32 yy)
 
         for (a = -b; a <= b; a++) {
             if (a == -1)
-                glBindTexture(GL_TEXTURE_2D, EdgeC[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].TextureC);
             // if (a == 0 && b != 0)
-            //     glBindTexture(GL_TEXTURE_2D, EdgeA[0]);
+            //     glBindTexture(GL_TEXTURE_2D, Edge[0].TextureA);
             if (a == 0)
-                glBindTexture(GL_TEXTURE_2D, Edge[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].Texture);
             if (a == 1)
-                glBindTexture(GL_TEXTURE_2D, EdgeB[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].TextureB);
 
             glPushMatrix();
             glTranslatef32(xx, 0, yy);
@@ -232,7 +230,7 @@ static void HalfWallEdgeA(int x, int y, f32 xx, f32 yy)
     int b = 0;
 
     if (left == 1) {
-        if (EdgeBump[0] && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
+        if (Edge[0].HasBump && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
             b = 0;
@@ -248,13 +246,13 @@ static void HalfWallEdgeA(int x, int y, f32 xx, f32 yy)
 
         for (a = -b; a <= b; a++) {
             if (a == -1)
-                glBindTexture(GL_TEXTURE_2D, EdgeC[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].TextureC);
             // if (a == 0 && b != 0)
-            //     glBindTexture(GL_TEXTURE_2D, EdgeA[0]);
+            //     glBindTexture(GL_TEXTURE_2D, Edge[0].TextureA);
             if (a == 0)
-                glBindTexture(GL_TEXTURE_2D, Edge[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].Texture);
             if (a == 1)
-                glBindTexture(GL_TEXTURE_2D, EdgeB[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].TextureB);
 
             glPushMatrix();
             glTranslatef32(xx, 0, yy);
@@ -283,7 +281,7 @@ static void HalfWallEdgeA(int x, int y, f32 xx, f32 yy)
     }
 
     if (right == 1) {
-        if (EdgeBump[0] && ViewportMapBumpWallE[x - CamPosX + 5][y - CamPosY + 3])
+        if (Edge[0].HasBump && ViewportMapBumpWallE[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
             b = 0;
@@ -301,13 +299,13 @@ static void HalfWallEdgeA(int x, int y, f32 xx, f32 yy)
 
         for (a = -b; a <= b; a++) {
             if (a == -1)
-                glBindTexture(GL_TEXTURE_2D, EdgeC[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].TextureC);
             // if (a == 0 && b != 0)
-            //     glBindTexture(GL_TEXTURE_2D, EdgeA[0]);
+            //     glBindTexture(GL_TEXTURE_2D, Edge[0].TextureA);
             if (a == 0)
-                glBindTexture(GL_TEXTURE_2D, Edge[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].Texture);
             if (a == 1)
-                glBindTexture(GL_TEXTURE_2D, EdgeB[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].TextureB);
 
             glPushMatrix();
             glTranslatef32(xx, 0, yy);
@@ -336,7 +334,7 @@ static void HalfWallEdgeA(int x, int y, f32 xx, f32 yy)
     }
 
     if (front == 1) {
-        if (EdgeBump[0] && ViewportMapBumpWallS[x - CamPosX + 5][y - CamPosY + 3])
+        if (Edge[0].HasBump && ViewportMapBumpWallS[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
             b = 0;
@@ -354,13 +352,13 @@ static void HalfWallEdgeA(int x, int y, f32 xx, f32 yy)
 
         for (a = -b; a <= b; a++) {
             if (a == -1)
-                glBindTexture(GL_TEXTURE_2D, EdgeC[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].TextureC);
             // if (a == 0 && b != 0)
-            //     glBindTexture(GL_TEXTURE_2D, EdgeA[0]);
+            //     glBindTexture(GL_TEXTURE_2D, Edge[0].TextureA);
             if (a == 0)
-                glBindTexture(GL_TEXTURE_2D, Edge[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].Texture);
             if (a == 1)
-                glBindTexture(GL_TEXTURE_2D, EdgeB[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].TextureB);
 
             glPushMatrix();
             glTranslatef32(xx, 0, yy);
@@ -399,7 +397,7 @@ static void HalfWallEdgeB(int x, int y, f32 xx, f32 yy)
     int b = 0;
 
     if (left == 2) {
-        if (EdgeBump[0] && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
+        if (Edge[0].HasBump && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
             b = 0;
@@ -417,13 +415,13 @@ static void HalfWallEdgeB(int x, int y, f32 xx, f32 yy)
 
         for (a = -b; a <= b; a++) {
             if (a == -1)
-                glBindTexture(GL_TEXTURE_2D, EdgeC[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].TextureC);
             // if (a == 0 && b != 0)
-            //     glBindTexture(GL_TEXTURE_2D, EdgeA[0]);
+            //     glBindTexture(GL_TEXTURE_2D, Edge[0].TextureA);
             if (a == 0)
-                glBindTexture(GL_TEXTURE_2D, Edge[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].Texture);
             if (a == 1)
-                glBindTexture(GL_TEXTURE_2D, EdgeB[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].TextureB);
 
             glPushMatrix();
             glTranslatef32(xx, 0, yy);
@@ -452,7 +450,7 @@ static void HalfWallEdgeB(int x, int y, f32 xx, f32 yy)
     }
 
     if (right == 2) {
-        if (EdgeBump[0] && ViewportMapBumpWallE[x - CamPosX + 5][y - CamPosY + 3])
+        if (Edge[0].HasBump && ViewportMapBumpWallE[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
             b = 0;
@@ -470,13 +468,13 @@ static void HalfWallEdgeB(int x, int y, f32 xx, f32 yy)
 
         for (a = -b; a <= b; a++) {
             if (a == -1)
-                glBindTexture(GL_TEXTURE_2D, EdgeC[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].TextureC);
             // if (a == 0 && b != 0)
-            //     glBindTexture(GL_TEXTURE_2D, EdgeA[0]);
+            //     glBindTexture(GL_TEXTURE_2D, Edge[0].TextureA);
             if (a == 0)
-                glBindTexture(GL_TEXTURE_2D, Edge[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].Texture);
             if (a == 1)
-                glBindTexture(GL_TEXTURE_2D, EdgeB[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].TextureB);
 
             glPushMatrix();
             glTranslatef32(xx, 0, yy);
@@ -505,7 +503,7 @@ static void HalfWallEdgeB(int x, int y, f32 xx, f32 yy)
     }
 
     if (front == 2) {
-        if (EdgeBump[0] && ViewportMapBumpWallS[x - CamPosX + 5][y - CamPosY + 3])
+        if (Edge[0].HasBump && ViewportMapBumpWallS[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
             b = 0;
@@ -523,13 +521,13 @@ static void HalfWallEdgeB(int x, int y, f32 xx, f32 yy)
 
         for (a = -b; a <= b; a++) {
             if (a == -1)
-                glBindTexture(GL_TEXTURE_2D, EdgeC[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].TextureC);
             // if(a == 0 && b != 0)
-            //     glBindTexture(GL_TEXTURE_2D, EdgeA[0]);
+            //     glBindTexture(GL_TEXTURE_2D, Edge[0].TextureA);
             if (a == 0)
-                glBindTexture(GL_TEXTURE_2D, Edge[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].Texture);
             if (a == 1)
-                glBindTexture(GL_TEXTURE_2D, EdgeB[0]);
+                glBindTexture(GL_TEXTURE_2D, Edge[0].TextureB);
 
             glPushMatrix();
             glTranslatef32(xx, 0, yy);

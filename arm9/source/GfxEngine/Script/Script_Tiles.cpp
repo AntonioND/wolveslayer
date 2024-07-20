@@ -125,11 +125,11 @@ void LoadTerrainBorderCommand(TiXmlElement *map)
             snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/tiles/%s", terrainborder->Attribute("file"));
 
             if (bumpmapping == false)
-                LoadEdgeTexture(FileNameCom, &Edge[0]);
+                LoadEdgeTexture(FileNameCom, &(Edge[0].Texture));
             else
-                LoadMBump3Texture(FileNameCom, &Edge[0], &EdgeB[0], &EdgeC[0]);
+                LoadMBump3Texture(FileNameCom, &(Edge[0].Texture), &(Edge[0].TextureB), &(Edge[0].TextureC));
 
-            EdgeBump[0] = bumpmapping;
+            Edge[0].HasBump = bumpmapping;
         }
     }
 }

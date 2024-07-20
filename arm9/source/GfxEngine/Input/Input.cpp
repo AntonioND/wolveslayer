@@ -5,6 +5,7 @@
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/Output/Inventory.h"
 #include "GfxEngine/Output/Items.h"
+#include "GfxEngine/Output/Textbox.h"
 #include "GfxEngine/Output/Touchscreen.h"
 #include "GfxEngine/PreCalc.h"
 #include "GfxEngine/Render/Obj_House.h"
@@ -306,7 +307,6 @@ void Interact(void)
         }
     }
 
-#if 0
     // Lets start interact
     if (keysDown() & KEY_A) {
         bool l, r, u, d;
@@ -357,18 +357,18 @@ void Interact(void)
         Py = GetPY() + (PlPosSY + .5);
 
         for (NPCnum = 0; NPCnum <= VillagerCount; NPCnum++) {
-            NPx = VillagerX[NPCnum];
-            NPy = VillagerY[NPCnum];
-            if (VillagerSY[NPCnum] >= -.5)
+            NPx = Villager[NPCnum].X;
+            NPy = Villager[NPCnum].Y;
+            if (Villager[NPCnum].SY >= -.5)
                 NPy++;
-            if (VillagerSY[NPCnum] <= .5)
+            if (Villager[NPCnum].SY <= .5)
                 NPy--;
-            if (VillagerSX[NPCnum] >= -.5)
+            if (Villager[NPCnum].SX >= -.5)
                 NPx++;
-            if (VillagerSX[NPCnum] <= .5)
+            if (Villager[NPCnum].SX <= .5)
                 NPx--;
-            NPx += VillagerSX[NPCnum] + .5;
-            NPy += VillagerSY[NPCnum] + .5;
+            NPx += Villager[NPCnum].SX + .5;
+            NPy += Villager[NPCnum].SY + .5;
             // Wow strange code....but should work to compare those positions right
             // now lets compace
             if (Py > NPy - .8 && Py < NPy + .8) {
@@ -388,7 +388,7 @@ void Interact(void)
         if (d) {
             if (nd != -1) {
                 // NPCmode(nd);
-                TextBoxmode(VillagerSpeech[nd], VillagerSpeechCount[nd], nd);
+                TextBoxmode(Villager[nd].Speech, Villager[nd].SpeechCount, nd);
                 return;
             }
             OpenMapDoor(GetPX(), GetPY() + 1);
@@ -396,7 +396,7 @@ void Interact(void)
 
         if (l) {
             if (nl != -1) {
-                TextBoxmode(VillagerSpeech[nl], VillagerSpeechCount[nl], nl);
+                TextBoxmode(Villager[nl].Speech, Villager[nl].SpeechCount, nl);
                 return;
             }
             OpenMapDoor(GetPX() - 1, GetPY());
@@ -404,7 +404,7 @@ void Interact(void)
 
         if (u) {
             if (nu != -1) {
-                TextBoxmode(VillagerSpeech[nu], VillagerSpeechCount[nu], nu);
+                TextBoxmode(Villager[nu].Speech, Villager[nu].SpeechCount, nu);
                 return;
             }
             OpenMapDoor(GetPX(), GetPY() - 1);
@@ -412,13 +412,12 @@ void Interact(void)
 
         if (r) {
             if (nr != -1) {
-                TextBoxmode(VillagerSpeech[nr], VillagerSpeechCount[nr], nr);
+                TextBoxmode(Villager[nr].Speech, Villager[nr].SpeechCount, nr);
                 return;
             }
             OpenMapDoor(GetPX() + 1, GetPY());
         }
     }
-#endif
 }
 
 //*******************************************************************************

@@ -22,7 +22,7 @@ Item_Types List[25];
 
 void LoadItemList(void)
 {
-    FILE *ScriptFile = fopen("/rd/Items/Items.txt", "r");
+    FILE *ScriptFile = fopen("/rd/items/items.txt", "r");
 
     // TODO: This file doesn't exist, so don't crash here
     if (ScriptFile == NULL)

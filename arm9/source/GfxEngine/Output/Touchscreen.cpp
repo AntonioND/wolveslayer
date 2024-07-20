@@ -183,8 +183,13 @@ void ItemMode(void)
     int i, j;
     screenmode = ScreenModeItem;
 
-#if 0
-    // TODO: Restore the images
+#if 1
+    // Draw IngameBG
+    WaitForFreeVblank();
+    for (i = 0; i < 256 * 256; i++)
+        BG_GFX_SUB[i] = ((u16 *)touch_bin)[i];
+#else
+    // TODO: Restore the images below instead of using touch_bin
 
     // Draw IngameBG
     WaitForFreeVblank();

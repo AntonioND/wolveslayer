@@ -34,59 +34,57 @@ void LoadItemList(void)
 {
     FILE *ScriptFile = fopen("/rd/items/items.txt", "r");
 
-    // TODO: This file doesn't exist, so don't crash here
+    // TODO: This file doesn't exist in the current game, so don't crash here
     if (ScriptFile == NULL)
         return;
-
-    char text[256];
-    char UcaseCom[256];
-    char Tmp[256];
-    int zahl;
 
     int Index = -1;
     int weapon = -1;
 
     while (!feof(ScriptFile)) {
-        fgets(text, 255, ScriptFile);
+        char Tmp[20];
+
+        char text[100];
+        char UcaseCom[100];
+        fgets(text, 99, ScriptFile);
         ucase(text, (char *)&UcaseCom);
 
         if (strncmp("ITEM", UcaseCom, 4) == 0) {
             weapon = -1;
-            sscanf(UcaseCom, "ITEM%d %s", &Index, Tmp);
+            sscanf(UcaseCom, "ITEM%d %19s", &Index, Tmp);
             if (strncmp("WEAPON", Tmp, 6) == 0)
                 weapon = 1;
-            strcpy(List[Index - 1].Type, Tmp);
+            snprintf(List[Index - 1].Type, sizeof(List[Index - 1].Type), "%s", Tmp);
         }
 
         if (strncmp("^^NAME", UcaseCom, 6) == 0 && Index != -1) {
-            sscanf(text, "%*s %s", Tmp);
-            strcpy(List[Index - 1].Name, Tmp);
+            sscanf(text, "%*s %19s", Tmp);
+            snprintf(List[Index - 1].Name, sizeof(List[Index - 1].Name), "%s", Tmp);
         }
 
         if (strncmp("^^IMG", UcaseCom, 5) == 0 && Index != -1) {
-            sscanf(text, "%*s %s", Tmp);
-            strcpy(List[Index - 1].ImgFileName, "/rd/items/");
-            strcat(List[Index - 1].ImgFileName, Tmp);
+            sscanf(text, "%*s %19s", Tmp);
+            snprintf(List[Index - 1].ImgFileName, sizeof(List[Index - 1].ImgFileName), "/rd/items/%s", Tmp);
         }
 
         if (strncmp("^^PRICE", UcaseCom, 7) == 0 && Index != -1) {
-            sscanf(UcaseCom, "^^PRICE %d", &zahl);
-            List[Index - 1].Price = zahl;
+            int value = -1;
+            sscanf(UcaseCom, "^^PRICE %d", &value);
+            List[Index - 1].Price = value;
         }
 
         if (strncmp("^^DAMAGE", UcaseCom, 8) == 0 && Index != -1 && weapon != -1) {
-            sscanf(UcaseCom, "^^DAMAGE %d", &zahl);
-            List[Index - 1].Var1 = zahl;
+            int value = -1;
+            sscanf(UcaseCom, "^^DAMAGE %d", &value);
+            List[Index - 1].Var1 = value;
         }
 
         if (strncmp("^^MD2", UcaseCom, 5) == 0 && Index != -1 && weapon != -1) {
-            sscanf(UcaseCom, "^^MD2 %s", Tmp);
-            strcpy(List[Index - 1].SrcA, "/rd/items/");
-            strcat(List[Index - 1].SrcA, Tmp);
+            sscanf(UcaseCom, "^^MD2 %19s", Tmp);
+            snprintf(List[Index - 1].SrcA, sizeof(List[Index - 1].SrcA), "/rd/items/%s", Tmp);
 
-            sscanf(UcaseCom, "^^MD2 %*s %s", Tmp);
-            strcpy(List[Index - 1].SrcB, "/rd/items/");
-            strcat(List[Index - 1].SrcB, Tmp);
+            sscanf(UcaseCom, "^^MD2 %*s %19s", Tmp);
+            snprintf(List[Index - 1].SrcB, sizeof(List[Index - 1].SrcB), "/rd/items/%s", Tmp);
         }
     }
 
@@ -186,12 +184,10 @@ bool BoolCheck_Set(const char *UcaseCom)
 
     // Here we get the value to compare or set...
     if (strncmp("=S", Operator, 2) == 0) {
-        strcpy(Tmp, ContName);
-        strcat(Tmp, "%*d%*c%s");
+        snprintf(Tmp, sizeof(Tmp), "%s%s", ContName, "%*d%*c%s");
         sscanf(UcaseCom, Tmp, Value);
     } else {
-        strcpy(Tmp, ContName);
-        strcat(Tmp, "%*d%*c%*c%s");
+        snprintf(Tmp, sizeof(Tmp), "%s%s", ContName, "%*d%*c%*c%s");
         sscanf(UcaseCom, Tmp, Value);
     }
     //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

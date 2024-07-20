@@ -82,47 +82,49 @@ static void RefreshMap(void)
         for (int xx = maxx; xx > minx; xx--) {
             x = xx + CamPosX;
             y = yy + CamPosY;
-            if (Objects[TexObj[x][y]].NoGround == false) {
-                SetCurGround(x, y); // We tell the renderengine where the ground is to set up maplight
 
-                // Levelrand
-                if ((TexGround[x][y] <= -1 && TexAGround[x][y] <= -1 && !(Precalcdata[x][y] & (1 << B_Water))) || (ShapeObj[x][y] == Wallbor)) {
-                    glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_ID(0));
-                    glBindTexture(GL_TEXTURE_2D, Ground[0].Texture);
-                    RenderLevelBorderGround(xx - 6, 0, yy - 8);
-                }
+            if (Objects[TexObj[x][y]].NoGround)
+                continue;
 
-                if (x < MapGetWr() && y < MapGetHr() && ShapeObj[x][y] != Wallbor) {
-                    if (x > -1 && y > -1) {
-                        // Ground
-                        if (TexGround[x][y] >= 0 && SetAGround[x][y] < 0) {
-                            if (TexGround[x][y] >= 0)
-                                RenderGround(xx - 6, 0, yy - 8, TexGround[x][y]);
-                        }
+            SetCurGround(x, y); // We tell the renderengine where the ground is to set up maplight
 
-                        // AutoGround
-                        if (TexAGround[x][y] != -2 && SetAGround[x][y] >= 0 && SetAGround[x][y] <= 3 && TexGround[x][y] == -2 && ShapeObj[x][y] != Wallbor) {
-                            subset = 0;
-                            if (TexAGround[x][y] > 15)
-                                subset = 1;
-                            if (TexAGround[x][y] > 31)
-                                subset = 2;
-                            glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
-                            glBindTexture(GL_TEXTURE_2D, Autotile[SetAGround[x][y]].Texture[subset]);
+            // Levelrand
+            if ((TexGround[x][y] <= -1 && TexAGround[x][y] <= -1 && !(Precalcdata[x][y] & (1 << B_Water))) || (ShapeObj[x][y] == Wallbor)) {
+                glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_ID(0));
+                glBindTexture(GL_TEXTURE_2D, Ground[0].Texture);
+                RenderLevelBorderGround(xx - 6, 0, yy - 8);
+            }
 
-                            RenderAutoGround(xx - 6, 0, yy - 8, TexAGround[x][y] - (subset * 16));
-                        }
+            if (x < MapGetWr() && y < MapGetHr() && ShapeObj[x][y] != Wallbor) {
+                if (x > -1 && y > -1) {
+                    // Ground
+                    if (TexGround[x][y] >= 0 && SetAGround[x][y] < 0) {
+                        if (TexGround[x][y] >= 0)
+                            RenderGround(xx - 6, 0, yy - 8, TexGround[x][y]);
+                    }
 
-                        // Water
-                        if ((Precalcdata[x][y] & (1 << B_Water)) && ShapeObj[x][y] != Wallbor) {
-                            glBindTexture(GL_TEXTURE_2D, Water[0]);
-                            RenderWater(tackt32, inttof32(xx - 6), waterheight, inttof32(yy - 8));
-                        }
+                    // AutoGround
+                    if (TexAGround[x][y] != -2 && SetAGround[x][y] >= 0 && SetAGround[x][y] <= 3 && TexGround[x][y] == -2 && ShapeObj[x][y] != Wallbor) {
+                        subset = 0;
+                        if (TexAGround[x][y] > 15)
+                            subset = 1;
+                        if (TexAGround[x][y] > 31)
+                            subset = 2;
+                        glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
+                        glBindTexture(GL_TEXTURE_2D, Autotile[SetAGround[x][y]].Texture[subset]);
 
-                        // Edge
-                        if (Terrain[x][y].sidewalls) {
-                            RenderEdge(x, y, inttof32(xx - 6), inttof32(yy - 8));
-                        }
+                        RenderAutoGround(xx - 6, 0, yy - 8, TexAGround[x][y] - (subset * 16));
+                    }
+
+                    // Water
+                    if ((Precalcdata[x][y] & (1 << B_Water)) && ShapeObj[x][y] != Wallbor) {
+                        glBindTexture(GL_TEXTURE_2D, Water[0]);
+                        RenderWater(tackt32, inttof32(xx - 6), waterheight, inttof32(yy - 8));
+                    }
+
+                    // Edge
+                    if (Terrain[x][y].sidewalls) {
+                        RenderEdge(x, y, inttof32(xx - 6), inttof32(yy - 8));
                     }
                 }
             }
@@ -198,122 +200,124 @@ static void RefreshWelt(void)
             if (x < 0 || y < 0)
                 seeable = false;
 
-            if (seeable) {
-                if (TexObj[x][y] >= 0) {
-                    ObjectInfo *obj = &Objects[TexObj[x][y]];
+            if (!seeable)
+                continue;
 
-                    glBindTexture(GL_TEXTURE_2D, ObjectTexture[obj->TextureID].Texture);
+            if (TexObj[x][y] < 0)
+                continue;
 
-                    height = TerrainMid[x][y];
-                    posx   = inttof32(xx - 6);
-                    posy   = inttof32(yy - 8);
+            ObjectInfo *obj = &Objects[TexObj[x][y]];
 
-                    // Models
-                    if (ShapeObj[x][y] == model) {
-                        pos[0] = x;
-                        pos[1] = y;
+            glBindTexture(GL_TEXTURE_2D, ObjectTexture[obj->TextureID].Texture);
 
-                        // SetMdlLights(pos,spos,.4,0);   DirObj[x][y]
-                        if (yy > -1 || ((Precalcdata[x][y] & (1 << B_Mirrowable)) && obj->Mirrowable)) {
-                            if (!obj->Illumination)
-                                SetObjLights(pos, DirObj[x][y] * 64); // way faster and enough for objects
-                            else
-                                SetObjLightsSelfilluminated();
+            height = TerrainMid[x][y];
+            posx   = inttof32(xx - 6);
+            posy   = inttof32(yy - 8);
 
-                            Precalcmd2light(stackt11, TexObj[x][y] + 10); // mesh1 lights
-                        }
-                        if (yy > -1) {
-                            // Mesh
-                            glPushMatrix();
-                            if (obj->Culling)
-                                glPolyFmt(POLY_ALPHA(31) | POLY_CULL_FRONT | POLY_FORMAT_LIGHT0 | POLY_ID(obj->TextureID + 11 + 3));
-                            else
-                                glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(obj->TextureID + 11 + 3));
-                            glTranslatef32(posx, height, posy);
-                            glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
-                            glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + (DirObj[x][y] * -64)));
-                            RenderMD2Model(stackt11, TexObj[x][y] + 10);
-                            glPopMatrix(1);
-                        }
-                        // Same for mirrowing
-                        if ((Precalcdata[x][y] & (1 << B_Mirrowable)) && obj->Mirrowable == true) {
-                            glPushMatrix();
-                            glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(obj->TextureID + 11 + 3));
-                            glTranslatef32(posx, -height, posy);
-                            glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
-                            glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + (DirObj[x][y] * -64)));
-                            RenderMD2ModelMirrowed(stackt11, TexObj[x][y] + 10);
-                            glPopMatrix(1);
-                        }
-                    }
+            // Models
+            if (ShapeObj[x][y] == model) {
+                pos[0] = x;
+                pos[1] = y;
 
-                    // House middle
-                    if (ShapeObj[x][y] == Housem) {
-                        SetCurWall(xx + CamPosX, yy + CamPosY);
-                        if (yy > -1)
-                            RenderHouseM(0, posx, floattof32(1.0 + GetHight(x, y)), posy); // Normal
-                    }
+                // SetMdlLights(pos,spos,.4,0);   DirObj[x][y]
+                if (yy > -1 || ((Precalcdata[x][y] & (1 << B_Mirrowable)) && obj->Mirrowable)) {
+                    if (!obj->Illumination)
+                        SetObjLights(pos, DirObj[x][y] * 64); // way faster and enough for objects
+                    else
+                        SetObjLightsSelfilluminated();
 
-                    // House border
-                    if (ShapeObj[x][y] == Housebor) {
-                        SetCurWall(xx + CamPosX, yy + CamPosY);
-                        if (yy > -1)
-                            RenderHouseBorder(0, DirObj[x][y], posx, floattof32(1.0 + GetHight(x, y)), posy); // Normal
-                        if ((Precalcdata[x][y] & (1 << B_Mirrowable)))
-                            RenderHouseBorder(1, DirObj[x][y], posx, floattof32(-.9 - GetHight(x, y)), posy); // Gespiegelt
-                    }
+                    Precalcmd2light(stackt11, TexObj[x][y] + 10); // mesh1 lights
+                }
+                if (yy > -1) {
+                    // Mesh
+                    glPushMatrix();
+                    if (obj->Culling)
+                        glPolyFmt(POLY_ALPHA(31) | POLY_CULL_FRONT | POLY_FORMAT_LIGHT0 | POLY_ID(obj->TextureID + 11 + 3));
+                    else
+                        glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(obj->TextureID + 11 + 3));
+                    glTranslatef32(posx, height, posy);
+                    glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
+                    glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + (DirObj[x][y] * -64)));
+                    RenderMD2Model(stackt11, TexObj[x][y] + 10);
+                    glPopMatrix(1);
+                }
+                // Same for mirrowing
+                if ((Precalcdata[x][y] & (1 << B_Mirrowable)) && obj->Mirrowable == true) {
+                    glPushMatrix();
+                    glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(obj->TextureID + 11 + 3));
+                    glTranslatef32(posx, -height, posy);
+                    glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
+                    glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + (DirObj[x][y] * -64)));
+                    RenderMD2ModelMirrowed(stackt11, TexObj[x][y] + 10);
+                    glPopMatrix(1);
+                }
+            }
 
-                    // House corner
-                    if (ShapeObj[x][y] == Housecor) {
-                        SetCurWall(xx + CamPosX, yy + CamPosY);
-                        if (yy > -1)
-                            RenderHouseCorner(0, DirObj[x][y], posx, floattof32(1.0 + GetHight(x, y)), posy); // Normal
-                        if ((Precalcdata[x][y] & (1 << B_Mirrowable)))
-                            RenderHouseCorner(1, DirObj[x][y], posx, floattof32(-.9 - GetHight(x, y)), posy); // Gespiegelt
-                    }
+            // House middle
+            if (ShapeObj[x][y] == Housem) {
+                SetCurWall(xx + CamPosX, yy + CamPosY);
+                if (yy > -1)
+                    RenderHouseM(0, posx, floattof32(1.0 + GetHight(x, y)), posy); // Normal
+            }
 
-                    // House Border Door
-                    if (ShapeObj[x][y] == Housedoor) {
-                        SetCurWall(xx + CamPosX, yy + CamPosY);
-                        if (yy > -1)
-                            RenderHouseBorderDoor(0, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx,
-                                                  floattof32(1.0 + GetHight(x, y)), posy); // Türslot Normal
-                        if ((Precalcdata[x][y] & (1 << B_Mirrowable))) {
-                            // We need that to set again...after rendering houspart with doorslot it
-                            glBindTexture(GL_TEXTURE_2D, ObjectTexture[TexObj[x][y]].Texture);
-                            // Türslot Gespiegelt
-                            RenderHouseBorderDoor(1, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx,
-                                                  floattof32(-.9 - GetHight(x, y)), posy);
-                        }
-                    }
+            // House border
+            if (ShapeObj[x][y] == Housebor) {
+                SetCurWall(xx + CamPosX, yy + CamPosY);
+                if (yy > -1)
+                    RenderHouseBorder(0, DirObj[x][y], posx, floattof32(1.0 + GetHight(x, y)), posy); // Normal
+                if ((Precalcdata[x][y] & (1 << B_Mirrowable)))
+                    RenderHouseBorder(1, DirObj[x][y], posx, floattof32(-.9 - GetHight(x, y)), posy); // Gespiegelt
+            }
 
-                    // wallParts...finaly
-                    // Wall border
-                    // if (IsObjBumpWall(x, y) == true)
-                    //     glBindTexture(GL_TEXTURE_2D, ObjectTexture[Object[TexObj[x][y]].TextureID].TextureA);
+            // House corner
+            if (ShapeObj[x][y] == Housecor) {
+                SetCurWall(xx + CamPosX, yy + CamPosY);
+                if (yy > -1)
+                    RenderHouseCorner(0, DirObj[x][y], posx, floattof32(1.0 + GetHight(x, y)), posy); // Normal
+                if ((Precalcdata[x][y] & (1 << B_Mirrowable)))
+                    RenderHouseCorner(1, DirObj[x][y], posx, floattof32(-.9 - GetHight(x, y)), posy); // Gespiegelt
+            }
 
-                    if (ShapeObj[x][y] == Wallbor) {
-                        SetCurWall(xx + CamPosX, yy + CamPosY);
-                        if (yy > -1)
-                            RenderWallBorder(0, DirObj[x][y], posx, floattof32(1.0 + GetHight(x, y)), posy, TexObj[x][y]); // Normal
-                        if ((Precalcdata[x][y] & (1 << B_Mirrowable)))
-                            RenderWallBorder(1, DirObj[x][y], posx, floattof32(-1 - GetHight(x, y)), posy, TexObj[x][y]); // Gespiegelt
-                    }
+            // House Border Door
+            if (ShapeObj[x][y] == Housedoor) {
+                SetCurWall(xx + CamPosX, yy + CamPosY);
+                if (yy > -1)
+                    RenderHouseBorderDoor(0, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx,
+                                            floattof32(1.0 + GetHight(x, y)), posy); // Türslot Normal
+                if ((Precalcdata[x][y] & (1 << B_Mirrowable))) {
+                    // We need that to set again...after rendering houspart with doorslot it
+                    glBindTexture(GL_TEXTURE_2D, ObjectTexture[TexObj[x][y]].Texture);
+                    // Türslot Gespiegelt
+                    RenderHouseBorderDoor(1, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx,
+                                          floattof32(-.9 - GetHight(x, y)), posy);
+                }
+            }
 
-                    // Wall Border Door
-                    if (ShapeObj[x][y] == WallDoor) {
-                        SetCurWall(xx + CamPosX, yy + CamPosY);
-                        if (yy > -1)
-                            RenderWallBorderDoor(0, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx, floattof32(1 + GetHight(x, y)),
-                                                 posy); // Türslot Normal
-                        if ((Precalcdata[x][y] & (1 << B_Mirrowable))) {
-                            // We need that to set again...after rendering houspart with doorslot it
-                            glBindTexture(GL_TEXTURE_2D, ObjectTexture[TexObj[x][y]].Texture);
-                            // Türslot Gespiegelt
-                            RenderWallBorderDoor(1, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx,
-                                                 floattof32(-1.02 - GetHight(x, y)), posy);
-                        }
-                    }
+            // wallParts...finaly
+            // Wall border
+            // if (IsObjBumpWall(x, y) == true)
+            //     glBindTexture(GL_TEXTURE_2D, ObjectTexture[Object[TexObj[x][y]].TextureID].TextureA);
+
+            if (ShapeObj[x][y] == Wallbor) {
+                SetCurWall(xx + CamPosX, yy + CamPosY);
+                if (yy > -1)
+                    RenderWallBorder(0, DirObj[x][y], posx, floattof32(1.0 + GetHight(x, y)), posy, TexObj[x][y]); // Normal
+                if ((Precalcdata[x][y] & (1 << B_Mirrowable)))
+                    RenderWallBorder(1, DirObj[x][y], posx, floattof32(-1 - GetHight(x, y)), posy, TexObj[x][y]); // Gespiegelt
+            }
+
+            // Wall Border Door
+            if (ShapeObj[x][y] == WallDoor) {
+                SetCurWall(xx + CamPosX, yy + CamPosY);
+                if (yy > -1)
+                    RenderWallBorderDoor(0, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx, floattof32(1 + GetHight(x, y)),
+                                            posy); // Türslot Normal
+                if ((Precalcdata[x][y] & (1 << B_Mirrowable))) {
+                    // We need that to set again...after rendering houspart with doorslot it
+                    glBindTexture(GL_TEXTURE_2D, ObjectTexture[TexObj[x][y]].Texture);
+                    // Türslot Gespiegelt
+                    RenderWallBorderDoor(1, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx,
+                                         floattof32(-1.02 - GetHight(x, y)), posy);
                 }
             }
         }
@@ -461,67 +465,65 @@ static void RefreshVillagers(void)
         hpos = GetHight(Villager[a].X, Villager[a].Y);
         glBindTexture(GL_TEXTURE_2D, Figuren[Villager[a].TextNum]);
 
-        if ((Villager[a].X - 6) + Villager[a].SX - (CamPosX)-CamPosSX > -4) {
-            if ((Villager[a].X - 6) + Villager[a].SX - (CamPosX)-CamPosSX < 4) {
-                if ((Villager[a].Y - 8) + Villager[a].SY - (CamPosY)-CamPosSY > -8) {
-                    if ((Villager[a].Y - 8) + Villager[a].SY - (CamPosY)-CamPosSY < 3) {
-                        vx  = Villager[a].X;
-                        vy  = Villager[a].Y;
-                        vsx = Villager[a].SX;
-                        vsy = Villager[a].SY;
-                        if (vsy >= -.5)
-                            vy++;
-                        if (vsy <= .5)
-                            vy--;
-                        if (vsx >= -.5)
-                            vx++;
-                        if (vsx <= .5)
-                            vx--; // This is needed to get a better position
-                        vsx = Villager[a].SX + .5;
-                        vsy = Villager[a].SY + .5;
-                        dir = Villager[a].Direction;
-                        if (a == npctalk && screenmode == 2) {
-                            dir = PlRichtung + 4;
-                            if (dir > 7)
-                                dir -= 8;
-                        }
+        if (((Villager[a].X - 6) + Villager[a].SX - (CamPosX)-CamPosSX > -4)
+           && ((Villager[a].X - 6) + Villager[a].SX - (CamPosX)-CamPosSX < 4)
+           && ((Villager[a].Y - 8) + Villager[a].SY - (CamPosY)-CamPosSY > -8)
+           && ((Villager[a].Y - 8) + Villager[a].SY - (CamPosY)-CamPosSY < 3)) {
 
-                        pos[0]  = vx;
-                        pos[1]  = vy;
-                        spos[0] = vsx;
-                        spos[1] = vsy;
-                        SetMdlLights(pos, spos, .4, dir * 64);
+            vx  = Villager[a].X;
+            vy  = Villager[a].Y;
+            vsx = Villager[a].SX;
+            vsy = Villager[a].SY;
+            if (vsy >= -.5)
+                vy++;
+            if (vsy <= .5)
+                vy--;
+            if (vsx >= -.5)
+                vx++;
+            if (vsx <= .5)
+                vx--; // This is needed to get a better position
+            vsx = Villager[a].SX + .5;
+            vsy = Villager[a].SY + .5;
+            dir = Villager[a].Direction;
+            if (a == npctalk && screenmode == 2) {
+                dir = PlRichtung + 4;
+                if (dir > 7)
+                    dir -= 8;
+            }
 
-                        hpos = GetInterPolY(vx, vy, vsx, vsy);
+            pos[0]  = vx;
+            pos[1]  = vy;
+            spos[0] = vsx;
+            spos[1] = vsy;
+            SetMdlLights(pos, spos, .4, dir * 64);
 
-                        glPushMatrix();
-                        glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(Villager[a].TextNum + 1));
-                        glTranslatef((Villager[a].X - 6) + Villager[a].SX - (CamPosX), hpos, (Villager[a].Y - 8) + Villager[a].SY - (CamPosY));
-                        glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
-                        glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
-                        if ((screenmode != 2 || a != npctalk) && screenmode <= 2) {
-                            Precalcmd2light(stackt11 + 11, Villager[a].TextNum);
-                            RenderMD2Model(stackt11 + 11, Villager[a].TextNum);
-                        } else {
-                            Precalcmd2light(stackt11, Villager[a].TextNum);
-                            RenderMD2Model(stackt11, Villager[a].TextNum);
-                        }
-                        glPopMatrix(1);
+            hpos = GetInterPolY(vx, vy, vsx, vsy);
 
-                        if (Precalcdata[Villager[a].X][Villager[a].Y] & (1 << B_Mirrowable)) {
-                            glPushMatrix();
-                            glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
-                            glTranslatef((Villager[a].X - 6) + Villager[a].SX - (CamPosX), -hpos, (Villager[a].Y - 8) + Villager[a].SY - (CamPosY));
-                            glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
-                            glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
-                            if ((screenmode != 2 || a != npctalk) && screenmode <= 2)
-                                RenderMD2ModelMirrowed(stackt11 + 11, Villager[a].TextNum);
-                            else
-                                RenderMD2ModelMirrowed(stackt11, Villager[a].TextNum);
-                            glPopMatrix(1);
-                        }
-                    }
-                }
+            glPushMatrix();
+            glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(Villager[a].TextNum + 1));
+            glTranslatef((Villager[a].X - 6) + Villager[a].SX - (CamPosX), hpos, (Villager[a].Y - 8) + Villager[a].SY - (CamPosY));
+            glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
+            glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
+            if ((screenmode != 2 || a != npctalk) && screenmode <= 2) {
+                Precalcmd2light(stackt11 + 11, Villager[a].TextNum);
+                RenderMD2Model(stackt11 + 11, Villager[a].TextNum);
+            } else {
+                Precalcmd2light(stackt11, Villager[a].TextNum);
+                RenderMD2Model(stackt11, Villager[a].TextNum);
+            }
+            glPopMatrix(1);
+
+            if (Precalcdata[Villager[a].X][Villager[a].Y] & (1 << B_Mirrowable)) {
+                glPushMatrix();
+                glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
+                glTranslatef((Villager[a].X - 6) + Villager[a].SX - (CamPosX), -hpos, (Villager[a].Y - 8) + Villager[a].SY - (CamPosY));
+                glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
+                glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
+                if ((screenmode != 2 || a != npctalk) && screenmode <= 2)
+                    RenderMD2ModelMirrowed(stackt11 + 11, Villager[a].TextNum);
+                else
+                    RenderMD2ModelMirrowed(stackt11, Villager[a].TextNum);
+                glPopMatrix(1);
             }
         }
     }
@@ -558,82 +560,83 @@ static void RefreshEnemys(void)
         hpos = GetHight(Enemies[a].X, Enemies[a].Y);
         glBindTexture(GL_TEXTURE_2D, Figuren[Enemies[a].TextNum]);
 
-        if ((Enemies[a].X - 6) + Enemies[a].SX - (CamPosX)-CamPosSX > -4)
-            if ((Enemies[a].X - 6) + Enemies[a].SX - (CamPosX)-CamPosSX < 4)
-                if ((Enemies[a].Y - 8) + Enemies[a].SY - (CamPosY)-CamPosSY > -6)
-                    if ((Enemies[a].Y - 8) + Enemies[a].SY - (CamPosY)-CamPosSY < 3) {
-                        vx  = Enemies[a].X;
-                        vy  = Enemies[a].Y;
-                        vsx = Enemies[a].SX;
-                        vsy = Enemies[a].SY;
-                        if (vsy >= -.5)
-                            vy++;
-                        if (vsy <= .5)
-                            vy--;
-                        if (vsx >= -.5)
-                            vx++;
-                        if (vsx <= .5)
-                            vx--; // This is needed to get a better position
-                        vsx = Enemies[a].SX + .5;
-                        vsy = Enemies[a].SY + .5;
-                        dir = Enemies[a].Direction;
+        if (((Enemies[a].X - 6) + Enemies[a].SX - (CamPosX)-CamPosSX > -4)
+           && ((Enemies[a].X - 6) + Enemies[a].SX - (CamPosX)-CamPosSX < 4)
+           && ((Enemies[a].Y - 8) + Enemies[a].SY - (CamPosY)-CamPosSY > -6)
+           && ((Enemies[a].Y - 8) + Enemies[a].SY - (CamPosY)-CamPosSY < 3)) {
 
-                        pos[0]  = vx;
-                        pos[1]  = vy;
-                        spos[0] = vsx;
-                        spos[1] = vsy;
-                        SetMdlLights(pos, spos, .4, dir * 64);
+            vx  = Enemies[a].X;
+            vy  = Enemies[a].Y;
+            vsx = Enemies[a].SX;
+            vsy = Enemies[a].SY;
+            if (vsy >= -.5)
+                vy++;
+            if (vsy <= .5)
+                vy--;
+            if (vsx >= -.5)
+                vx++;
+            if (vsx <= .5)
+                vx--; // This is needed to get a better position
+            vsx = Enemies[a].SX + .5;
+            vsy = Enemies[a].SY + .5;
+            dir = Enemies[a].Direction;
 
-                        hpos = GetInterPolY(vx, vy, vsx, vsy);
+            pos[0]  = vx;
+            pos[1]  = vy;
+            spos[0] = vsx;
+            spos[1] = vsy;
+            SetMdlLights(pos, spos, .4, dir * 64);
 
-                        glPushMatrix();
-                        glPolyFmt(POLY_ALPHA(blend) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(Enemies[a].TextNum + 1));
-                        glTranslatef((Enemies[a].X - 6) + Enemies[a].SX - (CamPosX), hpos, (Enemies[a].Y - 8) + Enemies[a].SY - (CamPosY));
-                        glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
-                        glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
-                        Precalcmd2light(aniset, Enemies[a].TextNum);
-                        RenderMD2Model(aniset, Enemies[a].TextNum);
-                        glPopMatrix(1);
+            hpos = GetInterPolY(vx, vy, vsx, vsy);
 
-                        if (Precalcdata[Enemies[a].X][Enemies[a].Y] & (1 << B_Mirrowable)) {
-                            glPushMatrix();
-                            glPolyFmt(POLY_ALPHA(blend) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
-                            glTranslatef((Enemies[a].X - 6) + Enemies[a].SX - (CamPosX), -hpos, (Enemies[a].Y - 8) + Enemies[a].SY - (CamPosY));
-                            glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
-                            glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
-                            RenderMD2ModelMirrowed(aniset, Enemies[a].TextNum);
-                            glPopMatrix(1);
+            glPushMatrix();
+            glPolyFmt(POLY_ALPHA(blend) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(Enemies[a].TextNum + 1));
+            glTranslatef((Enemies[a].X - 6) + Enemies[a].SX - (CamPosX), hpos, (Enemies[a].Y - 8) + Enemies[a].SY - (CamPosY));
+            glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
+            glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
+            Precalcmd2light(aniset, Enemies[a].TextNum);
+            RenderMD2Model(aniset, Enemies[a].TextNum);
+            glPopMatrix(1);
+
+            if (Precalcdata[Enemies[a].X][Enemies[a].Y] & (1 << B_Mirrowable)) {
+                glPushMatrix();
+                glPolyFmt(POLY_ALPHA(blend) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
+                glTranslatef((Enemies[a].X - 6) + Enemies[a].SX - (CamPosX), -hpos, (Enemies[a].Y - 8) + Enemies[a].SY - (CamPosY));
+                glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
+                glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
+                RenderMD2ModelMirrowed(aniset, Enemies[a].TextNum);
+                glPopMatrix(1);
+            }
+
+            // increasing frame
+            if (Enemies[a].Status == 1) {
+                Enemies[a].Frame++;
+                if (Enemies[a].Frame >= 18) {
+                    Enemies[a].Frame  = 0;
+                    Enemies[a].Status = -1;
+                    if (PlStatus != 3 && PlStatus != 2) { // player gets some
+                        PlStatus = 2;
+                        PlFrame  = 0;
+                        PlHP -= rand() % Enemies[a].ATP;
+                        if (PlHP <= 0) {
+                            PlStatus = 3;
+                            PlHP     = 0;
                         }
-
-                        // increasing frame
-                        if (Enemies[a].Status == 1) {
-                            Enemies[a].Frame++;
-                            if (Enemies[a].Frame >= 18) {
-                                Enemies[a].Frame  = 0;
-                                Enemies[a].Status = -1;
-                                if (PlStatus != 3 && PlStatus != 2) { // player gets some
-                                    PlStatus = 2;
-                                    PlFrame  = 0;
-                                    PlHP -= rand() % Enemies[a].ATP;
-                                    if (PlHP <= 0) {
-                                        PlStatus = 3;
-                                        PlHP     = 0;
-                                    }
-                                    UpdateBar();
-                                }
-                            }
-                        }
-                        if (Enemies[a].Status >= 2) {
-                            Enemies[a].Frame++;
-                            if (Enemies[a].Frame > 11 && Enemies[a].Status != 3) {
-                                Enemies[a].Frame  = 0;
-                                Enemies[a].Status = -1;
-                            }
-
-                            if (Enemies[a].Frame > 44 && Enemies[a].Status == 3)
-                                Enemies[a].Frame = 44;
-                        }
+                        UpdateBar();
                     }
+                }
+            }
+            if (Enemies[a].Status >= 2) {
+                Enemies[a].Frame++;
+                if (Enemies[a].Frame > 11 && Enemies[a].Status != 3) {
+                    Enemies[a].Frame  = 0;
+                    Enemies[a].Status = -1;
+                }
+
+                if (Enemies[a].Frame > 44 && Enemies[a].Status == 3)
+                    Enemies[a].Frame = 44;
+            }
+        }
     }
 }
 

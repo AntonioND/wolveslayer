@@ -1,6 +1,8 @@
 #ifndef GFXENGINE_ENEMIES_H__
 #define GFXENGINE_ENEMIES_H__
 
+#include "GfxEngine/Limits.h"
+
 typedef struct {
     int X, Y;     // It's the HardPos on the Map(on which tile it stands)
     float SX, SY; // It's softpos. It goes from -.5 to .5
@@ -14,7 +16,7 @@ typedef struct {
     bool IsBoss;
 } EnemyInfo;
 
-extern EnemyInfo Enemies[10];
+extern EnemyInfo Enemies[Enemies_Max];
 
 extern int EnemyCount; // It's the count of NPCs
 

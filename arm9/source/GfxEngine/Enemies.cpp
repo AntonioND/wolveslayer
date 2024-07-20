@@ -6,7 +6,7 @@
 #include "GfxEngine/Render/Render.h"
 #include "GfxEngine/Villagers.h"
 
-EnemyInfo Enemies[10];
+EnemyInfo Enemies[Enemies_Max];
 
 int EnemyCount = -1;
 
@@ -14,7 +14,7 @@ void ResetEnemys(void)
 {
     EnemyCount = -1;
 
-    for (int a = 0; a < 10; a++) {
+    for (int a = 0; a < Enemies_Max; a++) {
         Enemies[a].X         = -1;
         Enemies[a].Y         = -1;
         Enemies[a].SX        = 0;
@@ -28,7 +28,7 @@ void ResetEnemys(void)
 
 void AddEnemy(int x, int y, int texnum, int atp, int hp, float rad, bool boss)
 {
-    if (EnemyCount >= 10)
+    if (EnemyCount >= Enemies_Max)
         Crash("Too many enemies");
 
     EnemyCount++;
@@ -51,7 +51,8 @@ static void TurnEnemy(int a, bool l, bool r, bool u, bool d)
     bool ok    = false;
 
     while (ok == false) {
-        ok     = true;
+        ok = true;
+
         dirnew = rand() % 8;
         if ((dirnew == 0 || dirnew == 1 || dirnew == 7) && d == false)
             ok = false;
@@ -135,6 +136,7 @@ static float gethposfromenemy(int a, float sx, float sy)
     float vsx = Enemies[a].SX + sx;
     float vsy = Enemies[a].SY + sy;
 
+    // This is needed to get a better position
     if (vsy >= -.5)
         vy++;
     if (vsy <= .5)
@@ -142,7 +144,8 @@ static float gethposfromenemy(int a, float sx, float sy)
     if (vsx >= -.5)
         vx++;
     if (vsx <= .5)
-        vx--; // This is needed to get a better position
+        vx--;
+
     vsx = Enemies[a].SX + .5;
     vsy = Enemies[a].SY + .5;
 

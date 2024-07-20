@@ -1,7 +1,6 @@
 #include <math.h>
 
 #include "GfxEngine/3D.h"
-#include "GfxEngine/Enemies.h"
 #include "GfxEngine/Input/Input.h"
 #include "GfxEngine/Output/Inventory.h"
 #include "GfxEngine/Output/Textbox.h"

@@ -5,8 +5,8 @@
 extern char MaincharMd2[60];
 extern char MaincharText[60];
 
-extern char waffeMd2[60];
-extern char waffeText[60];
+extern char weaponMd2[60];
+extern char weaponText[60];
 
 void ReadSettings(void);
 

@@ -2,4 +2,4 @@
 StartMap etage1.txt
 StartPos 7 2
 StartChar charmain.md2 charmain.bmp
-StartWaffe sword1.md2 sword1.bmp
+StartWeapon sword1.md2 sword1.bmp

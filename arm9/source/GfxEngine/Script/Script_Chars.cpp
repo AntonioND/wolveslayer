@@ -20,8 +20,8 @@ void LoadChars(TiXmlElement *map)
     LoadModelTexture(MaincharText, &FigureTextures[CharacterFigureTex_ID], &textsize);
     LoadMD2Model(MaincharMd2, CharacterFigureTex_ID, textsize, 35);
 
-    LoadModelTexture(waffeText, &FigureTextures[WeaponFigureTex_ID], &textsize);
-    LoadMD2Model(waffeMd2, WeaponFigureTex_ID, textsize, 35);
+    LoadModelTexture(weaponText, &FigureTextures[WeaponFigureTex_ID], &textsize);
+    LoadMD2Model(weaponMd2, WeaponFigureTex_ID, textsize, 35);
 
     // Load enemy defenition:
     //

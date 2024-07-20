@@ -11,8 +11,8 @@ static int StartMapX, StartMapY;
 char MaincharMd2[60];
 char MaincharText[60];
 
-char waffeMd2[60];
-char waffeText[60];
+char weaponMd2[60];
+char weaponText[60];
 
 static void Setit(char *setting)
 {
@@ -37,12 +37,12 @@ static void Setit(char *setting)
         snprintf(MaincharText, sizeof(MaincharText), "/wolveslayer/chars/%s", Filename);
     }
 
-    if (strncmp("StartWaffe ", setting, 11) == 0) {
+    if (strncmp("StartWeapon ", setting, 11) == 0) {
         sscanf(setting, "%*s %39s", Filename);
-        snprintf(waffeMd2, sizeof(waffeMd2), "/wolveslayer/items/%s", Filename);
+        snprintf(weaponMd2, sizeof(weaponMd2), "/wolveslayer/items/%s", Filename);
 
         sscanf(setting, "%*s %*s %39s", Filename);
-        snprintf(waffeText, sizeof(waffeText), "/wolveslayer/items/%s", Filename);
+        snprintf(weaponText, sizeof(weaponText), "/wolveslayer/items/%s", Filename);
     }
 }
 

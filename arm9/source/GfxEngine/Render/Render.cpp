@@ -345,34 +345,34 @@ static void RefreshPlayer(void)
     PlHeight   = hpos;
 
     // walk/standing
-    int aniwaffe = ticks11;
+    int aniweapon = ticks11;
     if (PlStatus == 0) {
         if (EnemyCount >= 0)
-            aniwaffe = 22 + ticks11;
+            aniweapon = 22 + ticks11;
 
         if ((screenmode < ScreenModeTextBox) && (keysHeld() & (KEY_DOWN | KEY_UP | KEY_LEFT | KEY_RIGHT)))
-            aniwaffe += 11;
+            aniweapon += 11;
     }
 
     // Attacking
     if (PlStatus == 1) {
-        aniwaffe = 77 + (PlFrame / 3);
+        aniweapon = 77 + (PlFrame / 3);
 
         if ((keysHeld() & (KEY_DOWN | KEY_UP | KEY_LEFT | KEY_RIGHT)))
-            aniwaffe = 144 + (PlFrame / 3);
+            aniweapon = 144 + (PlFrame / 3);
     }
 
     // being hitten
     if (PlStatus == 2)
-        aniwaffe = 110 + PlFrame;
+        aniweapon = 110 + PlFrame;
 
     // Dieing
     if (PlStatus == 3)
-        aniwaffe = 132 + (PlFrame / 2);
+        aniweapon = 132 + (PlFrame / 2);
 
     // animation when winning
     if (PlStatus == -1)
-        aniwaffe = 122 + (PlFrame / 2);
+        aniweapon = 122 + (PlFrame / 2);
 
     // Hero
     glPushMatrix();
@@ -380,8 +380,8 @@ static void RefreshPlayer(void)
     glTranslatef(CamPosSX, hpos, CamPosSY);
     glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
     glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + PlDirection * -64));
-    Precalcmd2light(aniwaffe, 0);
-    RenderMD2Model(aniwaffe, 0);
+    Precalcmd2light(aniweapon, 0);
+    RenderMD2Model(aniweapon, 0);
     glPopMatrix(1);
 
     // Hero (mirrowed)
@@ -392,7 +392,7 @@ static void RefreshPlayer(void)
         glTranslatef(CamPosSX, -.1 - hpos, CamPosSY);
         glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
         glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + PlDirection * -64));
-        RenderMD2ModelMirrowed(aniwaffe, 0);
+        RenderMD2ModelMirrowed(aniweapon, 0);
         glPopMatrix(1);
     }
 
@@ -400,24 +400,24 @@ static void RefreshPlayer(void)
 
     glBindTexture(GL_TEXTURE_2D, FigureTextures[WeaponFigureTex_ID]);
 
-    // Waffe
+    // Weapon
     glPushMatrix();
     glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
     glTranslatef(CamPosSX, hpos, CamPosSY);
     glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
     glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + PlDirection * -64));
-    Precalcmd2light(aniwaffe, 1);
-    RenderMD2Model(aniwaffe, 1);
+    Precalcmd2light(aniweapon, 1);
+    RenderMD2Model(aniweapon, 1);
     glPopMatrix(1);
 
-    // Waffe (mirrowed)
+    // Weapon (mirrowed)
     if (Precalcdata[GetPX()][GetPY()] & (1 << B_Mirrowable)) {
         glPushMatrix();
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
         glTranslatef(CamPosSX, -.1 - hpos, CamPosSY);
         glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
         glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + PlDirection * -64));
-        RenderMD2ModelMirrowed(aniwaffe, 1);
+        RenderMD2ModelMirrowed(aniweapon, 1);
         glPopMatrix(1);
     }
 

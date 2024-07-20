@@ -44,17 +44,17 @@ void LoadItemList(void)
     int zahl;
 
     int Index = -1;
-    int waffe = -1;
+    int weapon = -1;
 
     while (!feof(ScriptFile)) {
         fgets(text, 255, ScriptFile);
         ucase(text, (char *)&UcaseCom);
 
         if (strncmp("ITEM", UcaseCom, 4) == 0) {
-            waffe = -1;
+            weapon = -1;
             sscanf(UcaseCom, "ITEM%d %s", &Index, Tmp);
             if (strncmp("WEAPON", Tmp, 6) == 0)
-                waffe = 1;
+                weapon = 1;
             strcpy(List[Index - 1].Type, Tmp);
         }
 
@@ -74,12 +74,12 @@ void LoadItemList(void)
             List[Index - 1].Price = zahl;
         }
 
-        if (strncmp("^^DAMAGE", UcaseCom, 8) == 0 && Index != -1 && waffe != -1) {
+        if (strncmp("^^DAMAGE", UcaseCom, 8) == 0 && Index != -1 && weapon != -1) {
             sscanf(UcaseCom, "^^DAMAGE %d", &zahl);
             List[Index - 1].Var1 = zahl;
         }
 
-        if (strncmp("^^MD2", UcaseCom, 5) == 0 && Index != -1 && waffe != -1) {
+        if (strncmp("^^MD2", UcaseCom, 5) == 0 && Index != -1 && weapon != -1) {
             sscanf(UcaseCom, "^^MD2 %s", Tmp);
             strcpy(List[Index - 1].SrcA, "/rd/items/");
             strcat(List[Index - 1].SrcA, Tmp);

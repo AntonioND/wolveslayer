@@ -108,7 +108,7 @@ void LoadChars(TiXmlElement *map)
             snprintf(eName, sizeof(eName), "%s", ene->Attribute("name"));
 
             int enenum = -1;
-            for (int a = 0; a < 8; a++)
+            for (int a = 0; a < EnemyFigureTex_Max; a++)
                 if (strncmp(Names[a], eName, strlen(eName)) == 0)
                     enenum = a;
 

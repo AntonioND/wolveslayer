@@ -61,16 +61,23 @@ u32 ModFileLoad(const void *modFile, MOD *dest, void *memPool, u32 memPoolSize)
     vars.memPoolUsed = 0;
 
     vars.src = (const u8 *)modFile + 1080;
-    if (!memcmp(vars.src, "M.K.", 4)) {
+    if (!memcmp(vars.src, "M.K.", 4))
+    {
         vars.dest->channelCount = 4;
-    } else if (!memcmp(vars.src + 1, "CHN", 3)) {
+    }
+    else if (!memcmp(vars.src + 1, "CHN", 3))
+    {
         ASSERT(vars.src[0] >= '0' && vars.src[0] <= '9');
         vars.dest->channelCount = vars.src[0] - '0';
-    } else if (!memcmp(vars.src + 2, "CH", 2)) {
+    }
+    else if (!memcmp(vars.src + 2, "CH", 2))
+    {
         ASSERT(vars.src[0] >= '0' && vars.src[0] <= '9');
         ASSERT(vars.src[1] >= '0' && vars.src[1] <= '9');
         vars.dest->channelCount = (vars.src[0] - '0') * 10 + (vars.src[1] - '0');
-    } else {
+    }
+    else
+    {
         ASSERT(0);
     }
 
@@ -91,7 +98,8 @@ static void LoadSamples(MODFILE_LOAD_VARS *vars)
 {
     s32 i;
 
-    for (i = 0; i < 31; i++) {
+    for (i = 0; i < 31; i++)
+    {
         SAMPLE_HEADER *smp = &vars->dest->sample[i];
 
         vars->src += 22;                         // Skip 22-byte name
@@ -136,7 +144,8 @@ static void LoadPatterns(MODFILE_LOAD_VARS *vars)
     u8 curPattern, row, column;
     u32 patternCount;
 
-    for (i = 0; i < vars->dest->orderCount; i++) {
+    for (i = 0; i < vars->dest->orderCount; i++)
+    {
         if (vars->dest->order[i] > highestOrder)
             highestOrder = vars->dest->order[i];
     }
@@ -152,7 +161,8 @@ static void LoadPatterns(MODFILE_LOAD_VARS *vars)
     memset(vars->dest->pattern, 0, patternCount * sizeof(u8 *));
 
     // And load them
-    for (curPattern = 0; curPattern < patternCount; curPattern++) {
+    for (curPattern = 0; curPattern < patternCount; curPattern++)
+    {
         u32 patternSize = 4 * 64 * sndMod.channelCount;
 
         // Allocate the memory for the current pattern (they are always 1K)
@@ -160,8 +170,10 @@ static void LoadPatterns(MODFILE_LOAD_VARS *vars)
         vars->memPoolUsed += patternSize;
         ASSERT(vars->memPoolUsed < vars->memPoolSize);
 
-        for (row = 0; row < 64; row++) {
-            for (column = 0; column < sndMod.channelCount; column++) {
+        for (row = 0; row < 64; row++)
+        {
+            for (column = 0; column < sndMod.channelCount; column++)
+            {
                 u8 cell[4];
                 u8 sample;
                 u16 period;
@@ -203,10 +215,12 @@ static void LoadSampleDatas(MODFILE_LOAD_VARS *vars)
 {
     s32 curSmp;
 
-    for (curSmp = 0; curSmp < 31; curSmp++) {
+    for (curSmp = 0; curSmp < 31; curSmp++)
+    {
         SAMPLE_HEADER *smp = &vars->dest->sample[curSmp];
 
-        if (smp->length > 0) {
+        if (smp->length > 0)
+        {
             // Length is stored as half
             smp->smpData = (s8 *)(vars->memPool + vars->memPoolUsed);
             vars->memPoolUsed += ((smp->length + 1) & ~1) * 2 * sizeof(s8);
@@ -219,7 +233,8 @@ static void LoadSampleDatas(MODFILE_LOAD_VARS *vars)
             // Since length is stored as half, it's already
             // guaranteed to be a multiple of 2, but if it's not
             // a multiple of 4, copy the last sample twice
-            if (smp->length & 1) {
+            if (smp->length & 1)
+            {
                 smp->smpData[smp->length * 2 + 1] = smp->smpData[smp->length * 2] = smp->smpData[smp->length * 2 - 1];
             }
 
@@ -249,9 +264,12 @@ u32 FindClosestNote(u32 period)
 {
     u32 note = NoteBinarySearch(period, 0, 12 * 5);
 
-    if (note == 12 * 5 - 1) {
+    if (note == 12 * 5 - 1)
+    {
         return note;
-    } else {
+    }
+    else
+    {
         s32 dist1 = notePeriodTable[note] - period;
         s32 dist2 = notePeriodTable[note + 1] - period;
 

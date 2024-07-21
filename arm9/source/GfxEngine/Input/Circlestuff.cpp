@@ -29,7 +29,8 @@ static void makecircle(int rad)
 
     // ok first we count the pixels which will be used...
     f32 radius = inttof32(rad + 1);
-    do {
+    do
+    {
         int X = round(f32tofloat(mulf32(radius, cosLerp(deg * 64))));
         int Y = round(f32tofloat(mulf32(radius, sinLerp(deg * 64))));
 
@@ -52,11 +53,13 @@ static void makecircle(int rad)
     ox    = 0;
     oy    = 0;
 
-    do {
+    do
+    {
         int X = round(f32tofloat(mulf32(radius, cosLerp(deg * 64))));
         int Y = round(f32tofloat(mulf32(radius, sinLerp(deg * 64))));
 
-        if (ox != X || oy != Y) {
+        if (ox != X || oy != Y)
+        {
             CircleLUT[rad].Pix[count].X = X;
             CircleLUT[rad].Pix[count].Y = Y;
             // if you just press up,down,left or right
@@ -116,7 +119,8 @@ void DrawCircle(int num)
     if (num < 1 || num >= CircleLutSize)
         return;
 
-    for (int q = 0; q < CircleLUT[num].count; q++) {
+    for (int q = 0; q < CircleLUT[num].count; q++)
+    {
         int x = CircleLUT[num].Pix[q].X;
         int y = CircleLUT[num].Pix[q].Y;
 
@@ -151,7 +155,8 @@ void Checkcolision(int x, int y, int sx, int sy, int rad, bool *values)
     for (int a = 0; a < 8; a++)
         values[a] = true;
 
-    for (int q = 0; q < CircleLUT[rad].count; q++) {
+    for (int q = 0; q < CircleLUT[rad].count; q++)
+    {
         int X = CircleLUT[rad].Pix[q].X;
         int Y = CircleLUT[rad].Pix[q].Y;
 
@@ -165,7 +170,8 @@ void CheckcolisionDiagonal(int x, int y, int sx, int sy, int rad, bool *values)
     for (int a = 0; a < 8; a++)
         values[a] = true;
 
-    for (int q = 0; q < CircleLUT[rad].count; q++) {
+    for (int q = 0; q < CircleLUT[rad].count; q++)
+    {
         int X = CircleLUT[rad].Pix[q].X;
         int Y = CircleLUT[rad].Pix[q].Y;
 

@@ -31,13 +31,15 @@ bool Gameended = false;
 
 void CheckEndGame(void)
 {
-    if (Gameended == true && (keysDown() & KEY_START)) {
+    if (Gameended == true && (keysDown() & KEY_START))
+    {
         Gameended = false;
         PlStatus  = 0;
         PlFrame   = 0;
         PlHP      = 100;
 
-        for (int b = 8; b >= 0; b--) {
+        for (int b = 8; b >= 0; b--)
+        {
             Blend = b;
             RunTime();
             E3D_StartRender();
@@ -48,7 +50,8 @@ void CheckEndGame(void)
 
         ReadSettings();
 
-        for (int b = 0; b <= 8; b++) {
+        for (int b = 0; b <= 8; b++)
+        {
             Blend = b;
             RunTime();
             E3D_StartRender();
@@ -58,9 +61,11 @@ void CheckEndGame(void)
         }
     }
 
-    if (Gameended == false) {
+    if (Gameended == false)
+    {
         // check if player died
-        if (PlHP == 0) {
+        if (PlHP == 0)
+        {
             Gameended = true;
             StartSong("/wolveslayer/bgfx/game-over.mod");
             Print("YOU SUCKED!!!", 80, 75);
@@ -69,8 +74,10 @@ void CheckEndGame(void)
         }
 
         // check if endboss died
-        for (int a = 0; a <= EnemyCount; a++) {
-            if (Enemies[a].IsBoss == true && Enemies[a].HP <= 0) {
+        for (int a = 0; a <= EnemyCount; a++)
+        {
+            if (Enemies[a].IsBoss == true && Enemies[a].HP <= 0)
+            {
                 Gameended = true;
                 StartSong("/wolveslayer/bgfx/game-finished.mod");
                 PlStatus = -1;

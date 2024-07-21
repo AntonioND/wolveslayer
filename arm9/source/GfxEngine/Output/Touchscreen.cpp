@@ -41,14 +41,17 @@ void UpdateBar(void)
 
     // Draw Progressbar
     float curpro = (float)((float)PlHP / 100) * PW; // Yeah now it gets complicated (-:
-    for (int c = PX; c <= PX + curpro; c++) {
+    for (int c = PX; c <= PX + curpro; c++)
+    {
         for (int b = 0; b < 7; b++)
             BG_GFX_SUB[c + ((PY + b) * 256)] = col;
     }
 
     // refresh rest
-    if (PlHP != 100) {
-        for (int c = PX + curpro; c <= PX + PW; c++) {
+    if (PlHP != 100)
+    {
+        for (int c = PX + curpro; c <= PX + PW; c++)
+        {
             for (int b = 0; b < 7; b++)
                 BG_GFX_SUB[c + ((PY + b) * 256)] = ((u16 *)touch_bin)[c + (PY * 256)];
         }
@@ -70,8 +73,10 @@ void ScreenMode(void)
 
 void ScreenModeHandler(void)
 {
-    if (screenmode == ScreenModeTextBox) {
-        if ((keysDown() & (KEY_A | KEY_B)) && CurWord == wordnum && nextpage == false) {
+    if (screenmode == ScreenModeTextBox)
+    {
+        if ((keysDown() & (KEY_A | KEY_B)) && CurWord == wordnum && nextpage == false)
+        {
             npctalk = -1;
             ScreenMode();
             CurWord = -1;
@@ -91,11 +96,14 @@ void Print(const char *Text, int x, int y)
 
     int sw = 7, sh = 10;
 
-    for (Counter = 0; Counter <= 255; Counter++) {
+    for (Counter = 0; Counter <= 255; Counter++)
+    {
         Char = Text[Counter] - 32;
         for (int xx = Char * sw; xx <= Char * sw + (sw - 1); xx++)
-            for (int yy = 0; yy <= sh; yy++) {
-                if (Font1[xx + yy * 668] == 0) {
+            for (int yy = 0; yy <= sh; yy++)
+            {
+                if (Font1[xx + yy * 668] == 0)
+                {
                     i = x + xx - Char * sw + Counter * (sw + 1);
                     j = y + yy;
                     if (i < 256 && j < 192)
@@ -103,7 +111,8 @@ void Print(const char *Text, int x, int y)
                             BG_GFX_SUB[i + (j * 256)] = RGB15(31, 31, 31) | BIT(15);
                 } // Writes Font in black
 
-                if (Font1[xx + yy * 668] == 1) {
+                if (Font1[xx + yy * 668] == 1)
+                {
                     i = x + xx - Char * sw + Counter * (sw + 1);
                     j = y + yy;
 
@@ -127,14 +136,18 @@ void PrintOUT(const char *Text, int x, int y, bool color, int n)
 {
     int sw = 7, sh = 10;
 
-    for (int Counter = 0; Counter < n; Counter++) {
+    for (int Counter = 0; Counter < n; Counter++)
+    {
         char Char = Text[Counter] - 32;
         for (int xx = Char * sw; xx <= Char * sw + (sw - 1); xx++)
-            for (int yy = 0; yy <= sh; yy++) {
-                if (Font1[xx + yy * 668] == 0) {
+            for (int yy = 0; yy <= sh; yy++)
+            {
+                if (Font1[xx + yy * 668] == 0)
+                {
                     int i = x + xx - Char * sw + Counter * (sw + 1);
                     int j = y + yy;
-                    if ((i < 256 && j < 192) && (i > -1 && j > -1)) {
+                    if ((i < 256 && j < 192) && (i > -1 && j > -1))
+                    {
                         if (color)
                             BG_GFX_SUB[i + (j * 256)] = RGB15(31, 31, 31) | BIT(15);
                         else
@@ -172,7 +185,8 @@ void PercentBar(int cur, int max)
     // Draw Progressbar
     float curpro = (float)((float)cur / max) * (PW); // Yeah now it gets complicated (-:
 
-    for (int c = PX; c <= PX + curpro; c++) {
+    for (int c = PX; c <= PX + curpro; c++)
+    {
         BG_GFX_SUB[c + (PY * 256)]       = RGB15(31, 31, 31) | BIT(15);
         BG_GFX_SUB[c + ((PY + 1) * 256)] = RGB15(31, 31, 31) | BIT(15);
     }
@@ -197,12 +211,15 @@ void ItemMode(void)
     //     BG_GFX_SUB[i] = ((u16 *)touchmenu_bin)[i];
 
     // Draw Buttons
-    for (i = 0; i < 64; i++) {
-        for (j = 0; j < 32; j++) {
+    for (i = 0; i < 64; i++)
+    {
+        for (j = 0; j < 32; j++)
+        {
             BG_GFX_SUB[(i + 29) + ((j + 144) * 256)]       = ((u16 *)buttonsel_bin)[i + (j * 64)];
             BG_GFX_SUB[(i + 29 + 130) + ((j + 144) * 256)] = ((u16 *)button_bin)[i + (j * 64)];
 
-            if (GegnerCount == -1) {
+            if (GegnerCount == -1)
+            {
                 if (EquipedWeapon != CellSelect)
                     if (strncmp("WEAPON", GiveItemType(Inventory[CellSelect]), 6) == 0)
                         BG_GFX_SUB[(i + 45) + ((j + 87) * 256)] = ((u16 *)button_bin)[i + (j * 64)];
@@ -221,8 +238,10 @@ void ItemMode(void)
     PrintOUT("Item", 44, 155, false, strlen("Item"));
     PrintOUT("Back", 43 + 131, 155, false, strlen("Back"));
 
-    for (int a = 0; a < 10; a++) {
-        if (a == CellSelect) {
+    for (int a = 0; a < 10; a++)
+    {
+        if (a == CellSelect)
+        {
             for (i = 0; i < 93; i++)
                 for (j = 0; j < 9; j++)
                     BG_GFX_SUB[(i + 134) + ((j + 22 + (a * 10)) * 256)] = RGB15(0, 0, 31) | BIT(15);
@@ -237,7 +256,8 @@ void ItemMode(void)
     PrintOUT(GiveItemName(Inventory[CellSelect]), 30, 24, true, strlen(GiveItemName(Inventory[CellSelect])));
     PrintOUT(GiveItemType(Inventory[CellSelect]), 55, 74, true, strlen(GiveItemType(Inventory[CellSelect])));
 
-    if (strlen(GiveItemImgName(Inventory[CellSelect])) > 2) {
+    if (strlen(GiveItemImgName(Inventory[CellSelect])) > 2)
+    {
         u16 Img[32 * 32];
         LoadBmptoBuffer(GiveItemImgName(Inventory[CellSelect]), Img);
 

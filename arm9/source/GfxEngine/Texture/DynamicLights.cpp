@@ -64,7 +64,8 @@ static void TurnDyn(int a, bool l, bool r, bool u, bool d)
     int dirnew = 0;
     bool ok    = false;
 
-    while (ok == false) {
+    while (ok == false)
+    {
         ok     = true;
         dirnew = rand() % 8;
         if ((dirnew == 0 || dirnew == 1 || dirnew == 7) && d == false)
@@ -91,9 +92,12 @@ static void UpdateFireflies(void)
     float Gcol1, Gcol2, Gcol3, Gcol4;
     float Bcol1, Bcol2, Bcol3, Bcol4;
 
-    if (screenmode < ScreenModeItem) {
-        for (a = 0; a < DynamicLight_Max; a++) {
-            if (Fireflies[a].Enable == true) {
+    if (screenmode < ScreenModeItem)
+    {
+        for (a = 0; a < DynamicLight_Max; a++)
+        {
+            if (Fireflies[a].Enable == true)
+            {
                 l = true;
                 r = true;
                 u = true;
@@ -102,7 +106,8 @@ static void UpdateFireflies(void)
                 sx = (Fireflies[a].SX - 10) / 2;
                 sy = (Fireflies[a].SY - 10) / 2;
 
-                for (b = 2; b < 8; b++) {
+                for (b = 2; b < 8; b++)
+                {
                     if (Passable(Fireflies[a].X, Fireflies[a].Y, sx + b, sy) == false)
                         u = false;
                     if (Passable(Fireflies[a].X, Fireflies[a].Y, sx + b, sy + 8) == false)
@@ -135,8 +140,10 @@ static void UpdateFireflies(void)
 
                 // redraw old lightmap
 
-                for (dx = 0; dx <= 1; dx++) {
-                    for (dy = 0; dy <= 1; dy++) {
+                for (dx = 0; dx <= 1; dx++)
+                {
+                    for (dy = 0; dy <= 1; dy++)
+                    {
                         WorldLightR[Fireflies[a].X + dx + (Fireflies[a].Y + dy) * 128] = MapLightR[Fireflies[a].X + dx + (Fireflies[a].Y + dy) * 128];
                         WorldLightG[Fireflies[a].X + dx + (Fireflies[a].Y + dy) * 128] = MapLightG[Fireflies[a].X + dx + (Fireflies[a].Y + dy) * 128];
                         WorldLightB[Fireflies[a].X + dx + (Fireflies[a].Y + dy) * 128] = MapLightB[Fireflies[a].X + dx + (Fireflies[a].Y + dy) * 128];
@@ -146,34 +153,40 @@ static void UpdateFireflies(void)
                 // Horizontal
                 if ((Fireflies[a].Direction == 6 || Fireflies[a].Direction == 5 || Fireflies[a].Direction == 7) && r)
                     Fireflies[a].SX += 1;
-                if (Fireflies[a].SX > 19) {
+                if (Fireflies[a].SX > 19)
+                {
                     Fireflies[a].X += 1;
                     Fireflies[a].SX = 0;
                 }
                 if ((Fireflies[a].Direction == 1 || Fireflies[a].Direction == 2 || Fireflies[a].Direction == 3) && l)
                     Fireflies[a].SX -= 1;
-                if (Fireflies[a].SX < 0) {
+                if (Fireflies[a].SX < 0)
+                {
                     Fireflies[a].X -= 1;
                     Fireflies[a].SX = 19;
                 }
                 // Vertikal
                 if ((Fireflies[a].Direction == 0 || Fireflies[a].Direction == 1 || Fireflies[a].Direction == 7) && d)
                     Fireflies[a].SY += 1;
-                if (Fireflies[a].SY > 19) {
+                if (Fireflies[a].SY > 19)
+                {
                     Fireflies[a].Y += 1;
                     Fireflies[a].SY = 0;
                 }
                 if ((Fireflies[a].Direction == 4 || Fireflies[a].Direction == 3 || Fireflies[a].Direction == 5) && u)
                     Fireflies[a].SY -= 1;
-                if (Fireflies[a].SY < 0) {
+                if (Fireflies[a].SY < 0)
+                {
                     Fireflies[a].Y -= 1;
                     Fireflies[a].SY = 19;
                 }
             }
         }
 
-        for (a = 0; a < DynamicLight_Max; a++) {
-            if (Fireflies[a].Enable == true) {
+        for (a = 0; a < DynamicLight_Max; a++)
+        {
+            if (Fireflies[a].Enable == true)
+            {
                 sx = Fireflies[a].SX;
                 sy = Fireflies[a].SY;
 
@@ -243,38 +256,46 @@ static void UpdateFireflies(void)
 
 static void UpdateViewableLights(void)
 {
-    for (int yy = 13; yy > -4; yy--) {
+    for (int yy = 13; yy > -4; yy--)
+    {
         int y = yy + CamPosY;
 
         int minx = 4;
         int maxx = 7;
 
-        if (yy == 13 || yy == 12 || yy == 11 || yy == 10 || yy == 9) {
+        if (yy == 13 || yy == 12 || yy == 11 || yy == 10 || yy == 9)
+        {
             minx = 1;
             maxx = 10;
         }
-        if (yy == 8) {
+        if (yy == 8)
+        {
             minx = 0;
             maxx = 10;
         }
-        if (yy == 7 || yy == 6 || yy == 5) {
+        if (yy == 7 || yy == 6 || yy == 5)
+        {
             minx = 0;
             maxx = 11;
         }
-        if (yy == 4 || yy == 3 || yy == 2) {
+        if (yy == 4 || yy == 3 || yy == 2)
+        {
             minx = -1;
             maxx = 12;
         }
-        if (yy == 1 || yy == 0 || yy == -1) {
+        if (yy == 1 || yy == 0 || yy == -1)
+        {
             minx = -2;
             maxx = 13;
         }
-        if (yy <= -2) {
+        if (yy <= -2)
+        {
             minx = -3;
             maxx = 14;
         }
 
-        for (int xx = maxx; xx > minx; xx--) {
+        for (int xx = maxx; xx > minx; xx--)
+        {
             // maplight color
             u8 col[3];
             int x = xx + CamPosX;
@@ -282,7 +303,8 @@ static void UpdateViewableLights(void)
             ViewportMapLights[xx + 5][yy + 3] = RGB15((u8)col[0] >> 3, (u8)col[1] >> 3, (u8)col[2] >> 3);
 
             // reset Bump-mapping status
-            if (x >= 0 && y >= 0 && y <= MapGetHr() && x <= MapGetWr()) {
+            if (x >= 0 && y >= 0 && y <= MapGetHr() && x <= MapGetWr())
+            {
                 ViewportMapBumpGroundS[xx + 5][yy + 3] = Precalcdata[x][y] & (1 << B_BumpgroundS);
                 ViewportMapBumpGroundW[xx + 5][yy + 3] = Precalcdata[x][y] & (1 << B_BumpgroundW);
                 ViewportMapBumpGroundE[xx + 5][yy + 3] = Precalcdata[x][y] & (1 << B_BumpgroundE);

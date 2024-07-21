@@ -56,7 +56,8 @@ void Splash(void)
     LoadBmptoBuffer("/wolveslayer/pic/scr1.bmp", BG_GFX);
     LoadBmptoBuffer("/wolveslayer/pic/scr2.bmp", BG_GFX_SUB);
 
-    for (int u = 15; u >= 0; u--) {
+    for (int u = 15; u >= 0; u--)
+    {
         REG_BLDY     = u;
         REG_BLDY_SUB = u;
         swiWaitForVBlank();
@@ -73,7 +74,8 @@ void Splash(void)
 
 #ifdef ENABLE_SPLASH
     int pressed;
-    for (int u = 0; u < 360; u++) {
+    for (int u = 0; u < 360; u++)
+    {
         scanKeys();
         pressed = keysDown();
         swiWaitForVBlank();
@@ -81,7 +83,8 @@ void Splash(void)
             u = 360;
     }
 
-    for (int u = 15; u >= 0; u--) {
+    for (int u = 15; u >= 0; u--)
+    {
         REG_BLDY     = 15 - u;
         REG_BLDY_SUB = 15 - u;
         swiWaitForVBlank();
@@ -90,7 +93,8 @@ void Splash(void)
     LoadBmptoBuffer("/wolveslayer/pic/scr3.bmp", BG_GFX);
     LoadBmptoBuffer("/wolveslayer/pic/scr4.bmp", BG_GFX_SUB);
 
-    for (int u = 15; u >= 0; u--) {
+    for (int u = 15; u >= 0; u--)
+    {
         REG_BLDY     = u;
         REG_BLDY_SUB = u;
         swiWaitForVBlank();
@@ -99,7 +103,8 @@ void Splash(void)
     scanKeys();
     pressed = keysDown();
 
-    while (!((pressed & KEY_START) || (pressed & KEY_TOUCH))) {
+    while (!((pressed & KEY_START) || (pressed & KEY_TOUCH)))
+    {
         swiWaitForVBlank();
         scanKeys();
         pressed = keysDown();
@@ -151,20 +156,23 @@ void vBlank(void)
     ++elapsedFrames;
     ++frameCounter;
 
-    if (frameCounter % 2 == 1) {
+    if (frameCounter % 2 == 1)
+    {
         // Recalcs lightcolors based on the time of the day
         RunTime();
 
         HandleTicks();
     }
 
-    if (frameCounter >= 60) {
+    if (frameCounter >= 60)
+    {
         frameold     = loopCounter;
         frameCounter = 0;
         loopCounter  = 0;
     }
 
-    if (screenmode == ScreenModeTextBox) {
+    if (screenmode == ScreenModeTextBox)
+    {
         // If the player holds A, print message 3 times faster
         if (frameCounter % 2 == 1 && (keysHeld() & KEY_A))
             TextBoxmodeHandler();
@@ -172,7 +180,8 @@ void vBlank(void)
             TextBoxmodeHandler();
     }
 
-    if (screenmode != ScreenModeTextBox && frameCounter % 59 == 0 && (keysHeld() & KEY_R)) {
+    if (screenmode != ScreenModeTextBox && frameCounter % 59 == 0 && (keysHeld() & KEY_R))
+    {
         char Tmp[50];
 
 #ifdef ShowHeapUsage

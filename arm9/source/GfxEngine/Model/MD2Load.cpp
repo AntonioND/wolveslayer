@@ -16,7 +16,8 @@ static const v16 zero = floattov16(0.0f);
 
 void InitTableOfNormal(void)
 {
-    for (int a = 0; a < 162; a++) {
+    for (int a = 0; a < 162; a++)
+    {
         anormtable16[a][0] = floattov16(anorms_table[a][0]);
         anormtable16[a][1] = floattov16(anorms_table[a][1]);
         anormtable16[a][2] = floattov16(anorms_table[a][2]);
@@ -25,8 +26,10 @@ void InitTableOfNormal(void)
 
 void FreeModels(void)
 {
-    for (int a = 0; a < MD2_Max; a++) {
-        if (Models[a].Enabled == true) {
+    for (int a = 0; a < MD2_Max; a++)
+    {
+        if (Models[a].Enabled == true)
+        {
             for (int N = 0; N < Models[a].header.num_frames; ++N)
                 free(Models[a].rahmen[N].verts);
             free(Models[a].rahmen);
@@ -75,7 +78,8 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
     // read frames
     u8 *ptr = md2_buffer + m->header.offset_frames;
 
-    for (int i = 0; i < m->header.num_frames; ++i) {
+    for (int i = 0; i < m->header.num_frames; ++i)
+    {
         // memory allocation for vertices of this frame
         m->frames[i].verts = (md2_vertex_t *)malloc(sizeof(md2_vertex_t) * m->header.num_vertices);
         if (m->frames[i].verts == NULL)
@@ -113,7 +117,8 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
     if ((m->flaechenkoords == NULL) || (m->dreiecke == NULL) || (m->rahmen == NULL))
         Crash("MD2: Not enough RAM (3):\n%s", Filename);
 
-    for (int i = 0; i < m->header.num_frames; ++i) {
+    for (int i = 0; i < m->header.num_frames; ++i)
+    {
         m->rahmen[i].verts = (nds_vertex_t *)malloc(sizeof(nds_vertex_t) * m->header.num_vertices);
         if (m->rahmen[i].verts == NULL)
             Crash("MD2: Not enough RAM (4):\n%s", Filename);
@@ -126,9 +131,12 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
     md2_vertex_t *pvert; // der kram is nötig dafür
 
     // also framedata in rahmendaten umwandeln
-    for (int N = 0; N < m->header.num_frames; ++N) {
-        for (int I = 0; I < m->header.num_tris; ++I) {
-            for (int j = 0; j < 3; ++j) {
+    for (int N = 0; N < m->header.num_frames; ++N)
+    {
+        for (int I = 0; I < m->header.num_tris; ++I)
+        {
+            for (int j = 0; j < 3; ++j)
+            {
                 pframe = &m->frames[N];
                 pvert  = &pframe->verts[m->triangles[I].vertex[j]];
                 // dekomresse die aktuelle framedate
@@ -145,28 +153,36 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
 
     f32 normx = 0, normz = 0;
     // Normal indices
-    for (int N = 0; N < m->header.num_frames; ++N) {
-        for (int I = 0; I < m->header.num_vertices; ++I) {
+    for (int N = 0; N < m->header.num_frames; ++N)
+    {
+        for (int I = 0; I < m->header.num_vertices; ++I)
+        {
             m->rahmen[N].verts[I].colorindex = 0;
-            for (int g = 0; g < 4; g++) {
-                if (g == 0) {
+            for (int g = 0; g < 4; g++)
+            {
+                if (g == 0)
+                {
                     normz = anormtable16[m->frames[N].verts[I].normalIndex][0];
                     normx = anormtable16[m->frames[N].verts[I].normalIndex][1];
                 }
-                if (g == 1) {
+                if (g == 1)
+                {
                     normz = anormtable16[m->frames[N].verts[I].normalIndex][1];
                     normx = -anormtable16[m->frames[N].verts[I].normalIndex][0];
                 }
-                if (g == 2) {
+                if (g == 2)
+                {
                     normz = -anormtable16[m->frames[N].verts[I].normalIndex][0];
                     normx = -anormtable16[m->frames[N].verts[I].normalIndex][1];
                 }
-                if (g == 3) {
+                if (g == 3)
+                {
                     normz = -anormtable16[m->frames[N].verts[I].normalIndex][1];
                     normx = anormtable16[m->frames[N].verts[I].normalIndex][0];
                 }
 
-                if (normz <= zero) {
+                if (normz <= zero)
+                {
                     if (g == 0)
                         if (normx < zero)
                             m->rahmen[N].verts[I].colorindex |= 0;
@@ -193,7 +209,8 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
                             m->rahmen[N].verts[I].colorindex |= (1 << 6);
                 }
 
-                if (normz > zero) {
+                if (normz > zero)
+                {
                     if (g == 0)
                         if (normx < zero)
                             m->rahmen[N].verts[I].colorindex = 2;
@@ -224,9 +241,12 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
     }
 
     // Nun zu den texturkooridinaten
-    for (int I = 0; I < m->header.num_tris; ++I) {
-        for (int j = 0; j < 3; ++j) {
-            if (texturereverse) {
+    for (int I = 0; I < m->header.num_tris; ++I)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
+            if (texturereverse)
+            {
                 s = (float)m->texcoords[m->triangles[I].st[j]].s / m->header.skinwidth;
                 t = (float)m->texcoords[m->triangles[I].st[j]].t / m->header.skinheight;
 
@@ -234,7 +254,8 @@ void LoadMD2Model(char Filename[], int num, int widthheight, int scale)
                 m->flaechenkoords[m->triangles[I].st[j]].t = floattot16(float(1 - t) * widthheight);
             }
 
-            if (!texturereverse) {
+            if (!texturereverse)
+            {
                 s = (float)m->texcoords[m->triangles[I].st[j]].s / m->header.skinwidth;
                 t = (float)m->texcoords[m->triangles[I].st[j]].t / m->header.skinheight;
 

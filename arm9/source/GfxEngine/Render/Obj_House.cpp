@@ -32,7 +32,8 @@ void RenderHouseM(int mode, f32 x, f32 y, f32 z)
     glTranslatef32(x, y, z);
     // glNormal3f(0, 1.0f, 0);
     u8 r = EnvR, g = EnvG, b = EnvB;
-    if (Blend != 8) {
+    if (Blend != 8)
+    {
         r = EnvR / 8 * Blend;
         g = EnvG / 8 * Blend;
         b = EnvB / 8 * Blend;
@@ -69,11 +70,13 @@ void RenderHouseBorder(int mode, int direction, f32 x, f32 y, f32 z)
     if (mode != 0 && mode != 1)
         return;
     v16 vert, vert2;
-    if (mode == 0) {
+    if (mode == 0)
+    {
         vert  = mode0vertex;
         vert2 = mode0vertex2;
     }
-    if (mode == 1) {
+    if (mode == 1)
+    {
         vert  = mode1vertex;
         vert2 = mode1vertex2;
     }
@@ -91,28 +94,32 @@ void RenderHouseBorder(int mode, int direction, f32 x, f32 y, f32 z)
     int LightX1 = 0, LightY1 = 0;
     int LightX2 = 0, LightY2 = 0;
 
-    if (direction == 0) {
+    if (direction == 0)
+    {
         LightX1 = WallX;
         LightY1 = WallY + 1;
         LightX2 = WallX + 1;
         LightY2 = WallY + 1;
     }
 
-    if (direction == 1) {
+    if (direction == 1)
+    {
         LightX1 = WallX;
         LightY1 = WallY;
         LightX2 = WallX;
         LightY2 = WallY + 1;
     }
 
-    if (direction == 2) {
+    if (direction == 2)
+    {
         LightX1 = WallX + 1;
         LightY1 = WallY;
         LightX2 = WallX;
         LightY2 = WallY;
     }
 
-    if (direction == 3) {
+    if (direction == 3)
+    {
         LightX1 = WallX + 1;
         LightY1 = WallY + 1;
         LightX2 = WallX + 1;
@@ -145,8 +152,10 @@ void RenderHouseBorder(int mode, int direction, f32 x, f32 y, f32 z)
     glEnd();
 
     // Roof bottom
-    if (mode == 0 && !walltrans) {
-        if (Blend != 8) {
+    if (mode == 0 && !walltrans)
+    {
+        if (Blend != 8)
+        {
             r = EnvR / 8 * Blend;
             g = EnvG / 8 * Blend;
             b = EnvB / 8 * Blend;
@@ -185,11 +194,13 @@ void RenderHouseCorner(int mode, int direction, f32 x, f32 y, f32 z)
         return;
 
     v16 vert, vert2;
-    if (mode == 0) {
+    if (mode == 0)
+    {
         vert  = mode0vertex;
         vert2 = mode0vertex2;
     }
-    if (mode == 1) {
+    if (mode == 1)
+    {
         vert  = mode1vertex;
         vert2 = mode1vertex2;
     }
@@ -209,7 +220,8 @@ void RenderHouseCorner(int mode, int direction, f32 x, f32 y, f32 z)
     int LightX2 = 0, LightY2 = 0;
     int LightX3 = 0, LightY3 = 0;
 
-    if (direction == 0) {
+    if (direction == 0)
+    {
         LightX1 = WallX;
         LightY1 = WallY + 1;
         LightX2 = WallX + 1;
@@ -218,7 +230,8 @@ void RenderHouseCorner(int mode, int direction, f32 x, f32 y, f32 z)
         LightY3 = WallY;
     }
 
-    if (direction == 1) {
+    if (direction == 1)
+    {
         LightX1 = WallX;
         LightY1 = WallY;
         LightX2 = WallX;
@@ -227,7 +240,8 @@ void RenderHouseCorner(int mode, int direction, f32 x, f32 y, f32 z)
         LightY3 = WallY;
     }
 
-    if (direction == 2) {
+    if (direction == 2)
+    {
         LightX1 = WallX + 1;
         LightY1 = WallY;
         LightX2 = WallX;
@@ -236,7 +250,8 @@ void RenderHouseCorner(int mode, int direction, f32 x, f32 y, f32 z)
         LightY3 = WallY + 1;
     }
 
-    if (direction == 3) {
+    if (direction == 3)
+    {
         LightX1 = WallX + 1;
         LightY1 = WallY + 1;
         LightX2 = WallX + 1;
@@ -295,8 +310,10 @@ void RenderHouseCorner(int mode, int direction, f32 x, f32 y, f32 z)
 
     glEnd();
 
-    if (mode == 0 && !walltrans) {
-        if (Blend != 8) {
+    if (mode == 0 && !walltrans)
+    {
+        if (Blend != 8)
+        {
             r = EnvR / 8 * Blend;
             g = EnvG / 8 * Blend;
             b = EnvB / 8 * Blend;

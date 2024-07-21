@@ -40,12 +40,14 @@ void LoadChars(TiXmlElement *map)
     for (int a = 0; a < EnemyFigureTex_Max; a++)
         strcpy(Names[a], "-.-öäüß");
 
-    while (endef && (Num < (EnemyFigureTex_Max - 1))) {
+    while (endef && (Num < (EnemyFigureTex_Max - 1)))
+    {
         TiXmlElement *texture   = endef->FirstChildElement("texture");
         TiXmlElement *mesh      = endef->FirstChildElement("mesh");
         TiXmlElement *atributes = endef->FirstChildElement("atributes");
 
-        if (mesh && texture && atributes) {
+        if (mesh && texture && atributes)
+        {
             Num++;
 
             // copy enemydef-name
@@ -83,7 +85,8 @@ void LoadChars(TiXmlElement *map)
                     boss[Num] = true;
 
             // loadstuff
-            if (texture->Attribute("file") && mesh->Attribute("file")) {
+            if (texture->Attribute("file") && mesh->Attribute("file"))
+            {
                 int id = EnemyFigureBaseTex_ID + Num;
                 if (id >= FigureTex_Max)
                     Crash("Too many figures");
@@ -102,8 +105,10 @@ void LoadChars(TiXmlElement *map)
     // <enemy name="Wolve1" pos="3,5"/>
     TiXmlElement *ene = map->FirstChildElement("enemy");
 
-    while (ene) {
-        if (ene->Attribute("name")) {
+    while (ene)
+    {
+        if (ene->Attribute("name"))
+        {
             // get the enemy name and search in the defenitions for right one
             char eName[20];
             snprintf(eName, sizeof(eName), "%s", ene->Attribute("name"));
@@ -113,7 +118,8 @@ void LoadChars(TiXmlElement *map)
                 if (strncmp(Names[a], eName, strlen(eName)) == 0)
                     enenum = a;
 
-            if (ene->Attribute("pos") && enenum >= 0) {
+            if (ene->Attribute("pos") && enenum >= 0)
+            {
                 int x, y;
                 sscanf(ene->Attribute("pos"), "%i,%i", &x, &y);
 

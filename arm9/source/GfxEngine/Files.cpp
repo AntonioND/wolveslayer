@@ -51,13 +51,15 @@ void LoadBmptoBuffer(const char *filename, u16 *picbuff)
     bmp += 4;
     u32 colorCoding = read32(bmp);
 
-    if (((colorCoding & 0xFFFF0000) >> 16) == 8) {
+    if (((colorCoding & 0xFFFF0000) >> 16) == 8)
+    {
         u16 pal[256];
 
         // First read the palette
         bmp = bmp_buffer + 54;
 
-        for (int i = 0; i < 256; i++) {
+        for (int i = 0; i < 256; i++)
+        {
             u32 color = read32(bmp);
             bmp += 4;
 
@@ -68,8 +70,10 @@ void LoadBmptoBuffer(const char *filename, u16 *picbuff)
             pal[i] = RGB15(r >> 3, g >> 3, b >> 3) | BIT(15);
         }
 
-        for (u32 y = 0; y < height; y++) {
-            for (u32 x = 0; x < width; x++) {
+        for (u32 y = 0; y < height; y++)
+        {
+            for (u32 x = 0; x < width; x++)
+            {
                 u8 color = *bmp++;
 
                 picbuff[x + (((height - 1) - y) * width)] = pal[color];
@@ -77,7 +81,9 @@ void LoadBmptoBuffer(const char *filename, u16 *picbuff)
             if (width & 1)
                 bmp += 4 - (width & 1);
         }
-    } else {
+    }
+    else
+    {
         Crash("Invalid format for file:\n%s", filename);
     }
 
@@ -96,11 +102,13 @@ void LoadBmptoBuffer8(const char *filename, u8 *picbuff, u16 *palbuff)
     bmp += 4;
     u32 colorCoding = read32(bmp);
 
-    if (((colorCoding & 0xFFFF0000) >> 16) == 8) {
+    if (((colorCoding & 0xFFFF0000) >> 16) == 8)
+    {
         // First read the palette
         bmp = bmp_buffer + 54;
 
-        for (int i = 0; i < 256; i++) {
+        for (int i = 0; i < 256; i++)
+        {
             u32 color = read32(bmp);
             bmp += 4;
 
@@ -111,8 +119,10 @@ void LoadBmptoBuffer8(const char *filename, u8 *picbuff, u16 *palbuff)
             palbuff[i] = RGB15(r >> 3, g >> 3, b >> 3) | BIT(15);
         }
 
-        for (u32 y = 0; y < height; y++) {
-            for (u32 x = 0; x < width; x++) {
+        for (u32 y = 0; y < height; y++)
+        {
+            for (u32 x = 0; x < width; x++)
+            {
                 u8 color = *bmp++;
 
                 picbuff[x + (((height - 1) - y) * width)] = color;
@@ -120,7 +130,9 @@ void LoadBmptoBuffer8(const char *filename, u8 *picbuff, u16 *palbuff)
             if (width & 1)
                 bmp += 4 - (width & 1);
         }
-    } else {
+    }
+    else
+    {
         Crash("Invalid format for file:\n%s", filename);
     }
 
@@ -144,7 +156,8 @@ void LoadBmpAllocBuffer8(const char *filename, u8 **picbuff_, u16 **palbuff_, u3
     *width_  = width;
     *height_ = height;
 
-    if (((colorCoding & 0xFFFF0000) >> 16) == 8) {
+    if (((colorCoding & 0xFFFF0000) >> 16) == 8)
+    {
         u8 *picbuff  = (u8 *)malloc(width * height);
         u16 *palbuff = (u16 *)malloc(256 * 2);
 
@@ -157,7 +170,8 @@ void LoadBmpAllocBuffer8(const char *filename, u8 **picbuff_, u16 **palbuff_, u3
         // First read the palette
         bmp = bmp_buffer + 54;
 
-        for (int i = 0; i < 256; i++) {
+        for (int i = 0; i < 256; i++)
+        {
             u32 color = read32(bmp);
             bmp += 4;
 
@@ -168,8 +182,10 @@ void LoadBmpAllocBuffer8(const char *filename, u8 **picbuff_, u16 **palbuff_, u3
             palbuff[i] = RGB15(r >> 3, g >> 3, b >> 3) | BIT(15);
         }
 
-        for (u32 y = 0; y < height; y++) {
-            for (u32 x = 0; x < width; x++) {
+        for (u32 y = 0; y < height; y++)
+        {
+            for (u32 x = 0; x < width; x++)
+            {
                 u8 color = *bmp++;
 
                 picbuff[x + (((height - 1) - y) * width)] = color;
@@ -177,7 +193,9 @@ void LoadBmpAllocBuffer8(const char *filename, u8 **picbuff_, u16 **palbuff_, u3
             if (width & 1)
                 bmp += 4 - (width & 1);
         }
-    } else {
+    }
+    else
+    {
         Crash("Invalid format for file:\n%s", filename);
     }
 
@@ -201,7 +219,8 @@ void LoadBmpAllocBuffer24(const char *filename, u8 **picbuff_, u32 *height_, u32
     *width_  = width;
     *height_ = height;
 
-    if (((colorCoding & 0xFFFF0000) >> 16) == 24) {
+    if (((colorCoding & 0xFFFF0000) >> 16) == 24)
+    {
         u8 *picbuff = (u8 *)malloc(width * height * 3);
 
         if (picbuff == NULL)
@@ -212,8 +231,10 @@ void LoadBmpAllocBuffer24(const char *filename, u8 **picbuff_, u32 *height_, u32
         bmp = bmp_buffer + 54;
 
         u8 *pic = picbuff;
-        for (u32 y = 0; y < height; y++) {
-            for (u32 x = 0; x < width; x++) {
+        for (u32 y = 0; y < height; y++)
+        {
+            for (u32 x = 0; x < width; x++)
+            {
                 u8 b = *bmp++;
                 u8 g = *bmp++;
                 u8 r = *bmp++;
@@ -225,7 +246,9 @@ void LoadBmpAllocBuffer24(const char *filename, u8 **picbuff_, u32 *height_, u32
             if ((width * 3) & 3)
                 bmp += 4 - ((width * 3) & 3);
         }
-    } else {
+    }
+    else
+    {
         Crash("Invalid format for file:\n%s", filename);
     }
 

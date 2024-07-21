@@ -16,9 +16,9 @@
 #define ObjectTexture_Max 23 // Max. number of textures available for objects
 
 // Hardcoded IDs used for textures for figures (character, weapon, enemies and villagers)
-#define CharacterFigureTex_ID   0
-#define WeaponFigureTex_ID      1
-#define EnemyFigureBaseTex_ID   2
+#define CharacterFigureTex_ID 0
+#define WeaponFigureTex_ID    1
+#define EnemyFigureBaseTex_ID 2
 
 // Amount of textures for figures (character, weapon, enemies and villagers)
 #define CharacterFigureTex_Max 1 // Max. number of figures for characters

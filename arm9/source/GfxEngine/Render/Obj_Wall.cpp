@@ -13,11 +13,13 @@ void RenderWallBorder(int mode, int direction, f32 x, f32 y, f32 z, int textnum)
         return;
 
     v16 vert, vert2;
-    if (mode == 0) {
+    if (mode == 0)
+    {
         vert  = mode0vertex;
         vert2 = mode0vertex2;
     }
-    if (mode == 1) {
+    if (mode == 1)
+    {
         vert  = mode1vertex;
         vert2 = mode1vertex2;
     }
@@ -34,7 +36,8 @@ void RenderWallBorder(int mode, int direction, f32 x, f32 y, f32 z, int textnum)
     if (IsObjBumpWall(WallX, WallY) == true)
         layers = 2;
 
-    if (direction == 0) {
+    if (direction == 0)
+    {
         LightX1[0] = WallX;
         LightY1[0] = WallY + 1;
         LightX2[0] = WallX + 1;
@@ -51,7 +54,8 @@ void RenderWallBorder(int mode, int direction, f32 x, f32 y, f32 z, int textnum)
         LightY2[2] = WallY + 1;
     }
 
-    if (direction == 1) {
+    if (direction == 1)
+    {
         LightX1[0] = WallX;
         LightY1[0] = WallY;
         LightX2[0] = WallX;
@@ -71,7 +75,8 @@ void RenderWallBorder(int mode, int direction, f32 x, f32 y, f32 z, int textnum)
     if (direction == 2)
         return;
 
-    if (direction == 3) {
+    if (direction == 3)
+    {
         LightX1[0] = WallX + 1;
         LightY1[0] = WallY + 1;
         LightX2[0] = WallX + 1;
@@ -94,7 +99,8 @@ void RenderWallBorder(int mode, int direction, f32 x, f32 y, f32 z, int textnum)
 
     glRotateYi((DEGREES_IN_CIRCLE / 512) * (direction * -128));
 
-    for (int a = 0; a <= layers; a++) {
+    for (int a = 0; a <= layers; a++)
+    {
         if (a == 1)
             glBindTexture(GL_TEXTURE_2D, ObjectTexture[textnum].TextureB);
 

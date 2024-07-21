@@ -26,8 +26,10 @@ static void PreCalcGround(void)
     int choose, texturecounter;
     int choose2, texturecounter2;
 
-    for (int yy = 0; yy < MapGetHr(); yy++) {
-        for (int xx = 0; xx < MapGetWr(); xx++) {
+    for (int yy = 0; yy < MapGetHr(); yy++)
+    {
+        for (int xx = 0; xx < MapGetWr(); xx++)
+        {
             Precalcdata[xx][yy] = 0; // reset all stuff
 
             choose  = -3; // int value for choosing texture
@@ -68,8 +70,10 @@ static void PreCalcGround(void)
 
 static void PreCalcWater(void)
 {
-    for (int yy = 0; yy < MapGetHr(); yy++) {
-        for (int xx = 0; xx < MapGetWr(); xx++) {
+    for (int yy = 0; yy < MapGetHr(); yy++)
+    {
+        for (int xx = 0; xx < MapGetWr(); xx++)
+        {
             if (WaterKey != (0 | BIT(15)) && WaterKey != 0)
                 if (MapGroundGetRGB(xx, yy) == WaterKey)
                     Precalcdata[xx][yy] |= (1 << B_Water);
@@ -87,8 +91,10 @@ static void PreCalcAGround(void)
     int texturecounter = 0;
     int choose2 __attribute__((unused)), texturecounter2;
 
-    for (int yy = 0; yy < MapGetHr(); yy++) {
-        for (int xx = 0; xx < MapGetWr(); xx++) {
+    for (int yy = 0; yy < MapGetHr(); yy++)
+    {
+        for (int xx = 0; xx < MapGetWr(); xx++)
+        {
             choose2 = -1;
 
             Gnd = 0; // char[7] value for compare colorkeys
@@ -108,8 +114,10 @@ static void PreCalcAGround(void)
             SetAGround[xx][yy] = -1;
 
             // Here we look which texture to use
-            for (texturecounter = 0; texturecounter < 4; texturecounter++) {
-                if (Gnd == Autotile[texturecounter].ColorKeyMaster) {
+            for (texturecounter = 0; texturecounter < 4; texturecounter++)
+            {
+                if (Gnd == Autotile[texturecounter].ColorKeyMaster)
+                {
                     SetAGround[xx][yy] = texturecounter;
 
                     LGnd  = false;
@@ -140,7 +148,8 @@ static void PreCalcAGround(void)
                         DRGnd = true;
 
                     // Compare neighbours with ignore colors
-                    for (int ign = 0; ign <= Autotile[texturecounter].IgnorecolorsNum; ign++) {
+                    for (int ign = 0; ign <= Autotile[texturecounter].IgnorecolorsNum; ign++)
+                    {
                         if (MapGroundGetRGB(xx - 1, yy) == Autotile[texturecounter].Ignorecolors[ign])
                             LGnd = false;
                         if (MapGroundGetRGB(xx + 1, yy) == Autotile[texturecounter].Ignorecolors[ign])
@@ -164,7 +173,8 @@ static void PreCalcAGround(void)
                         TexAGround[xx][yy] = 31;
 
                     // Texture surounded by others
-                    if ((LGnd == false) && (RGnd == false) && (UGnd == false) && (DGnd == false)) {
+                    if ((LGnd == false) && (RGnd == false) && (UGnd == false) && (DGnd == false))
+                    {
                         if (ULGnd == false && URGnd == false && DLGnd == false && DRGnd == false)
                             TexAGround[xx][yy] = 9; // no diagonal oponents
 
@@ -204,7 +214,8 @@ static void PreCalcAGround(void)
                     }
 
                     // Texture with border over it
-                    if ((LGnd == false) && (RGnd == false) && (UGnd == true) && (DGnd == false)) {
+                    if ((LGnd == false) && (RGnd == false) && (UGnd == true) && (DGnd == false))
+                    {
                         if (DLGnd == false && DRGnd == false)
                             TexAGround[xx][yy] = 5;
 
@@ -217,7 +228,8 @@ static void PreCalcAGround(void)
                     }
 
                     // Texture with border under it
-                    if ((LGnd == false) && (RGnd == false) && (UGnd == false) && (DGnd == true)) {
+                    if ((LGnd == false) && (RGnd == false) && (UGnd == false) && (DGnd == true))
+                    {
                         if (ULGnd == false && URGnd == false)
                             TexAGround[xx][yy] = 13;
 
@@ -230,7 +242,8 @@ static void PreCalcAGround(void)
                     }
 
                     // Texture border on the right
-                    if ((LGnd == true) && (RGnd == false) && (UGnd == false) && (DGnd == false)) {
+                    if ((LGnd == true) && (RGnd == false) && (UGnd == false) && (DGnd == false))
+                    {
                         if (URGnd == false && DRGnd == false)
                             TexAGround[xx][yy] = 8;
 
@@ -243,7 +256,8 @@ static void PreCalcAGround(void)
                     }
 
                     // Texture with border on the left
-                    if ((LGnd == false) && (RGnd == true) && (UGnd == false) && (DGnd == false)) {
+                    if ((LGnd == false) && (RGnd == true) && (UGnd == false) && (DGnd == false))
+                    {
                         if (ULGnd == false && DLGnd == false)
                             TexAGround[xx][yy] = 10;
 
@@ -256,7 +270,8 @@ static void PreCalcAGround(void)
                     }
 
                     // Texture with border up/left
-                    if ((LGnd == true) && (RGnd == false) && (UGnd == true) && (DGnd == false)) {
+                    if ((LGnd == true) && (RGnd == false) && (UGnd == true) && (DGnd == false))
+                    {
                         if (DRGnd == false)
                             TexAGround[xx][yy] = 4;
                         else
@@ -264,7 +279,8 @@ static void PreCalcAGround(void)
                     }
 
                     // Texture with border up/right
-                    if ((LGnd == false) && (RGnd == true) && (UGnd == true) && (DGnd == false)) {
+                    if ((LGnd == false) && (RGnd == true) && (UGnd == true) && (DGnd == false))
+                    {
                         if (DLGnd == false)
                             TexAGround[xx][yy] = 6;
                         else
@@ -272,7 +288,8 @@ static void PreCalcAGround(void)
                     }
 
                     // Texture with border down/left
-                    if ((LGnd == true) && (RGnd == false) && (UGnd == false) && (DGnd == true)) {
+                    if ((LGnd == true) && (RGnd == false) && (UGnd == false) && (DGnd == true))
+                    {
                         if (URGnd == false)
                             TexAGround[xx][yy] = 12;
                         else
@@ -280,7 +297,8 @@ static void PreCalcAGround(void)
                     }
 
                     // Texture with border down/right
-                    if ((LGnd == false) && (RGnd == true) && (UGnd == false) && (DGnd == true)) {
+                    if ((LGnd == false) && (RGnd == true) && (UGnd == false) && (DGnd == true))
+                    {
                         if (ULGnd == false)
                             TexAGround[xx][yy] = 14;
                         else
@@ -329,8 +347,10 @@ static void PreCalcObj(void)
 
     bool wanddoor = false;
 
-    for (int yy = 0; yy < MapGetHr(); yy++) {
-        for (int xx = 0; xx < MapGetWr(); xx++) {
+    for (int yy = 0; yy < MapGetHr(); yy++)
+    {
+        for (int xx = 0; xx < MapGetWr(); xx++)
+        {
             choose = -1;
             Obj    = 0; // char[7] value for compare colorkeys
 
@@ -354,7 +374,8 @@ static void PreCalcObj(void)
             // >>>>>>>>>>>>>>>>>>>>>>>>>>
 
             // House parts
-            if (choose != -1 && strncmp(Objects[choose].Type, "HOUSE", 5) == 0) {
+            if (choose != -1 && strncmp(Objects[choose].Type, "HOUSE", 5) == 0)
+            {
                 ObjD = IsObjHouse(xx, yy + 1);
                 ObjU = IsObjHouse(xx, yy - 1);
                 ObjL = IsObjHouse(xx - 1, yy);
@@ -365,10 +386,14 @@ static void PreCalcObj(void)
                     wanddoor = true;
 
                 // Wall middle
-                if (ObjD == true) {             // If one field under is same wall
-                    if (ObjU == true) {         // If one field upper is same wall
-                        if (ObjL == true) {     // If one field left is same wall
-                            if (ObjR == true) { // If one field right is same wall
+                if (ObjD == true) // If one field under is same wall
+                {
+                    if (ObjU == true) // If one field upper is same wall
+                    {
+                        if (ObjL == true) // If one field left is same wall
+                        {
+                            if (ObjR == true) // If one field right is same wall
+                            {
                                 ShapeObj[xx][yy] = Obj_HouseMid;
                                 DirObj[xx][yy]   = 0;
                             }
@@ -377,10 +402,14 @@ static void PreCalcObj(void)
                 }
 
                 // Wall edge bottom
-                if (ObjD == false) {            // If one field under is same wall
-                    if (ObjU == true) {         // If one field upper is same wall
-                        if (ObjL == true) {     // If one field left is same wall
-                            if (ObjR == true) { // If one field right is same wall
+                if (ObjD == false) // If one field under is same wall
+                {
+                    if (ObjU == true) // If one field upper is same wall
+                    {
+                        if (ObjL == true) // If one field left is same wall
+                        {
+                            if (ObjR == true) // If one field right is same wall
+                            {
                                 ShapeObj[xx][yy] = Obj_HouseBor;
                                 if (wanddoor)
                                     ShapeObj[xx][yy] = Obj_HouseDoor;
@@ -391,10 +420,14 @@ static void PreCalcObj(void)
                 }
 
                 // Wall edge top
-                if (ObjD == true) {             // If one field under is same wall
-                    if (ObjU == false) {        // If one field upper is same wall
-                        if (ObjL == true) {     // If one field left is same wall
-                            if (ObjR == true) { // If one field right is same wall
+                if (ObjD == true) // If one field under is same wall
+                {
+                    if (ObjU == false) // If one field upper is same wall
+                    {
+                        if (ObjL == true) // If one field left is same wall
+                        {
+                            if (ObjR == true) // If one field right is same wall
+                            {
                                 ShapeObj[xx][yy] = Obj_HouseBor;
                                 if (wanddoor)
                                     ShapeObj[xx][yy] = Obj_HouseDoor;
@@ -405,10 +438,14 @@ static void PreCalcObj(void)
                 }
 
                 // Wall edge left
-                if (ObjD == true) {             // If one field under is same wall
-                    if (ObjU == true) {         // If one field upper is same wall
-                        if (ObjL == false) {    // If one field left is same wall
-                            if (ObjR == true) { // If one field right is same wall
+                if (ObjD == true) // If one field under is same wall
+                {
+                    if (ObjU == true) // If one field upper is same wall
+                    {
+                        if (ObjL == false) // If one field left is same wall
+                        {
+                            if (ObjR == true) // If one field right is same wall
+                            {
                                 ShapeObj[xx][yy] = Obj_HouseBor;
                                 if (wanddoor)
                                     ShapeObj[xx][yy] = Obj_HouseDoor;
@@ -419,10 +456,14 @@ static void PreCalcObj(void)
                 }
 
                 // Wall edge right
-                if (ObjD == true) {              // If one field under is same wall
-                    if (ObjU == true) {          // If one field upper is same wall
-                        if (ObjL == true) {      // If one field left is same wall
-                            if (ObjR == false) { // If one field right is same wall
+                if (ObjD == true) // If one field under is same wall
+                {
+                    if (ObjU == true) // If one field upper is same wall
+                    {
+                        if (ObjL == true) // If one field left is same wall
+                        {
+                            if (ObjR == false) // If one field right is same wall
+                            {
                                 ShapeObj[xx][yy] = Obj_HouseBor;
                                 if (wanddoor)
                                     ShapeObj[xx][yy] = Obj_HouseDoor;
@@ -433,10 +474,14 @@ static void PreCalcObj(void)
                 }
 
                 // Wall edge top-left (corner)
-                if (ObjD == true) {             // If one field under is same wall
-                    if (ObjU == false) {        // If one field upper is same wall
-                        if (ObjL == false) {    // If one field left is same wall
-                            if (ObjR == true) { // If one field right is same wall
+                if (ObjD == true) // If one field under is same wall
+                {
+                    if (ObjU == false) // If one field upper is same wall
+                    {
+                        if (ObjL == false) // If one field left is same wall
+                        {
+                            if (ObjR == true) // If one field right is same wall
+                            {
                                 ShapeObj[xx][yy] = Obj_HouseCor;
                                 DirObj[xx][yy]   = 1;
                             }
@@ -445,10 +490,14 @@ static void PreCalcObj(void)
                 }
 
                 // Wall edge top-right (corner)
-                if (ObjD == true) {              // If one field under is same wall
-                    if (ObjU == false) {         // If one field upper is same wall
-                        if (ObjL == true) {      // If one field left is same wall
-                            if (ObjR == false) { // If one field right is same wall
+                if (ObjD == true) // If one field under is same wall
+                {
+                    if (ObjU == false) // If one field upper is same wall
+                    {
+                        if (ObjL == true) // If one field left is same wall
+                        {
+                            if (ObjR == false) // If one field right is same wall
+                            {
                                 ShapeObj[xx][yy] = Obj_HouseCor;
                                 DirObj[xx][yy]   = 2;
                             }
@@ -457,10 +506,14 @@ static void PreCalcObj(void)
                 }
 
                 // Wall edge bottom left (corner)
-                if (ObjD == false) {            // If one field under is same wall
-                    if (ObjU == true) {         // If one field upper is same wall
-                        if (ObjL == false) {    // If one field left is same wall
-                            if (ObjR == true) { // If one field right is same wall
+                if (ObjD == false) // If one field under is same wall
+                {
+                    if (ObjU == true) // If one field upper is same wall
+                    {
+                        if (ObjL == false) // If one field left is same wall
+                        {
+                            if (ObjR == true) // If one field right is same wall
+                            {
                                 ShapeObj[xx][yy] = Obj_HouseCor;
                                 DirObj[xx][yy]   = 0;
                             }
@@ -469,10 +522,14 @@ static void PreCalcObj(void)
                 }
 
                 // Wall edge bottom right (corner)
-                if (ObjD == false) {             // If one field under is same wall
-                    if (ObjU == true) {          // If one field upper is same wall
-                        if (ObjL == true) {      // If one field left is same wall
-                            if (ObjR == false) { // If one field right is same wall
+                if (ObjD == false) // If one field under is same wall
+                {
+                    if (ObjU == true) // If one field upper is same wall
+                    {
+                        if (ObjL == true) // If one field left is same wall
+                        {
+                            if (ObjR == false) // If one field right is same wall
+                            {
                                 ShapeObj[xx][yy] = Obj_HouseCor;
                                 DirObj[xx][yy]   = 3;
                             }
@@ -484,7 +541,8 @@ static void PreCalcObj(void)
             //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
             // Wall parts
-            if (choose != -1 && (strncmp(Objects[choose].Type, "WALL", 4) == 0 || strncmp(Objects[choose].Type, "BUMPWALL", 8) == 0)) {
+            if (choose != -1 && (strncmp(Objects[choose].Type, "WALL", 4) == 0 || strncmp(Objects[choose].Type, "BUMPWALL", 8) == 0))
+            {
                 if (strncmp(GetMapDoor(xx, yy), ".", 1) == 0)
                     wanddoor = false;
                 if (strncmp(GetMapDoor(xx, yy), ".", 1) != 0)
@@ -543,20 +601,23 @@ static void PreCalcObj(void)
                     wanddoor = true;
 
                 // Wall alone (column)
-                if (objcnt == 0) {
+                if (objcnt == 0)
+                {
                     ShapeObj[xx][yy] = Obj_WallAlone;
                     DirObj[xx][yy]   = 0;
                 }
 
                 // Wall with 2 neighbors (wallborder)
-                if (objcnt == 2) {
+                if (objcnt == 2)
+                {
                     if ((ObjL && ObjR) || (ObjU && ObjD))
                         ShapeObj[xx][yy] = Obj_WallBor;
                     if (wanddoor)
                         if ((ObjL && ObjR) || (ObjU && ObjD))
                             ShapeObj[xx][yy] = Obj_WallDoor;
 
-                    if (ObjL && ObjR) {
+                    if (ObjL && ObjR)
+                    {
                         // if (yy < MapGetHr() / 2)
                         //     DirObj[xx][yy] = 0; // Wall to the right
                         if (!GndD)
@@ -564,7 +625,8 @@ static void PreCalcObj(void)
                         if (!GndU)
                             DirObj[xx][yy] = 0;
                     }
-                    if (ObjU && ObjD) {
+                    if (ObjU && ObjD)
+                    {
                         // if (xx < MapGetWr() / 2)
                         //     DirObj[xx][yy] = 3; // Wall to the right
                         // else
@@ -597,8 +659,10 @@ static void PrecalcTerrain(void)
     int x, y;
 
     // Precalc the generally terrain
-    for (int yy = 0; yy <= MapGetHr(); yy++) {
-        for (int xx = 0; xx <= MapGetWr(); xx++) {
+    for (int yy = 0; yy <= MapGetHr(); yy++)
+    {
+        for (int xx = 0; xx <= MapGetWr(); xx++)
+        {
             x = (xx * 3) + 2;
             y = (yy * 3) + 2;
 
@@ -608,28 +672,32 @@ static void PrecalcTerrain(void)
             // horizontal/vertikal
             if (xx > 0)
                 GetRGBfromMap(x - 3, y, lr, lg, lb);
-            else {
+            else
+            {
                 lr = 0;
                 lg = 0;
                 lb = 0;
             }
             if (xx < MapGetWr())
                 GetRGBfromMap(x + 3, y, rr, rg, rb);
-            else {
+            else
+            {
                 rr = 0;
                 rg = 0;
                 rb = 0;
             }
             if (yy > 0)
                 GetRGBfromMap(x, y - 3, ur, ug, ub);
-            else {
+            else
+            {
                 ur = 0;
                 ug = 0;
                 ub = 0;
             }
             if (yy < MapGetHr())
                 GetRGBfromMap(x, y + 3, dr, dg, db);
-            else {
+            else
+            {
                 dr = 0;
                 dg = 0;
                 db = 0;
@@ -638,39 +706,46 @@ static void PrecalcTerrain(void)
             // diagonal
             if (xx > 0 && yy > 0)
                 GetRGBfromMap(x - 3, y - 3, ulr, ulg, ulb);
-            else {
+            else
+            {
                 ulr = 0;
                 ulg = 0;
                 ulb = 0;
             }
             if (yy > 0 && xx < MapGetWr())
                 GetRGBfromMap(x + 3, y - 3, urr, urg, urb);
-            else {
+            else
+            {
                 urr = 0;
                 urg = 0;
                 urb = 0;
             }
             if (xx > 0 && yy < MapGetHr())
                 GetRGBfromMap(x - 3, y + 3, dlr, dlg, dlb);
-            else {
+            else
+            {
                 dlr = 0;
                 dlg = 0;
                 dlb = 0;
             }
             if (xx < MapGetWr() && yy < MapGetHr())
                 GetRGBfromMap(x + 3, y + 3, drr, drg, drb);
-            else {
+            else
+            {
                 drr = 0;
                 drg = 0;
                 drb = 0;
             }
 
-            if (g == 0xB || b == 0xB) {
+            if (g == 0xB || b == 0xB)
+            {
                 Terrain[xx][yy].v[0] = floattov16(GetHeight(xx, yy));
                 Terrain[xx][yy].v[1] = floattov16(GetHeight(xx, yy));
                 Terrain[xx][yy].v[2] = floattov16(GetHeight(xx, yy));
                 Terrain[xx][yy].v[3] = floattov16(GetHeight(xx, yy));
-            } else {
+            }
+            else
+            {
                 // Oneway-directional
                 Terrain[xx][yy].v[0] = floattov16(GetHeight(xx, yy));
                 if (ug == 0xB || ub == 0xB)
@@ -720,19 +795,24 @@ static void PrecalcTerrain(void)
     }
 
     // precalc the mid-y position of each terraintile (to place objects right)
-    for (int yy = 0; yy <= MapGetHr(); yy++) {
-        for (int xx = 0; xx <= MapGetWr(); xx++) {
+    for (int yy = 0; yy <= MapGetHr(); yy++)
+    {
+        for (int xx = 0; xx <= MapGetWr(); xx++)
+        {
             TerrainMid[xx][yy] = (Terrain[xx][yy].v[0] + Terrain[xx][yy].v[1] + Terrain[xx][yy].v[2] + Terrain[xx][yy].v[3]) / 4;
         }
     }
 
     // Precalc sidewalls of the terrain (appearing there where stairs meet stairs or stair mett terrain)
-    for (int yy = 0; yy <= MapGetHr(); yy++) {
-        for (int xx = 0; xx <= MapGetWr(); xx++) {
+    for (int yy = 0; yy <= MapGetHr(); yy++)
+    {
+        for (int xx = 0; xx <= MapGetWr(); xx++)
+        {
             Terrain[xx][yy].sidewalls = 0;
 
             // west-sidewall
-            if (xx > 0) {
+            if (xx > 0)
+            {
                 // Nothpart
                 if (Terrain[xx][yy].v[0] > Terrain[xx - 1][yy].v[1])
                     Terrain[xx][yy].sidewalls |= (1 << 0);
@@ -742,7 +822,8 @@ static void PrecalcTerrain(void)
             }
 
             // east-sidewall
-            if (xx < MapGetWr()) {
+            if (xx < MapGetWr())
+            {
                 // Nothpart
                 if (Terrain[xx][yy].v[1] > Terrain[xx + 1][yy].v[0])
                     Terrain[xx][yy].sidewalls |= (1 << 2);
@@ -752,7 +833,8 @@ static void PrecalcTerrain(void)
             }
 
             // south-sidewall
-            if (yy > 0) {
+            if (yy > 0)
+            {
                 // westpart
                 if (Terrain[xx][yy].v[2] > Terrain[xx][yy + 1].v[0])
                     Terrain[xx][yy].sidewalls |= (1 << 4);
@@ -773,37 +855,46 @@ static void PrecalcTerrain(void)
     v16 low;
     u8 decision;
     int vertcountl, vertcounth;
-    for (int yy = 0; yy <= MapGetHr(); yy++) {
-        for (int xx = 0; xx <= MapGetWr(); xx++) {
+    for (int yy = 0; yy <= MapGetHr(); yy++)
+    {
+        for (int xx = 0; xx <= MapGetWr(); xx++)
+        {
             vertnumh   = 0;
             vertnuml   = 0;
             vertcounth = 0;
             vertcountl = 0;
             height     = Terrain[xx][yy].v[0];
             low        = Terrain[xx][yy].v[0];
+
             // First we need to finded highest vertex of those 4 in order to decide
-            if (Terrain[xx][yy].v[1] > height) {
+            if (Terrain[xx][yy].v[1] > height)
+            {
                 height   = Terrain[xx][yy].v[1];
                 vertnumh = 1;
             }
-            if (Terrain[xx][yy].v[2] > height) {
+            if (Terrain[xx][yy].v[2] > height)
+            {
                 height   = Terrain[xx][yy].v[2];
                 vertnumh = 2;
             }
-            if (Terrain[xx][yy].v[3] > height) {
+            if (Terrain[xx][yy].v[3] > height)
+            {
                 height   = Terrain[xx][yy].v[3];
                 vertnumh = 3;
             }
 
-            if (Terrain[xx][yy].v[1] < low) {
+            if (Terrain[xx][yy].v[1] < low)
+            {
                 low      = Terrain[xx][yy].v[1];
                 vertnuml = 1;
             }
-            if (Terrain[xx][yy].v[2] < low) {
+            if (Terrain[xx][yy].v[2] < low)
+            {
                 low      = Terrain[xx][yy].v[2];
                 vertnuml = 2;
             }
-            if (Terrain[xx][yy].v[3] < low) {
+            if (Terrain[xx][yy].v[3] < low)
+            {
                 low      = Terrain[xx][yy].v[3];
                 vertnuml = 3;
             }
@@ -852,13 +943,18 @@ static void PrecalcTerrain(void)
 
 static void PrecalcMirrow(void)
 {
-    for (int yy = 0; yy <= MapGetHr(); yy++) {
-        for (int xx = 0; xx <= MapGetWr(); xx++) {
+    for (int yy = 0; yy <= MapGetHr(); yy++)
+    {
+        for (int xx = 0; xx <= MapGetWr(); xx++)
+        {
             // Precalcdata[xx][yy] |= (0 << B_Mirrowable);
 
-            for (int mx = xx - 1; mx <= xx + 1; mx++) {
-                for (int my = yy; my <= yy + 3; my++) {
-                    if (mx >= 0 && my >= 0) {
+            for (int mx = xx - 1; mx <= xx + 1; mx++)
+            {
+                for (int my = yy; my <= yy + 3; my++)
+                {
+                    if (mx >= 0 && my >= 0)
+                    {
                         if (TexGround[mx][my] > -1)
                             if (Ground[TexGround[mx][my]].TransEnable && GetHeight(mx, my) == 0)
                                 Precalcdata[xx][yy] |= (1 << B_Mirrowable);
@@ -878,7 +974,8 @@ static u16 Lightu16(int x, int y, int num)
         x++;
     if (num == 2)
         y++;
-    if (num == 3) {
+    if (num == 3)
+    {
         x++;
         y++;
     }
@@ -893,14 +990,17 @@ static u16 Lightu16(int x, int y, int num)
 
 static void PrecalcStaticBump(void)
 {
-    for (int yy = 0; yy <= MapGetHr(); yy++) {
-        for (int xx = 0; xx <= MapGetWr(); xx++) {
+    for (int yy = 0; yy <= MapGetHr(); yy++)
+    {
+        for (int xx = 0; xx <= MapGetWr(); xx++)
+        {
             // left-up
             if (Lightu16(xx, yy, 0) != Lightu16(xx, yy - 1, 0))
                 Precalcdata[xx][yy] |= (1 << B_BumpwallW);
             if (Lightu16(xx, yy, 0) != Lightu16(xx - 1, yy, 0))
                 Precalcdata[xx][yy] |= (1 << B_BumpgroundW);
-            if (Lightu16(xx, yy, 0) != Lightu16(xx, yy + 1, 0)) {
+            if (Lightu16(xx, yy, 0) != Lightu16(xx, yy + 1, 0))
+            {
                 Precalcdata[xx][yy] |= (1 << B_BumpgroundS);
                 Precalcdata[xx][yy] |= (1 << B_BumpwallW);
             }
@@ -912,7 +1012,8 @@ static void PrecalcStaticBump(void)
                 Precalcdata[xx][yy] |= (1 << B_BumpwallE);
             if (Lightu16(xx, yy, 1) != Lightu16(xx - 1, yy, 1))
                 Precalcdata[xx][yy] |= (1 << B_BumpgroundW);
-            if (Lightu16(xx, yy, 1) != Lightu16(xx, yy + 1, 1)) {
+            if (Lightu16(xx, yy, 1) != Lightu16(xx, yy + 1, 1))
+            {
                 Precalcdata[xx][yy] |= (1 << B_BumpgroundS);
                 Precalcdata[xx][yy] |= (1 << B_BumpwallE);
             }
@@ -922,15 +1023,18 @@ static void PrecalcStaticBump(void)
             // left-down
             if (Lightu16(xx, yy, 2) != Lightu16(xx, yy - 1, 2))
                 Precalcdata[xx][yy] |= (1 << B_BumpwallW);
-            if (Lightu16(xx, yy, 2) != Lightu16(xx - 1, yy, 2)) {
+            if (Lightu16(xx, yy, 2) != Lightu16(xx - 1, yy, 2))
+            {
                 Precalcdata[xx][yy] |= (1 << B_BumpgroundW);
                 Precalcdata[xx][yy] |= (1 << B_BumpwallS);
             }
-            if (Lightu16(xx, yy, 2) != Lightu16(xx, yy + 1, 2)) {
+            if (Lightu16(xx, yy, 2) != Lightu16(xx, yy + 1, 2))
+            {
                 Precalcdata[xx][yy] |= (1 << B_BumpgroundS);
                 Precalcdata[xx][yy] |= (1 << B_BumpwallW);
             }
-            if (Lightu16(xx, yy, 2) != Lightu16(xx + 1, yy, 2)) {
+            if (Lightu16(xx, yy, 2) != Lightu16(xx + 1, yy, 2))
+            {
                 Precalcdata[xx][yy] |= (1 << B_BumpgroundE);
                 Precalcdata[xx][yy] |= (1 << B_BumpwallS);
             }
@@ -938,15 +1042,18 @@ static void PrecalcStaticBump(void)
             // right-down
             if (Lightu16(xx, yy, 3) != Lightu16(xx, yy - 1, 3))
                 Precalcdata[xx][yy] |= (1 << B_BumpwallE);
-            if (Lightu16(xx, yy, 3) != Lightu16(xx - 1, yy, 3)) {
+            if (Lightu16(xx, yy, 3) != Lightu16(xx - 1, yy, 3))
+            {
                 Precalcdata[xx][yy] |= (1 << B_BumpgroundW);
                 Precalcdata[xx][yy] |= (1 << B_BumpwallS);
             }
-            if (Lightu16(xx, yy, 3) != Lightu16(xx, yy + 1, 3)) {
+            if (Lightu16(xx, yy, 3) != Lightu16(xx, yy + 1, 3))
+            {
                 Precalcdata[xx][yy] |= (1 << B_BumpgroundS);
                 Precalcdata[xx][yy] |= (1 << B_BumpwallE);
             }
-            if (Lightu16(xx, yy, 3) != Lightu16(xx + 1, yy, 3)) {
+            if (Lightu16(xx, yy, 3) != Lightu16(xx + 1, yy, 3))
+            {
                 Precalcdata[xx][yy] |= (1 << B_BumpgroundE);
                 Precalcdata[xx][yy] |= (1 << B_BumpwallS);
             }
@@ -956,35 +1063,43 @@ static void PrecalcStaticBump(void)
 
 bool Passable(int x, int y, int sxx, int syy)
 {
-    if (sxx >= 21) {
+    if (sxx >= 21)
+    {
         sxx -= 21;
         x++;
     }
-    if (syy >= 21) {
+    if (syy >= 21)
+    {
         syy -= 21;
         y++;
     }
-    if (sxx < 0) {
+    if (sxx < 0)
+    {
         sxx += 21;
         x--;
     }
-    if (syy < 0) {
+    if (syy < 0)
+    {
         syy += 21;
         y--;
     }
-    if (sxx >= 21) {
+    if (sxx >= 21)
+    {
         sxx -= 21;
         x++;
     }
-    if (syy >= 21) {
+    if (syy >= 21)
+    {
         syy -= 21;
         y++;
     }
-    if (sxx < 0) {
+    if (sxx < 0)
+    {
         sxx += 21;
         x--;
     }
-    if (syy < 0) {
+    if (syy < 0)
+    {
         syy += 21;
         y--;
     }
@@ -1016,11 +1131,14 @@ static void PrecalcObjectRot(void)
     // DirObj[128][128];
     // MapObjGetRot(int x, int y)
 
-    for (int yy = 0; yy <= MapGetHr(); yy++) {
-        for (int xx = 0; xx <= MapGetWr(); xx++) {
+    for (int yy = 0; yy <= MapGetHr(); yy++)
+    {
+        for (int xx = 0; xx <= MapGetWr(); xx++)
+        {
             const char *type = Objects[TexObj[xx][yy]].Type;
 
-            if (strncmp(type, "MODEL", 5) == 0) {
+            if (strncmp(type, "MODEL", 5) == 0)
+            {
                 DirObj[xx][yy] = MapObjGetRot(xx, yy);
             }
         }

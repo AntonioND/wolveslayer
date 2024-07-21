@@ -38,28 +38,32 @@ void RunTime(void)
     int r, g, b, r2, g2, b2;
     int interpol = 0;
 
-    if (Time >= 0 && Time <= 600) {
+    if (Time >= 0 && Time <= 600)
+    {
         r = 64, g = 64, b = 128;
         r2 = 222, g2 = 128, b2 = 128;
 
         interpol = Time;
     }
 
-    if (Time > 600 && Time <= 1200) {
+    if (Time > 600 && Time <= 1200)
+    {
         r = 222, g = 128, b = 128;
         r2 = 256, g2 = 256, b2 = 256;
 
         interpol = Time - 600;
     }
 
-    if (Time > 1200 && Time <= 1800) {
+    if (Time > 1200 && Time <= 1800)
+    {
         r = 256, g = 256, b = 256;
         r2 = 222, g2 = 128, b2 = 128;
 
         interpol = Time - 1200;
     }
 
-    if (Time > 1800 && Time <= 2400) {
+    if (Time > 1800 && Time <= 2400)
+    {
         r = 222, g = 128, b = 128;
         r2 = 64, g2 = 64, b2 = 128;
         interpol = Time - 1800;
@@ -76,7 +80,8 @@ void RunTime(void)
         EnvG = Envg;
     if (Envb <= 255)
         EnvB = Envb;
-    if (Blend != 8) {
+    if (Blend != 8)
+    {
         EnvR = EnvR / 8 * Blend;
         EnvG = EnvG / 8 * Blend;
         EnvB = EnvB / 8 * Blend;
@@ -91,7 +96,8 @@ void GiveLight(int x, int y, u8 *col)
 {
     v16x4 pointer = Terrain[x][y];
 
-    if (x < 0 || x > 127 || y < 0 || y > 127) {
+    if (x < 0 || x > 127 || y < 0 || y > 127)
+    {
         col[0] = 0;
         col[1] = 0;
         col[2] = 0;
@@ -142,7 +148,8 @@ void GiveLight(int x, int y, u8 *col)
     if (b < 0)
         b = 0;
 
-    if (Blend != 8) {
+    if (Blend != 8)
+    {
         r = r / 8 * Blend;
         g = g / 8 * Blend;
         b = b / 8 * Blend;
@@ -226,43 +233,51 @@ void SetMdlLights(int pos[2], float softpos[2], float radius, int rot)
     int posx4 = pos[0], posy4 = pos[1];
 
     float sposx1 = softpos[0] - radius;
-    if (sposx1 < 0) {
+    if (sposx1 < 0)
+    {
         sposx1++;
         posx1--;
     }
     float sposx2 = softpos[0] + radius;
-    if (sposx2 > 1) {
+    if (sposx2 > 1)
+    {
         sposx2--;
         posx2++;
     }
     float sposx3 = softpos[0] - radius;
-    if (sposx3 < 0) {
+    if (sposx3 < 0)
+    {
         sposx3++;
         posx3--;
     }
     float sposx4 = softpos[0] + radius;
-    if (sposx4 > 1) {
+    if (sposx4 > 1)
+    {
         sposx4--;
         posx4++;
     }
 
     float sposy1 = softpos[1] - radius;
-    if (sposy1 < 0) {
+    if (sposy1 < 0)
+    {
         sposy1++;
         posy1--;
     }
     float sposy2 = softpos[1] - radius;
-    if (sposy2 < 0) {
+    if (sposy2 < 0)
+    {
         sposy2++;
         posy2--;
     }
     float sposy3 = softpos[1] + radius;
-    if (sposy3 > 1) {
+    if (sposy3 > 1)
+    {
         sposy3--;
         posy3++;
     }
     float sposy4 = softpos[1] + radius;
-    if (sposy4 > 1) {
+    if (sposy4 > 1)
+    {
         sposy4--;
         posy4++;
     }
@@ -285,7 +300,8 @@ void SetMdlLights(int pos[2], float softpos[2], float radius, int rot)
     MdlLight[3][1] += EnvG;
     MdlLight[3][2] += EnvB;
 
-    for (int a = 0; a < 3; a++) {
+    for (int a = 0; a < 3; a++)
+    {
         if (MdlLight[0][a] > 255)
             MdlLight[0][a] = 255;
         if (MdlLight[1][a] > 255)

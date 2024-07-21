@@ -65,11 +65,13 @@ float GetSX(void)
 {
     int x    = PlPosX + 6;
     float sx = PlPosSX;
-    if (PlPosSY < -.5) {
+    if (PlPosSY < -.5)
+    {
         x++;
         sx = PlPosSX + 1;
     }
-    if (PlPosSY > .5) {
+    if (PlPosSY > .5)
+    {
         x--;
         sx = PlPosSX - 1;
     }
@@ -87,17 +89,20 @@ void Menu(void)
 
     MouseOnButt = -1;
 
-    if (keysHeld() & KEY_TOUCH) {
+    if (keysHeld() & KEY_TOUCH)
+    {
         touchRead(&touch);
 
-        if (touch.py > 144 && touch.py < 144 + 32) { // Buttonfield
+        if (touch.py > 144 && touch.py < 144 + 32)
+        { // Buttonfield
             if (touch.px > 29 && touch.px < 29 + 64)
                 MouseOnButt = 1;
             if (touch.px > 29 + 130 && touch.px < 29 + 129 + 64)
                 MouseOnButt = 2;
         }
 
-        if (screenmode == ScreenModeItem) {
+        if (screenmode == ScreenModeItem)
+        {
             if (touch.py > 22 && touch.py < 220)
                 if (touch.px > 134 && touch.px < 227)
                     CellSelect = (touch.py - 22) / 10;
@@ -107,7 +112,8 @@ void Menu(void)
             if (Old2 != CellSelect)
                 ItemMode();
 
-            if (strncmp("WEAPON", GiveItemType(Inventory[CellSelect]), 6) == 0) {
+            if (strncmp("WEAPON", GiveItemType(Inventory[CellSelect]), 6) == 0)
+            {
                 if (touch.py > 87 && touch.py < 119)
                     if (touch.px > 45 && touch.px < 109)
                         if (EnemyCount == -1)
@@ -119,7 +125,8 @@ void Menu(void)
     int s = 0;
 
     // Equip/DeEquip Weapon
-    if (!(keysHeld() & KEY_TOUCH) && Old == 10) {
+    if (!(keysHeld() & KEY_TOUCH) && Old == 10)
+    {
         if (EquipedWeapon == CellSelect)
             EquipedWeapon = -1;
         else
@@ -128,12 +135,14 @@ void Menu(void)
         s = 1;
     }
 
-    if (!(keysHeld() & KEY_TOUCH) && Old == 1) {
+    if (!(keysHeld() & KEY_TOUCH) && Old == 1)
+    {
         CellSelect = 0;
         ItemMode();
         s = 1;
     }
-    if (!(keysHeld() & KEY_TOUCH) && Old == 2 && screenmode < ScreenModePause) {
+    if (!(keysHeld() & KEY_TOUCH) && Old == 2 && screenmode < ScreenModePause)
+    {
         PauseMode();
         s = 1;
     }
@@ -154,38 +163,48 @@ void Interact(void)
     u = false;
     d = false;
 
-    if (PlDirection == 0) {
+    if (PlDirection == 0)
+    {
         d = true;
     }
-    if (PlDirection == 1) {
+    if (PlDirection == 1)
+    {
         d = true;
         l = true;
     }
-    if (PlDirection == 2) {
+    if (PlDirection == 2)
+    {
         l = true;
     }
-    if (PlDirection == 3) {
+    if (PlDirection == 3)
+    {
         u = true;
         l = true;
     }
-    if (PlDirection == 4) {
+    if (PlDirection == 4)
+    {
         u = true;
     }
-    if (PlDirection == 5) {
+    if (PlDirection == 5)
+    {
         u = true;
         r = true;
     }
-    if (PlDirection == 6) {
+    if (PlDirection == 6)
+    {
         r = true;
     }
-    if (PlDirection == 7) {
+    if (PlDirection == 7)
+    {
         d = true;
         r = true;
     }
 
     // Doors
-    if (PlStatus == 0 && Gameended == false) {
-        if (keysDown() & KEY_A) {
+    if (PlStatus == 0 && Gameended == false)
+    {
+        if (keysDown() & KEY_A)
+        {
             if (d)
                 OpenMapDoor(GetPX(), GetPY() + 1);
 
@@ -199,9 +218,11 @@ void Interact(void)
                 OpenMapDoor(GetPX() + 1, GetPY());
         }
 
-        if (keysDown() & KEY_B) {
+        if (keysDown() & KEY_B)
+        {
             // Attack if possible
-            if (EnemyCount >= 0) {
+            if (EnemyCount >= 0)
+            {
                 PlStatus = 1; // hit him!
                 PlFrame  = 0;
             }
@@ -209,7 +230,8 @@ void Interact(void)
     }
 
     // Enemies
-    if (PlStatus == 1 && PlFrame == 21 && Gameended == false) {
+    if (PlStatus == 1 && PlFrame == 21 && Gameended == false)
+    {
         // Check on which site which NPC is
         int nl, nr, nu, nd;
         nl = -1;
@@ -222,7 +244,8 @@ void Interact(void)
         Px = GetPX() + (PlPosSX + .5);
         Py = GetPY() + (PlPosSY + .5);
 
-        for (NPCnum = 0; NPCnum <= EnemyCount; NPCnum++) {
+        for (NPCnum = 0; NPCnum <= EnemyCount; NPCnum++)
+        {
             NPx = Enemies[NPCnum].X;
             NPy = Enemies[NPCnum].Y;
             if (Enemies[NPCnum].SY >= -.5)
@@ -237,13 +260,15 @@ void Interact(void)
             NPy += Enemies[NPCnum].SY + .5;
             // Wow strange code....but should work to compare those positions right
             // now lets compace
-            if (Py > NPy - Enemies[NPCnum].Radius && Py < NPy + Enemies[NPCnum].Radius && Enemies[NPCnum].Status < 2) {
+            if (Py > NPy - Enemies[NPCnum].Radius && Py < NPy + Enemies[NPCnum].Radius && Enemies[NPCnum].Status < 2)
+            {
                 if (Px < NPx && Px + Enemies[NPCnum].Radius > NPx)
                     nr = NPCnum;
                 if (Px > NPx && Px - Enemies[NPCnum].Radius < NPx)
                     nl = NPCnum;
             }
-            if (Px > NPx - Enemies[NPCnum].Radius && Px < NPx + Enemies[NPCnum].Radius && Enemies[NPCnum].Status < 2) {
+            if (Px > NPx - Enemies[NPCnum].Radius && Px < NPx + Enemies[NPCnum].Radius && Enemies[NPCnum].Status < 2)
+            {
                 if (Py < NPy && Py + Enemies[NPCnum].Radius > NPy)
                     nd = NPCnum;
                 if (Py > NPy && Py - Enemies[NPCnum].Radius < NPy)
@@ -251,57 +276,69 @@ void Interact(void)
             }
         }
 
-        if (d && nd > -1) {
+        if (d && nd > -1)
+        {
             Enemies[nd].HP -= rand() % 5;
 
-            if (Enemies[nd].HP > 0) {
+            if (Enemies[nd].HP > 0)
+            {
                 Enemies[nd].Status = 2;
                 Enemies[nd].Frame  = 0;
             }
 
-            if (Enemies[nd].HP <= 0) {
+            if (Enemies[nd].HP <= 0)
+            {
                 Enemies[nd].Status = 3;
                 Enemies[nd].Frame  = 0;
             }
         }
 
-        if (l && nl > -1) {
+        if (l && nl > -1)
+        {
             Enemies[nl].HP -= rand() % 5;
 
-            if (Enemies[nl].HP > 0) {
+            if (Enemies[nl].HP > 0)
+            {
                 Enemies[nl].Status = 2;
                 Enemies[nl].Frame  = 0;
             }
 
-            if (Enemies[nl].HP <= 0) {
+            if (Enemies[nl].HP <= 0)
+            {
                 Enemies[nl].Status = 3;
                 Enemies[nl].Frame  = 0;
             }
         }
 
-        if (u && nu > -1) {
+        if (u && nu > -1)
+        {
             Enemies[nu].HP -= rand() % 5;
 
-            if (Enemies[nu].HP > 0) {
+            if (Enemies[nu].HP > 0)
+            {
                 Enemies[nu].Status = 2;
                 Enemies[nu].Frame  = 0;
             }
 
-            if (Enemies[nu].HP <= 0) {
+            if (Enemies[nu].HP <= 0)
+            {
                 Enemies[nu].Status = 3;
                 Enemies[nu].Frame  = 0;
             }
         }
 
-        if (r && nr > -1) {
+        if (r && nr > -1)
+        {
             Enemies[nr].HP -= rand() % 5;
 
-            if (Enemies[nr].HP > 0) {
+            if (Enemies[nr].HP > 0)
+            {
                 Enemies[nr].Status = 2;
                 Enemies[nr].Frame  = 0;
             }
 
-            if (Enemies[nr].HP <= 0) {
+            if (Enemies[nr].HP <= 0)
+            {
                 Enemies[nr].Status = 3;
                 Enemies[nr].Frame  = 0;
             }
@@ -309,38 +346,47 @@ void Interact(void)
     }
 
     // Lets start interact
-    if (keysDown() & KEY_A) {
+    if (keysDown() & KEY_A)
+    {
         bool l, r, u, d;
         l = false;
         r = false;
         u = false;
         d = false;
 
-        if (PlDirection == 0) {
+        if (PlDirection == 0)
+        {
             d = true;
         }
-        if (PlDirection == 1) {
+        if (PlDirection == 1)
+        {
             d = true;
             l = true;
         }
-        if (PlDirection == 2) {
+        if (PlDirection == 2)
+        {
             l = true;
         }
-        if (PlDirection == 3) {
+        if (PlDirection == 3)
+        {
             u = true;
             l = true;
         }
-        if (PlDirection == 4) {
+        if (PlDirection == 4)
+        {
             u = true;
         }
-        if (PlDirection == 5) {
+        if (PlDirection == 5)
+        {
             u = true;
             r = true;
         }
-        if (PlDirection == 6) {
+        if (PlDirection == 6)
+        {
             r = true;
         }
-        if (PlDirection == 7) {
+        if (PlDirection == 7)
+        {
             d = true;
             r = true;
         }
@@ -357,7 +403,8 @@ void Interact(void)
         Px = GetPX() + (PlPosSX + .5);
         Py = GetPY() + (PlPosSY + .5);
 
-        for (NPCnum = 0; NPCnum <= VillagerCount; NPCnum++) {
+        for (NPCnum = 0; NPCnum <= VillagerCount; NPCnum++)
+        {
             NPx = Villager[NPCnum].X;
             NPy = Villager[NPCnum].Y;
             if (Villager[NPCnum].SY >= -.5)
@@ -372,13 +419,15 @@ void Interact(void)
             NPy += Villager[NPCnum].SY + .5;
             // Wow strange code....but should work to compare those positions right
             // now lets compace
-            if (Py > NPy - .8 && Py < NPy + .8) {
+            if (Py > NPy - .8 && Py < NPy + .8)
+            {
                 if (Px < NPx && Px + .8 > NPx)
                     nr = NPCnum;
                 if (Px > NPx && Px - .8 < NPx)
                     nl = NPCnum;
             }
-            if (Px > NPx - .8 && Px < NPx + .8) {
+            if (Px > NPx - .8 && Px < NPx + .8)
+            {
                 if (Py < NPy && Py + .8 > NPy)
                     nd = NPCnum;
                 if (Py > NPy && Py - .8 < NPy)
@@ -386,8 +435,10 @@ void Interact(void)
             }
         }
 
-        if (d) {
-            if (nd != -1) {
+        if (d)
+        {
+            if (nd != -1)
+            {
                 // NPCmode(nd);
                 TextBoxmode(Villager[nd].Speech, Villager[nd].SpeechCount, nd);
                 return;
@@ -395,24 +446,30 @@ void Interact(void)
             OpenMapDoor(GetPX(), GetPY() + 1);
         }
 
-        if (l) {
-            if (nl != -1) {
+        if (l)
+        {
+            if (nl != -1)
+            {
                 TextBoxmode(Villager[nl].Speech, Villager[nl].SpeechCount, nl);
                 return;
             }
             OpenMapDoor(GetPX() - 1, GetPY());
         }
 
-        if (u) {
-            if (nu != -1) {
+        if (u)
+        {
+            if (nu != -1)
+            {
                 TextBoxmode(Villager[nu].Speech, Villager[nu].SpeechCount, nu);
                 return;
             }
             OpenMapDoor(GetPX(), GetPY() - 1);
         }
 
-        if (r) {
-            if (nr != -1) {
+        if (r)
+        {
+            if (nr != -1)
+            {
                 TextBoxmode(Villager[nr].Speech, Villager[nr].SpeechCount, nr);
                 return;
             }
@@ -486,7 +543,8 @@ void Inputs(void)
     Px = GetPX() + (PlPosSX + .5);
     Py = GetPY() + (PlPosSY + .5);
 
-    for (NPCnum = 0; NPCnum <= EnemyCount; NPCnum++) {
+    for (NPCnum = 0; NPCnum <= EnemyCount; NPCnum++)
+    {
         NPx = Enemies[NPCnum].X;
         NPy = Enemies[NPCnum].Y;
         if (Enemies[NPCnum].SY >= -.5)
@@ -509,14 +567,16 @@ void Inputs(void)
             dy *= -1;
         // now lets compace
         if (dx > dy)
-            if (Py > NPy - Enemies[NPCnum].Radius && Py < NPy + Enemies[NPCnum].Radius && Enemies[NPCnum].Status != 3) {
+            if (Py > NPy - Enemies[NPCnum].Radius && Py < NPy + Enemies[NPCnum].Radius && Enemies[NPCnum].Status != 3)
+            {
                 if (Px < NPx && Px + Enemies[NPCnum].Radius > NPx)
                     r = false;
                 if (Px > NPx && Px - Enemies[NPCnum].Radius < NPx)
                     l = false;
             }
         if (dy > dx)
-            if (Px > NPx - Enemies[NPCnum].Radius && Px < NPx + Enemies[NPCnum].Radius && Enemies[NPCnum].Status != 3) {
+            if (Px > NPx - Enemies[NPCnum].Radius && Px < NPx + Enemies[NPCnum].Radius && Enemies[NPCnum].Status != 3)
+            {
                 if (Py < NPy && Py + Enemies[NPCnum].Radius > NPy)
                     d = false;
                 if (Py > NPy && Py - Enemies[NPCnum].Radius < NPy)
@@ -524,7 +584,8 @@ void Inputs(void)
             }
     }
 
-    if (PlStatus != 3) {
+    if (PlStatus != 3)
+    {
         // Look in given direction
         if (keysHeld() & KEY_DOWN)
             PlDirection = 0;
@@ -551,134 +612,156 @@ void Inputs(void)
         // Movement
         // Player(aka da playa :D)
         // linear
-        if (pressedkeycount == 1) {
-            if ((keysHeld() & KEY_UP) && u) {
-                if (ul == true && ur == true)
-                    PlPosSY -= .05;                           // nothing in our way...go ahead
-                if (ul == true && l == true && ur == false) { // something blocks on the right
-                    PlPosSY -= .05;                           // go up
-                    PlPosSX -= .05;                           // and go left
+        if (pressedkeycount == 1)
+        {
+            if ((keysHeld() & KEY_UP) && u)
+            {
+                if (ul == true && ur == true) // nothing in our way...go ahead
+                    PlPosSY -= .05;
+
+                if (ul == true && l == true && ur == false) // something blocks on the right
+                {
+                    PlPosSY -= .05; // go up
+                    PlPosSX -= .05; // and go left
                 }
-                if (ur == true && r == true && ul == false) { // something blocks on the left
-                    PlPosSY -= .05;                           // go up
-                    PlPosSX += .05;                           // and go right
+                if (ur == true && r == true && ul == false) // something blocks on the left
+                {
+                    PlPosSY -= .05; // go up
+                    PlPosSX += .05; // and go right
                 }
             }
 
-            if ((keysHeld() & KEY_DOWN) && d) {
-                if (dl == true && dr == true)
-                    PlPosSY += .05;                           // nothing in our way...go ahead
-                if (dl == true && l == true && dr == false) { // something blocks on the right
-                    PlPosSY += .05;                           // go down
-                    PlPosSX -= .05;                           // and go left
+            if ((keysHeld() & KEY_DOWN) && d)
+            {
+                if (dl == true && dr == true) // nothing in our way...go ahead
+                    PlPosSY += .05;
+
+                if (dl == true && l == true && dr == false) // something blocks on the right
+                {
+                    PlPosSY += .05; // go down
+                    PlPosSX -= .05; // and go left
                 }
-                if (dr == true && r == true && dl == false) { // something blocks on the left
-                    PlPosSY += .05;                           // go down
-                    PlPosSX += .05;                           // and go right
+                if (dr == true && r == true && dl == false) // something blocks on the left
+                {
+                    PlPosSY += .05; // go down
+                    PlPosSX += .05; // and go right
                 }
             }
 
-            if ((keysHeld() & KEY_LEFT) && l) {
-                if (dl == true && ul == true)
-                    PlPosSX -= .05;                           // nothing in our way...go ahead
-                if (dl == true && d == true && ul == false) { // something blocks on the top
-                    PlPosSX -= .05;                           // go left
-                    PlPosSY += .05;                           // and go down
+            if ((keysHeld() & KEY_LEFT) && l)
+            {
+                if (dl == true && ul == true) // nothing in our way...go ahead
+                    PlPosSX -= .05;
+
+                if (dl == true && d == true && ul == false) // something blocks on the top
+                {
+                    PlPosSX -= .05; // go left
+                    PlPosSY += .05; // and go down
                 }
-                if (ul == true && u == true && dl == false) { // something blocks on the bottom
-                    PlPosSX -= .05;                           // go left
-                    PlPosSY -= .05;                           // and go up
+                if (ul == true && u == true && dl == false) // something blocks on the bottom
+                {
+                    PlPosSX -= .05; // go left
+                    PlPosSY -= .05; // and go up
                 }
             }
 
-            if ((keysHeld() & KEY_RIGHT) && r) {
-                if (dr == true && ur == true)
-                    PlPosSX += .05;                           // nothing in our way...go ahead
-                if (dr == true && d == true && ur == false) { // something blocks on the top
-                    PlPosSX += .05;                           // go right
-                    PlPosSY += .05;                           // and go down
+            if ((keysHeld() & KEY_RIGHT) && r)
+            {
+                if (dr == true && ur == true) // nothing in our way...go ahead
+                    PlPosSX += .05;
+
+                if (dr == true && d == true && ur == false) // something blocks on the top
+                {
+                    PlPosSX += .05; // go right
+                    PlPosSY += .05; // and go down
                 }
-                if (ur == true && u == true && dr == false) { // something blocks on the bottom
-                    PlPosSX += .05;                           // go right
-                    PlPosSY -= .05;                           // and go up
+                if (ur == true && u == true && dr == false) // something blocks on the bottom
+                {
+                    PlPosSX += .05; // go right
+                    PlPosSY -= .05; // and go up
                 }
             }
         }
         // diagonal
-        if (pressedkeycount == 2) {
-            if ((keysHeld() & KEY_UP) && (keysHeld() & KEY_LEFT) && ul) {
-                if (u && l) { // nothing in our way...go ahead
+        if (pressedkeycount == 2)
+        {
+            if ((keysHeld() & KEY_UP) && (keysHeld() & KEY_LEFT) && ul)
+            {
+                if (u && l) // nothing in our way...go ahead
+                {
                     PlPosSX -= .05;
                     PlPosSY -= .05;
                 }
 
-                if (u && !l) { // left is blocked but we can go up
+                if (u && !l) // left is blocked but we can go up
                     PlPosSY -= .05;
-                }
 
-                if (!u && l) { // left isn't blocked but we cant go up
+                if (!u && l) // left isn't blocked but we cant go up
                     PlPosSX -= .05;
-                }
             }
 
-            if ((keysHeld() & KEY_UP) && (keysHeld() & KEY_RIGHT) && ur) {
-                if (u && r) { // nothing in our way...go ahead
+            if ((keysHeld() & KEY_UP) && (keysHeld() & KEY_RIGHT) && ur)
+            {
+                if (u && r) // nothing in our way...go ahead
+                {
                     PlPosSX += .05;
                     PlPosSY -= .05;
                 }
 
-                if (u && !r) { // right is blocked but we can go up
+                if (u && !r) // right is blocked but we can go up
                     PlPosSY -= .05;
-                }
 
-                if (!u && r) { // right isn't blocked but we cant go up
+                if (!u && r) // right isn't blocked but we cant go up
                     PlPosSX += .05;
-                }
             }
-            if ((keysHeld() & KEY_DOWN) && (keysHeld() & KEY_LEFT) && dl) {
-                if (d && l) { // nothing in our way...go ahead
+            if ((keysHeld() & KEY_DOWN) && (keysHeld() & KEY_LEFT) && dl)
+            {
+                if (d && l) // nothing in our way...go ahead
+                {
                     PlPosSX -= .05;
                     PlPosSY += .05;
                 }
 
-                if (d && !l) { // left is blocked but we can go down
+                if (d && !l) // left is blocked but we can go down
                     PlPosSY += .05;
-                }
 
-                if (!d && l) { // left isn't blocked but we cant go down
+                if (!d && l) // left isn't blocked but we cant go down
                     PlPosSX -= .05;
-                }
             }
 
-            if ((keysHeld() & KEY_DOWN) && (keysHeld() & KEY_RIGHT) && dr) {
-                if (d && r) { // nothing in our way...go ahead
+            if ((keysHeld() & KEY_DOWN) && (keysHeld() & KEY_RIGHT) && dr)
+            {
+                if (d && r) // nothing in our way...go ahead
+                {
                     PlPosSX += .05;
                     PlPosSY += .05;
                 }
 
-                if (d && !r) { // right is blocked but we can go down
+                if (d && !r) // right is blocked but we can go down
                     PlPosSY += .05;
-                }
 
-                if (!d && r) { // right isn't blocked but we cant go down
+                if (!d && r) // right isn't blocked but we cant go down
                     PlPosSX += .05;
-                }
             }
         }
 
-        if (PlPosSX > .5) {
+        if (PlPosSX > .5)
+        {
             PlPosX += 1;
             PlPosSX -= 1;
         }
-        if (PlPosSX < -.5) {
+        if (PlPosSX < -.5)
+        {
             PlPosX -= 1;
             PlPosSX += 1;
         }
-        if (PlPosSY > .5) {
+        if (PlPosSY > .5)
+        {
             PlPosY += 1;
             PlPosSY -= 1;
         }
-        if (PlPosSY < -.5) {
+        if (PlPosSY < -.5)
+        {
             PlPosY -= 1;
             PlPosSY += 1;
         }
@@ -687,7 +770,8 @@ void Inputs(void)
         CamPosX  = PlPosX;
         CamPosSY = PlPosSY;
         CamPosSX = PlPosSX;
-        if (CamPosSY <= -.5) {
+        if (CamPosSY <= -.5)
+        {
             CamPosY -= 1;
             CamPosSY += 1;
         }
@@ -696,12 +780,14 @@ void Inputs(void)
         char Filename[50];
         int newx = 0, newy = 0;
         snprintf(Filename, sizeof(Filename), "%s", GetMapChange(GetPX(), GetPY()));
-        if (Filename[0] != '.') {
+        if (Filename[0] != '.')
+        {
             newx = GetMapChangePOSX(GetPX(), GetPY()) - 6;
             newy = GetMapChangePOSY(GetPX(), GetPY()) - 8;
             printf("\x1b[2J");
 
-            for (int b = 8; b >= 0; b--) {
+            for (int b = 8; b >= 0; b--)
+            {
                 Blend = b;
                 RunTime();
                 E3D_StartRender();
@@ -716,7 +802,8 @@ void Inputs(void)
             CamPosX = newx;
             CamPosY = newy;
 
-            for (int b = 0; b <= 8; b++) {
+            for (int b = 0; b <= 8; b++)
+            {
                 Blend = b;
                 RunTime();
                 E3D_StartRender();

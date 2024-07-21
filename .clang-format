@@ -27,7 +27,7 @@ BitFieldColonSpacing: Before
 BraceWrapping:
   AfterCaseLabel: false
   AfterClass: false
-  AfterControlStatement: false
+  AfterControlStatement: true
   AfterEnum: false
   AfterExternBlock: false
   AfterFunction: true
@@ -35,7 +35,7 @@ BraceWrapping:
   AfterStruct: false
   AfterUnion: false
   BeforeCatch: true
-  BeforeElse: false
+  BeforeElse: true
   IndentBraces: false
   SplitEmptyFunction: true
 BreakBeforeBinaryOperators: NonAssignment

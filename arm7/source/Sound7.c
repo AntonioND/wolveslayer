@@ -283,7 +283,8 @@ static void SndFifoHandlerDatamsg(int num_bytes, void *userdata)
 {
     SND_COMMAND cmd = { 0 };
 
-    if (num_bytes != sizeof(SND_COMMAND)) {
+    if (num_bytes != sizeof(SND_COMMAND))
+    {
         // Invalid command size
         return;
     }
@@ -299,7 +300,8 @@ void SndInit7()
     memset(&sndVars, 0, sizeof(sndVars));
     memset(&sndMod, 0, sizeof(sndMod));
 
-    for (int i = 0; i < SND_MAX_CHANNELS; i++) {
+    for (int i = 0; i < SND_MAX_CHANNELS; i++)
+    {
         sndChannel[i].data       = NULL;
         sndChannel[i].length     = 0;
         sndChannel[i].loopLength = 0;
@@ -339,10 +341,13 @@ static void SndCmdStopSong(SND_COMMAND *cmd)
 
 static void SndCmdPauseSong(SND_COMMAND *cmd)
 {
-    if (cmd->param[0] == 0) {
+    if (cmd->param[0] == 0)
+    {
         if (sndMod.state == MOD_STATE_PAUSE)
             sndMod.state = MOD_STATE_PLAY;
-    } else {
+    }
+    else
+    {
         if (sndMod.state == MOD_STATE_PLAY)
             sndMod.state = MOD_STATE_PAUSE;
     }
@@ -381,7 +386,8 @@ static void MODPlay(const void *modFile)
 
     ModFileLoad(modFile, &sndMod, sndVars.memPool, sndVars.memPoolSize);
 
-    for (i = 0; i < sndMod.channelCount; i++) {
+    for (i = 0; i < sndMod.channelCount; i++)
+    {
         sndMod.channel[i].period = notePeriodTable[2 * 12]; // Middle C
         sndMod.channel[i].vol    = 64;                      // Full volume
 
@@ -404,8 +410,10 @@ static void MODStop()
 
     MODStopTimer();
 
-    for (i = 0; i < sndMod.channelCount; i++) {
-        if (!(sndVars.channelBlocked & (1 << i))) {
+    for (i = 0; i < sndMod.channelCount; i++)
+    {
+        if (!(sndVars.channelBlocked & (1 << i)))
+        {
             sndChannel[i].data = NULL;
             SCHANNEL_CR(i)     = 0;
         }
@@ -419,7 +427,8 @@ static void MODStop()
 static bool MODSeek(u32 order, u32 row)
 {
     sndMod.curOrder = order;
-    if (sndMod.curOrder >= sndMod.orderCount) {
+    if (sndMod.curOrder >= sndMod.orderCount)
+    {
         MODStop();    // Hit the end of the song, so stop it
         return false; // false = song ended
     }
@@ -441,11 +450,14 @@ void MODUpdate()
     if (sndMod.state != MOD_STATE_PLAY)
         return;
 
-    if (++sndMod.tick >= sndMod.speed) {
+    if (++sndMod.tick >= sndMod.speed)
+    {
         sndMod.tick = 0;
 
-        if (sndMod.patDelay == 0) {
-            if (sndMod.curRow++ >= MOD_PATTERN_ROWS) {
+        if (sndMod.patDelay == 0)
+        {
+            if (sndMod.curRow++ >= MOD_PATTERN_ROWS)
+            {
                 if (MODSeek(sndMod.nextOrder, sndMod.breakRow) == false)
                     return; // false = song ended
 
@@ -453,10 +465,14 @@ void MODUpdate()
             }
 
             MODProcessRow();
-        } else {
+        }
+        else
+        {
             sndMod.patDelay--;
         }
-    } else {
+    }
+    else
+    {
         MODUpdateEffects();
     }
 
@@ -466,7 +482,8 @@ static void MODProcessRow()
 {
     s32 curChannel;
 
-    for (curChannel = 0; curChannel < sndMod.channelCount; curChannel++) {
+    for (curChannel = 0; curChannel < sndMod.channelCount; curChannel++)
+    {
         MOD_UPDATE_VARS vars = modDefaultVars[MOD_EFFECT_TABLE_ROW];
 
         vars.modChn = &sndMod.channel[curChannel];
@@ -499,7 +516,8 @@ static void MODProcessRow()
         }
 
         // Effect 0 is arpeggio, but is also used as no-effect if the param is 0 too
-        if ((vars.effect | vars.param) != 0 && modEffectTable[MOD_EFFECT_TABLE_ROW][vars.effect] != NULL) {
+        if ((vars.effect | vars.param) != 0 && modEffectTable[MOD_EFFECT_TABLE_ROW][vars.effect] != NULL)
+        {
             (*modEffectTable[MOD_EFFECT_TABLE_ROW][vars.effect])(&vars);
         }
 
@@ -513,8 +531,10 @@ static void MODUpdateEffects()
 {
     s32 curChannel;
 
-    for (curChannel = 0; curChannel < sndMod.channelCount; curChannel++) {
-        if ((sndMod.channel[curChannel].effect | sndMod.channel[curChannel].param) != 0) {
+    for (curChannel = 0; curChannel < sndMod.channelCount; curChannel++)
+    {
+        if ((sndMod.channel[curChannel].effect | sndMod.channel[curChannel].param) != 0)
+        {
             MOD_UPDATE_VARS vars = modDefaultVars[MOD_EFFECT_TABLE_MID];
 
             vars.modChn = &sndMod.channel[curChannel];
@@ -536,7 +556,8 @@ static void MODHandleUpdateFlags(MOD_UPDATE_VARS *vars)
 {
     u32 schnEnable = 0;
 
-    if (vars->updateFlags & MOD_UPD_FLG_SET_VOL) {
+    if (vars->updateFlags & MOD_UPD_FLG_SET_VOL)
+    {
         // Temporary volume to apply tremolo if needed
         u32 vol = vars->modChn->vol;
         if (vars->tremoloSlide != 0)
@@ -545,28 +566,34 @@ static void MODHandleUpdateFlags(MOD_UPDATE_VARS *vars)
         vars->sndChn->pan = vars->modChn->pan >> 1;
     }
 
-    if ((vars->note != MOD_NO_NOTE) && (vars->updateFlags & MOD_UPD_FLG_PLAY_NOTE)) {
+    if ((vars->note != MOD_NO_NOTE) && (vars->updateFlags & MOD_UPD_FLG_PLAY_NOTE))
+    {
         MODPlayNote(vars);
 
         schnEnable                    = SCHANNEL_ENABLE;
         SCHANNEL_CR(vars->chnIdx)     = 0;
         SCHANNEL_SOURCE(vars->chnIdx) = (u32)vars->sndChn->data;
-        if (vars->sndChn->loopLength == 0) {
+        if (vars->sndChn->loopLength == 0)
+        {
             SCHANNEL_REPEAT_POINT(vars->chnIdx) = 0;
             SCHANNEL_LENGTH(vars->chnIdx)       = vars->sndChn->length;
-        } else {
+        }
+        else
+        {
             SCHANNEL_REPEAT_POINT(vars->chnIdx) = vars->sndChn->loopStart;
             SCHANNEL_LENGTH(vars->chnIdx)       = vars->sndChn->loopLength;
         }
     }
 
-    if (vars->fineSlide != 0) {
+    if (vars->fineSlide != 0)
+    {
         // This has to happen after the note is played
         vars->modChn->period = MODPitchSlide(vars->modChn->period, vars->fineSlide);
         vars->updateFlags |= MOD_UPD_FLG_SET_FREQ;
     }
 
-    if (vars->updateFlags & MOD_UPD_FLG_SET_FREQ) {
+    if (vars->updateFlags & MOD_UPD_FLG_SET_FREQ)
+    {
         u32 period = vars->modChn->period;
         // Shift down 1 bit here because the slide range needs to be
         // +-32 MOD periods, but the slide variable is +-64 because
@@ -577,9 +604,12 @@ static void MODHandleUpdateFlags(MOD_UPDATE_VARS *vars)
         vars->sndChn->timer = 65536 - (TIMER_VAL * period >> 17);
     }
 
-    if (vars->sndChn->data == NULL) {
+    if (vars->sndChn->data == NULL)
+    {
         SCHANNEL_CR(vars->chnIdx) = 0;
-    } else {
+    }
+    else
+    {
         if (SCHANNEL_CR(vars->chnIdx) & SCHANNEL_ENABLE)
             schnEnable = SCHANNEL_ENABLE;
 
@@ -596,7 +626,8 @@ static void MODPlayNote(MOD_UPDATE_VARS *vars)
     u32 smpOffset;
 
     // Here's that special case that they didn't specify a sample before playing a note
-    if (vars->modChn->sample == MOD_NO_SAMPLE) {
+    if (vars->modChn->sample == MOD_NO_SAMPLE)
+    {
         return;
     }
 
@@ -609,7 +640,8 @@ static void MODPlayNote(MOD_UPDATE_VARS *vars)
     // Set up the mixer channel
     smpOffset = (vars->smpOffset << 8);
 
-    if (sample->loopLength == 0) {
+    if (sample->loopLength == 0)
+    {
         // Note: length is in words, smpOffset is in samples (bytes).
         s32 length = (s32)sample->length - (smpOffset >> 2);
         if (length < 0)
@@ -618,9 +650,12 @@ static void MODPlayNote(MOD_UPDATE_VARS *vars)
         vars->sndChn->length     = length;
         vars->sndChn->loopStart  = 0;
         vars->sndChn->loopLength = 0;
-    } else {
+    }
+    else
+    {
         s32 loopPoint = (s32)sample->loopStart - (smpOffset >> 2);
-        if (loopPoint < 0) {
+        if (loopPoint < 0)
+        {
             // Offset was past the loop beginning.
             // Play from the start of the loop.
             loopPoint = 0;
@@ -651,13 +686,17 @@ static void MODSetTempo(u32 tempo)
 
 static u32 MODGetNotePeriod(u32 note, u32 finetune)
 {
-    if (finetune == 0) {
+    if (finetune == 0)
+    {
         // Faster for the common case
         return notePeriodTable[note];
-    } else {
+    }
+    else
+    {
         u32 low, high;
 
-        if (finetune < 8) {
+        if (finetune < 8)
+        {
             low = notePeriodTable[note];
             // If adding 1 will run past the end of the table,
             // calculate off the octave below
@@ -665,7 +704,9 @@ static u32 MODGetNotePeriod(u32 note, u32 finetune)
                 high = notePeriodTable[note - 11] >> 1;
             else
                 high = notePeriodTable[note + 1];
-        } else {
+        }
+        else
+        {
             // Get finetune to 0-7 for interpolation
             finetune -= 8;
             // If subtracting 1 will run below 0,
@@ -733,7 +774,8 @@ static s8 MODUpdateVibrato(MOD_VIBRATO_PARAMS *vibrato)
     vibrato->tick += vibrato->speed;
     // vibrato->tick &= 63;
 
-    switch (vibrato->waveform) {
+    switch (vibrato->waveform)
+    {
         case MOD_WAVEFORM_SINE:
             // Sine table is 0-255, and depth is 0-15. Shift 6 places off,
             // giving a range of 0-64 (actually slightly less), and add or
@@ -826,7 +868,8 @@ static void MODFXArpeggioMid(MOD_UPDATE_VARS *vars)
     if (++vars->modChn->arpeggioTick > 2)
         vars->modChn->arpeggioTick = 0;
 
-    switch (vars->modChn->arpeggioTick) {
+    switch (vars->modChn->arpeggioTick)
+    {
         case 0:
             arpNote = vars->modChn->note;
             break;
@@ -849,7 +892,8 @@ static void MODFXArpeggioMid(MOD_UPDATE_VARS *vars)
 
 static void MODFXVolslideRow(MOD_UPDATE_VARS *vars)
 {
-    if (vars->param != 0) {
+    if (vars->param != 0)
+    {
         if ((vars->param & 0x0f) == 0)
             vars->modChn->volslideSpeed = vars->param >> 4;
         else if ((vars->param & 0xf0) == 0)
@@ -887,7 +931,8 @@ static void MODFXPortaUpMid(MOD_UPDATE_VARS *vars)
 
 static void MODFXTonePortaRow(MOD_UPDATE_VARS *vars)
 {
-    if (vars->modChn->sample != MOD_NO_SAMPLE) {
+    if (vars->modChn->sample != MOD_NO_SAMPLE)
+    {
         if (vars->note != MOD_NO_NOTE)
             vars->modChn->tonePortaNote = vars->note;
         // Else use the note like it is
@@ -898,7 +943,8 @@ static void MODFXTonePortaRow(MOD_UPDATE_VARS *vars)
 
         // Don't play the note or we wouldn't have anything to slide to
         vars->updateFlags &= ~MOD_UPD_FLG_PLAY_NOTE;
-    } else // No sample. Can't read finetune on mid-ticks, so cancel the effect
+    }
+    else // No sample. Can't read finetune on mid-ticks, so cancel the effect
     {
         vars->modChn->effect = vars->modChn->param = 0;
     }
@@ -911,17 +957,22 @@ static void MODFXTonePortaMid(MOD_UPDATE_VARS *vars)
     // Fetch the frequency of the target note
     tonePortaDestFreq = MODGetNotePeriod(vars->modChn->tonePortaNote, vars->modChn->finetune);
 
-    if (vars->modChn->period < tonePortaDestFreq) {
+    if (vars->modChn->period < tonePortaDestFreq)
+    {
         // Slide down toward note
         vars->modChn->period = MODPitchSlide(vars->modChn->period, vars->modChn->tonePortaSpeed);
-        if (vars->modChn->period > tonePortaDestFreq) {
+        if (vars->modChn->period > tonePortaDestFreq)
+        {
             // Slid too far, back up to the destination
             vars->modChn->period = tonePortaDestFreq;
         }
-    } else if (vars->modChn->period > tonePortaDestFreq) {
+    }
+    else if (vars->modChn->period > tonePortaDestFreq)
+    {
         // Slide up toward note
         vars->modChn->period = MODPitchSlide(vars->modChn->period, -vars->modChn->tonePortaSpeed);
-        if (vars->modChn->period < tonePortaDestFreq) {
+        if (vars->modChn->period < tonePortaDestFreq)
+        {
             // Slid too far, back down to the destination
             vars->modChn->period = tonePortaDestFreq;
         }
@@ -997,7 +1048,8 @@ static void MODFXSpecialRow(MOD_UPDATE_VARS *vars)
     // type, this saves us having to extract the lower bits every time
     u32 param = vars->modChn->param & 0xf;
 
-    switch (vars->modChn->param >> 4) {
+    switch (vars->modChn->param >> 4)
+    {
         case 0x0: // Undefined, we use it for callback
             if (sndMod.callback != NULL)
                 sndMod.callback(param, true);
@@ -1018,7 +1070,8 @@ static void MODFXSpecialRow(MOD_UPDATE_VARS *vars)
             break;
         case 0x5: // Set finetune
             vars->modChn->finetune = param;
-            if (vars->modChn->note != MOD_NO_NOTE) {
+            if (vars->modChn->note != MOD_NO_NOTE)
+            {
                 vars->modChn->period = MODGetNotePeriod(vars->modChn->note, vars->modChn->finetune);
                 vars->updateFlags |= MOD_UPD_FLG_SET_FREQ;
             }
@@ -1026,11 +1079,14 @@ static void MODFXSpecialRow(MOD_UPDATE_VARS *vars)
         case 0x6: // Pattern loop
             if (param == 0)
                 vars->modChn->patLoopPos = sndMod.curRow;
-            else {
+            else
+            {
                 if (vars->modChn->patLoopCount == 0)
                     vars->modChn->patLoopCount = param + 1;
 
-                if (--vars->modChn->patLoopCount != 0) { // Loop back to the stored row in this order next tick
+                // Loop back to the stored row in this order next tick
+                if (--vars->modChn->patLoopCount != 0)
+                {
                     sndMod.breakRow  = vars->modChn->patLoopPos;
                     sndMod.nextOrder = sndMod.curOrder;  // Don't advance the order
                     sndMod.curRow    = MOD_PATTERN_ROWS; // This triggers the break
@@ -1074,7 +1130,8 @@ static void MODFXSpecialRow(MOD_UPDATE_VARS *vars)
 
 static void MODFXSpecialMid(MOD_UPDATE_VARS *vars)
 {
-    switch (vars->modChn->param >> 4) {
+    switch (vars->modChn->param >> 4)
+    {
         case 0x0: // Undefined, we use it for callback
             if (sndMod.callback != NULL)
                 sndMod.callback(vars->modChn->param & 0xf, false);
@@ -1096,7 +1153,8 @@ static void MODFXSpecialMid(MOD_UPDATE_VARS *vars)
         case 0x8: // Set panning (unsupported)
             break;
         case 0x9: // Retrigger note
-            if (--vars->modChn->retrigTick == 0) {
+            if (--vars->modChn->retrigTick == 0)
+            {
                 vars->note = vars->modChn->note;
                 vars->updateFlags |= MOD_UPD_FLG_PLAY_NOTE;
             }
@@ -1106,14 +1164,16 @@ static void MODFXSpecialMid(MOD_UPDATE_VARS *vars)
         case 0xB: // Fine volume slide down
             break;
         case 0xC: // Note cut
-            if (--vars->modChn->noteCutTick == 0) {
+            if (--vars->modChn->noteCutTick == 0)
+            {
                 vars->modChn->vol = 0;
                 vars->updateFlags |= MOD_UPD_FLG_SET_VOL;
                 vars->modChn->effect = vars->modChn->param = 0;
             }
             break;
         case 0xD: // Note delay
-            if (--vars->modChn->noteDelayTick == 0) {
+            if (--vars->modChn->noteDelayTick == 0)
+            {
                 vars->note = vars->modChn->note;
                 vars->updateFlags |= MOD_UPD_FLG_PLAY_NOTE | MOD_UPD_FLG_SET_VOL;
                 vars->modChn->effect = vars->modChn->param = 0;

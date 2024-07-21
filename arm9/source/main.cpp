@@ -17,7 +17,8 @@ int main(int argc, char *argv[])
     // Script loading for new game
     ReadSettings();
 
-    while (1) {
+    while (1)
+    {
         scanKeys();
 
         CheckEndGame();

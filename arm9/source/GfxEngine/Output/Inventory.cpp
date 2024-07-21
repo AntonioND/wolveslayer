@@ -16,7 +16,8 @@ void ResetInventory(void)
 
 void AddItemToInventory(u8 Index)
 {
-    if (Inventory_Count < Inventory_Max) {
+    if (Inventory_Count < Inventory_Max)
+    {
         Inventory[Inventory_Count] = Index;
         Inventory_Count++;
     }

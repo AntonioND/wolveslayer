@@ -47,7 +47,8 @@ void ResetMapChange(void)
 {
     MapChangeCounter = 0;
 
-    for (int a = 0; a < MapChange_Max; a++) {
+    for (int a = 0; a < MapChange_Max; a++)
+    {
         MapChange[a].IsDoor  = false;
         MapChange[a].DoorKey = 0;
         MapChange[a].PosX    = -1;
@@ -115,7 +116,8 @@ void GetRGBfromMap(int x, int y, u8 &r, u8 &g, u8 &b)
 
 const char *GetMapDoor(int x, int y)
 {
-    for (int i = 0; i < MapChangeCounter; i++) {
+    for (int i = 0; i < MapChangeCounter; i++)
+    {
         if (MapChange[i].PosX == x && MapChange[i].PosY == y && MapChange[i].IsDoor)
             return MapChange[i].Name;
     }
@@ -124,7 +126,8 @@ const char *GetMapDoor(int x, int y)
 
 int GetMapDoorAngle(int x, int y)
 {
-    for (int i = 0; i < MapChangeCounter; i++) {
+    for (int i = 0; i < MapChangeCounter; i++)
+    {
         if (MapChange[i].PosX == x && MapChange[i].PosY == y && MapChange[i].IsDoor)
             return MapChange[i].DoorAngle;
     }
@@ -133,8 +136,10 @@ int GetMapDoorAngle(int x, int y)
 
 void OpenMapDoor(int x, int y)
 {
-    for (int i = 0; i < MapChangeCounter; i++) {
-        if (MapChange[i].PosX == x && MapChange[i].PosY == y && MapChange[i].IsDoor && MapChange[i].DoorAngle == 0) {
+    for (int i = 0; i < MapChangeCounter; i++)
+    {
+        if (MapChange[i].PosX == x && MapChange[i].PosY == y && MapChange[i].IsDoor && MapChange[i].DoorAngle == 0)
+        {
             MapChange[i].DoorAngle = 10;
             // TODO: This can be used if a door can't be opened due to not
             // having a key or something like that.
@@ -145,21 +150,25 @@ void OpenMapDoor(int x, int y)
 
 void MapDoorHandle(void)
 {
-    for (int i = 0; i < MapChangeCounter; i++) {
+    for (int i = 0; i < MapChangeCounter; i++)
+    {
         if (MapChange[i].DoorAngle >= 1 && MapChange[i].DoorAngle <= 80)
             MapChange[i].DoorAngle += 10;
 
         // Mapchange if door is opened
-        if (MapChange[i].DoorAngle >= 80) {
+        if (MapChange[i].DoorAngle >= 80)
+        {
             char Filename[50];
             int newx = 0, newy = 0;
             snprintf(Filename, sizeof(Filename), "%s", GetMapChange(MapChange[i].PosX, MapChange[i].PosY));
-            if (Filename[0] != '.') {
+            if (Filename[0] != '.')
+            {
                 newx = MapChange[i].TOPosX - 6;
                 newy = MapChange[i].TOPosY - 8;
                 printf("\x1b[2J");
 
-                for (int b = 8; b >= 0; b--) {
+                for (int b = 8; b >= 0; b--)
+                {
                     Blend = b;
                     RunTime();
                     E3D_StartRender();
@@ -174,7 +183,8 @@ void MapDoorHandle(void)
                 CamPosX = newx;
                 CamPosY = newy;
 
-                for (int b = 0; b <= 8; b++) {
+                for (int b = 0; b <= 8; b++)
+                {
                     Blend = b;
                     RunTime();
                     E3D_StartRender();
@@ -189,7 +199,8 @@ void MapDoorHandle(void)
 
 const char *GetMapChange(int x, int y)
 {
-    for (int i = 0; i < MapChangeCounter; i++) {
+    for (int i = 0; i < MapChangeCounter; i++)
+    {
         if (MapChange[i].PosX == x && MapChange[i].PosY == y)
             return MapChange[i].Name;
     }
@@ -198,7 +209,8 @@ const char *GetMapChange(int x, int y)
 
 int GetMapChangePOSX(int x, int y)
 {
-    for (int i = 0; i < MapChangeCounter; i++) {
+    for (int i = 0; i < MapChangeCounter; i++)
+    {
         if (MapChange[i].PosX == x && MapChange[i].PosY == y)
             return MapChange[i].TOPosX;
     }
@@ -207,7 +219,8 @@ int GetMapChangePOSX(int x, int y)
 
 int GetMapChangePOSY(int x, int y)
 {
-    for (int i = 0; i < MapChangeCounter; i++) {
+    for (int i = 0; i < MapChangeCounter; i++)
+    {
         if (MapChange[i].PosX == x && MapChange[i].PosY == y)
             return MapChange[i].TOPosY;
     }
@@ -263,7 +276,8 @@ u8 MapObjGetRot(int x, int y)
 
 u32 MapObjectGetRGB(int x, int y)
 {
-    if ((x > -1 && y > -1) && (x < MapGetWr() && y < MapGetHr())) {
+    if ((x > -1 && y > -1) && (x < MapGetWr() && y < MapGetHr()))
+    {
         int xx = (x * 3) + 2;
         int yy = (y * 3) + 1;
         return MapImage[xx][yy];
@@ -276,11 +290,14 @@ bool IsObjHouse(int x, int y)
 {
     int choose = -1;
 
-    if (x > -1 && y > -1) {
-        if (x < MapGetWr() && y < MapGetHr()) {
+    if (x > -1 && y > -1)
+    {
+        if (x < MapGetWr() && y < MapGetHr())
+        {
             u32 Obj = MapObjectGetRGB(x, y);
 
-            for (int texturecounter = 0; texturecounter < 10; texturecounter++) {
+            for (int texturecounter = 0; texturecounter < 10; texturecounter++)
+            {
                 if (Obj == Objects[texturecounter].ColorKey)
                     choose = texturecounter;
             }
@@ -297,11 +314,14 @@ bool IsObjWall(int x, int y)
 {
     int choose = -1;
 
-    if (x > -1 && y > -1) {
-        if (x < MapGetWr() && y < MapGetHr()) {
+    if (x > -1 && y > -1)
+    {
+        if (x < MapGetWr() && y < MapGetHr())
+        {
             u32 Obj = MapObjectGetRGB(x, y);
 
-            for (int texturecounter = 0; texturecounter < 10; texturecounter++) {
+            for (int texturecounter = 0; texturecounter < 10; texturecounter++)
+            {
                 if (Obj == Objects[texturecounter].ColorKey)
                     choose = texturecounter;
             }
@@ -318,11 +338,14 @@ bool IsObjBumpWall(int x, int y)
 {
     int choose = -1;
 
-    if (x > -1 && y > -1) {
-        if (x < MapGetWr() && y < MapGetHr()) {
+    if (x > -1 && y > -1)
+    {
+        if (x < MapGetWr() && y < MapGetHr())
+        {
             u32 Obj = MapObjectGetRGB(x, y);
 
-            for (int texturecounter = 0; texturecounter < 10; texturecounter++) {
+            for (int texturecounter = 0; texturecounter < 10; texturecounter++)
+            {
                 if (Obj == Objects[texturecounter].ColorKey)
                     choose = texturecounter;
             }
@@ -366,8 +389,10 @@ void LoadMap(char *filename)
     memset(MapImage, 0, sizeof(MapImage));
 
     u8 *pic = picbuff;
-    for (int i = height - 1; i >= 0; i--) {
-        for (u32 q = 0; q < width; q++) {
+    for (int i = height - 1; i >= 0; i--)
+    {
+        for (u32 q = 0; q < width; q++)
+        {
             u32 b = *pic++;
             u32 g = *pic++;
             u32 r = *pic++;
@@ -376,9 +401,11 @@ void LoadMap(char *filename)
                 if (i >= 0 && i < 256)
                     MapImage[q][i] = (r) | (g << 8) | (b << 16) | (0 << 24);
 
-            if (q % 3 == 0 && i % 3 == 0) {
+            if (q % 3 == 0 && i % 3 == 0)
+            {
                 int point = (q / 3) + (i / 3) * 128;
-                if (point < 128 * 128 && point >= 0) {
+                if (point < 128 * 128 && point >= 0)
+                {
                     MapLightR[point] = r;
                     MapLightG[point] = g;
                     MapLightB[point] = b;

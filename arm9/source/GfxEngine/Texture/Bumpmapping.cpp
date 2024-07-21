@@ -25,18 +25,22 @@ void LoadMBump3Texture(char filename[], int *target, int *targetb, int *targetc)
     // u16 black = RGB15(0 >> 3, 0 >> 3, 0 >> 3) | BIT(15);
 
     // now we create 3 textures
-    for (int x = 0; x < 32; x++) {
-        for (int y = 0; y < 64; y++) {
+    for (int x = 0; x < 32; x++)
+    {
+        for (int y = 0; y < 64; y++)
+        {
             buffNorm[x + (y * 32)]  = buffer8[(x) + (y * 64)];
             buffLeft[x + (y * 32)]  = 0;
             buffRight[x + (y * 32)] = 0;
 
-            if (pal[buffer8[(x + 32) + (y * 64)]] == red) {
+            if (pal[buffer8[(x + 32) + (y * 64)]] == red)
+            {
                 buffLeft[x + (y * 32)]  = buffer8[(x) + (y * 64)];
                 buffRight[x + (y * 32)] = 0;
             }
 
-            if (pal[buffer8[(x + 32) + (y * 64)]] == blue) {
+            if (pal[buffer8[(x + 32) + (y * 64)]] == blue)
+            {
                 buffLeft[x + (y * 32)]  = 0;
                 buffRight[x + (y * 32)] = buffer8[(x) + (y * 64)];
             }
@@ -92,8 +96,10 @@ void LoadMBump5Texture(char filename[], int num)
     u16 green = RGB15(0 >> 3, 255 >> 3, 0 >> 3) | BIT(15);
 
     // now we create 5 textures
-    for (u32 x = 0; x < height; x++) {
-        for (u32 y = 0; y < height; y++) {
+    for (u32 x = 0; x < height; x++)
+    {
+        for (u32 y = 0; y < height; y++)
+        {
             buffNorm[x + (y * height)]  = buffer8[x + (y * width)];
             buffLeft[x + (y * height)]  = 0;
             buffRight[x + (y * height)] = 0;

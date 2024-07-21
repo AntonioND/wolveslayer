@@ -19,17 +19,20 @@ static void Setit(char *setting)
     char Filename[40];
 
     // Readout startmap
-    if (strncmp("StartMap ", setting, 9) == 0) {
+    if (strncmp("StartMap ", setting, 9) == 0)
+    {
         sscanf(setting, "%*s %39s", Filename);
         snprintf(StartMap, sizeof(StartMap), "/wolveslayer/maps/%s", Filename);
     }
 
-    if (strncmp("StartPos ", setting, 9) == 0) {
+    if (strncmp("StartPos ", setting, 9) == 0)
+    {
         sscanf(setting, "%*s %d", &StartMapX);
         sscanf(setting, "%*s %*d %d", &StartMapY);
     }
 
-    if (strncmp("StartChar ", setting, 10) == 0) {
+    if (strncmp("StartChar ", setting, 10) == 0)
+    {
         sscanf(setting, "%*s %39s", Filename);
         snprintf(MaincharMd2, sizeof(MaincharMd2), "/wolveslayer/chars/%s", Filename);
 
@@ -37,7 +40,8 @@ static void Setit(char *setting)
         snprintf(MaincharText, sizeof(MaincharText), "/wolveslayer/chars/%s", Filename);
     }
 
-    if (strncmp("StartWeapon ", setting, 11) == 0) {
+    if (strncmp("StartWeapon ", setting, 11) == 0)
+    {
         sscanf(setting, "%*s %39s", Filename);
         snprintf(weaponMd2, sizeof(weaponMd2), "/wolveslayer/items/%s", Filename);
 
@@ -52,11 +56,14 @@ void ReadSettings(void)
     int count = 0;
 
     FILE *ScriptFile = fopen("/wolveslayer/Settings.txt", "r");
-    if (ScriptFile != NULL) {
-        while (!feof(ScriptFile)) {
+    if (ScriptFile != NULL)
+    {
+        while (!feof(ScriptFile))
+        {
             fgets(text, 99, ScriptFile);
 
-            if (text[0] != '/') {
+            if (text[0] != '/')
+            {
                 Setit(text);
                 count++;
             }

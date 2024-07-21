@@ -6,10 +6,10 @@
 // TODO: The functions in this file are unused
 
 typedef struct {
-    int X, Y;       // It's the HardPos on the Map(on which tile it stands)
-    float SX, SY;   // It's the softpos. It goes from -.5 to .5
-    int TextNum;    // The Index for texture
-    int Direction;  // The direction for each NPC
+    int X, Y;      // It's the HardPos on the Map(on which tile it stands)
+    float SX, SY;  // It's the softpos. It goes from -.5 to .5
+    int TextNum;   // The Index for texture
+    int Direction; // The direction for each NPC
 
     char Speech[VillagerSpeeches_Max][256]; // to hold textes for each NPC with 300 chars
     int SpeechCount;                        // Holds the Number of speeches a NPC has...

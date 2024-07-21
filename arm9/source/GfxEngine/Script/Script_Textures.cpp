@@ -7,7 +7,8 @@ void LoadTextureCommand(TiXmlElement *map)
 {
     TiXmlElement *texture = map->FirstChildElement("texture");
 
-    while (texture) {
+    while (texture)
+    {
         // filename
         char FileNameCom[60];
         snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/obj/%s", texture->Attribute("file"));
@@ -21,7 +22,8 @@ void LoadTextureCommand(TiXmlElement *map)
 
         // bumpmapping
         bool bump = false;
-        if (texture->Attribute("bumpmapping")) {
+        if (texture->Attribute("bumpmapping"))
+        {
             if (strncmp("true", texture->Attribute("bumpmapping"), 4) == 0)
                 bump = true;
         }

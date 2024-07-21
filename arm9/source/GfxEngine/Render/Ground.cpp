@@ -74,18 +74,22 @@ void RenderGround(int x, int y, int z, int textnum)
     glPushMatrix();
     glTranslatef32(inttof32(x), inttof32(0), inttof32(z));
 
-    for (int b = 0; b <= a; b++) {
+    for (int b = 0; b <= a; b++)
+    {
         v16 v1, v2, v3, v4;
         bool doit = false;
 
-        if (b == 0) {
+        if (b == 0)
+        {
             glBindTexture(GL_TEXTURE_2D, Ground[textnum].Texture);
             ground_x = GroundX;
             ground_y = GroundY;
-            v1   = pointer.v[0];
-            v2   = pointer.v[1];
-            v3   = pointer.v[2];
-            v4   = pointer.v[3];
+
+            v1 = pointer.v[0];
+            v2 = pointer.v[1];
+            v3 = pointer.v[2];
+            v4 = pointer.v[3];
+
             doit = true;
 
             if (Ground[TexGround[GroundX][GroundY]].TransEnable == false)
@@ -94,35 +98,40 @@ void RenderGround(int x, int y, int z, int textnum)
                 glPolyFmt(POLY_ALPHA(15) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(2));
         }
 
-        if (b == 1) {
+        if (b == 1)
+        {
             v1 += vmini;
             v2 += vmini;
             v3 += vmini;
             v4 += vmini;
         }
 
-        if (b == 1 && ViewportMapBumpGroundS[GroundX - CamPosX + 5][GroundY - CamPosY + 3]) {
+        if (b == 1 && ViewportMapBumpGroundS[GroundX - CamPosX + 5][GroundY - CamPosY + 3])
+        {
             glBindTexture(GL_TEXTURE_2D, Ground[textnum].TextureS);
             ground_x = GroundX;
             ground_y = GroundY + 1;
-            doit = true;
+            doit     = true;
         }
 
-        if (b == 2 && ViewportMapBumpGroundW[GroundX - CamPosX + 5][GroundY - CamPosY + 3]) {
+        if (b == 2 && ViewportMapBumpGroundW[GroundX - CamPosX + 5][GroundY - CamPosY + 3])
+        {
             glBindTexture(GL_TEXTURE_2D, Ground[textnum].TextureW);
             ground_x = GroundX - 1;
             ground_y = GroundY;
-            doit = true;
+            doit     = true;
         }
 
-        if (b == 3 && ViewportMapBumpGroundE[GroundX - CamPosX + 5][GroundY - CamPosY + 3]) {
+        if (b == 3 && ViewportMapBumpGroundE[GroundX - CamPosX + 5][GroundY - CamPosY + 3])
+        {
             glBindTexture(GL_TEXTURE_2D, Ground[textnum].TextureE);
             ground_x = GroundX + 1;
             ground_y = GroundY;
-            doit = true;
+            doit     = true;
         }
 
-        if (mode == 0 && doit) {
+        if (mode == 0 && doit)
+        {
             glBegin(GL_QUADS);
 
             {
@@ -150,7 +159,8 @@ void RenderGround(int x, int y, int z, int textnum)
             glEnd();
         }
 
-        if (mode == 1 && doit) {
+        if (mode == 1 && doit)
+        {
             glBegin(GL_TRIANGLES);
 
             {
@@ -190,7 +200,8 @@ void RenderGround(int x, int y, int z, int textnum)
             glEnd();
         }
 
-        if (mode == 2 && doit) {
+        if (mode == 2 && doit)
+        {
             glBegin(GL_TRIANGLES);
 
             {

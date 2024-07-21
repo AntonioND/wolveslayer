@@ -28,17 +28,21 @@ void TextBoxmode(char TxtOffset[10][256], int cnt, int num)
     // Just textes with true-values (after compare) should be added...
     // it will turn out a valid text for that defined case...hopefully
     wordnum = 0;
-    for (int a = 0; a < 10; a++) {
-        if (screenmode != ScreenModeTextBox && cnt > a) {
+    for (int a = 0; a < 10; a++)
+    {
+        if (screenmode != ScreenModeTextBox && cnt > a)
+        {
             // we start with next #1
             strcpy(Temp, TxtOffset[a]);
             chunker = strtok(Temp, " ");
 
             // lets splitt...
             bool check = true;
-            while (chunker != NULL && wordnum < 200) {
+            while (chunker != NULL && wordnum < 200)
+            {
                 // if word is a comparecommand and if its true or if word is just a word...
-                if (strncmp("[", chunker, 1) != 0 && check == true) {
+                if (strncmp("[", chunker, 1) != 0 && check == true)
+                {
                     strcpy(Txt[wordnum], chunker);
                     wordnum++;
                 }
@@ -46,7 +50,8 @@ void TextBoxmode(char TxtOffset[10][256], int cnt, int num)
                 // Found a compare-thing...check if its true!...if not skip this page
                 // It also could be a setfunction...in that case true will be given back and value setten like
                 // it should be...hopefully
-                if (strncmp("[", chunker, 1) == 0) {
+                if (strncmp("[", chunker, 1) == 0)
+                {
                     check = ItemCheck_Set(chunker);
                 }
 
@@ -56,7 +61,8 @@ void TextBoxmode(char TxtOffset[10][256], int cnt, int num)
         }
     }
 
-    if (wordnum > 0) {
+    if (wordnum > 0)
+    {
         if (num != -1)
             npctalk = num;
 
@@ -83,10 +89,13 @@ void TextBoxmode(char TxtOffset[10][256], int cnt, int num)
 
 void TextBoxmodeHandler(void)
 {
-    if (CurWord < wordnum && Nj <= 80) {
-        if (CurChar == 1) {
+    if (CurWord < wordnum && Nj <= 80)
+    {
+        if (CurChar == 1)
+        {
             Ni += (1 + strlen(Txt[CurWord])) * 8;
-            if (Ni > 236) {
+            if (Ni > 236)
+            {
                 Ni = (1 + strlen(Txt[CurWord])) * 8;
                 Nj += 10;
             }
@@ -98,7 +107,8 @@ void TextBoxmodeHandler(void)
             PrintOUT(Txt[CurWord], 11 + Ni - ((1 + strlen(Txt[CurWord])) * 8) + 1, 22 + Nj + 1, true, CurChar);
 
         CurChar++;
-        if (CurChar > strlen(Txt[CurWord])) {
+        if (CurChar > strlen(Txt[CurWord]))
+        {
             CurWord++;
             CurChar = 1;
         }

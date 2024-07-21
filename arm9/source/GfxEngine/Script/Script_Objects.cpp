@@ -15,7 +15,8 @@ int CountObjectsCommand(TiXmlElement *map)
 
     TiXmlElement *object = map->FirstChildElement("object");
 
-    while (object) {
+    while (object)
+    {
         object = object->NextSiblingElement("object");
         num++;
     }
@@ -36,7 +37,8 @@ void LoadObjectCommand(TiXmlElement *map)
 
     TiXmlElement *object = map->FirstChildElement("object");
 
-    while (object) {
+    while (object)
+    {
         // id
         int id = -1;
         if (object->Attribute("textureid"))
@@ -48,22 +50,29 @@ void LoadObjectCommand(TiXmlElement *map)
         // filename
         const char *ObjTyp = "";
         strcpy(FileNameCom, "");
-        if (object->Attribute("mesh")) {
-            if (strncmp("[wall]", object->Attribute("mesh"), 6) == 0) {
+        if (object->Attribute("mesh"))
+        {
+            if (strncmp("[wall]", object->Attribute("mesh"), 6) == 0)
+            {
                 if (!ObjectTexture[id].HasBump)
                     ObjTyp = "WALL";
                 else
                     ObjTyp = "BUMPWALL";
-            } else if (strncmp("[house]", object->Attribute("mesh"), 7) == 0) {
+            }
+            else if (strncmp("[house]", object->Attribute("mesh"), 7) == 0)
+            {
                 ObjTyp = "HOUSE";
-            } else {
+            }
+            else
+            {
                 ObjTyp = "MODEL";
                 snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/obj/%s", object->Attribute("mesh"));
             }
         }
 
         // color-id
-        if (object->Attribute("colorkey")) {
+        if (object->Attribute("colorkey"))
+        {
             int r = 0, g = 0, b = 0;
             sscanf(object->Attribute("colorkey"), "%i,%i,%i", &r, &g, &b);
             Objects[num].ColorKey = r | (g << 8) | (b << 16) | (0 << 24);
@@ -76,7 +85,8 @@ void LoadObjectCommand(TiXmlElement *map)
 
         // radius
         float rad = -1;
-        if (object->Attribute("radius")) {
+        if (object->Attribute("radius"))
+        {
             sscanf(object->Attribute("radius"), "%f", &rad);
             if (rad < 0)
                 rad = 0;
@@ -87,7 +97,8 @@ void LoadObjectCommand(TiXmlElement *map)
 
         // render ground?
         bool dontrenderground = false;
-        if (object->Attribute("renderground")) {
+        if (object->Attribute("renderground"))
+        {
             if (strncmp("false", object->Attribute("renderground"), 5) == 0)
                 dontrenderground = true;
         }
@@ -95,7 +106,8 @@ void LoadObjectCommand(TiXmlElement *map)
 
         // mirrowable?
         bool mirrowable = true;
-        if (object->Attribute("mirrowable")) {
+        if (object->Attribute("mirrowable"))
+        {
             if (strncmp("false", object->Attribute("mirrowable"), 5) == 0)
                 mirrowable = false;
         }
@@ -103,7 +115,8 @@ void LoadObjectCommand(TiXmlElement *map)
 
         // selfilluminated?
         bool ilu = false;
-        if (object->Attribute("selfilluminated")) {
+        if (object->Attribute("selfilluminated"))
+        {
             if (strncmp("true", object->Attribute("selfilluminated"), 4) == 0)
                 ilu = true;
         }
@@ -111,7 +124,8 @@ void LoadObjectCommand(TiXmlElement *map)
 
         // cullfront?
         bool cull = false;
-        if (object->Attribute("culling")) {
+        if (object->Attribute("culling"))
+        {
             if (strncmp("true", object->Attribute("culling"), 4) == 0)
                 cull = true;
         }
@@ -127,7 +141,8 @@ void LoadObjectCommand(TiXmlElement *map)
         int lightnum = 0;
 
         TiXmlElement *light = object->FirstChildElement("light");
-        while (light && lightnum < 10) {
+        while (light && lightnum < 10)
+        {
             light = object->NextSiblingElement("light");
             lightnum++;
         }

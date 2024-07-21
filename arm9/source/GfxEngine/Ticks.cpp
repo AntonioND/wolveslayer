@@ -13,7 +13,8 @@ void HandleTicks(void)
 
     // Increase ticks11 every other frame
     sTicks += .5;
-    if (sTicks >= 1) {
+    if (sTicks >= 1)
+    {
         ticks11++;
         sTicks = 0;
     }

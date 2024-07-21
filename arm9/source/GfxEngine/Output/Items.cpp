@@ -24,7 +24,8 @@ static void ucase(const char *old, char *new_)
 {
     strcpy(new_, old);
 
-    for (u32 a = 0; a < strlen(old); a++) {
+    for (u32 a = 0; a < strlen(old); a++)
+    {
         if ((old[a] > 0x60) && (old[a] < 0x7B))
             new_[a] = old[a] - 0x20;
     }
@@ -38,10 +39,11 @@ void LoadItemList(void)
     if (ScriptFile == NULL)
         return;
 
-    int Index = -1;
+    int Index  = -1;
     int weapon = -1;
 
-    while (!feof(ScriptFile)) {
+    while (!feof(ScriptFile))
+    {
         char Tmp[20];
 
         char text[100];
@@ -49,7 +51,8 @@ void LoadItemList(void)
         fgets(text, 99, ScriptFile);
         ucase(text, (char *)&UcaseCom);
 
-        if (strncmp("ITEM", UcaseCom, 4) == 0) {
+        if (strncmp("ITEM", UcaseCom, 4) == 0)
+        {
             weapon = -1;
             sscanf(UcaseCom, "ITEM%d %19s", &Index, Tmp);
             if (strncmp("WEAPON", Tmp, 6) == 0)
@@ -57,29 +60,34 @@ void LoadItemList(void)
             snprintf(List[Index - 1].Type, sizeof(List[Index - 1].Type), "%s", Tmp);
         }
 
-        if (strncmp("^^NAME", UcaseCom, 6) == 0 && Index != -1) {
+        if (strncmp("^^NAME", UcaseCom, 6) == 0 && Index != -1)
+        {
             sscanf(text, "%*s %19s", Tmp);
             snprintf(List[Index - 1].Name, sizeof(List[Index - 1].Name), "%s", Tmp);
         }
 
-        if (strncmp("^^IMG", UcaseCom, 5) == 0 && Index != -1) {
+        if (strncmp("^^IMG", UcaseCom, 5) == 0 && Index != -1)
+        {
             sscanf(text, "%*s %19s", Tmp);
             snprintf(List[Index - 1].ImgFileName, sizeof(List[Index - 1].ImgFileName), "/rd/items/%s", Tmp);
         }
 
-        if (strncmp("^^PRICE", UcaseCom, 7) == 0 && Index != -1) {
+        if (strncmp("^^PRICE", UcaseCom, 7) == 0 && Index != -1)
+        {
             int value = -1;
             sscanf(UcaseCom, "^^PRICE %d", &value);
             List[Index - 1].Price = value;
         }
 
-        if (strncmp("^^DAMAGE", UcaseCom, 8) == 0 && Index != -1 && weapon != -1) {
+        if (strncmp("^^DAMAGE", UcaseCom, 8) == 0 && Index != -1 && weapon != -1)
+        {
             int value = -1;
             sscanf(UcaseCom, "^^DAMAGE %d", &value);
             List[Index - 1].Var1 = value;
         }
 
-        if (strncmp("^^MD2", UcaseCom, 5) == 0 && Index != -1 && weapon != -1) {
+        if (strncmp("^^MD2", UcaseCom, 5) == 0 && Index != -1 && weapon != -1)
+        {
             sscanf(UcaseCom, "^^MD2 %19s", Tmp);
             snprintf(List[Index - 1].SrcA, sizeof(List[Index - 1].SrcA), "/rd/items/%s", Tmp);
 
@@ -96,7 +104,8 @@ void ClearItems(void)
     for (int a = 0; a < Inventory_Max; a++)
         Key[a] = false;
 
-    for (int a = 0; a < ItemType_Max; a++) {
+    for (int a = 0; a < ItemType_Max; a++)
+    {
         strcpy(List[a].Name, "");
         strcpy(List[a].Type, "");
         strcpy(List[a].ImgFileName, "");
@@ -158,12 +167,14 @@ bool BoolCheck_Set(const char *UcaseCom)
     char Tmp[20];      // it just holds values to merge some things
 
     // More containers can be accesed...we need to link right one
-    if (strncmp("[KEY", UcaseCom, 4) == 0) {
+    if (strncmp("[KEY", UcaseCom, 4) == 0)
+    {
         Container = (bool *)Key;
         strcpy(ContName, "[KEY");
     }
 
-    if (strncmp("[BOOL", UcaseCom, 4) == 0) {
+    if (strncmp("[BOOL", UcaseCom, 4) == 0)
+    {
         Container = (bool *)Bool;
         strcpy(ContName, "[BOOL");
     }
@@ -183,18 +194,23 @@ bool BoolCheck_Set(const char *UcaseCom)
         Operator[1] = 'S'; // Ahh a setoperator
 
     // Here we get the value to compare or set...
-    if (strncmp("=S", Operator, 2) == 0) {
+    if (strncmp("=S", Operator, 2) == 0)
+    {
         snprintf(Tmp, sizeof(Tmp), "%s%s", ContName, "%*d%*c%s");
         sscanf(UcaseCom, Tmp, Value);
-    } else {
+    }
+    else
+    {
         snprintf(Tmp, sizeof(Tmp), "%s%s", ContName, "%*d%*c%*c%s");
         sscanf(UcaseCom, Tmp, Value);
     }
     //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     // We get all we needed to handle now
-    if (Index > 0 && Index <= Inventory_Max) {
+    if (Index > 0 && Index <= Inventory_Max)
+    {
         // Setting a value (=)
-        if (strncmp("=S", Operator, 2) == 0) {
+        if (strncmp("=S", Operator, 2) == 0)
+        {
             if (strncmp("TRUE]", Value, 5) == 0)
                 Container[Index - 1] = true;
             if (strncmp("FALSE]", Value, 6) == 0)
@@ -203,7 +219,8 @@ bool BoolCheck_Set(const char *UcaseCom)
         }
 
         // If not same (!=)
-        if (strncmp("!=", Operator, 2) == 0) {
+        if (strncmp("!=", Operator, 2) == 0)
+        {
             if (strncmp("TRUE]", Value, 5) == 0 && Container[Index - 1] != true)
                 return true;
             if (strncmp("FALSE]", Value, 6) == 0 && Container[Index - 1] != false)
@@ -212,7 +229,8 @@ bool BoolCheck_Set(const char *UcaseCom)
         }
 
         // If same (==)
-        if (strncmp("==", Operator, 2) == 0) {
+        if (strncmp("==", Operator, 2) == 0)
+        {
             if (strncmp("TRUE]", Value, 5) == 0 && Container[Index - 1] == true)
                 return true;
             if (strncmp("FALSE]", Value, 6) == 0 && Container[Index - 1] == false)
@@ -237,7 +255,8 @@ bool ItemCheck_Set(const char *Com)
     if (strncmp("[BOOL", UcaseCom, 5) == 0)
         return BoolCheck_Set(UcaseCom);
 
-    if (strncmp("[ADDITEM", UcaseCom, 5) == 0) {
+    if (strncmp("[ADDITEM", UcaseCom, 5) == 0)
+    {
         int a;
         sscanf(UcaseCom, "[ADDITEM%d]", &a);
         AddItemToInventory(a - 1);

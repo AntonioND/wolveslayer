@@ -30,16 +30,19 @@ static void UnloadStuff(void)
     ResetEnemies();
     ResetEvent();
 
-    for (int a = 0; a < Ground_Max; a++) {
+    for (int a = 0; a < Ground_Max; a++)
+    {
         Ground[a].ColorKey    = 0;
         Ground[a].TransEnable = false;
         Ground[a].BumpEnable  = false;
     }
-    for (int a = 0; a < Autotile_Max; a++) {
+    for (int a = 0; a < Autotile_Max; a++)
+    {
         Autotile[a].ColorKeyMaster  = 0;
         Autotile[a].IgnorecolorsNum = -1;
     }
-    for (int a = 0; a < Object_Max; a++) {
+    for (int a = 0; a < Object_Max; a++)
+    {
         Objects[a].ColorKey = 0;
         strcpy(Objects[a].Type, ".");
         Objects[a].Radius = 0;
@@ -82,11 +85,14 @@ void LoadScript(char filename[])
 
     // print atributes if there are some
     // mapfile (bmp)
-    if (map->Attribute("file")) {
+    if (map->Attribute("file"))
+    {
         char FileNameCom[60];
         snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/maps/%s", map->Attribute("file"));
         LoadMap(FileNameCom);
-    } else {
+    }
+    else
+    {
         Crash("No map file specified:\n%s", filename);
     }
 
@@ -98,14 +104,17 @@ void LoadScript(char filename[])
         Crash("No music file specified:\n%s", filename);
 
     // environment
-    if (map->Attribute("env")) {
+    if (map->Attribute("env"))
+    {
         if (strncmp("outside", map->Attribute("env"), 7) == 0)
             outside = true;
         else if (strncmp("inside", map->Attribute("env"), 6) == 0)
             outside = false;
         else
             Crash("Invalid environment specified:\n%s", filename);
-    } else {
+    }
+    else
+    {
         Crash("No environment specified:\n%s", filename);
     }
 

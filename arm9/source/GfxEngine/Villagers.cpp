@@ -25,7 +25,8 @@ void ResetVillagers(void)
 {
     VillagerCount = -1;
 
-    for (int a = 0; a < Villagers_Max; a++) {
+    for (int a = 0; a < Villagers_Max; a++)
+    {
         Villager[a].X         = -1;
         Villager[a].Y         = -1;
         Villager[a].SX        = 0;
@@ -68,7 +69,8 @@ void TurnVillager(int a, bool l, bool r, bool u, bool d)
     int dirnew = 0;
     bool ok    = false;
 
-    while (ok == false) {
+    while (ok == false)
+    {
         ok = true;
 
         int dirnew = rand() % 8;
@@ -87,8 +89,10 @@ void TurnVillager(int a, bool l, bool r, bool u, bool d)
 
 void UpdateVillagers()
 {
-    if (screenmode < ScreenModeItem) {
-        for (int a = 0; a <= VillagerCount; a++) {
+    if (screenmode < ScreenModeItem)
+    {
+        for (int a = 0; a <= VillagerCount; a++)
+        {
             bool l = true;
             bool r = true;
             bool u = true;
@@ -97,7 +101,8 @@ void UpdateVillagers()
             float sx = Villager[a].SX * 10;
             float sy = Villager[a].SY * 10;
 
-            for (int b = 2; b < 8; b++) {
+            for (int b = 2; b < 8; b++)
+            {
                 if (Passable(Villager[a].X, Villager[a].Y, sx + b, sy) == false)
                     u = false;
                 if (Passable(Villager[a].X, Villager[a].Y, sx + b, sy + 8) == false)
@@ -135,16 +140,20 @@ void UpdateVillagers()
                 dy *= -1;
 
             // now lets compare
-            if (dx > dy) {
-                if (Py > NPy - .6 && Py < NPy + .6) {
+            if (dx > dy)
+            {
+                if (Py > NPy - .6 && Py < NPy + .6)
+                {
                     if (Px < NPx && Px + .6 > NPx)
                         r = false;
                     if (Px > NPx && Px - .6 < NPx)
                         l = false;
                 }
             }
-            if (dy > dx) {
-                if (Px > NPx - .6 && Px < NPx + .6) {
+            if (dy > dx)
+            {
+                if (Px > NPx - .6 && Px < NPx + .6)
+                {
                     if (Py < NPy && Py + .6 > NPy)
                         d = false;
                     if (Py > NPy && Py - .6 < NPy)
@@ -160,8 +169,10 @@ void UpdateVillagers()
             NPx = Villager[a].X;
             NPy = Villager[a].Y;
 
-            for (NPCnum = 0; NPCnum <= VillagerCount; NPCnum++) {
-                if (NPCnum != a) {
+            for (NPCnum = 0; NPCnum <= VillagerCount; NPCnum++)
+            {
+                if (NPCnum != a)
+                {
                     Px = Villager[NPCnum].X;
                     Py = Villager[NPCnum].Y;
                     if (Villager[NPCnum].SY >= -.5)
@@ -184,14 +195,16 @@ void UpdateVillagers()
                         dy *= -1;
                     // now lets compace
                     if (dx > dy)
-                        if (Py > NPy - .6 && Py < NPy + .6) {
+                        if (Py > NPy - .6 && Py < NPy + .6)
+                        {
                             if (Px < NPx && Px + .6 > NPx)
                                 r = false;
                             if (Px > NPx && Px - .6 < NPx)
                                 l = false;
                         }
                     if (dy > dx)
-                        if (Px > NPx - .6 && Px < NPx + .6) {
+                        if (Px > NPx - .6 && Px < NPx + .6)
+                        {
                             if (Py < NPy && Py + .6 > NPy)
                                 d = false;
                             if (Py > NPy && Py - .6 < NPy)
@@ -201,7 +214,8 @@ void UpdateVillagers()
             }
 
             // Movement
-            if (screenmode != ScreenModeTextBox || a != npctalk) { // talking NPCs cant move
+            if (screenmode != ScreenModeTextBox || a != npctalk)
+            { // talking NPCs cant move
                 // Direction change
                 bool change = false;
                 if ((Villager[a].Direction == 0 || Villager[a].Direction == 1 || Villager[a].Direction == 7) && d == false)
@@ -221,26 +235,30 @@ void UpdateVillagers()
                 // Horizontal
                 if ((Villager[a].Direction == 6 || Villager[a].Direction == 5 || Villager[a].Direction == 7) && r)
                     Villager[a].SX += .025;
-                if (Villager[a].SX > .5) {
+                if (Villager[a].SX > .5)
+                {
                     Villager[a].X += 1;
                     Villager[a].SX -= 1;
                 }
                 if ((Villager[a].Direction == 1 || Villager[a].Direction == 2 || Villager[a].Direction == 3) && l)
                     Villager[a].SX -= .025;
-                if (Villager[a].SX < -.5) {
+                if (Villager[a].SX < -.5)
+                {
                     Villager[a].X -= 1;
                     Villager[a].SX += 1;
                 }
                 // Vertikal
                 if ((Villager[a].Direction == 0 || Villager[a].Direction == 1 || Villager[a].Direction == 7) && d)
                     Villager[a].SY += .025;
-                if (Villager[a].SY > .5) {
+                if (Villager[a].SY > .5)
+                {
                     Villager[a].Y += 1;
                     Villager[a].SY -= 1;
                 }
                 if ((Villager[a].Direction == 4 || Villager[a].Direction == 3 || Villager[a].Direction == 5) && u)
                     Villager[a].SY -= .025;
-                if (Villager[a].SY < -.5) {
+                if (Villager[a].SY < -.5)
+                {
                     Villager[a].Y -= 1;
                     Villager[a].SY += 1;
                 }

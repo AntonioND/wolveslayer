@@ -14,7 +14,8 @@ void RenderWater(int floating, f32 x, f32 y, f32 z)
     glTranslatef32(x, y, z);
 
     u8 r = EnvR, g = EnvG, b = EnvB;
-    if (Blend != 8) {
+    if (Blend != 8)
+    {
         r = EnvR / 8 * Blend;
         g = EnvG / 8 * Blend;
         b = EnvB / 8 * Blend;

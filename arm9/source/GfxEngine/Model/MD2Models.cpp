@@ -45,8 +45,10 @@ void RenderMD2Model(int n, int num)
     glBegin(GL_TRIANGLES);
 
     nds_vertex_t *vert = Models[num].rahmen[n].verts;
-    for (int i = 0; i < Models[num].header.num_tris; ++i) {
-        for (int j = 0; j < 3; ++j) {
+    for (int i = 0; i < Models[num].header.num_tris; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
             int stnum   = Models[num].dreiecke[i].st[j];
             int vertnum = Models[num].dreiecke[i].vertex[j];
 
@@ -75,8 +77,10 @@ void RenderMD2ModelMirrowed(int n, int num)
     glBegin(GL_TRIANGLES);
 
     nds_vertex_t *vert = Models[num].rahmen[n].verts;
-    for (int i = 0; i < Models[num].header.num_tris; ++i) {
-        for (int j = 0; j < 3; ++j) {
+    for (int i = 0; i < Models[num].header.num_tris; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
             int stnum   = Models[num].dreiecke[i].st[j];
             int vertnum = Models[num].dreiecke[i].vertex[j];
 

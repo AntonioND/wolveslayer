@@ -30,9 +30,11 @@ void LoadAutotileTexture(char filename[], int num)
     int palTextureName = -1;
 
     // Let's load all 16 parts of 128x128 tile thing
-    for (int ax = 0; ax < 3; ax++) {
+    for (int ax = 0; ax < 3; ax++)
+    {
         // Copy each pixel
-        for (int bx = 0; bx < 128; bx++) {
+        for (int bx = 0; bx < 128; bx++)
+        {
             for (int by = 0; by < 128; by++)
                 part[bx + (by * 128)] = buffer8[(bx + (ax * 128)) + (by * 384)];
         }
@@ -44,11 +46,14 @@ void LoadAutotileTexture(char filename[], int num)
 
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB256, 128, 128, 0, TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT, part);
 
-        if (palTextureName == -1) {
+        if (palTextureName == -1)
+        {
             // OK here we now have loaded pal and we got 36 fields a 32x32
             glColorTableEXT(GL_TEXTURE_2D, 0, 256, 0, 0, pal);
             palTextureName = Autotile[num].Texture[ax];
-        } else {
+        }
+        else
+        {
             glAssignColorTable(0, palTextureName);
         }
     }
@@ -75,70 +80,86 @@ void RenderAutoGround(int x, int y, int z, int num)
     int cx = 0, cy = 0;
     v16x4 pointer = Terrain[GroundX][GroundY];
 
-    if (num == 0) {
+    if (num == 0)
+    {
         cx = 0;
         cy = 0;
     }
-    if (num == 1) {
+    if (num == 1)
+    {
         cx = 1;
         cy = 0;
     }
-    if (num == 2) {
+    if (num == 2)
+    {
         cx = 2;
         cy = 0;
     }
-    if (num == 3) {
+    if (num == 3)
+    {
         cx = 3;
         cy = 0;
     }
 
-    if (num == 4) {
+    if (num == 4)
+    {
         cx = 0;
         cy = 1;
     }
-    if (num == 5) {
+    if (num == 5)
+    {
         cx = 1;
         cy = 1;
     }
-    if (num == 6) {
+    if (num == 6)
+    {
         cx = 2;
         cy = 1;
     }
-    if (num == 7) {
+    if (num == 7)
+    {
         cx = 3;
         cy = 1;
     }
 
-    if (num == 8) {
+    if (num == 8)
+    {
         cx = 0;
         cy = 2;
     }
-    if (num == 9) {
+    if (num == 9)
+    {
         cx = 1;
         cy = 2;
     }
-    if (num == 10) {
+    if (num == 10)
+    {
         cx = 2;
         cy = 2;
     }
-    if (num == 11) {
+    if (num == 11)
+    {
         cx = 3;
         cy = 2;
     }
 
-    if (num == 12) {
+    if (num == 12)
+    {
         cx = 0;
         cy = 3;
     }
-    if (num == 13) {
+    if (num == 13)
+    {
         cx = 1;
         cy = 3;
     }
-    if (num == 14) {
+    if (num == 14)
+    {
         cx = 2;
         cy = 3;
     }
-    if (num == 15) {
+    if (num == 15)
+    {
         cx = 3;
         cy = 3;
     }
@@ -148,7 +169,8 @@ void RenderAutoGround(int x, int y, int z, int num)
 
     int mode = (pointer.sidewalls >> 6) & 3;
 
-    if (mode == 0) {
+    if (mode == 0)
+    {
         glBegin(GL_QUADS);
 
         {
@@ -176,7 +198,8 @@ void RenderAutoGround(int x, int y, int z, int num)
         glEnd();
     }
 
-    if (mode == 1) {
+    if (mode == 1)
+    {
         glBegin(GL_TRIANGLES);
 
         {
@@ -216,7 +239,8 @@ void RenderAutoGround(int x, int y, int z, int num)
         glEnd();
     }
 
-    if (mode == 2) {
+    if (mode == 2)
+    {
         glBegin(GL_TRIANGLES);
 
         {

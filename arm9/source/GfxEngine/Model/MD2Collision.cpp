@@ -20,22 +20,26 @@ bool GetModelCollsisionXY(int num, int x, int y, int rot)
         return true;
 
     int X = 0, Y = 0;
-    if (rot == 0) {
+    if (rot == 0)
+    {
         X = x;
         Y = y;
     }
 
-    if (rot == 2) {
+    if (rot == 2)
+    {
         X = y;
         Y = 20 - x;
     }
 
-    if (rot == 4) {
+    if (rot == 4)
+    {
         X = 20 - x;
         Y = 20 - y;
     }
 
-    if (rot == 6) {
+    if (rot == 6)
+    {
         X = 20 - y;
         Y = x;
     }
@@ -59,21 +63,26 @@ static void Line(int a, int b, int c, int d, int modelnum)
     d2y = 0;
     m   = abs(u);
     n   = abs(v);
-    if (m <= n) {
+    if (m <= n)
+    {
         d2x = 0;
         d2y = sgn(v);
         m   = abs(v);
         n   = abs(u);
     }
     s = (int)(m / 2);
-    for (i = 0; i < round(m); i++) {
+    for (i = 0; i < round(m); i++)
+    {
         Putpixel(a, b, modelnum);
         s += n;
-        if (s >= m) {
+        if (s >= m)
+        {
             s -= m;
             a += d1x;
             b += d1y;
-        } else {
+        }
+        else
+        {
             a += d2x;
             b += d2y;
         }
@@ -98,8 +107,10 @@ void MakeCollisionMap(int modelnum)
     float x1, x2, y1, y2;
     nds_vertex_t *vert = Models[modelnum].rahmen[0].verts;
     // lets draw da shit!
-    for (i = 0; i < Models[modelnum].header.num_tris; ++i) {
-        for (j = 0; j < 3; ++j) {
+    for (i = 0; i < Models[modelnum].header.num_tris; ++i)
+    {
+        for (j = 0; j < 3; ++j)
+        {
             // first get 2 indices for the 2 vertices which build a 2D line
             // from a bird-eye-view
             vert1num = Models[modelnum].dreiecke[i].vertex[j];
@@ -151,8 +162,10 @@ void ShowCollisionMap(int modelnum)
     if (Models[modelnum].Enabled == false)
         return;
 
-    for (int y = 0; y < 21; y++) {
-        for (int x = 0; x < 21; x++) {
+    for (int y = 0; y < 21; y++)
+    {
+        for (int x = 0; x < 21; x++)
+        {
             if (GetModelCollsisionXY(modelnum, x, y, 0))
                 BG_GFX_SUB[x + (y * 256)] = RGB8(255, 255, 255) | BIT(15);
             else

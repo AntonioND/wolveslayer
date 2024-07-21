@@ -49,7 +49,8 @@ static void WallEdge(int x, int y, f32 xx, f32 yy)
     int a;
     int b = 0;
 
-    if (left == 3) {
+    if (left == 3)
+    {
         if (Edge[0].HasBump && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
@@ -64,7 +65,8 @@ static void WallEdge(int x, int y, f32 xx, f32 yy)
         br  = GetTerrain(x - 1, y, 3);
         tbr = heightot16down(br);
 
-        for (a = -b; a <= b; a++) {
+        for (a = -b; a <= b; a++)
+        {
             if (a == -1)
                 glBindTexture(GL_TEXTURE_2D, Edge[0].TextureC);
             // if (a == 0 && b != 0)
@@ -105,7 +107,8 @@ static void WallEdge(int x, int y, f32 xx, f32 yy)
         }
     }
 
-    if (right == 3) {
+    if (right == 3)
+    {
         if (Edge[0].HasBump && ViewportMapBumpWallE[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
@@ -122,7 +125,8 @@ static void WallEdge(int x, int y, f32 xx, f32 yy)
         br  = GetTerrain(x + 1, y, 2);
         tbr = heightot16down(br);
 
-        for (a = -b; a <= b; a++) {
+        for (a = -b; a <= b; a++)
+        {
             if (a == -1)
                 glBindTexture(GL_TEXTURE_2D, Edge[0].TextureC);
             // if (a == 0 && b != 0)
@@ -162,7 +166,8 @@ static void WallEdge(int x, int y, f32 xx, f32 yy)
         }
     }
 
-    if (front == 3) {
+    if (front == 3)
+    {
         if (Edge[0].HasBump && ViewportMapBumpWallS[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
@@ -179,7 +184,8 @@ static void WallEdge(int x, int y, f32 xx, f32 yy)
         br  = GetTerrain(x, y + 1, 2);
         tbr = heightot16down(br);
 
-        for (a = -b; a <= b; a++) {
+        for (a = -b; a <= b; a++)
+        {
             if (a == -1)
                 glBindTexture(GL_TEXTURE_2D, Edge[0].TextureC);
             // if (a == 0 && b != 0)
@@ -229,7 +235,8 @@ static void HalfWallEdgeA(int x, int y, f32 xx, f32 yy)
     int a;
     int b = 0;
 
-    if (left == 1) {
+    if (left == 1)
+    {
         if (Edge[0].HasBump && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
@@ -244,7 +251,8 @@ static void HalfWallEdgeA(int x, int y, f32 xx, f32 yy)
         br  = GetTerrain(x - 1, y, 3);
         tbr = heightot16down(br);
 
-        for (a = -b; a <= b; a++) {
+        for (a = -b; a <= b; a++)
+        {
             if (a == -1)
                 glBindTexture(GL_TEXTURE_2D, Edge[0].TextureC);
             // if (a == 0 && b != 0)
@@ -280,7 +288,8 @@ static void HalfWallEdgeA(int x, int y, f32 xx, f32 yy)
         }
     }
 
-    if (right == 1) {
+    if (right == 1)
+    {
         if (Edge[0].HasBump && ViewportMapBumpWallE[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
@@ -297,7 +306,8 @@ static void HalfWallEdgeA(int x, int y, f32 xx, f32 yy)
         br  = GetTerrain(x + 1, y, 2);
         tbr = heightot16down(br);
 
-        for (a = -b; a <= b; a++) {
+        for (a = -b; a <= b; a++)
+        {
             if (a == -1)
                 glBindTexture(GL_TEXTURE_2D, Edge[0].TextureC);
             // if (a == 0 && b != 0)
@@ -333,7 +343,8 @@ static void HalfWallEdgeA(int x, int y, f32 xx, f32 yy)
         }
     }
 
-    if (front == 1) {
+    if (front == 1)
+    {
         if (Edge[0].HasBump && ViewportMapBumpWallS[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
@@ -350,7 +361,8 @@ static void HalfWallEdgeA(int x, int y, f32 xx, f32 yy)
         br  = GetTerrain(x, y + 1, 2);
         tbr = heightot16down(br);
 
-        for (a = -b; a <= b; a++) {
+        for (a = -b; a <= b; a++)
+        {
             if (a == -1)
                 glBindTexture(GL_TEXTURE_2D, Edge[0].TextureC);
             // if (a == 0 && b != 0)
@@ -396,7 +408,8 @@ static void HalfWallEdgeB(int x, int y, f32 xx, f32 yy)
     int a;
     int b = 0;
 
-    if (left == 2) {
+    if (left == 2)
+    {
         if (Edge[0].HasBump && ViewportMapBumpWallW[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
@@ -413,7 +426,8 @@ static void HalfWallEdgeB(int x, int y, f32 xx, f32 yy)
         br  = GetTerrain(x - 1, y, 3);
         tbr = heightot16down(br);
 
-        for (a = -b; a <= b; a++) {
+        for (a = -b; a <= b; a++)
+        {
             if (a == -1)
                 glBindTexture(GL_TEXTURE_2D, Edge[0].TextureC);
             // if (a == 0 && b != 0)
@@ -449,7 +463,8 @@ static void HalfWallEdgeB(int x, int y, f32 xx, f32 yy)
         }
     }
 
-    if (right == 2) {
+    if (right == 2)
+    {
         if (Edge[0].HasBump && ViewportMapBumpWallE[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
@@ -466,7 +481,8 @@ static void HalfWallEdgeB(int x, int y, f32 xx, f32 yy)
         br  = GetTerrain(x + 1, y, 2);
         tbr = heightot16down(br);
 
-        for (a = -b; a <= b; a++) {
+        for (a = -b; a <= b; a++)
+        {
             if (a == -1)
                 glBindTexture(GL_TEXTURE_2D, Edge[0].TextureC);
             // if (a == 0 && b != 0)
@@ -502,7 +518,8 @@ static void HalfWallEdgeB(int x, int y, f32 xx, f32 yy)
         }
     }
 
-    if (front == 2) {
+    if (front == 2)
+    {
         if (Edge[0].HasBump && ViewportMapBumpWallS[x - CamPosX + 5][y - CamPosY + 3])
             b = 1;
         else
@@ -519,7 +536,8 @@ static void HalfWallEdgeB(int x, int y, f32 xx, f32 yy)
         br  = GetTerrain(x, y + 1, 2);
         tbr = heightot16down(br);
 
-        for (a = -b; a <= b; a++) {
+        for (a = -b; a <= b; a++)
+        {
             if (a == -1)
                 glBindTexture(GL_TEXTURE_2D, Edge[0].TextureC);
             // if(a == 0 && b != 0)
@@ -560,7 +578,8 @@ void RenderEdge(int x, int y, f32 xx, f32 yy)
 {
     u8 sidewalls = Terrain[x][y].sidewalls;
 
-    if (sidewalls) {
+    if (sidewalls)
+    {
         if (xx > inttof32(0))
             left = sidewalls & (3 << 0);
         else

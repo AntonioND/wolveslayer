@@ -32,10 +32,12 @@ void LoadDynamicLightCommand(TiXmlElement *map)
 {
     TiXmlElement *dynamiclight = map->FirstChildElement("dynamiclight");
 
-    while (dynamiclight) {
+    while (dynamiclight)
+    {
         // Fireflies
         TiXmlElement *firefly = dynamiclight->FirstChildElement("firefly");
-        while (firefly) {
+        while (firefly)
+        {
             // POSITION
             int x = -1;
             int y = -1;
@@ -63,7 +65,8 @@ void LoadMapChangeCommand(TiXmlElement *map)
 {
     TiXmlElement *mc = map->FirstChildElement("mapchange");
 
-    while (mc) {
+    while (mc)
+    {
         // POSITION
         int x = -1;
         int y = -1;
@@ -92,9 +95,11 @@ void LoadDoorCommand(TiXmlElement *map)
 {
     TiXmlElement *doortext = map->FirstChildElement("doortexture");
 
-    if (doortext) {
+    if (doortext)
+    {
         // filename
-        if (doortext->Attribute("file")) {
+        if (doortext->Attribute("file"))
+        {
             char FileNameCom[60];
             snprintf(FileNameCom, sizeof(FileNameCom), "/wolveslayer/obj/%s", doortext->Attribute("file"));
             LoadDoorTexture(FileNameCom);
@@ -103,7 +108,8 @@ void LoadDoorCommand(TiXmlElement *map)
 
     TiXmlElement *door = map->FirstChildElement("door");
 
-    while (door) {
+    while (door)
+    {
         // POSITION
         int x = -1;
         int y = -1;

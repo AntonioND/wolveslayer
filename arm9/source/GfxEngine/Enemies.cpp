@@ -14,7 +14,8 @@ void ResetEnemies(void)
 {
     EnemyCount = -1;
 
-    for (int a = 0; a < Enemies_Max; a++) {
+    for (int a = 0; a < Enemies_Max; a++)
+    {
         Enemies[a].X         = -1;
         Enemies[a].Y         = -1;
         Enemies[a].SX        = 0;
@@ -50,7 +51,8 @@ static void TurnEnemy(int a, bool l, bool r, bool u, bool d)
     int dirnew = 0;
     bool ok    = false;
 
-    while (ok == false) {
+    while (ok == false)
+    {
         ok = true;
 
         dirnew = rand() % 8;
@@ -94,33 +96,42 @@ static void TurnittoPlayer(int a)
 
     // now we got the distance, and can look how to turn the NPC
     Enemies[a].Direction = -1;
-    if (Px > NPx) {                   // right
-        if ((dx / 2) > dy) {          // more side then up/down
+    if (Px > NPx) // right
+    {
+        if ((dx / 2) > dy) // more side then up/down
+        {
             Enemies[a].Direction = 2; // right
         }
-        if ((dy / 2) > dx) { // more up/down then side
+        if ((dy / 2) > dx) // more up/down then side
+        {
             if (Py > NPy)
                 Enemies[a].Direction = 4; // down
             else
                 Enemies[a].Direction = 0; // up
         }
-        if (Enemies[a].Direction == -1) { // both
+        if (Enemies[a].Direction == -1) // both
+        {
             if (Py > NPy)
                 Enemies[a].Direction = 3; // down-right
             else
                 Enemies[a].Direction = 1; // up-right
         }
-    } else {                          // left
-        if ((dx / 2) > dy) {          // more side then up/down
+    }
+    else // left
+    {
+        if ((dx / 2) > dy) // more side then up/down
+        {
             Enemies[a].Direction = 6; // left
         }
-        if ((dy / 2) > dx) { // more up/down then side
+        if ((dy / 2) > dx) // more up/down then side
+        {
             if (Py > NPy)
                 Enemies[a].Direction = 4; // down
             else
                 Enemies[a].Direction = 0; // up
         }
-        if (Enemies[a].Direction == -1) { // both
+        if (Enemies[a].Direction == -1) // both
+        {
             if (Py > NPy)
                 Enemies[a].Direction = 5; // down-left
             else
@@ -160,10 +171,13 @@ void UpdateEnemy()
     bool change;
     bool l, r, u, d;
 
-    if (screenmode < ScreenModeItem) {
-        for (int a = 0; a <= EnemyCount; a++) {
+    if (screenmode < ScreenModeItem)
+    {
+        for (int a = 0; a <= EnemyCount; a++)
+        {
             // check coolision just if enemy walks or follows player
-            if (Enemies[a].Status < 1) {
+            if (Enemies[a].Status < 1)
+            {
                 l = true;
                 r = true;
                 u = true;
@@ -214,51 +228,64 @@ void UpdateEnemy()
                 // now lets compare
                 // near enough to see player
                 Enemies[a].Status = -1; // enemy wont follow player
-                if (PlStatus != 3) {
+                if (PlStatus != 3)
+                {
                     if (dx > dy)
-                        if (Py > NPy - (.9 + Enemies[a].Radius) && Py < NPy + (.9 + Enemies[a].Radius)) {
-                            if (Px < NPx && Px + (.9 + Enemies[a].Radius) > NPx) {
+                        if (Py > NPy - (.9 + Enemies[a].Radius) && Py < NPy + (.9 + Enemies[a].Radius))
+                        {
+                            if (Px < NPx && Px + (.9 + Enemies[a].Radius) > NPx)
+                            {
                                 Enemies[a].Status = 0;
                                 TurnittoPlayer(a);
                             } // follow the player
-                            if (Px > NPx && Px - (.9 + Enemies[a].Radius) < NPx) {
+                            if (Px > NPx && Px - (.9 + Enemies[a].Radius) < NPx)
+                            {
                                 Enemies[a].Status = 0;
                                 TurnittoPlayer(a);
                             } // follow the player
                         }
                     if (dy > dx)
-                        if (Px > NPx - (.9 + Enemies[a].Radius) && Px < NPx + (.9 + Enemies[a].Radius)) {
-                            if (Py < NPy && Py + (.9 + Enemies[a].Radius) > NPy) {
+                        if (Px > NPx - (.9 + Enemies[a].Radius) && Px < NPx + (.9 + Enemies[a].Radius))
+                        {
+                            if (Py < NPy && Py + (.9 + Enemies[a].Radius) > NPy)
+                            {
                                 Enemies[a].Status = 0;
                                 TurnittoPlayer(a);
                             } // follow the player
-                            if (Py > NPy && Py - (.9 + Enemies[a].Radius) < NPy) {
+                            if (Py > NPy && Py - (.9 + Enemies[a].Radius) < NPy)
+                            {
                                 Enemies[a].Status = 0;
                                 TurnittoPlayer(a);
                             } // follow the player
                         }
                     // near enough to attack and to near to get closer
                     if (dx > dy)
-                        if (Py > NPy - Enemies[a].Radius && Py < NPy + Enemies[a].Radius) {
-                            if (Px < NPx && Px + Enemies[a].Radius > NPx) {
+                        if (Py > NPy - Enemies[a].Radius && Py < NPy + Enemies[a].Radius)
+                        {
+                            if (Px < NPx && Px + Enemies[a].Radius > NPx)
+                            {
                                 r = false;
                                 if (rand() % 17 == 2)
                                     Enemies[a].Status = 1;
                             }
-                            if (Px > NPx && Px - Enemies[a].Radius < NPx) {
+                            if (Px > NPx && Px - Enemies[a].Radius < NPx)
+                            {
                                 l = false;
                                 if (rand() % 17 == 2)
                                     Enemies[a].Status = 1;
                             }
                         }
                     if (dy > dx)
-                        if (Px > NPx - Enemies[a].Radius && Px < NPx + Enemies[a].Radius) {
-                            if (Py < NPy && Py + Enemies[a].Radius > NPy) {
+                        if (Px > NPx - Enemies[a].Radius && Px < NPx + Enemies[a].Radius)
+                        {
+                            if (Py < NPy && Py + Enemies[a].Radius > NPy)
+                            {
                                 d = false;
                                 if (rand() % 17 == 2)
                                     Enemies[a].Status = 1;
                             }
-                            if (Py > NPy && Py - Enemies[a].Radius < NPy) {
+                            if (Py > NPy && Py - Enemies[a].Radius < NPy)
+                            {
                                 u = false;
                                 if (rand() % 17 == 2)
                                     Enemies[a].Status = 1;
@@ -269,8 +296,10 @@ void UpdateEnemy()
                 NPx = Enemies[a].X;
                 NPy = Enemies[a].Y;
 
-                for (int NPCnum = 0; NPCnum <= EnemyCount; NPCnum++) {
-                    if (NPCnum != a) {
+                for (int NPCnum = 0; NPCnum <= EnemyCount; NPCnum++)
+                {
+                    if (NPCnum != a)
+                    {
                         Px = Enemies[NPCnum].X;
                         Py = Enemies[NPCnum].Y;
                         if (Enemies[NPCnum].SY >= -.5)
@@ -293,14 +322,16 @@ void UpdateEnemy()
                             dy *= -1;
                         // now lets compare
                         if (dx > dy)
-                            if (Py > NPy - Enemies[NPCnum].Radius && Py < NPy + Enemies[NPCnum].Radius && Enemies[NPCnum].Status != 3) {
+                            if (Py > NPy - Enemies[NPCnum].Radius && Py < NPy + Enemies[NPCnum].Radius && Enemies[NPCnum].Status != 3)
+                            {
                                 if (Px < NPx && Px + Enemies[NPCnum].Radius > NPx)
                                     r = false;
                                 if (Px > NPx && Px - Enemies[NPCnum].Radius < NPx)
                                     l = false;
                             }
                         if (dy > dx)
-                            if (Px > NPx - Enemies[NPCnum].Radius && Px < NPx + Enemies[NPCnum].Radius && Enemies[NPCnum].Status != 3) {
+                            if (Px > NPx - Enemies[NPCnum].Radius && Px < NPx + Enemies[NPCnum].Radius && Enemies[NPCnum].Status != 3)
+                            {
                                 if (Py < NPy && Py + Enemies[NPCnum].Radius > NPy)
                                     d = false;
                                 if (Py > NPy && Py - Enemies[NPCnum].Radius < NPy)
@@ -312,7 +343,8 @@ void UpdateEnemy()
 
             // Movement
             // Direction change (random walking)
-            if (Enemies[a].Status == -1) {
+            if (Enemies[a].Status == -1)
+            {
                 change = false;
                 if ((Enemies[a].Direction == 0 || Enemies[a].Direction == 1 || Enemies[a].Direction == 7) && d == false)
                     change = true;
@@ -329,30 +361,35 @@ void UpdateEnemy()
                     TurnEnemy(a, l, r, u, d);
             }
 
-            if (Enemies[a].Status < 1) {
+            if (Enemies[a].Status < 1)
+            {
                 // Horizontal
                 if ((Enemies[a].Direction == 6 || Enemies[a].Direction == 5 || Enemies[a].Direction == 7) && r)
                     Enemies[a].SX += .025;
-                if (Enemies[a].SX > .5) {
+                if (Enemies[a].SX > .5)
+                {
                     Enemies[a].X += 1;
                     Enemies[a].SX -= 1;
                 }
                 if ((Enemies[a].Direction == 1 || Enemies[a].Direction == 2 || Enemies[a].Direction == 3) && l)
                     Enemies[a].SX -= .025;
-                if (Enemies[a].SX < -.5) {
+                if (Enemies[a].SX < -.5)
+                {
                     Enemies[a].X -= 1;
                     Enemies[a].SX += 1;
                 }
                 // Vertikal
                 if ((Enemies[a].Direction == 0 || Enemies[a].Direction == 1 || Enemies[a].Direction == 7) && d)
                     Enemies[a].SY += .025;
-                if (Enemies[a].SY > .5) {
+                if (Enemies[a].SY > .5)
+                {
                     Enemies[a].Y += 1;
                     Enemies[a].SY -= 1;
                 }
                 if ((Enemies[a].Direction == 4 || Enemies[a].Direction == 3 || Enemies[a].Direction == 5) && u)
                     Enemies[a].SY -= .025;
-                if (Enemies[a].SY < -.5) {
+                if (Enemies[a].SY < -.5)
+                {
                     Enemies[a].Y -= 1;
                     Enemies[a].SY += 1;
                 }

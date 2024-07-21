@@ -61,7 +61,7 @@ void RenderMD2Model(int n, int num)
     glEnd();
 }
 
-void RenderMD2ModelMirrowed(int n, int num)
+void RenderMD2ModelMirrored(int n, int num)
 {
     if ((num < 0) || (num >= MD2_Max))
         Crash("Invalid number:%d\n%s", num, __func__);

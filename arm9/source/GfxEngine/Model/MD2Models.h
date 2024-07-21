@@ -8,6 +8,6 @@ extern MD2Entity Models[MD2_Max];
 
 void Precalcmd2light(int n, int num);
 void RenderMD2Model(int n, int num);
-void RenderMD2ModelMirrowed(int n, int num);
+void RenderMD2ModelMirrored(int n, int num);
 
 #endif // GFXENGINE_MODEL_MD2MODELS_H__

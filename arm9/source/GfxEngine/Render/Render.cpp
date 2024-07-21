@@ -244,7 +244,7 @@ static void RefreshWorld(void)
                 pos[1] = y;
 
                 // SetMdlLights(pos,spos,.4,0);   DirObj[x][y]
-                if (yy > -1 || ((Precalcdata[x][y] & (1 << B_Mirrowable)) && obj->Mirrowable))
+                if (yy > -1 || ((Precalcdata[x][y] & (1 << B_Mirrorable)) && obj->Mirrorable))
                 {
                     if (!obj->Illumination)
                         SetObjLights(pos, DirObj[x][y] * 64); // way faster and enough for objects
@@ -267,15 +267,15 @@ static void RefreshWorld(void)
                     RenderMD2Model(ticks11, TexObj[x][y] + 10);
                     glPopMatrix(1);
                 }
-                // Same for mirrowing
-                if ((Precalcdata[x][y] & (1 << B_Mirrowable)) && obj->Mirrowable == true)
+                // Same for mirroring
+                if ((Precalcdata[x][y] & (1 << B_Mirrorable)) && obj->Mirrorable == true)
                 {
                     glPushMatrix();
                     glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(obj->TextureID + 11 + 3));
                     glTranslatef32(posx, -height, posy);
                     glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
                     glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + (DirObj[x][y] * -64)));
-                    RenderMD2ModelMirrowed(ticks11, TexObj[x][y] + 10);
+                    RenderMD2ModelMirrored(ticks11, TexObj[x][y] + 10);
                     glPopMatrix(1);
                 }
             }
@@ -294,7 +294,7 @@ static void RefreshWorld(void)
                 SetCurWall(xx + CamPosX, yy + CamPosY);
                 if (yy > -1) // Normal
                     RenderHouseBorder(0, DirObj[x][y], posx, floattof32(1.0 + GetHeight(x, y)), posy);
-                if ((Precalcdata[x][y] & (1 << B_Mirrowable))) // Gespiegelt
+                if ((Precalcdata[x][y] & (1 << B_Mirrorable))) // Mirrored
                     RenderHouseBorder(1, DirObj[x][y], posx, floattof32(-.9 - GetHeight(x, y)), posy);
             }
 
@@ -304,25 +304,25 @@ static void RefreshWorld(void)
                 SetCurWall(xx + CamPosX, yy + CamPosY);
                 if (yy > -1) // Normal
                     RenderHouseCorner(0, DirObj[x][y], posx, floattof32(1.0 + GetHeight(x, y)), posy);
-                if ((Precalcdata[x][y] & (1 << B_Mirrowable))) // Gespiegelt
+                if ((Precalcdata[x][y] & (1 << B_Mirrorable))) // Mirrored
                     RenderHouseCorner(1, DirObj[x][y], posx, floattof32(-.9 - GetHeight(x, y)), posy);
             }
 
-            // House Border Door
+            // House border door
             if (ShapeObj[x][y] == Housedoor)
             {
                 SetCurWall(xx + CamPosX, yy + CamPosY);
-                if (yy > -1) // Türslot Normal
+                if (yy > -1) // Door slot normal
                 {
                     int angle = GetMapDoorAngle(xx + CamPosX, yy + CamPosY);
                     RenderHouseBorderDoor(0, angle, DirObj[x][y], posx, floattof32(1.0 + GetHeight(x, y)), posy);
                 }
-                if ((Precalcdata[x][y] & (1 << B_Mirrowable)))
+                if ((Precalcdata[x][y] & (1 << B_Mirrorable)))
                 {
-                    // We need that to set again...after rendering houspart with doorslot it
+                    // We need that to set again after rendering houspart with door slot in it
                     glBindTexture(GL_TEXTURE_2D, ObjectTexture[TexObj[x][y]].Texture);
 
-                    // Türslot Gespiegelt
+                    // Door slot mirrored
                     int angle = GetMapDoorAngle(xx + CamPosX, yy + CamPosY);
                     RenderHouseBorderDoor(1, angle, DirObj[x][y], posx, floattof32(-.9 - GetHeight(x, y)), posy);
                 }
@@ -338,25 +338,25 @@ static void RefreshWorld(void)
                 SetCurWall(xx + CamPosX, yy + CamPosY);
                 if (yy > -1) // Normal
                     RenderWallBorder(0, DirObj[x][y], posx, floattof32(1.0 + GetHeight(x, y)), posy, TexObj[x][y]);
-                if ((Precalcdata[x][y] & (1 << B_Mirrowable))) // Gespiegelt
+                if ((Precalcdata[x][y] & (1 << B_Mirrorable))) // Mirrored
                     RenderWallBorder(1, DirObj[x][y], posx, floattof32(-1 - GetHeight(x, y)), posy, TexObj[x][y]);
             }
 
-            // Wall Border Door
+            // Wall border door
             if (ShapeObj[x][y] == WallDoor)
             {
                 SetCurWall(xx + CamPosX, yy + CamPosY);
-                if (yy > -1) // Türslot Normal
+                if (yy > -1) // Door slot normal
                 {
                     int angle = GetMapDoorAngle(xx + CamPosX, yy + CamPosY);
                     RenderWallBorderDoor(0, angle, DirObj[x][y], posx, floattof32(1 + GetHeight(x, y)), posy);
                 }
-                if ((Precalcdata[x][y] & (1 << B_Mirrowable)))
+                if ((Precalcdata[x][y] & (1 << B_Mirrorable)))
                 {
-                    // We need that to set again...after rendering houspart with doorslot it
+                    // We need that to set again after rendering houspart with door slot in it
                     glBindTexture(GL_TEXTURE_2D, ObjectTexture[TexObj[x][y]].Texture);
 
-                    // Türslot Gespiegelt
+                    // Door slot mirrored
                     int angle = GetMapDoorAngle(xx + CamPosX, yy + CamPosY);
                     RenderWallBorderDoor(1, angle, DirObj[x][y], posx, floattof32(-1.02 - GetHeight(x, y)), posy);
                 }
@@ -427,16 +427,16 @@ static void RefreshPlayer(void)
     RenderMD2Model(aniweapon, 0);
     glPopMatrix(1);
 
-    // Hero (mirrowed)
+    // Hero (mirrored)
 
-    if (Precalcdata[GetPX()][GetPY()] & (1 << B_Mirrowable))
+    if (Precalcdata[GetPX()][GetPY()] & (1 << B_Mirrorable))
     {
         glPushMatrix();
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
         glTranslatef(CamPosSX, -.1 - hpos, CamPosSY);
         glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
         glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + PlDirection * -64));
-        RenderMD2ModelMirrowed(aniweapon, 0);
+        RenderMD2ModelMirrored(aniweapon, 0);
         glPopMatrix(1);
     }
 
@@ -455,15 +455,15 @@ static void RefreshPlayer(void)
     RenderMD2Model(aniweapon, 1);
     glPopMatrix(1);
 
-    // Weapon (mirrowed)
-    if (Precalcdata[GetPX()][GetPY()] & (1 << B_Mirrowable))
+    // Weapon (mirrored)
+    if (Precalcdata[GetPX()][GetPY()] & (1 << B_Mirrorable))
     {
         glPushMatrix();
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
         glTranslatef(CamPosSX, -.1 - hpos, CamPosSY);
         glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
         glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + PlDirection * -64));
-        RenderMD2ModelMirrowed(aniweapon, 1);
+        RenderMD2ModelMirrored(aniweapon, 1);
         glPopMatrix(1);
     }
 
@@ -577,7 +577,7 @@ static void RefreshVillagers(void)
         }
         glPopMatrix(1);
 
-        if (Precalcdata[Villager[a].X][Villager[a].Y] & (1 << B_Mirrowable))
+        if (Precalcdata[Villager[a].X][Villager[a].Y] & (1 << B_Mirrorable))
         {
             glPushMatrix();
             glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
@@ -585,9 +585,9 @@ static void RefreshVillagers(void)
             glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
             glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
             if ((screenmode != ScreenModeTextBox || a != npctalk) && screenmode <= ScreenModeTextBox)
-                RenderMD2ModelMirrowed(ticks11 + 11, Villager[a].TextNum);
+                RenderMD2ModelMirrored(ticks11 + 11, Villager[a].TextNum);
             else
-                RenderMD2ModelMirrowed(ticks11, Villager[a].TextNum);
+                RenderMD2ModelMirrored(ticks11, Villager[a].TextNum);
             glPopMatrix(1);
         }
     }
@@ -668,14 +668,14 @@ static void RefreshEnemies(void)
         RenderMD2Model(aniset, Enemies[a].TextNum);
         glPopMatrix(1);
 
-        if (Precalcdata[Enemies[a].X][Enemies[a].Y] & (1 << B_Mirrowable))
+        if (Precalcdata[Enemies[a].X][Enemies[a].Y] & (1 << B_Mirrorable))
         {
             glPushMatrix();
             glPolyFmt(POLY_ALPHA(blend) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(0));
             glTranslatef((Enemies[a].X - 6) + Enemies[a].SX - (CamPosX), -hpos, (Enemies[a].Y - 8) + Enemies[a].SY - (CamPosY));
             glRotateXi((DEGREES_IN_CIRCLE / 512) * (-128));
             glRotateZi((DEGREES_IN_CIRCLE / 512) * (-128 + dir * -64));
-            RenderMD2ModelMirrowed(aniset, Enemies[a].TextNum);
+            RenderMD2ModelMirrored(aniset, Enemies[a].TextNum);
             glPopMatrix(1);
         }
 

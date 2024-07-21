@@ -104,14 +104,14 @@ void LoadObjectCommand(TiXmlElement *map)
         }
         Objects[num].NoGround = dontrenderground;
 
-        // mirrowable?
-        bool mirrowable = true;
-        if (object->Attribute("mirrowable"))
+        // mirrorable?
+        bool mirrorable = true;
+        if (object->Attribute("mirrorable"))
         {
-            if (strncmp("false", object->Attribute("mirrowable"), 5) == 0)
-                mirrowable = false;
+            if (strncmp("false", object->Attribute("mirrorable"), 5) == 0)
+                mirrorable = false;
         }
-        Objects[num].Mirrowable = mirrowable;
+        Objects[num].Mirrorable = mirrorable;
 
         // selfilluminated?
         bool ilu = false;

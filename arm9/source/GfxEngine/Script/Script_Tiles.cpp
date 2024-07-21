@@ -24,9 +24,9 @@ void LoadGroundCommand(TiXmlElement *map)
             Ground[a].ColorKey = r | (g << 8) | (b << 16) | (0 << 24);
         }
 
-        // mirrowing
-        if (ground->Attribute("mirrowing"))
-            if (strncmp("true", ground->Attribute("mirrowing"), 4) == 0)
+        // mirroring
+        if (ground->Attribute("mirroring"))
+            if (strncmp("true", ground->Attribute("mirroring"), 4) == 0)
                 Ground[a].TransEnable = true;
 
         // Here is that final call to load that texture

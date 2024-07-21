@@ -13,7 +13,7 @@ typedef struct {
     u32 ColorKey;  // 24 BPP RGB color
 
     float Radius;
-    bool Mirrowable;   // Is mirrowable
+    bool Mirrorable;   // Is mirrorable
     bool Illumination; // Self illuminated
     bool NoGround;     // Don't render ground
     bool Culling;      // If true, cull front. If false, cull none.

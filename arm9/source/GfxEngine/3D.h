@@ -14,7 +14,7 @@ typedef int32_t f32;
 
 // Some replacers for bitshifting inside precalcdata
 #define B_Water       0
-#define B_Mirrowable  1
+#define B_Mirrorable  1
 #define B_BumpgroundS 2
 #define B_BumpgroundW 3
 #define B_BumpgroundE 4

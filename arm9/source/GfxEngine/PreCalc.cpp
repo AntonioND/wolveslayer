@@ -941,13 +941,13 @@ static void PrecalcTerrain(void)
     }
 }
 
-static void PrecalcMirrow(void)
+static void PrecalcMirror(void)
 {
     for (int yy = 0; yy <= MapGetHr(); yy++)
     {
         for (int xx = 0; xx <= MapGetWr(); xx++)
         {
-            // Precalcdata[xx][yy] |= (0 << B_Mirrowable);
+            // Precalcdata[xx][yy] |= (0 << B_Mirrorable);
 
             for (int mx = xx - 1; mx <= xx + 1; mx++)
             {
@@ -957,10 +957,10 @@ static void PrecalcMirrow(void)
                     {
                         if (TexGround[mx][my] > -1)
                             if (Ground[TexGround[mx][my]].TransEnable && GetHeight(mx, my) == 0)
-                                Precalcdata[xx][yy] |= (1 << B_Mirrowable);
+                                Precalcdata[xx][yy] |= (1 << B_Mirrorable);
 
                         if (Precalcdata[xx][yy] & (1 << B_Water))
-                            Precalcdata[xx][yy] |= (1 << B_Mirrowable);
+                            Precalcdata[xx][yy] |= (1 << B_Mirrorable);
                     }
                 }
             }
@@ -1152,7 +1152,7 @@ void PreCalcAll(void)
     PreCalcObj();
     PreCalcWater();
     PrecalcTerrain();
-    PrecalcMirrow();
+    PrecalcMirror();
     PrecalcStaticBump();
     PrecalcObjectRot();
 }

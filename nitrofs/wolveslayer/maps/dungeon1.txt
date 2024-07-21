@@ -41,8 +41,8 @@
 	<mapchange pos="0,5" targetmap="dungeon2.txt" targetpos="27,8"/>
 
 	<enemydef name="Wolve2">
-		<mesh		file="enemys/wolf.md2"	scale="40"	radius="1.0"/>
-		<texture	file="enemys/wolf3.bmp"/>
+		<mesh		file="enemies/wolf.md2"	scale="40"	radius="1.0"/>
+		<texture	file="enemies/wolf3.bmp"/>
 		<atributes	healthpower="30"	attackpower="3"/>
 	</enemydef>
 

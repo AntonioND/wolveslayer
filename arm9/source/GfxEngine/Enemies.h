@@ -20,8 +20,7 @@ extern EnemyInfo Enemies[Enemies_Max];
 
 extern int EnemyCount; // It's the count of NPCs
 
-// Enemys
-void ResetEnemys(void);
+void ResetEnemies(void);
 void AddEnemy(int x, int y, int texnum, int atp, int hp, float rad, bool boss);
 void UpdateEnemy();
 

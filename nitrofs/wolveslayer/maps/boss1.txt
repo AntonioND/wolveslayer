@@ -37,8 +37,8 @@
 	<mapchange pos="5,11" targetmap="dungeon1.txt" targetpos="4,2"/>
 
 	<enemydef name="Wolve3">
-		<mesh		file="enemys/wolf.md2"	scale="50"		radius="1.3"/>
-		<texture	file="enemys/wolf.bmp"/>
+		<mesh		file="enemies/wolf.md2"	scale="50"		radius="1.3"/>
+		<texture	file="enemies/wolf.bmp"/>
 		<atributes	healthpower="50"	attackpower="6"		endgame="true"/>
 	</enemydef>
 

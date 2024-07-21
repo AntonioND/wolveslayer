@@ -530,8 +530,8 @@ static void RefreshVillagers(void)
 }
 
 //*******************************************************************************
-// Gegner (Enemys)
-static void RefreshEnemys(void)
+
+static void RefreshEnemies(void)
 {
     int aniset = 0;
     int blend;
@@ -642,7 +642,7 @@ static void RefreshEnemys(void)
 
 void Refresh3D(void)
 {
-    RefreshEnemys();
+    RefreshEnemies();
     RefreshVillagers();
     RefreshPlayer();
     RefreshWorld();

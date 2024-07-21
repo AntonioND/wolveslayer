@@ -143,7 +143,7 @@ void Menu(void)
 }
 
 //******************************************************************************
-// Interaction
+
 void Interact(void)
 {
     // Lets start interact
@@ -183,7 +183,7 @@ void Interact(void)
         r = true;
     }
 
-    // doors
+    // Doors
     if (PlStatus == 0 && Gameended == false) {
         if (keysDown() & KEY_A) {
             if (d)
@@ -207,7 +207,8 @@ void Interact(void)
             }
         }
     }
-    // enemys
+
+    // Enemies
     if (PlStatus == 1 && PlFrame == 21 && Gameended == false) {
         // Check on which site which NPC is
         int nl, nr, nu, nd;

@@ -27,7 +27,7 @@ static void UnloadStuff(void)
     ResetMapChange();
     glResetTextures();
     ResetVillagers();
-    ResetEnemys();
+    ResetEnemies();
     ResetEvent();
 
     for (int a = 0; a < Ground_Max; a++) {

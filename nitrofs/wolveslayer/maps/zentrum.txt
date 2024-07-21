@@ -49,8 +49,8 @@
 	<mapchange pos="19,8" targetmap="friedhof.txt" targetpos="3,3"/>
 
 	<enemydef name="Wolve1">
-		<mesh		file="enemys/wolf.md2"	scale="30"	radius=".8"/>
-		<texture	file="enemys/wolf2.bmp"/>
+		<mesh		file="enemies/wolf.md2"	scale="30"	radius=".8"/>
+		<texture	file="enemies/wolf2.bmp"/>
 		<atributes	healthpower="10"	attackpower="2"/>
 	</enemydef>
 

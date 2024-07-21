@@ -26,8 +26,8 @@ void LoadChars(TiXmlElement *map)
     // Load enemy defenition:
     //
     // <enemydef name="Wolve1">
-    //     <mesh        file="enemys/wolf.md2" scale="40" radius=".8"/>
-    //     <texture     file="enemys/wolf.bmp"/>
+    //     <mesh        file="enemies/wolf.md2" scale="40" radius=".8"/>
+    //     <texture     file="enemies/wolf.bmp"/>
     //     <atributes   healthpower="100" attackpower="2" endgame="true"/>
     // </enemydef>
 
@@ -97,7 +97,8 @@ void LoadChars(TiXmlElement *map)
         endef = endef->NextSiblingElement("enemydef");
     }
 
-    // now place the enemys
+    // Now place the enemies
+
     // <enemy name="Wolve1" pos="3,5"/>
     TiXmlElement *ene = map->FirstChildElement("enemy");
 

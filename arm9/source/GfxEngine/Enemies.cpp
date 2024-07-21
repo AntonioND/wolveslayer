@@ -10,7 +10,7 @@ EnemyInfo Enemies[Enemies_Max];
 
 int EnemyCount = -1;
 
-void ResetEnemys(void)
+void ResetEnemies(void)
 {
     EnemyCount = -1;
 

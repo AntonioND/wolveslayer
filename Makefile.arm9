@@ -20,7 +20,9 @@ AUDIODIRS	:=
 # Defines passed to all files
 # ---------------------------
 
-DEFINES		:= -DPICOLIBC_LONG_LONG_PRINTF_SCANF
+DEFINES		:=
+# Note: Don't use `-DPICOLIBC_LONG_LONG_PRINTF_SCANF`, we need to be able to
+# read floating point values from text files.
 
 # Libraries
 # ---------

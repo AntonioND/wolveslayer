@@ -10,6 +10,7 @@
 #include "GfxEngine/Render/Autotiles.h"
 #include "GfxEngine/Render/Doors.h"
 #include "GfxEngine/Render/Ground.h"
+#include "GfxEngine/Render/Render.h"
 #include "GfxEngine/Script/Script_Chars.h"
 #include "GfxEngine/Script/Script_Objects.h"
 #include "GfxEngine/Script/Script_Others.h"
@@ -118,7 +119,20 @@ void LoadScript(char filename[])
         Crash("No environment specified:\n%s", filename);
     }
 
-    // load the grounds
+    // Water level
+    if (map->Attribute("waterheight"))
+    {
+        float val = -0.1;
+        sscanf(map->Attribute("waterheight"), "%f", &val);
+        waterheight = floattof32(val);
+    }
+    else
+    {
+        // Default value
+        waterheight = floattof32(-0.1);
+    }
+
+    // Load the grounds
     LoadGroundCommand(map);
     LoadAutoGroundCommand(map);
     LoadWaterCommand(map);

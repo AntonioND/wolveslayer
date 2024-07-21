@@ -3,6 +3,10 @@
 
 #include <nds.h>
 
+#include "GfxEngine/3D.h"
+
+extern f32 waterheight;
+
 float GetInterPolY(int x, int y, float sx, float sy);
 void Refresh3D(void);
 

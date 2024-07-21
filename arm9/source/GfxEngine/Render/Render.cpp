@@ -20,7 +20,7 @@
 #include "GfxEngine/Ticks.h"
 #include "GfxEngine/Villagers.h"
 
-const f32 waterheight = floattof32(-.1);
+f32 waterheight = floattof32(-.1);
 
 float GetInterPolY(int x, int y, float sx, float sy)
 {

@@ -71,14 +71,14 @@ void ScreenMode(void)
 void ScreenModeHandler(void)
 {
     if (screenmode == ScreenModeTextBox) {
-        if ((keysDown() & KEY_A) && CurWord == wordnum && nextpage == false) {
+        if ((keysDown() & (KEY_A | KEY_B)) && CurWord == wordnum && nextpage == false) {
             npctalk = -1;
             ScreenMode();
             CurWord = -1;
             wordnum = -1;
         }
 
-        if ((keysDown() & KEY_A) && nextpage == true)
+        if ((keysDown() & (KEY_A | KEY_B)) && nextpage == true)
             ShownextPage();
     }
 }

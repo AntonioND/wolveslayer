@@ -105,7 +105,7 @@ static void RenderDoorOutside(int mode, float angle, f32 x, f32 y, f32 z, bool t
 }
 //____________________________________________________________________________________________
 
-void RenderHouseBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y, f32 z)
+void RenderHouseBorderDoor(int mode, int doorangle, int direction, f32 x, f32 y, f32 z)
 {
     if (mode != 0 && mode != 1)
         return;
@@ -134,7 +134,7 @@ void RenderHouseBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y
     glPushMatrix();
 
     glTranslatef32(x, y, z);
-    glRotateYi((DEGREES_IN_CIRCLE / 512) * (dirrection * -128));
+    glRotateYi((DEGREES_IN_CIRCLE / 512) * (direction * -128));
     u8 r = EnvR, g = EnvG, b = EnvB;
 
     int LightX1 = 0, LightY1 = 0;
@@ -143,28 +143,28 @@ void RenderHouseBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y
     u8 col1[3];
     u8 col2[3];
 
-    if (dirrection == 0) {
+    if (direction == 0) {
         LightX1 = WallX;
         LightY1 = WallY + 1;
         LightX2 = WallX + 1;
         LightY2 = WallY + 1;
     }
 
-    if (dirrection == 1) {
+    if (direction == 1) {
         LightX1 = WallX;
         LightY1 = WallY;
         LightX2 = WallX;
         LightY2 = WallY + 1;
     }
 
-    if (dirrection == 2) {
+    if (direction == 2) {
         LightX1 = WallX + 1;
         LightY1 = WallY;
         LightX2 = WallX;
         LightY2 = WallY;
     }
 
-    if (dirrection == 3) {
+    if (direction == 3) {
         LightX1 = WallX + 1;
         LightY1 = WallY + 1;
         LightX2 = WallX + 1;
@@ -306,24 +306,24 @@ void RenderHouseBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y
     }
 
     glPopMatrix(1);
-    if (dirrection == 0)
+    if (direction == 0)
         RenderDoorOutside(mode, doorangle * -1, x - floattov16(.3125), y, z + floattov16(.5), trans);
-    if (dirrection == 2)
+    if (direction == 2)
         RenderDoorOutside(mode, 180 + doorangle * -1, x + floattov16(.3125), y, z - floattov16(.5), trans);
-    if (dirrection == 1)
+    if (direction == 1)
         RenderDoorOutside(mode, 90 + doorangle * -1, x - floattov16(.5), y, z - floattov16(.3125), trans);
-    if (dirrection == 3)
+    if (direction == 3)
         RenderDoorOutside(mode, -90 + doorangle * -1, x + floattov16(.5), y, z + floattov16(.3125), trans);
 }
 
-void RenderWallBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y, f32 z)
+void RenderWallBorderDoor(int mode, int doorangle, int direction, f32 x, f32 y, f32 z)
 {
     if (mode != 0 && mode != 1)
         return;
 
     bool trans = true;
 
-    if (walltrans && dirrection == 2 && mode != 1)
+    if (walltrans && direction == 2 && mode != 1)
         glPolyFmt(POLY_ALPHA(7) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(3));
     else {
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(3));
@@ -348,28 +348,28 @@ void RenderWallBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y,
     int LightX1 = 0, LightY1 = 0;
     int LightX2 = 0, LightY2 = 0;
 
-    if (dirrection == 0) {
+    if (direction == 0) {
         LightX1 = WallX;
         LightY1 = WallY + 1;
         LightX2 = WallX + 1;
         LightY2 = WallY + 1;
     }
 
-    if (dirrection == 1) {
+    if (direction == 1) {
         LightX1 = WallX;
         LightY1 = WallY;
         LightX2 = WallX;
         LightY2 = WallY + 1;
     }
 
-    if (dirrection == 2) {
+    if (direction == 2) {
         LightX1 = WallX + 1;
         LightY1 = WallY;
         LightX2 = WallX;
         LightY2 = WallY;
     }
 
-    if (dirrection == 3) {
+    if (direction == 3) {
         LightX1 = WallX + 1;
         LightY1 = WallY + 1;
         LightX2 = WallX + 1;
@@ -401,11 +401,11 @@ void RenderWallBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y,
     if (newcol2[2] > 255)
         newcol2[2] = 255;
 
-    if (dirrection != 2) {
+    if (direction != 2) {
         glPushMatrix();
 
         glTranslatef32(x, y, z);
-        glRotateYi((DEGREES_IN_CIRCLE / 512) * (dirrection * -128));
+        glRotateYi((DEGREES_IN_CIRCLE / 512) * (direction * -128));
 
         // Wall top
         glBegin(GL_QUADS);
@@ -485,12 +485,12 @@ void RenderWallBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y,
         glPopMatrix(1);
     }
 
-    if (dirrection == 0)
+    if (direction == 0)
         RenderDoorOutside(mode, doorangle * -1, x - floattov16(.3125), y, z + floattov16(.5), trans);
-    if (dirrection == 2)
+    if (direction == 2)
         RenderDoorOutside(mode, 180 + doorangle * -1, x + floattov16(.3125), y, z - floattov16(.5), trans);
-    if (dirrection == 1)
+    if (direction == 1)
         RenderDoorOutside(mode, 90 + doorangle * -1, x - floattov16(.5), y, z - floattov16(.3125), trans);
-    if (dirrection == 3)
+    if (direction == 3)
         RenderDoorOutside(mode, -90 + doorangle * -1, x + floattov16(.5), y, z + floattov16(.3125), trans);
 }

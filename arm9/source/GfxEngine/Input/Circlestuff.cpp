@@ -6,8 +6,8 @@
 typedef struct {
     short X;
     short Y;
-    u8 Dirrection;
-    u8 DirrectionDiagonal;
+    u8 Direction;
+    u8 DirectionDiagonal;
 } circlepoint;
 
 typedef struct {
@@ -61,43 +61,43 @@ static void makecircle(int rad)
             CircleLUT[rad].Pix[count].Y = Y;
             // if you just press up,down,left or right
             if (deg > 0)
-                CircleLUT[rad].Pix[count].Dirrection = 3; // down-right
+                CircleLUT[rad].Pix[count].Direction = 3; // down-right
             if (deg > 128)
-                CircleLUT[rad].Pix[count].Dirrection = 5; // down-left
+                CircleLUT[rad].Pix[count].Direction = 5; // down-left
             if (deg > 256)
-                CircleLUT[rad].Pix[count].Dirrection = 7; // up-left
+                CircleLUT[rad].Pix[count].Direction = 7; // up-left
             if (deg > 384)
-                CircleLUT[rad].Pix[count].Dirrection = 1; // up-right
+                CircleLUT[rad].Pix[count].Direction = 1; // up-right
 
-            // if you press 2 dirrections
+            // if you press 2 directions
             if (deg > 448 || deg < 64)
-                CircleLUT[rad].Pix[count].DirrectionDiagonal = 2; // right
+                CircleLUT[rad].Pix[count].DirectionDiagonal = 2; // right
             if (deg > 64)
-                CircleLUT[rad].Pix[count].DirrectionDiagonal = 4; // down
+                CircleLUT[rad].Pix[count].DirectionDiagonal = 4; // down
             if (deg > 192)
-                CircleLUT[rad].Pix[count].DirrectionDiagonal = 6; // left
+                CircleLUT[rad].Pix[count].DirectionDiagonal = 6; // left
             if (deg > 320 && deg < 448)
-                CircleLUT[rad].Pix[count].DirrectionDiagonal = 0; // up
+                CircleLUT[rad].Pix[count].DirectionDiagonal = 0; // up
             count++;
         }
         // if you just press up,down,left or right
         if (deg == 0)
-            CircleLUT[rad].Pix[count - 1].Dirrection = 2; // right
+            CircleLUT[rad].Pix[count - 1].Direction = 2; // right
         if (deg == 128)
-            CircleLUT[rad].Pix[count - 1].Dirrection = 4; // down
+            CircleLUT[rad].Pix[count - 1].Direction = 4; // down
         if (deg == 256)
-            CircleLUT[rad].Pix[count - 1].Dirrection = 6; // left
+            CircleLUT[rad].Pix[count - 1].Direction = 6; // left
         if (deg == 384)
-            CircleLUT[rad].Pix[count - 1].Dirrection = 0; // up
-        // if you press 2 dirrections
+            CircleLUT[rad].Pix[count - 1].Direction = 0; // up
+        // if you press 2 directions
         if (deg == 64)
-            CircleLUT[rad].Pix[count - 1].DirrectionDiagonal = 3; // down-right
+            CircleLUT[rad].Pix[count - 1].DirectionDiagonal = 3; // down-right
         if (deg == 192)
-            CircleLUT[rad].Pix[count - 1].DirrectionDiagonal = 5; // down-left
+            CircleLUT[rad].Pix[count - 1].DirectionDiagonal = 5; // down-left
         if (deg == 320)
-            CircleLUT[rad].Pix[count - 1].DirrectionDiagonal = 7; // up-left
+            CircleLUT[rad].Pix[count - 1].DirectionDiagonal = 7; // up-left
         if (deg == 448)
-            CircleLUT[rad].Pix[count - 1].DirrectionDiagonal = 1; // up-right
+            CircleLUT[rad].Pix[count - 1].DirectionDiagonal = 1; // up-right
 
         ox = X;
         oy = Y;
@@ -120,28 +120,28 @@ void DrawCircle(int num)
         int x = CircleLUT[num].Pix[q].X;
         int y = CircleLUT[num].Pix[q].Y;
 
-        if (CircleLUT[num].Pix[q].Dirrection == 0)
+        if (CircleLUT[num].Pix[q].Direction == 0)
             BG_GFX_SUB[x + 128 + ((y + 96) * 256)] = RGB15(31, 31, 31) | BIT(15);
 
-        if (CircleLUT[num].Pix[q].Dirrection == 1)
+        if (CircleLUT[num].Pix[q].Direction == 1)
             BG_GFX_SUB[x + 128 + ((y + 96) * 256)] = RGB15(0, 31, 31) | BIT(15);
 
-        if (CircleLUT[num].Pix[q].Dirrection == 2)
+        if (CircleLUT[num].Pix[q].Direction == 2)
             BG_GFX_SUB[x + 128 + ((y + 96) * 256)] = RGB15(31, 0, 31) | BIT(15);
 
-        if (CircleLUT[num].Pix[q].Dirrection == 3)
+        if (CircleLUT[num].Pix[q].Direction == 3)
             BG_GFX_SUB[x + 128 + ((y + 96) * 256)] = RGB15(31, 31, 0) | BIT(15);
 
-        if (CircleLUT[num].Pix[q].Dirrection == 4)
+        if (CircleLUT[num].Pix[q].Direction == 4)
             BG_GFX_SUB[x + 128 + ((y + 96) * 256)] = RGB15(0, 31, 0) | BIT(15);
 
-        if (CircleLUT[num].Pix[q].Dirrection == 5)
+        if (CircleLUT[num].Pix[q].Direction == 5)
             BG_GFX_SUB[x + 128 + ((y + 96) * 256)] = RGB15(0, 0, 31) | BIT(15);
 
-        if (CircleLUT[num].Pix[q].Dirrection == 6)
+        if (CircleLUT[num].Pix[q].Direction == 6)
             BG_GFX_SUB[x + 128 + ((y + 96) * 256)] = RGB15(31, 0, 0) | BIT(15);
 
-        if (CircleLUT[num].Pix[q].Dirrection == 7)
+        if (CircleLUT[num].Pix[q].Direction == 7)
             BG_GFX_SUB[x + 128 + ((y + 96) * 256)] = RGB15(0, 0, 0) | BIT(15);
     }
 }
@@ -156,7 +156,7 @@ void Checkcolision(int x, int y, int sx, int sy, int rad, bool *values)
         int Y = CircleLUT[rad].Pix[q].Y;
 
         if (Passable(x, y, sx + X, sy + Y) == false)
-            values[CircleLUT[rad].Pix[q].Dirrection] = false;
+            values[CircleLUT[rad].Pix[q].Direction] = false;
     }
 }
 
@@ -170,6 +170,6 @@ void CheckcolisionDiagonal(int x, int y, int sx, int sy, int rad, bool *values)
         int Y = CircleLUT[rad].Pix[q].Y;
 
         if (Passable(x, y, sx + X, sy + Y) == false)
-            values[CircleLUT[rad].Pix[q].DirrectionDiagonal] = false;
+            values[CircleLUT[rad].Pix[q].DirectionDiagonal] = false;
     }
 }

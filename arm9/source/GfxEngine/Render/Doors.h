@@ -5,7 +5,7 @@
 
 void LoadDoorTexture(char filename[]);
 
-void RenderHouseBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y, f32 z);
-void RenderWallBorderDoor(int mode, int doorangle, int dirrection, f32 x, f32 y, f32 z);
+void RenderHouseBorderDoor(int mode, int doorangle, int direction, f32 x, f32 y, f32 z);
+void RenderWallBorderDoor(int mode, int doorangle, int direction, f32 x, f32 y, f32 z);
 
 #endif // GFXENGINE_RENDER_DOORS_H__

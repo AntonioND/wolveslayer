@@ -524,7 +524,7 @@ void inputs(void)
     }
 
     if (PlStatus != 3) {
-        // Look in given dirrection
+        // Look in given direction
         if (keysHeld() & KEY_DOWN)
             PlDirection = 0;
         if (keysHeld() & KEY_LEFT)

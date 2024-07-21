@@ -33,7 +33,7 @@ void LoadDynamicLightCommand(TiXmlElement *map)
     TiXmlElement *dynamiclight = map->FirstChildElement("dynamiclight");
 
     while (dynamiclight) {
-        // Fireflys
+        // Fireflies
         TiXmlElement *firefly = dynamiclight->FirstChildElement("firefly");
         while (firefly) {
             // POSITION

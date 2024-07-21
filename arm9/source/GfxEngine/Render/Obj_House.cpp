@@ -64,7 +64,7 @@ void RenderHouseM(int mode, f32 x, f32 y, f32 z)
     glPopMatrix(1);
 }
 
-void RenderHouseBorder(int mode, int dirrection, f32 x, f32 y, f32 z)
+void RenderHouseBorder(int mode, int direction, f32 x, f32 y, f32 z)
 {
     if (mode != 0 && mode != 1)
         return;
@@ -85,34 +85,34 @@ void RenderHouseBorder(int mode, int dirrection, f32 x, f32 y, f32 z)
     glPushMatrix();
 
     glTranslatef32(x, y, z);
-    glRotateYi((DEGREES_IN_CIRCLE / 512) * (dirrection * -128));
+    glRotateYi((DEGREES_IN_CIRCLE / 512) * (direction * -128));
     u8 r = EnvR, g = EnvG, b = EnvB;
 
     int LightX1 = 0, LightY1 = 0;
     int LightX2 = 0, LightY2 = 0;
 
-    if (dirrection == 0) {
+    if (direction == 0) {
         LightX1 = WallX;
         LightY1 = WallY + 1;
         LightX2 = WallX + 1;
         LightY2 = WallY + 1;
     }
 
-    if (dirrection == 1) {
+    if (direction == 1) {
         LightX1 = WallX;
         LightY1 = WallY;
         LightX2 = WallX;
         LightY2 = WallY + 1;
     }
 
-    if (dirrection == 2) {
+    if (direction == 2) {
         LightX1 = WallX + 1;
         LightY1 = WallY;
         LightX2 = WallX;
         LightY2 = WallY;
     }
 
-    if (dirrection == 3) {
+    if (direction == 3) {
         LightX1 = WallX + 1;
         LightY1 = WallY + 1;
         LightX2 = WallX + 1;
@@ -179,7 +179,7 @@ void RenderHouseBorder(int mode, int dirrection, f32 x, f32 y, f32 z)
     glPopMatrix(1);
 }
 
-void RenderHouseCorner(int mode, int dirrection, f32 x, f32 y, f32 z)
+void RenderHouseCorner(int mode, int direction, f32 x, f32 y, f32 z)
 {
     if (mode != 0 && mode != 1)
         return;
@@ -201,7 +201,7 @@ void RenderHouseCorner(int mode, int dirrection, f32 x, f32 y, f32 z)
 
     glPushMatrix();
     glTranslatef32(x, y, z);
-    glRotateYi((DEGREES_IN_CIRCLE / 512) * (dirrection * -128));
+    glRotateYi((DEGREES_IN_CIRCLE / 512) * (direction * -128));
 
     u8 r = EnvR, g = EnvG, b = EnvB;
 
@@ -209,7 +209,7 @@ void RenderHouseCorner(int mode, int dirrection, f32 x, f32 y, f32 z)
     int LightX2 = 0, LightY2 = 0;
     int LightX3 = 0, LightY3 = 0;
 
-    if (dirrection == 0) {
+    if (direction == 0) {
         LightX1 = WallX;
         LightY1 = WallY + 1;
         LightX2 = WallX + 1;
@@ -218,7 +218,7 @@ void RenderHouseCorner(int mode, int dirrection, f32 x, f32 y, f32 z)
         LightY3 = WallY;
     }
 
-    if (dirrection == 1) {
+    if (direction == 1) {
         LightX1 = WallX;
         LightY1 = WallY;
         LightX2 = WallX;
@@ -227,7 +227,7 @@ void RenderHouseCorner(int mode, int dirrection, f32 x, f32 y, f32 z)
         LightY3 = WallY;
     }
 
-    if (dirrection == 2) {
+    if (direction == 2) {
         LightX1 = WallX + 1;
         LightY1 = WallY;
         LightX2 = WallX;
@@ -236,7 +236,7 @@ void RenderHouseCorner(int mode, int dirrection, f32 x, f32 y, f32 z)
         LightY3 = WallY + 1;
     }
 
-    if (dirrection == 3) {
+    if (direction == 3) {
         LightX1 = WallX + 1;
         LightY1 = WallY + 1;
         LightX2 = WallX + 1;

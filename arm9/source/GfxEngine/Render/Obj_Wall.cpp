@@ -7,7 +7,7 @@
 ObjectTextureInfo ObjectTexture[ObjectTexture_Max];
 
 // Renders walls inside buildings
-void RenderWallBorder(int mode, int dirrection, f32 x, f32 y, f32 z, int textnum)
+void RenderWallBorder(int mode, int direction, f32 x, f32 y, f32 z, int textnum)
 {
     if (mode != 0 && mode != 1)
         return;
@@ -22,7 +22,7 @@ void RenderWallBorder(int mode, int dirrection, f32 x, f32 y, f32 z, int textnum
         vert2 = mode1vertex2;
     }
 
-    if (walltrans && dirrection == 2 && mode != 1)
+    if (walltrans && direction == 2 && mode != 1)
         glPolyFmt(POLY_ALPHA(7) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(3));
     else
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(3));
@@ -34,7 +34,7 @@ void RenderWallBorder(int mode, int dirrection, f32 x, f32 y, f32 z, int textnum
     if (IsObjBumpWall(WallX, WallY) == true)
         layers = 2;
 
-    if (dirrection == 0) {
+    if (direction == 0) {
         LightX1[0] = WallX;
         LightY1[0] = WallY + 1;
         LightX2[0] = WallX + 1;
@@ -51,7 +51,7 @@ void RenderWallBorder(int mode, int dirrection, f32 x, f32 y, f32 z, int textnum
         LightY2[2] = WallY + 1;
     }
 
-    if (dirrection == 1) {
+    if (direction == 1) {
         LightX1[0] = WallX;
         LightY1[0] = WallY;
         LightX2[0] = WallX;
@@ -68,10 +68,10 @@ void RenderWallBorder(int mode, int dirrection, f32 x, f32 y, f32 z, int textnum
         LightY2[2] = WallY;
     }
 
-    if (dirrection == 2)
+    if (direction == 2)
         return;
 
-    if (dirrection == 3) {
+    if (direction == 3) {
         LightX1[0] = WallX + 1;
         LightY1[0] = WallY + 1;
         LightX2[0] = WallX + 1;
@@ -92,7 +92,7 @@ void RenderWallBorder(int mode, int dirrection, f32 x, f32 y, f32 z, int textnum
 
     glTranslatef32(x, y, z);
 
-    glRotateYi((DEGREES_IN_CIRCLE / 512) * (dirrection * -128));
+    glRotateYi((DEGREES_IN_CIRCLE / 512) * (direction * -128));
 
     for (int a = 0; a <= layers; a++) {
         if (a == 1)

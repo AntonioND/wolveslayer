@@ -26,7 +26,7 @@ void SetCurWall(int x, int y);
 void SetWallTrans(bool bol);
 
 void RenderHouseM(int mode, f32 x, f32 y, f32 z);
-void RenderHouseBorder(int mode, int dirrection, f32 x, f32 y, f32 z);
-void RenderHouseCorner(int mode, int dirrection, f32 x, f32 y, f32 z);
+void RenderHouseBorder(int mode, int direction, f32 x, f32 y, f32 z);
+void RenderHouseCorner(int mode, int direction, f32 x, f32 y, f32 z);
 
 #endif // GFXENGINE_RENDER_OBJ_HOUSE_H__

@@ -31,14 +31,14 @@ typedef struct {
     u8 Bcolor;
 } DynamicLightSource;
 
-static DynamicLightSource Fireflys[DynamicLight_Max];
+static DynamicLightSource Fireflies[DynamicLight_Max];
 static int DynamicLightCount = -1;
 
 void ResetDynamic(void)
 {
     DynamicLightCount = -1;
     for (int a = 0; a < DynamicLight_Max; a++)
-        Fireflys[a].Enable = false;
+        Fireflies[a].Enable = false;
 }
 
 void AddDynamic(int x, int y, u8 r, u8 g, u8 b)
@@ -47,12 +47,12 @@ void AddDynamic(int x, int y, u8 r, u8 g, u8 b)
         Crash("Too many dynamic lights:\n%d > %d", DynamicLightCount, DynamicLight_Max);
 
     DynamicLightCount++;
-    Fireflys[DynamicLightCount].X      = x;
-    Fireflys[DynamicLightCount].Y      = y;
-    Fireflys[DynamicLightCount].Rcolor = r;
-    Fireflys[DynamicLightCount].Gcolor = g;
-    Fireflys[DynamicLightCount].Bcolor = b;
-    Fireflys[DynamicLightCount].Enable = true;
+    Fireflies[DynamicLightCount].X      = x;
+    Fireflies[DynamicLightCount].Y      = y;
+    Fireflies[DynamicLightCount].Rcolor = r;
+    Fireflies[DynamicLightCount].Gcolor = g;
+    Fireflies[DynamicLightCount].Bcolor = b;
+    Fireflies[DynamicLightCount].Enable = true;
 }
 
 static void TurnDyn(int a, bool l, bool r, bool u, bool d)
@@ -77,10 +77,10 @@ static void TurnDyn(int a, bool l, bool r, bool u, bool d)
             ok = false;
     }
 
-    Fireflys[a].Direction = dirnew;
+    Fireflies[a].Direction = dirnew;
 }
 
-static void UpdateFireFlys(void)
+static void UpdateFireflies(void)
 {
     int a, b;
     bool r, l, u, d;
@@ -93,39 +93,39 @@ static void UpdateFireFlys(void)
 
     if (screenmode < ScreenModeItem) {
         for (a = 0; a < DynamicLight_Max; a++) {
-            if (Fireflys[a].Enable == true) {
+            if (Fireflies[a].Enable == true) {
                 l = true;
                 r = true;
                 u = true;
                 d = true;
 
-                sx = (Fireflys[a].SX - 10) / 2;
-                sy = (Fireflys[a].SY - 10) / 2;
+                sx = (Fireflies[a].SX - 10) / 2;
+                sy = (Fireflies[a].SY - 10) / 2;
 
                 for (b = 2; b < 8; b++) {
-                    if (Passable(Fireflys[a].X, Fireflys[a].Y, sx + b, sy) == false)
+                    if (Passable(Fireflies[a].X, Fireflies[a].Y, sx + b, sy) == false)
                         u = false;
-                    if (Passable(Fireflys[a].X, Fireflys[a].Y, sx + b, sy + 8) == false)
+                    if (Passable(Fireflies[a].X, Fireflies[a].Y, sx + b, sy + 8) == false)
                         d = false;
-                    if (Passable(Fireflys[a].X, Fireflys[a].Y, sx + 1, sy - 1 + b) == false)
+                    if (Passable(Fireflies[a].X, Fireflies[a].Y, sx + 1, sy - 1 + b) == false)
                         l = false;
-                    if (Passable(Fireflys[a].X, Fireflys[a].Y, sx + 8, sy - 1 + b) == false)
+                    if (Passable(Fireflies[a].X, Fireflies[a].Y, sx + 8, sy - 1 + b) == false)
                         r = false;
                 }
 
-                if (Fireflys[a].X == MapGetWr())
+                if (Fireflies[a].X == MapGetWr())
                     r = false;
-                if (Fireflys[a].Y == MapGetHr())
+                if (Fireflies[a].Y == MapGetHr())
                     d = false;
 
                 change = false;
-                if ((Fireflys[a].Direction == 0 || Fireflys[a].Direction == 1 || Fireflys[a].Direction == 7) && d == false)
+                if ((Fireflies[a].Direction == 0 || Fireflies[a].Direction == 1 || Fireflies[a].Direction == 7) && d == false)
                     change = true;
-                if ((Fireflys[a].Direction == 1 || Fireflys[a].Direction == 2 || Fireflys[a].Direction == 3) && l == false)
+                if ((Fireflies[a].Direction == 1 || Fireflies[a].Direction == 2 || Fireflies[a].Direction == 3) && l == false)
                     change = true;
-                if ((Fireflys[a].Direction == 6 || Fireflys[a].Direction == 5 || Fireflys[a].Direction == 7) && r == false)
+                if ((Fireflies[a].Direction == 6 || Fireflies[a].Direction == 5 || Fireflies[a].Direction == 7) && r == false)
                     change = true;
-                if ((Fireflys[a].Direction == 4 || Fireflys[a].Direction == 3 || Fireflys[a].Direction == 5) && u == false)
+                if ((Fireflies[a].Direction == 4 || Fireflies[a].Direction == 3 || Fireflies[a].Direction == 5) && u == false)
                     change = true;
                 if (rand() % 20 == 0)
                     change = true;
@@ -137,61 +137,61 @@ static void UpdateFireFlys(void)
 
                 for (dx = 0; dx <= 1; dx++) {
                     for (dy = 0; dy <= 1; dy++) {
-                        WorldLightR[Fireflys[a].X + dx + (Fireflys[a].Y + dy) * 128] = MapLightR[Fireflys[a].X + dx + (Fireflys[a].Y + dy) * 128];
-                        WorldLightG[Fireflys[a].X + dx + (Fireflys[a].Y + dy) * 128] = MapLightG[Fireflys[a].X + dx + (Fireflys[a].Y + dy) * 128];
-                        WorldLightB[Fireflys[a].X + dx + (Fireflys[a].Y + dy) * 128] = MapLightB[Fireflys[a].X + dx + (Fireflys[a].Y + dy) * 128];
+                        WorldLightR[Fireflies[a].X + dx + (Fireflies[a].Y + dy) * 128] = MapLightR[Fireflies[a].X + dx + (Fireflies[a].Y + dy) * 128];
+                        WorldLightG[Fireflies[a].X + dx + (Fireflies[a].Y + dy) * 128] = MapLightG[Fireflies[a].X + dx + (Fireflies[a].Y + dy) * 128];
+                        WorldLightB[Fireflies[a].X + dx + (Fireflies[a].Y + dy) * 128] = MapLightB[Fireflies[a].X + dx + (Fireflies[a].Y + dy) * 128];
                     }
                 }
 
                 // Horizontal
-                if ((Fireflys[a].Direction == 6 || Fireflys[a].Direction == 5 || Fireflys[a].Direction == 7) && r)
-                    Fireflys[a].SX += 1;
-                if (Fireflys[a].SX > 19) {
-                    Fireflys[a].X += 1;
-                    Fireflys[a].SX = 0;
+                if ((Fireflies[a].Direction == 6 || Fireflies[a].Direction == 5 || Fireflies[a].Direction == 7) && r)
+                    Fireflies[a].SX += 1;
+                if (Fireflies[a].SX > 19) {
+                    Fireflies[a].X += 1;
+                    Fireflies[a].SX = 0;
                 }
-                if ((Fireflys[a].Direction == 1 || Fireflys[a].Direction == 2 || Fireflys[a].Direction == 3) && l)
-                    Fireflys[a].SX -= 1;
-                if (Fireflys[a].SX < 0) {
-                    Fireflys[a].X -= 1;
-                    Fireflys[a].SX = 19;
+                if ((Fireflies[a].Direction == 1 || Fireflies[a].Direction == 2 || Fireflies[a].Direction == 3) && l)
+                    Fireflies[a].SX -= 1;
+                if (Fireflies[a].SX < 0) {
+                    Fireflies[a].X -= 1;
+                    Fireflies[a].SX = 19;
                 }
                 // Vertikal
-                if ((Fireflys[a].Direction == 0 || Fireflys[a].Direction == 1 || Fireflys[a].Direction == 7) && d)
-                    Fireflys[a].SY += 1;
-                if (Fireflys[a].SY > 19) {
-                    Fireflys[a].Y += 1;
-                    Fireflys[a].SY = 0;
+                if ((Fireflies[a].Direction == 0 || Fireflies[a].Direction == 1 || Fireflies[a].Direction == 7) && d)
+                    Fireflies[a].SY += 1;
+                if (Fireflies[a].SY > 19) {
+                    Fireflies[a].Y += 1;
+                    Fireflies[a].SY = 0;
                 }
-                if ((Fireflys[a].Direction == 4 || Fireflys[a].Direction == 3 || Fireflys[a].Direction == 5) && u)
-                    Fireflys[a].SY -= 1;
-                if (Fireflys[a].SY < 0) {
-                    Fireflys[a].Y -= 1;
-                    Fireflys[a].SY = 19;
+                if ((Fireflies[a].Direction == 4 || Fireflies[a].Direction == 3 || Fireflies[a].Direction == 5) && u)
+                    Fireflies[a].SY -= 1;
+                if (Fireflies[a].SY < 0) {
+                    Fireflies[a].Y -= 1;
+                    Fireflies[a].SY = 19;
                 }
             }
         }
 
         for (a = 0; a < DynamicLight_Max; a++) {
-            if (Fireflys[a].Enable == true) {
-                sx = Fireflys[a].SX;
-                sy = Fireflys[a].SY;
+            if (Fireflies[a].Enable == true) {
+                sx = Fireflies[a].SX;
+                sy = Fireflies[a].SY;
 
-                Rcol1 = float((Fireflys[a].Rcolor / 20 * (sx)) / 20 * (sy)) + WorldLightR[Fireflys[a].X + 1 + (Fireflys[a].Y + 1) * 128];
-                Gcol1 = float((Fireflys[a].Gcolor / 20 * (sx)) / 20 * (sy)) + WorldLightG[Fireflys[a].X + 1 + (Fireflys[a].Y + 1) * 128];
-                Bcol1 = float((Fireflys[a].Bcolor / 20 * (sx)) / 20 * (sy)) + WorldLightB[Fireflys[a].X + 1 + (Fireflys[a].Y + 1) * 128];
+                Rcol1 = float((Fireflies[a].Rcolor / 20 * (sx)) / 20 * (sy)) + WorldLightR[Fireflies[a].X + 1 + (Fireflies[a].Y + 1) * 128];
+                Gcol1 = float((Fireflies[a].Gcolor / 20 * (sx)) / 20 * (sy)) + WorldLightG[Fireflies[a].X + 1 + (Fireflies[a].Y + 1) * 128];
+                Bcol1 = float((Fireflies[a].Bcolor / 20 * (sx)) / 20 * (sy)) + WorldLightB[Fireflies[a].X + 1 + (Fireflies[a].Y + 1) * 128];
 
-                Rcol2 = float((Fireflys[a].Rcolor / 20 * (20 - sx)) / 20 * (sy)) + WorldLightR[Fireflys[a].X + (Fireflys[a].Y + 1) * 128];
-                Gcol2 = float((Fireflys[a].Gcolor / 20 * (20 - sx)) / 20 * (sy)) + WorldLightG[Fireflys[a].X + (Fireflys[a].Y + 1) * 128];
-                Bcol2 = float((Fireflys[a].Bcolor / 20 * (20 - sx)) / 20 * (sy)) + WorldLightB[Fireflys[a].X + (Fireflys[a].Y + 1) * 128];
+                Rcol2 = float((Fireflies[a].Rcolor / 20 * (20 - sx)) / 20 * (sy)) + WorldLightR[Fireflies[a].X + (Fireflies[a].Y + 1) * 128];
+                Gcol2 = float((Fireflies[a].Gcolor / 20 * (20 - sx)) / 20 * (sy)) + WorldLightG[Fireflies[a].X + (Fireflies[a].Y + 1) * 128];
+                Bcol2 = float((Fireflies[a].Bcolor / 20 * (20 - sx)) / 20 * (sy)) + WorldLightB[Fireflies[a].X + (Fireflies[a].Y + 1) * 128];
 
-                Rcol3 = float((Fireflys[a].Rcolor / 20 * (sx)) / 20 * (20 - sy)) + WorldLightR[Fireflys[a].X + 1 + (Fireflys[a].Y) * 128];
-                Gcol3 = float((Fireflys[a].Gcolor / 20 * (sx)) / 20 * (20 - sy)) + WorldLightG[Fireflys[a].X + 1 + (Fireflys[a].Y) * 128];
-                Bcol3 = float((Fireflys[a].Bcolor / 20 * (sx)) / 20 * (20 - sy)) + WorldLightB[Fireflys[a].X + 1 + (Fireflys[a].Y) * 128];
+                Rcol3 = float((Fireflies[a].Rcolor / 20 * (sx)) / 20 * (20 - sy)) + WorldLightR[Fireflies[a].X + 1 + (Fireflies[a].Y) * 128];
+                Gcol3 = float((Fireflies[a].Gcolor / 20 * (sx)) / 20 * (20 - sy)) + WorldLightG[Fireflies[a].X + 1 + (Fireflies[a].Y) * 128];
+                Bcol3 = float((Fireflies[a].Bcolor / 20 * (sx)) / 20 * (20 - sy)) + WorldLightB[Fireflies[a].X + 1 + (Fireflies[a].Y) * 128];
 
-                Rcol4 = float((Fireflys[a].Rcolor / 20 * (20 - sx)) / 20 * (20 - sy)) + WorldLightR[Fireflys[a].X + (Fireflys[a].Y) * 128];
-                Gcol4 = float((Fireflys[a].Gcolor / 20 * (20 - sx)) / 20 * (20 - sy)) + WorldLightG[Fireflys[a].X + (Fireflys[a].Y) * 128];
-                Bcol4 = float((Fireflys[a].Bcolor / 20 * (20 - sx)) / 20 * (20 - sy)) + WorldLightB[Fireflys[a].X + (Fireflys[a].Y) * 128];
+                Rcol4 = float((Fireflies[a].Rcolor / 20 * (20 - sx)) / 20 * (20 - sy)) + WorldLightR[Fireflies[a].X + (Fireflies[a].Y) * 128];
+                Gcol4 = float((Fireflies[a].Gcolor / 20 * (20 - sx)) / 20 * (20 - sy)) + WorldLightG[Fireflies[a].X + (Fireflies[a].Y) * 128];
+                Bcol4 = float((Fireflies[a].Bcolor / 20 * (20 - sx)) / 20 * (20 - sy)) + WorldLightB[Fireflies[a].X + (Fireflies[a].Y) * 128];
 
                 if (Rcol1 > 255)
                     Rcol1 = 255;
@@ -221,21 +221,21 @@ static void UpdateFireFlys(void)
                 if (Bcol4 > 255)
                     Bcol4 = 255;
 
-                WorldLightR[Fireflys[a].X + (Fireflys[a].Y) * 128] = Rcol4;
-                WorldLightG[Fireflys[a].X + (Fireflys[a].Y) * 128] = Gcol4;
-                WorldLightB[Fireflys[a].X + (Fireflys[a].Y) * 128] = Bcol4;
+                WorldLightR[Fireflies[a].X + (Fireflies[a].Y) * 128] = Rcol4;
+                WorldLightG[Fireflies[a].X + (Fireflies[a].Y) * 128] = Gcol4;
+                WorldLightB[Fireflies[a].X + (Fireflies[a].Y) * 128] = Bcol4;
 
-                WorldLightR[Fireflys[a].X + 1 + (Fireflys[a].Y) * 128] = Rcol3;
-                WorldLightG[Fireflys[a].X + 1 + (Fireflys[a].Y) * 128] = Gcol3;
-                WorldLightB[Fireflys[a].X + 1 + (Fireflys[a].Y) * 128] = Bcol3;
+                WorldLightR[Fireflies[a].X + 1 + (Fireflies[a].Y) * 128] = Rcol3;
+                WorldLightG[Fireflies[a].X + 1 + (Fireflies[a].Y) * 128] = Gcol3;
+                WorldLightB[Fireflies[a].X + 1 + (Fireflies[a].Y) * 128] = Bcol3;
 
-                WorldLightR[Fireflys[a].X + (Fireflys[a].Y + 1) * 128] = Rcol2;
-                WorldLightG[Fireflys[a].X + (Fireflys[a].Y + 1) * 128] = Gcol2;
-                WorldLightB[Fireflys[a].X + (Fireflys[a].Y + 1) * 128] = Bcol2;
+                WorldLightR[Fireflies[a].X + (Fireflies[a].Y + 1) * 128] = Rcol2;
+                WorldLightG[Fireflies[a].X + (Fireflies[a].Y + 1) * 128] = Gcol2;
+                WorldLightB[Fireflies[a].X + (Fireflies[a].Y + 1) * 128] = Bcol2;
 
-                WorldLightR[Fireflys[a].X + 1 + (Fireflys[a].Y + 1) * 128] = Rcol1;
-                WorldLightG[Fireflys[a].X + 1 + (Fireflys[a].Y + 1) * 128] = Gcol1;
-                WorldLightB[Fireflys[a].X + 1 + (Fireflys[a].Y + 1) * 128] = Bcol1;
+                WorldLightR[Fireflies[a].X + 1 + (Fireflies[a].Y + 1) * 128] = Rcol1;
+                WorldLightG[Fireflies[a].X + 1 + (Fireflies[a].Y + 1) * 128] = Gcol1;
+                WorldLightB[Fireflies[a].X + 1 + (Fireflies[a].Y + 1) * 128] = Bcol1;
             }
         }
     }
@@ -300,7 +300,7 @@ static void UpdateAutobumps(void)
 
 void UpdateDynamic(void)
 {
-    UpdateFireFlys();
+    UpdateFireflies();
     UpdateViewableLights();
     UpdateAutobumps();
 }

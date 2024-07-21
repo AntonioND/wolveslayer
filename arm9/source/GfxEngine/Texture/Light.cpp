@@ -207,7 +207,7 @@ static void GrapLightInterpolate(int x, int y, float sx, float sy, int *col)
 }
 
 // This should be called before rendering a model...
-// it graps lights for 4 dirrections and hold it so rendering the mdl goes fast(hopefully)
+// it graps lights for 4 directions and hold it so rendering the mdl goes fast(hopefully)
 // it uses interpolation...just neccecary for moving models
 void SetMdlLights(int pos[2], float softpos[2], float radius, int rot)
 {

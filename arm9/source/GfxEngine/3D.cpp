@@ -19,7 +19,7 @@
 #include "GfxEngine/Ticks.h"
 #include "Sound/Music.h"
 
-#define ENABLE_SPLASH
+//#define ENABLE_SPLASH
 
 void Splash(void)
 {

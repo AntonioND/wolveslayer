@@ -1,0 +1,10 @@
+ITEM1 weapon
+^^NAME Sword 1
+^^IMG sword1.bmp
+^^PRICE 200
+^^DAMAGE 3
+
+ITEM2 OTHER
+^^NAME Pumpkin
+^^IMG pumpkin.bmp
+^^PRICE 200

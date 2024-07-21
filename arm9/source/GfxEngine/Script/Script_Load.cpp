@@ -170,7 +170,13 @@ void LoadScript(char filename[])
     // ShowCollisionMap(12);
 
     // TODO: You can use this to display a message when a new room is loaded
-    // AddTexttoEvent(filename);
+    AddTexttoEvent(filename);
+
+    if (strcmp(filename, "/wolveslayer/maps/debug.txt") == 0) {
+        AddVillager(7, 2, 0);
+        char txt[256] = "Hello, I'm you!";
+        AddTexttoVillager(txt);
+    }
 
     TextBoxmode(EventSpeech, EventSpeechCount, -1);
 

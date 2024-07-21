@@ -42,7 +42,7 @@ void LoadItemList(void)
 
     // TODO: This file doesn't exist in the current game, so don't crash here
     if (ScriptFile == NULL)
-        return;
+        Crash("Can't load item list");
 
     int Index  = -1;
     int weapon = -1;

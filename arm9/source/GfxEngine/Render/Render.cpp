@@ -509,8 +509,7 @@ static void RefreshPlayer(void)
 }
 
 //*******************************************************************************
-// Villagers
-// TODO: This is currently unused
+
 static void RefreshVillagers(void)
 {
     for (int a = 0; a <= VillagerCount; a++)

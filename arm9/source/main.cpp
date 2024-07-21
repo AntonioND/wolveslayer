@@ -8,6 +8,7 @@
 #include "GfxEngine/Events.h"
 #include "GfxEngine/Input/Input.h"
 #include "GfxEngine/MapLoad.h"
+#include "GfxEngine/Output/Inventory.h"
 #include "GfxEngine/Output/Touchscreen.h"
 #include "GfxEngine/Settings.h"
 #include "GfxEngine/Texture/DynamicLights.h"
@@ -21,6 +22,9 @@ int main(int argc, char *argv[])
 
     // Script loading for new game
     ReadSettings();
+
+    AddItemToInventory(0);
+    AddItemToInventory(1);
 
     while (1)
     {
@@ -39,8 +43,8 @@ int main(int argc, char *argv[])
         // remember how to enter pause mode (you get into item mode from pause
         // mode).
         //
-        // if (keysDown() & KEY_START)
-        //    PauseMode();
+        if (keysDown() & KEY_START)
+           PauseMode();
 
         UpdateVillagers();
         UpdateEnemy();

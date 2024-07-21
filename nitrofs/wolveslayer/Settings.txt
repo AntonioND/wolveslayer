@@ -1,5 +1,6 @@
 //This defines how new-game will start
-StartMap etage1.txt
-StartPos 7 2
+//StartMap etage1.txt
+StartMap debug.txt
+StartPos 7 3
 StartChar charmain.md2 charmain.bmp
 StartWeapon sword1.md2 sword1.bmp

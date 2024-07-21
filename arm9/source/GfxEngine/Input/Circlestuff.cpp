@@ -15,7 +15,9 @@ typedef struct {
     int count;
 } circle;
 
-static circle CircleLUT[6];
+#define CircleLutSize 6
+
+static circle CircleLUT[CircleLutSize];
 
 // This precalulated circles maight be usefull for hitdetection :D
 static void makecircle(int rad)
@@ -105,13 +107,13 @@ static void makecircle(int rad)
 
 void InitCircles(void)
 {
-    for (int q = 1; q < 6; q++)
+    for (int q = 1; q < CircleLutSize; q++)
         makecircle(q);
 }
 
 void DrawCircle(int num)
 {
-    if (num < 1 || num > 5)
+    if (num < 1 || num >= CircleLutSize)
         return;
 
     for (int q = 0; q < CircleLUT[num].count; q++) {

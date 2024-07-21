@@ -440,6 +440,7 @@ static void RefreshPlayer(void)
         glPopMatrix(1);
     }
 
+    // TODO: This would have to be modified if we supported different weapons
     // if (EquipedWeapon > -1) {
 
     glBindTexture(GL_TEXTURE_2D, FigureTextures[WeaponFigureTex_ID]);

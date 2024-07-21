@@ -79,7 +79,7 @@ static void RenderDoorOutside(int mode, float angle, f32 x, f32 y, f32 z, bool t
     }
     glColor3b(r, g, b);
 
-    // Wand links
+    // Wall left
     glBegin(GL_QUADS);
 
     {

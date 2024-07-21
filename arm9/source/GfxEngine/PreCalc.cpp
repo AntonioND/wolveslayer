@@ -345,7 +345,7 @@ static void PreCalcObj(void)
     bool ObjD, ObjU, ObjL, ObjR;
     bool GndD, GndU, GndL, GndR;
 
-    bool wanddoor = false;
+    bool walldoor = false;
 
     for (int yy = 0; yy < MapGetHr(); yy++)
     {
@@ -381,9 +381,9 @@ static void PreCalcObj(void)
                 ObjL = IsObjHouse(xx - 1, yy);
                 ObjR = IsObjHouse(xx + 1, yy);
                 if (strncmp(GetMapDoor(xx, yy), ".", 1) == 0)
-                    wanddoor = false;
+                    walldoor = false;
                 if (strncmp(GetMapDoor(xx, yy), ".", 1) != 0)
-                    wanddoor = true;
+                    walldoor = true;
 
                 // Wall middle
                 if (ObjD == true) // If one field under is same wall
@@ -411,7 +411,7 @@ static void PreCalcObj(void)
                             if (ObjR == true) // If one field right is same wall
                             {
                                 ShapeObj[xx][yy] = Obj_HouseBor;
-                                if (wanddoor)
+                                if (walldoor)
                                     ShapeObj[xx][yy] = Obj_HouseDoor;
                                 DirObj[xx][yy] = 0;
                             }
@@ -429,7 +429,7 @@ static void PreCalcObj(void)
                             if (ObjR == true) // If one field right is same wall
                             {
                                 ShapeObj[xx][yy] = Obj_HouseBor;
-                                if (wanddoor)
+                                if (walldoor)
                                     ShapeObj[xx][yy] = Obj_HouseDoor;
                                 DirObj[xx][yy] = 2;
                             }
@@ -447,7 +447,7 @@ static void PreCalcObj(void)
                             if (ObjR == true) // If one field right is same wall
                             {
                                 ShapeObj[xx][yy] = Obj_HouseBor;
-                                if (wanddoor)
+                                if (walldoor)
                                     ShapeObj[xx][yy] = Obj_HouseDoor;
                                 DirObj[xx][yy] = 1;
                             }
@@ -465,7 +465,7 @@ static void PreCalcObj(void)
                             if (ObjR == false) // If one field right is same wall
                             {
                                 ShapeObj[xx][yy] = Obj_HouseBor;
-                                if (wanddoor)
+                                if (walldoor)
                                     ShapeObj[xx][yy] = Obj_HouseDoor;
                                 DirObj[xx][yy] = 3;
                             }
@@ -544,9 +544,9 @@ static void PreCalcObj(void)
             if (choose != -1 && (strncmp(Objects[choose].Type, "WALL", 4) == 0 || strncmp(Objects[choose].Type, "BUMPWALL", 8) == 0))
             {
                 if (strncmp(GetMapDoor(xx, yy), ".", 1) == 0)
-                    wanddoor = false;
+                    walldoor = false;
                 if (strncmp(GetMapDoor(xx, yy), ".", 1) != 0)
-                    wanddoor = true;
+                    walldoor = true;
 
                 ObjD = false;
                 ObjL = false;
@@ -596,9 +596,9 @@ static void PreCalcObj(void)
                     objcnt++;
 
                 if (strncmp(GetMapDoor(xx, yy), ".", 1) == 0)
-                    wanddoor = false;
+                    walldoor = false;
                 if (strncmp(GetMapDoor(xx, yy), ".", 1) != 0)
-                    wanddoor = true;
+                    walldoor = true;
 
                 // Wall alone (column)
                 if (objcnt == 0)
@@ -612,7 +612,7 @@ static void PreCalcObj(void)
                 {
                     if ((ObjL && ObjR) || (ObjU && ObjD))
                         ShapeObj[xx][yy] = Obj_WallBor;
-                    if (wanddoor)
+                    if (walldoor)
                         if ((ObjL && ObjR) || (ObjU && ObjD))
                             ShapeObj[xx][yy] = Obj_WallDoor;
 

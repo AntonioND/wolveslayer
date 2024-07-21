@@ -260,7 +260,7 @@ void RenderHouseCorner(int mode, int direction, f32 x, f32 y, f32 z)
         LightY3 = WallY + 1;
     }
 
-    // Wand Down
+    // Wall down
     glBegin(GL_QUADS);
 
     {
@@ -285,7 +285,7 @@ void RenderHouseCorner(int mode, int direction, f32 x, f32 y, f32 z)
 
     glEnd();
 
-    // Wand Left
+    // Wall left
     glBegin(GL_QUADS);
 
     {

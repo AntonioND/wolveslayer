@@ -1,9 +1,8 @@
 #include "GfxEngine/3D.h"
+#include "GfxEngine/Render/Water.h"
 #include "GfxEngine/Texture/Light.h"
 
-// TODO: Only one water texture supported for now
-int Water[1];
-u32 WaterKey;
+WaterInfo Water[Water_Max];
 
 void RenderWater(int floating, f32 x, f32 y, f32 z)
 {

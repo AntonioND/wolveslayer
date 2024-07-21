@@ -30,6 +30,9 @@
 
 #define Edge_Max 10 // Max. number of edges
 
+// TODO: Only one water texture supported for now in the code
+#define Water_Max 1 // Max. number of water textures
+
 #define ItemType_Max  25  // Max. number of object types allowed
 #define Inventory_Max 100 // Max. number of objects in the inventory
 

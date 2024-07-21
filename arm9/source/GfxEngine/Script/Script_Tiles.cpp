@@ -116,11 +116,11 @@ void LoadWaterCommand(TiXmlElement *map)
         {
             int r = 0, g = 0, b = 0;
             sscanf(water->Attribute("colorkey"), "%i,%i,%i", &r, &g, &b);
-            WaterKey = r | (g << 8) | (b << 16) | (0 << 24);
+            Water[0].ColorKey = r | (g << 8) | (b << 16) | (0 << 24);
         }
 
         int size;
-        LoadModelTexture(FileNameCom, &Water[0], &size);
+        LoadModelTexture(FileNameCom, &(Water[0].Texture), &size);
     }
 }
 

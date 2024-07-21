@@ -70,6 +70,8 @@ static void PreCalcGround(void)
 
 static void PreCalcWater(void)
 {
+    u32 WaterKey = Water[0].ColorKey;
+
     for (int yy = 0; yy < MapGetHr(); yy++)
     {
         for (int xx = 0; xx < MapGetWr(); xx++)

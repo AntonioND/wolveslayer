@@ -131,7 +131,7 @@ static void RefreshMap(void)
                     // Water
                     if ((Precalcdata[x][y] & (1 << B_Water)) && ShapeObj[x][y] != Wallbor)
                     {
-                        glBindTexture(GL_TEXTURE_2D, Water[0]);
+                        glBindTexture(GL_TEXTURE_2D, Water[0].Texture);
                         RenderWater(ticks32, inttof32(xx - 6), waterheight, inttof32(yy - 8));
                     }
 

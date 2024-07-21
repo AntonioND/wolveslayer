@@ -11,6 +11,7 @@
 #include "GfxEngine/Render/Doors.h"
 #include "GfxEngine/Render/Ground.h"
 #include "GfxEngine/Render/Render.h"
+#include "GfxEngine/Render/Water.h"
 #include "GfxEngine/Script/Script_Chars.h"
 #include "GfxEngine/Script/Script_Objects.h"
 #include "GfxEngine/Script/Script_Others.h"
@@ -47,6 +48,10 @@ static void UnloadStuff(void)
         Objects[a].ColorKey = 0;
         strcpy(Objects[a].Type, ".");
         Objects[a].Radius = 0;
+    }
+    for (int a = 0; a < Water_Max; a++)
+    {
+        Water[a].ColorKey = 0;
     }
 
     FreeModels();

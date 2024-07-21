@@ -422,8 +422,8 @@ void Interact(void)
 }
 
 //*******************************************************************************
-// Inputs
-void inputs(void)
+
+void Inputs(void)
 {
     bool u, l, d, r;
     bool ul, ur, dl, dr;

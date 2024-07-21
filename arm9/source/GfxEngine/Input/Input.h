@@ -21,6 +21,6 @@ float GetSX(void);
 
 void Menu(void);
 void Interact(void);
-void inputs(void);
+void Inputs(void);
 
 #endif // GFXENGINE_INPUT_INPUT_H__

@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
         ScreenModeHandler(); // For screenshots
         if (screenmode < ScreenModeTextBox)
-            inputs();
+            Inputs();
         if (screenmode > ScreenModeTextBox)
             Menu();
 

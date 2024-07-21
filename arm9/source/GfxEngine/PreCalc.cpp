@@ -666,55 +666,55 @@ static void PrecalcTerrain(void)
             }
 
             if (g == 0xB || b == 0xB) {
-                Terrain[xx][yy].v[0] = floattov16(GetHight(xx, yy));
-                Terrain[xx][yy].v[1] = floattov16(GetHight(xx, yy));
-                Terrain[xx][yy].v[2] = floattov16(GetHight(xx, yy));
-                Terrain[xx][yy].v[3] = floattov16(GetHight(xx, yy));
+                Terrain[xx][yy].v[0] = floattov16(GetHeight(xx, yy));
+                Terrain[xx][yy].v[1] = floattov16(GetHeight(xx, yy));
+                Terrain[xx][yy].v[2] = floattov16(GetHeight(xx, yy));
+                Terrain[xx][yy].v[3] = floattov16(GetHeight(xx, yy));
             } else {
                 // Oneway-directional
-                Terrain[xx][yy].v[0] = floattov16(GetHight(xx, yy));
+                Terrain[xx][yy].v[0] = floattov16(GetHeight(xx, yy));
                 if (ug == 0xB || ub == 0xB)
-                    if (floattov16(GetHight(xx, yy - 1)) > Terrain[xx][yy].v[0])
-                        Terrain[xx][yy].v[0] = floattov16(GetHight(xx, yy - 1));
+                    if (floattov16(GetHeight(xx, yy - 1)) > Terrain[xx][yy].v[0])
+                        Terrain[xx][yy].v[0] = floattov16(GetHeight(xx, yy - 1));
                 if (lg == 0xB || lb == 0xB)
-                    if (floattov16(GetHight(xx - 1, yy)) > Terrain[xx][yy].v[0])
-                        Terrain[xx][yy].v[0] = floattov16(GetHight(xx - 1, yy));
+                    if (floattov16(GetHeight(xx - 1, yy)) > Terrain[xx][yy].v[0])
+                        Terrain[xx][yy].v[0] = floattov16(GetHeight(xx - 1, yy));
                 if (ulg == 0xB || ulb == 0xB)
-                    if (floattov16(GetHight(xx - 1, yy - 1)) > Terrain[xx][yy].v[0])
-                        Terrain[xx][yy].v[0] = floattov16(GetHight(xx - 1, yy - 1));
+                    if (floattov16(GetHeight(xx - 1, yy - 1)) > Terrain[xx][yy].v[0])
+                        Terrain[xx][yy].v[0] = floattov16(GetHeight(xx - 1, yy - 1));
 
-                Terrain[xx][yy].v[1] = floattov16(GetHight(xx + 1, yy));
+                Terrain[xx][yy].v[1] = floattov16(GetHeight(xx + 1, yy));
                 if (ug == 0xB || ub == 0xB)
-                    if (floattov16(GetHight(xx, yy - 1)) > Terrain[xx][yy].v[1])
-                        Terrain[xx][yy].v[1] = floattov16(GetHight(xx, yy - 1));
+                    if (floattov16(GetHeight(xx, yy - 1)) > Terrain[xx][yy].v[1])
+                        Terrain[xx][yy].v[1] = floattov16(GetHeight(xx, yy - 1));
                 if (rg == 0xB || rb == 0xB)
-                    if (floattov16(GetHight(xx + 1, yy)) > Terrain[xx][yy].v[1])
-                        Terrain[xx][yy].v[1] = floattov16(GetHight(xx + 1, yy));
+                    if (floattov16(GetHeight(xx + 1, yy)) > Terrain[xx][yy].v[1])
+                        Terrain[xx][yy].v[1] = floattov16(GetHeight(xx + 1, yy));
                 if (urg == 0xB || urb == 0xB)
-                    if (floattov16(GetHight(xx + 1, yy - 1)) > Terrain[xx][yy].v[1])
-                        Terrain[xx][yy].v[1] = floattov16(GetHight(xx + 1, yy - 1));
+                    if (floattov16(GetHeight(xx + 1, yy - 1)) > Terrain[xx][yy].v[1])
+                        Terrain[xx][yy].v[1] = floattov16(GetHeight(xx + 1, yy - 1));
 
-                Terrain[xx][yy].v[2] = floattov16(GetHight(xx, yy + 1));
+                Terrain[xx][yy].v[2] = floattov16(GetHeight(xx, yy + 1));
                 if (dg == 0xB || db == 0xB)
-                    if (floattov16(GetHight(xx, yy + 1)) > Terrain[xx][yy].v[2])
-                        Terrain[xx][yy].v[2] = floattov16(GetHight(xx, yy + 1));
+                    if (floattov16(GetHeight(xx, yy + 1)) > Terrain[xx][yy].v[2])
+                        Terrain[xx][yy].v[2] = floattov16(GetHeight(xx, yy + 1));
                 if (lg == 0xB || lb == 0xB)
-                    if (floattov16(GetHight(xx - 1, yy)) > Terrain[xx][yy].v[2])
-                        Terrain[xx][yy].v[2] = floattov16(GetHight(xx - 1, yy));
+                    if (floattov16(GetHeight(xx - 1, yy)) > Terrain[xx][yy].v[2])
+                        Terrain[xx][yy].v[2] = floattov16(GetHeight(xx - 1, yy));
                 if (dlg == 0xB || dlb == 0xB)
-                    if (floattov16(GetHight(xx - 1, yy + 1)) > Terrain[xx][yy].v[2])
-                        Terrain[xx][yy].v[2] = floattov16(GetHight(xx - 1, yy + 1));
+                    if (floattov16(GetHeight(xx - 1, yy + 1)) > Terrain[xx][yy].v[2])
+                        Terrain[xx][yy].v[2] = floattov16(GetHeight(xx - 1, yy + 1));
 
-                Terrain[xx][yy].v[3] = floattov16(GetHight(xx + 1, yy + 1));
+                Terrain[xx][yy].v[3] = floattov16(GetHeight(xx + 1, yy + 1));
                 if (dg == 0xB || db == 0xB)
-                    if (floattov16(GetHight(xx, yy + 1)) > Terrain[xx][yy].v[3])
-                        Terrain[xx][yy].v[3] = floattov16(GetHight(xx, yy + 1));
+                    if (floattov16(GetHeight(xx, yy + 1)) > Terrain[xx][yy].v[3])
+                        Terrain[xx][yy].v[3] = floattov16(GetHeight(xx, yy + 1));
                 if (rg == 0xB || rb == 0xB)
-                    if (floattov16(GetHight(xx + 1, yy)) > Terrain[xx][yy].v[3])
-                        Terrain[xx][yy].v[3] = floattov16(GetHight(xx + 1, yy));
+                    if (floattov16(GetHeight(xx + 1, yy)) > Terrain[xx][yy].v[3])
+                        Terrain[xx][yy].v[3] = floattov16(GetHeight(xx + 1, yy));
                 if (drg == 0xB || drb == 0xB)
-                    if (floattov16(GetHight(xx + 1, yy + 1)) > Terrain[xx][yy].v[3])
-                        Terrain[xx][yy].v[3] = floattov16(GetHight(xx + 1, yy + 1));
+                    if (floattov16(GetHeight(xx + 1, yy + 1)) > Terrain[xx][yy].v[3])
+                        Terrain[xx][yy].v[3] = floattov16(GetHeight(xx + 1, yy + 1));
             }
         }
     }
@@ -860,7 +860,7 @@ static void PrecalcMirrow(void)
                 for (int my = yy; my <= yy + 3; my++) {
                     if (mx >= 0 && my >= 0) {
                         if (TexGround[mx][my] > -1)
-                            if (Ground[TexGround[mx][my]].TransEnable && GetHight(mx, my) == 0)
+                            if (Ground[TexGround[mx][my]].TransEnable && GetHeight(mx, my) == 0)
                                 Precalcdata[xx][yy] |= (1 << B_Mirrowable);
 
                         if (Precalcdata[xx][yy] & (1 << B_Water))

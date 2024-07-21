@@ -335,7 +335,7 @@ bool IsObjBumpWall(int x, int y)
     return false;
 }
 
-float GetHight(int x, int y)
+float GetHeight(int x, int y)
 {
     int xx = (x * 3) + 2;
     int yy = (y * 3) + 2;

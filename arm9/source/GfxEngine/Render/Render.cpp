@@ -255,25 +255,25 @@ static void RefreshWorld(void)
             if (ShapeObj[x][y] == Housem) {
                 SetCurWall(xx + CamPosX, yy + CamPosY);
                 if (yy > -1)
-                    RenderHouseM(0, posx, floattof32(1.0 + GetHight(x, y)), posy); // Normal
+                    RenderHouseM(0, posx, floattof32(1.0 + GetHeight(x, y)), posy); // Normal
             }
 
             // House border
             if (ShapeObj[x][y] == Housebor) {
                 SetCurWall(xx + CamPosX, yy + CamPosY);
                 if (yy > -1)
-                    RenderHouseBorder(0, DirObj[x][y], posx, floattof32(1.0 + GetHight(x, y)), posy); // Normal
+                    RenderHouseBorder(0, DirObj[x][y], posx, floattof32(1.0 + GetHeight(x, y)), posy); // Normal
                 if ((Precalcdata[x][y] & (1 << B_Mirrowable)))
-                    RenderHouseBorder(1, DirObj[x][y], posx, floattof32(-.9 - GetHight(x, y)), posy); // Gespiegelt
+                    RenderHouseBorder(1, DirObj[x][y], posx, floattof32(-.9 - GetHeight(x, y)), posy); // Gespiegelt
             }
 
             // House corner
             if (ShapeObj[x][y] == Housecor) {
                 SetCurWall(xx + CamPosX, yy + CamPosY);
                 if (yy > -1)
-                    RenderHouseCorner(0, DirObj[x][y], posx, floattof32(1.0 + GetHight(x, y)), posy); // Normal
+                    RenderHouseCorner(0, DirObj[x][y], posx, floattof32(1.0 + GetHeight(x, y)), posy); // Normal
                 if ((Precalcdata[x][y] & (1 << B_Mirrowable)))
-                    RenderHouseCorner(1, DirObj[x][y], posx, floattof32(-.9 - GetHight(x, y)), posy); // Gespiegelt
+                    RenderHouseCorner(1, DirObj[x][y], posx, floattof32(-.9 - GetHeight(x, y)), posy); // Gespiegelt
             }
 
             // House Border Door
@@ -281,13 +281,13 @@ static void RefreshWorld(void)
                 SetCurWall(xx + CamPosX, yy + CamPosY);
                 if (yy > -1)
                     RenderHouseBorderDoor(0, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx,
-                                            floattof32(1.0 + GetHight(x, y)), posy); // Türslot Normal
+                                            floattof32(1.0 + GetHeight(x, y)), posy); // Türslot Normal
                 if ((Precalcdata[x][y] & (1 << B_Mirrowable))) {
                     // We need that to set again...after rendering houspart with doorslot it
                     glBindTexture(GL_TEXTURE_2D, ObjectTexture[TexObj[x][y]].Texture);
                     // Türslot Gespiegelt
                     RenderHouseBorderDoor(1, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx,
-                                          floattof32(-.9 - GetHight(x, y)), posy);
+                                          floattof32(-.9 - GetHeight(x, y)), posy);
                 }
             }
 
@@ -299,23 +299,23 @@ static void RefreshWorld(void)
             if (ShapeObj[x][y] == Wallbor) {
                 SetCurWall(xx + CamPosX, yy + CamPosY);
                 if (yy > -1)
-                    RenderWallBorder(0, DirObj[x][y], posx, floattof32(1.0 + GetHight(x, y)), posy, TexObj[x][y]); // Normal
+                    RenderWallBorder(0, DirObj[x][y], posx, floattof32(1.0 + GetHeight(x, y)), posy, TexObj[x][y]); // Normal
                 if ((Precalcdata[x][y] & (1 << B_Mirrowable)))
-                    RenderWallBorder(1, DirObj[x][y], posx, floattof32(-1 - GetHight(x, y)), posy, TexObj[x][y]); // Gespiegelt
+                    RenderWallBorder(1, DirObj[x][y], posx, floattof32(-1 - GetHeight(x, y)), posy, TexObj[x][y]); // Gespiegelt
             }
 
             // Wall Border Door
             if (ShapeObj[x][y] == WallDoor) {
                 SetCurWall(xx + CamPosX, yy + CamPosY);
                 if (yy > -1)
-                    RenderWallBorderDoor(0, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx, floattof32(1 + GetHight(x, y)),
+                    RenderWallBorderDoor(0, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx, floattof32(1 + GetHeight(x, y)),
                                             posy); // Türslot Normal
                 if ((Precalcdata[x][y] & (1 << B_Mirrowable))) {
                     // We need that to set again...after rendering houspart with doorslot it
                     glBindTexture(GL_TEXTURE_2D, ObjectTexture[TexObj[x][y]].Texture);
                     // Türslot Gespiegelt
                     RenderWallBorderDoor(1, GetMapDoorAngle(xx + CamPosX, yy + CamPosY), DirObj[x][y], posx,
-                                         floattof32(-1.02 - GetHight(x, y)), posy);
+                                         floattof32(-1.02 - GetHeight(x, y)), posy);
                 }
             }
         }
@@ -462,7 +462,7 @@ static void RefreshVillagers(void)
     float hpos, vsx, vsy;
 
     for (a = 0; a <= VillagerCount; a++) {
-        hpos = GetHight(Villager[a].X, Villager[a].Y);
+        hpos = GetHeight(Villager[a].X, Villager[a].Y);
         glBindTexture(GL_TEXTURE_2D, FigureTextures[Villager[a].TextNum]);
 
         if (((Villager[a].X - 6) + Villager[a].SX - (CamPosX)-CamPosSX > -4)
@@ -557,7 +557,7 @@ static void RefreshEnemies(void)
             blend  = 31 - float(Enemies[a].Frame / 44 * 31);
         }
 
-        hpos = GetHight(Enemies[a].X, Enemies[a].Y);
+        hpos = GetHeight(Enemies[a].X, Enemies[a].Y);
         glBindTexture(GL_TEXTURE_2D, FigureTextures[Enemies[a].TextNum]);
 
         if (((Enemies[a].X - 6) + Enemies[a].SX - (CamPosX)-CamPosSX > -4)

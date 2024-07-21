@@ -31,7 +31,7 @@ bool IsObjWall(int x, int y);
 bool IsObjBumpWall(int x, int y);
 
 // for getting height
-float GetHight(int x, int y);
+float GetHeight(int x, int y);
 
 void LoadMap(char *filename);
 

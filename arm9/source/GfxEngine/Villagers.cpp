@@ -8,7 +8,7 @@
 
 VillagerInfo Villager[Villagers_Max];
 
-int VillagerCount = -1;
+int VillagerCount = -1; // It's the count of NPCs
 
 int SpriteX, SpriteY;
 float SpriteSX, SpriteSY;

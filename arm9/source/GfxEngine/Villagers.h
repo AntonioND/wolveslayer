@@ -10,7 +10,6 @@ typedef struct {
     float SX, SY;   // It's the softpos. It goes from -.5 to .5
     int TextNum;    // The Index for texture
     int Direction;  // The direction for each NPC
-    int Count = -1; // Its the count of NPCs
 
     char Speech[VillagerSpeeches_Max][256]; // to hold textes for each NPC with 300 chars
     int SpeechCount;                        // Holds the Number of speeches a NPC has...
@@ -18,7 +17,7 @@ typedef struct {
 
 extern VillagerInfo Villager[Villagers_Max];
 
-extern int VillagerCount;
+extern int VillagerCount; // It's the count of NPCs
 
 extern int SpriteX, SpriteY;
 extern float SpriteSX, SpriteSY;

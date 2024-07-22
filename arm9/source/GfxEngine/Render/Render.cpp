@@ -290,7 +290,7 @@ static void RefreshWorld(void)
             {
                 SetCurWall(xx + CamPosX, yy + CamPosY);
                 if (yy > -1)
-                    RenderHouseM(0, posx, floattof32(1.0 + GetHeight(x, y)), posy); // Normal
+                    RenderHouseM(0, posx, floattof32(1.0) + GetHeight(x, y), posy); // Normal
             }
 
             // House border
@@ -298,9 +298,9 @@ static void RefreshWorld(void)
             {
                 SetCurWall(xx + CamPosX, yy + CamPosY);
                 if (yy > -1) // Normal
-                    RenderHouseBorder(0, DirObj[x][y], posx, floattof32(1.0 + GetHeight(x, y)), posy);
+                    RenderHouseBorder(0, DirObj[x][y], posx, floattof32(1.0) + GetHeight(x, y), posy);
                 if ((Precalcdata[x][y] & (1 << B_Mirrorable))) // Mirrored
-                    RenderHouseBorder(1, DirObj[x][y], posx, floattof32(-.9 - GetHeight(x, y)), posy);
+                    RenderHouseBorder(1, DirObj[x][y], posx, floattof32(-.9) - GetHeight(x, y), posy);
             }
 
             // House corner
@@ -308,9 +308,9 @@ static void RefreshWorld(void)
             {
                 SetCurWall(xx + CamPosX, yy + CamPosY);
                 if (yy > -1) // Normal
-                    RenderHouseCorner(0, DirObj[x][y], posx, floattof32(1.0 + GetHeight(x, y)), posy);
+                    RenderHouseCorner(0, DirObj[x][y], posx, floattof32(1.0) + GetHeight(x, y), posy);
                 if ((Precalcdata[x][y] & (1 << B_Mirrorable))) // Mirrored
-                    RenderHouseCorner(1, DirObj[x][y], posx, floattof32(-.9 - GetHeight(x, y)), posy);
+                    RenderHouseCorner(1, DirObj[x][y], posx, floattof32(-.9) - GetHeight(x, y), posy);
             }
 
             // House border door
@@ -320,7 +320,7 @@ static void RefreshWorld(void)
                 if (yy > -1) // Door slot normal
                 {
                     int angle = GetMapDoorAngle(xx + CamPosX, yy + CamPosY);
-                    RenderHouseBorderDoor(0, angle, DirObj[x][y], posx, floattof32(1.0 + GetHeight(x, y)), posy);
+                    RenderHouseBorderDoor(0, angle, DirObj[x][y], posx, floattof32(1.0) + GetHeight(x, y), posy);
                 }
                 if ((Precalcdata[x][y] & (1 << B_Mirrorable)))
                 {
@@ -329,7 +329,7 @@ static void RefreshWorld(void)
 
                     // Door slot mirrored
                     int angle = GetMapDoorAngle(xx + CamPosX, yy + CamPosY);
-                    RenderHouseBorderDoor(1, angle, DirObj[x][y], posx, floattof32(-.9 - GetHeight(x, y)), posy);
+                    RenderHouseBorderDoor(1, angle, DirObj[x][y], posx, floattof32(-.9) - GetHeight(x, y), posy);
                 }
             }
 
@@ -342,9 +342,9 @@ static void RefreshWorld(void)
             {
                 SetCurWall(xx + CamPosX, yy + CamPosY);
                 if (yy > -1) // Normal
-                    RenderWallBorder(0, DirObj[x][y], posx, floattof32(1.0 + GetHeight(x, y)), posy, TexObj[x][y]);
+                    RenderWallBorder(0, DirObj[x][y], posx, floattof32(1.0) + GetHeight(x, y), posy, TexObj[x][y]);
                 if ((Precalcdata[x][y] & (1 << B_Mirrorable))) // Mirrored
-                    RenderWallBorder(1, DirObj[x][y], posx, floattof32(-1 - GetHeight(x, y)), posy, TexObj[x][y]);
+                    RenderWallBorder(1, DirObj[x][y], posx, floattof32(-1) - GetHeight(x, y), posy, TexObj[x][y]);
             }
 
             // Wall border door
@@ -354,7 +354,7 @@ static void RefreshWorld(void)
                 if (yy > -1) // Door slot normal
                 {
                     int angle = GetMapDoorAngle(xx + CamPosX, yy + CamPosY);
-                    RenderWallBorderDoor(0, angle, DirObj[x][y], posx, floattof32(1 + GetHeight(x, y)), posy);
+                    RenderWallBorderDoor(0, angle, DirObj[x][y], posx, floattof32(1) + GetHeight(x, y), posy);
                 }
                 if ((Precalcdata[x][y] & (1 << B_Mirrorable)))
                 {
@@ -363,7 +363,7 @@ static void RefreshWorld(void)
 
                     // Door slot mirrored
                     int angle = GetMapDoorAngle(xx + CamPosX, yy + CamPosY);
-                    RenderWallBorderDoor(1, angle, DirObj[x][y], posx, floattof32(-1.02 - GetHeight(x, y)), posy);
+                    RenderWallBorderDoor(1, angle, DirObj[x][y], posx, floattof32(-1.02) - GetHeight(x, y), posy);
                 }
             }
         }
@@ -524,7 +524,6 @@ static void RefreshVillagers(void)
         if (!((Villager[a].Y - 8) + Villager[a].SY - (CamPosY)-CamPosSY < 3))
             continue;
 
-        float hpos = GetHeight(Villager[a].X, Villager[a].Y);
         glBindTexture(GL_TEXTURE_2D, FigureTextures[Villager[a].TextNum]);
 
         int vx = Villager[a].X;
@@ -563,7 +562,7 @@ static void RefreshVillagers(void)
         spos[1] = vsy;
         SetMdlLights(pos, spos, .4, dir * 64);
 
-        hpos = GetInterPolY(vx, vy, vsx, vsy);
+        float hpos = GetInterPolY(vx, vy, vsx, vsy);
 
         glPushMatrix();
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(Villager[a].TextNum + 1));
@@ -629,7 +628,6 @@ static void RefreshEnemies(void)
         if (!((Enemies[a].Y - 8) + Enemies[a].SY - (CamPosY)-CamPosSY < 3))
             continue;
 
-        float hpos = GetHeight(Enemies[a].X, Enemies[a].Y);
         glBindTexture(GL_TEXTURE_2D, FigureTextures[Enemies[a].TextNum]);
 
         int vx = Enemies[a].X;
@@ -662,7 +660,7 @@ static void RefreshEnemies(void)
         spos[1] = vsy;
         SetMdlLights(pos, spos, .4, dir * 64);
 
-        hpos = GetInterPolY(vx, vy, vsx, vsy);
+        float hpos = GetInterPolY(vx, vy, vsx, vsy);
 
         glPushMatrix();
         glPolyFmt(POLY_ALPHA(blend) | POLY_CULL_NONE | POLY_FORMAT_LIGHT0 | POLY_ID(Enemies[a].TextNum + 1));

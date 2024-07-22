@@ -746,57 +746,57 @@ static void PrecalcTerrain(void)
 
             if (g == 0xB || b == 0xB)
             {
-                Terrain[xx][yy].v[0] = floattov16(GetHeight(xx, yy));
-                Terrain[xx][yy].v[1] = floattov16(GetHeight(xx, yy));
-                Terrain[xx][yy].v[2] = floattov16(GetHeight(xx, yy));
-                Terrain[xx][yy].v[3] = floattov16(GetHeight(xx, yy));
+                Terrain[xx][yy].v[0] = f32tov16(GetHeight(xx, yy));
+                Terrain[xx][yy].v[1] = f32tov16(GetHeight(xx, yy));
+                Terrain[xx][yy].v[2] = f32tov16(GetHeight(xx, yy));
+                Terrain[xx][yy].v[3] = f32tov16(GetHeight(xx, yy));
             }
             else
             {
                 // Oneway-directional
-                Terrain[xx][yy].v[0] = floattov16(GetHeight(xx, yy));
+                Terrain[xx][yy].v[0] = f32tov16(GetHeight(xx, yy));
                 if (ug == 0xB || ub == 0xB)
-                    if (floattov16(GetHeight(xx, yy - 1)) > Terrain[xx][yy].v[0])
-                        Terrain[xx][yy].v[0] = floattov16(GetHeight(xx, yy - 1));
+                    if (f32tov16(GetHeight(xx, yy - 1)) > Terrain[xx][yy].v[0])
+                        Terrain[xx][yy].v[0] = f32tov16(GetHeight(xx, yy - 1));
                 if (lg == 0xB || lb == 0xB)
-                    if (floattov16(GetHeight(xx - 1, yy)) > Terrain[xx][yy].v[0])
-                        Terrain[xx][yy].v[0] = floattov16(GetHeight(xx - 1, yy));
+                    if (f32tov16(GetHeight(xx - 1, yy)) > Terrain[xx][yy].v[0])
+                        Terrain[xx][yy].v[0] = f32tov16(GetHeight(xx - 1, yy));
                 if (ulg == 0xB || ulb == 0xB)
-                    if (floattov16(GetHeight(xx - 1, yy - 1)) > Terrain[xx][yy].v[0])
-                        Terrain[xx][yy].v[0] = floattov16(GetHeight(xx - 1, yy - 1));
+                    if (f32tov16(GetHeight(xx - 1, yy - 1)) > Terrain[xx][yy].v[0])
+                        Terrain[xx][yy].v[0] = f32tov16(GetHeight(xx - 1, yy - 1));
 
-                Terrain[xx][yy].v[1] = floattov16(GetHeight(xx + 1, yy));
+                Terrain[xx][yy].v[1] = f32tov16(GetHeight(xx + 1, yy));
                 if (ug == 0xB || ub == 0xB)
-                    if (floattov16(GetHeight(xx, yy - 1)) > Terrain[xx][yy].v[1])
-                        Terrain[xx][yy].v[1] = floattov16(GetHeight(xx, yy - 1));
+                    if (f32tov16(GetHeight(xx, yy - 1)) > Terrain[xx][yy].v[1])
+                        Terrain[xx][yy].v[1] = f32tov16(GetHeight(xx, yy - 1));
                 if (rg == 0xB || rb == 0xB)
-                    if (floattov16(GetHeight(xx + 1, yy)) > Terrain[xx][yy].v[1])
-                        Terrain[xx][yy].v[1] = floattov16(GetHeight(xx + 1, yy));
+                    if (f32tov16(GetHeight(xx + 1, yy)) > Terrain[xx][yy].v[1])
+                        Terrain[xx][yy].v[1] = f32tov16(GetHeight(xx + 1, yy));
                 if (urg == 0xB || urb == 0xB)
-                    if (floattov16(GetHeight(xx + 1, yy - 1)) > Terrain[xx][yy].v[1])
-                        Terrain[xx][yy].v[1] = floattov16(GetHeight(xx + 1, yy - 1));
+                    if (f32tov16(GetHeight(xx + 1, yy - 1)) > Terrain[xx][yy].v[1])
+                        Terrain[xx][yy].v[1] = f32tov16(GetHeight(xx + 1, yy - 1));
 
-                Terrain[xx][yy].v[2] = floattov16(GetHeight(xx, yy + 1));
+                Terrain[xx][yy].v[2] = f32tov16(GetHeight(xx, yy + 1));
                 if (dg == 0xB || db == 0xB)
-                    if (floattov16(GetHeight(xx, yy + 1)) > Terrain[xx][yy].v[2])
-                        Terrain[xx][yy].v[2] = floattov16(GetHeight(xx, yy + 1));
+                    if (f32tov16(GetHeight(xx, yy + 1)) > Terrain[xx][yy].v[2])
+                        Terrain[xx][yy].v[2] = f32tov16(GetHeight(xx, yy + 1));
                 if (lg == 0xB || lb == 0xB)
-                    if (floattov16(GetHeight(xx - 1, yy)) > Terrain[xx][yy].v[2])
-                        Terrain[xx][yy].v[2] = floattov16(GetHeight(xx - 1, yy));
+                    if (f32tov16(GetHeight(xx - 1, yy)) > Terrain[xx][yy].v[2])
+                        Terrain[xx][yy].v[2] = f32tov16(GetHeight(xx - 1, yy));
                 if (dlg == 0xB || dlb == 0xB)
-                    if (floattov16(GetHeight(xx - 1, yy + 1)) > Terrain[xx][yy].v[2])
-                        Terrain[xx][yy].v[2] = floattov16(GetHeight(xx - 1, yy + 1));
+                    if (f32tov16(GetHeight(xx - 1, yy + 1)) > Terrain[xx][yy].v[2])
+                        Terrain[xx][yy].v[2] = f32tov16(GetHeight(xx - 1, yy + 1));
 
-                Terrain[xx][yy].v[3] = floattov16(GetHeight(xx + 1, yy + 1));
+                Terrain[xx][yy].v[3] = f32tov16(GetHeight(xx + 1, yy + 1));
                 if (dg == 0xB || db == 0xB)
-                    if (floattov16(GetHeight(xx, yy + 1)) > Terrain[xx][yy].v[3])
-                        Terrain[xx][yy].v[3] = floattov16(GetHeight(xx, yy + 1));
+                    if (f32tov16(GetHeight(xx, yy + 1)) > Terrain[xx][yy].v[3])
+                        Terrain[xx][yy].v[3] = f32tov16(GetHeight(xx, yy + 1));
                 if (rg == 0xB || rb == 0xB)
-                    if (floattov16(GetHeight(xx + 1, yy)) > Terrain[xx][yy].v[3])
-                        Terrain[xx][yy].v[3] = floattov16(GetHeight(xx + 1, yy));
+                    if (f32tov16(GetHeight(xx + 1, yy)) > Terrain[xx][yy].v[3])
+                        Terrain[xx][yy].v[3] = f32tov16(GetHeight(xx + 1, yy));
                 if (drg == 0xB || drb == 0xB)
-                    if (floattov16(GetHeight(xx + 1, yy + 1)) > Terrain[xx][yy].v[3])
-                        Terrain[xx][yy].v[3] = floattov16(GetHeight(xx + 1, yy + 1));
+                    if (f32tov16(GetHeight(xx + 1, yy + 1)) > Terrain[xx][yy].v[3])
+                        Terrain[xx][yy].v[3] = f32tov16(GetHeight(xx + 1, yy + 1));
             }
         }
     }

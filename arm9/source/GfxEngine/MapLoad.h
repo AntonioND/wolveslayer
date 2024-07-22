@@ -8,6 +8,8 @@
 
 #include <nds.h>
 
+#include "GfxEngine/3D.h"
+
 extern u8 MapLightR[128 * 128];
 extern u8 MapLightG[128 * 128];
 extern u8 MapLightB[128 * 128];
@@ -36,7 +38,7 @@ bool IsObjWall(int x, int y);
 bool IsObjBumpWall(int x, int y);
 
 // for getting height
-float GetHeight(int x, int y);
+f32 GetHeight(int x, int y);
 
 void LoadMap(char *filename);
 

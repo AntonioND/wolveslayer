@@ -363,7 +363,7 @@ bool IsObjBumpWall(int x, int y)
     return false;
 }
 
-float GetHeight(int x, int y)
+f32 GetHeight(int x, int y)
 {
     int xx = (x * 3) + 2;
     int yy = (y * 3) + 2;
@@ -374,7 +374,7 @@ float GetHeight(int x, int y)
 
     uint r = MapImage[xx][yy] & 255;
 
-    float r2 = float((r >> 5) / 4.0f);
+    f32 r2 = (inttof32(r) >> 5) / 4;
 
     return r2;
 }

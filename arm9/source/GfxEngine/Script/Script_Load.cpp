@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: MIT
+//
+// Copyright (C) 2007 Christian Hoffmann (Payk)
+// Copyright (C) 2024 Antonio Niño Díaz
+
 #include "GfxEngine/Enemies.h"
 #include "GfxEngine/Events.h"
 #include "GfxEngine/Input/Input.h"

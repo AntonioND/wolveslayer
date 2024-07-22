@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: MIT
+//
+// Copyright (C) 2007 Christian Hoffmann (Payk)
+// Copyright (C) 2024 Antonio Niño Díaz
+
 #include "GfxEngine/3D.h"
 #include "GfxEngine/Render/Water.h"
 #include "GfxEngine/Texture/Light.h"

@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: MIT
+//
+// Copyright (C) 2007 Christian Hoffmann (Payk)
+// Copyright (C) 2024 Antonio Niño Díaz
+
 #include "GfxEngine/3D.h"
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/Render/Obj_House.h"

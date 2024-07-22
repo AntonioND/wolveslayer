@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: MIT
+//
+// Copyright (C) 2007 Christian Hoffmann (Payk)
+// Copyright (C) 2024 Antonio Niño Díaz
+
 #include "GfxEngine/Model/MD2Format.h"
 #include "GfxEngine/Model/MD2Models.h"
 #include "GfxEngine/Texture/Light.h"

@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: MIT
+//
+// Copyright (C) 2007 Christian Hoffmann (Payk)
+// Copyright (C) 2024 Antonio Niño Díaz
+
 #include "GfxEngine/MapLoad.h"
 #include "GfxEngine/Output/Touchscreen.h"
 #include "GfxEngine/Render/Doors.h"

@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: MIT
+//
+// Copyright (C) 2007 Christian Hoffmann (Payk)
+// Copyright (C) 2024 Antonio Niño Díaz
+
 #include "GfxEngine/Model/MD2Load.h"
 #include "GfxEngine/Render/Autotiles.h"
 #include "GfxEngine/Render/Edge.h"

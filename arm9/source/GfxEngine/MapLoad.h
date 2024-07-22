@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: MIT
+//
+// Copyright (C) 2007 Christian Hoffmann (Payk)
+// Copyright (C) 2024 Antonio Niño Díaz
+
 #ifndef GFXENGINE_MAPLOAD_H__
 #define GFXENGINE_MAPLOAD_H__
 

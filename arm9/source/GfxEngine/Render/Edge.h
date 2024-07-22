@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: MIT
+//
+// Copyright (C) 2007 Christian Hoffmann (Payk)
+// Copyright (C) 2024 Antonio Niño Díaz
+
 #ifndef GFXENGINE_RENDER_EDGE_H__
 #define GFXENGINE_RENDER_EDGE_H__
 

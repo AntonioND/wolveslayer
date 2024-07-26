@@ -372,7 +372,7 @@ f32 GetHeight(int x, int y)
     if ((x < 0) || (y < 0) || (x >= MapWreal) || (y >= MapHreal))
         return 0;
 
-    uint r = MapImage[xx][yy] & 255;
+    unsigned int r = MapImage[xx][yy] & 255;
 
     f32 r2 = (inttof32(r) >> 5) / 4;
 

@@ -12,7 +12,7 @@ int npctalk = -1;
 // The valid text holder...
 static char Txt[200][20];
 static int Ni, Nj;
-static uint CurChar;
+static unsigned int CurChar;
 
 int CurWord;
 int wordnum;

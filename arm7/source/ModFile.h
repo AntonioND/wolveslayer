@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: WTFPL
+//
+// SPDX-FileContributor: LiraNuna, 2006
+
 // ----- Change log -----
 // 05/08/05 - Created.
 // ----------------------

@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: WTFPL
+//
+// SPDX-FileContributor: LiraNuna, 2006
+// SPDX-FileContributor: Antonio Niño Díaz, 2024
+
 // ----- Change log -----
 // 10/08/04 - Changed MOD_NO_SAMPLE from 0 to 31
 //          - Added structures for MOD player

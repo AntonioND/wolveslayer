@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: WTFPL
+//
+// SPDX-FileContributor: LiraNuna, 2006
+// SPDX-FileContributor: Antonio Niño Díaz, 2024
+
 // ----- Change log -----
 // 10/08/04 - Modified mixer to take any number of samples to mix,
 //            rather than strictly a full buffer, added MOD updating

@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: WTFPL
+//
+// SPDX-FileContributor: LiraNuna, 2006
+// SPDX-FileContributor: Antonio Niño Díaz, 2024
+
 // ----- Change log -----
 // 05/09/05 - Created.
 // ----------------------

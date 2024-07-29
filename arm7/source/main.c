@@ -5,11 +5,11 @@
 // Copyright (C) 2005-2015 Dave Murphy (WinterMute)
 // Copyright (C) 2023 Antonio Niño Díaz
 
-// Default ARM7 core
-
+#include <libxm7.h>
 #include <nds.h>
 
-#include "Sound7.h"
+// Assign FIFO_USER_07 channel to libxm7
+#define FIFO_XM7    (FIFO_USER_07)
 
 volatile bool exit_loop = false;
 
@@ -21,6 +21,16 @@ void power_button_callback(void)
 void vblank_handler(void)
 {
     inputGetAndSend();
+}
+
+void XM7_Value32Handler(u32 command, void *userdata)
+{
+    XM7_ModuleManager_Type *module = (XM7_ModuleManager_Type *)command;
+
+    if (module == NULL)
+        XM7_StopModule();
+    else
+        XM7_PlayModule(module);
 }
 
 int main(int argc, char *argv[])
@@ -59,12 +69,15 @@ int main(int argc, char *argv[])
     irqSet(IRQ_VBLANK, vblank_handler);
     irqEnable(IRQ_VBLANK);
 
-    SndInit7();
+    // Initialize libxm7. It uses timer 0 internally.
+    XM7_Initialize();
+    // Setup the FIFO handler for libXM7
+    fifoSetValue32Handler(FIFO_XM7, XM7_Value32Handler, 0);
 
     while (!exit_loop)
     {
         const uint16_t key_mask = KEY_SELECT | KEY_START | KEY_L | KEY_R;
-        uint16_t keys_pressed   = ~REG_KEYINPUT;
+        uint16_t keys_pressed = ~REG_KEYINPUT;
 
         if ((keys_pressed & key_mask) == key_mask)
             exit_loop = true;

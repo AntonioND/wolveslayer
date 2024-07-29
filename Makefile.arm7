@@ -12,7 +12,7 @@ ARM_NONE_EABI_PATH	?= $(WONDERFUL_TOOLCHAIN)/toolchain/gcc-arm-none-eabi/bin/
 # -----------------
 
 SOURCEDIRS	:= arm7/source
-INCLUDEDIRS	:= arm7/source common/include
+INCLUDEDIRS	:=
 BINDIRS		:=
 
 # Defines passed to all files
@@ -23,8 +23,9 @@ DEFINES		:=
 # Libraries
 # ---------
 
-LIBS		:= -lnds7
-LIBDIRS		:= $(BLOCKSDS)/libs/libnds
+LIBS		:= -lxm77 -lnds7
+LIBDIRS		:= $(BLOCKSDS)/libs/libnds \
+			   $(BLOCKSDS)/libs/libxm7
 
 # Build artifacts
 # -----------------

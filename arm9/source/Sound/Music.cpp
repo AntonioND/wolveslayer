@@ -23,8 +23,8 @@ bool ModIsPlaying = false;
 static void *ModBuffer   = NULL;
 static char *ModFilename = NULL;
 
-// Assign FIFO_USER_07 channel to libxm7
-#define FIFO_XM7 (FIFO_USER_07)
+// Assign FIFO_USER_07 channel to LibXM7
+#define FIFO_LIBXM7 FIFO_USER_07
 
 static XM7_ModuleManager_Type *ModInfo = NULL;
 
@@ -87,7 +87,7 @@ void StartSong(const char *Name)
 
     u16 res = XM7_LoadMOD(ModInfo, ModBuffer);
     if (res != 0)
-        Crash("libxm7 error: 0x%04x\n", res);
+        Crash("LibXM7 error: 0x%04x\n", res);
 
     // The default replay style doesn't work well with the MOD files in the game
     XM7_SetReplayStyle(ModInfo, XM7_REPLAY_STYLE_MOD_PLAYER);
@@ -98,7 +98,7 @@ void StartSong(const char *Name)
     DC_FlushAll();
 
     // Start player
-    fifoSendValue32(FIFO_XM7, (u32)ModInfo);
+    fifoSendValue32(FIFO_LIBXM7, (u32)ModInfo);
 
     ModIsPlaying = true;
 }
@@ -109,7 +109,7 @@ void StopSong(void)
         return;
 
     // Stop player
-    fifoSendValue32(FIFO_XM7, 0);
+    fifoSendValue32(FIFO_LIBXM7, 0);
     swiWaitForVBlank();
     swiWaitForVBlank();
 

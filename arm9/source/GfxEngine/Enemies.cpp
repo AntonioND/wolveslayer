@@ -236,35 +236,44 @@ void UpdateEnemy()
                 if (PlStatus != 3)
                 {
                     if (dx > dy)
+                    {
                         if (Py > NPy - (.9 + Enemies[a].Radius) && Py < NPy + (.9 + Enemies[a].Radius))
                         {
                             if (Px < NPx && Px + (.9 + Enemies[a].Radius) > NPx)
                             {
+                                // follow the player
                                 Enemies[a].Status = 0;
                                 TurnittoPlayer(a);
-                            } // follow the player
+                            }
                             if (Px > NPx && Px - (.9 + Enemies[a].Radius) < NPx)
                             {
+                                // follow the player
                                 Enemies[a].Status = 0;
                                 TurnittoPlayer(a);
-                            } // follow the player
+                            }
                         }
+                    }
                     if (dy > dx)
+                    {
                         if (Px > NPx - (.9 + Enemies[a].Radius) && Px < NPx + (.9 + Enemies[a].Radius))
                         {
                             if (Py < NPy && Py + (.9 + Enemies[a].Radius) > NPy)
                             {
+                                // follow the player
                                 Enemies[a].Status = 0;
                                 TurnittoPlayer(a);
-                            } // follow the player
+                            }
                             if (Py > NPy && Py - (.9 + Enemies[a].Radius) < NPy)
                             {
+                                // follow the player
                                 Enemies[a].Status = 0;
                                 TurnittoPlayer(a);
-                            } // follow the player
+                            }
                         }
+                    }
                     // near enough to attack and to near to get closer
                     if (dx > dy)
+                    {
                         if (Py > NPy - Enemies[a].Radius && Py < NPy + Enemies[a].Radius)
                         {
                             if (Px < NPx && Px + Enemies[a].Radius > NPx)
@@ -280,7 +289,9 @@ void UpdateEnemy()
                                     Enemies[a].Status = 1;
                             }
                         }
+                    }
                     if (dy > dx)
+                    {
                         if (Px > NPx - Enemies[a].Radius && Px < NPx + Enemies[a].Radius)
                         {
                             if (Py < NPy && Py + Enemies[a].Radius > NPy)
@@ -296,6 +307,7 @@ void UpdateEnemy()
                                     Enemies[a].Status = 1;
                             }
                         }
+                    }
                 }
                 // Chrash mit anderen NPCs verhindern
                 NPx = Enemies[a].X;
@@ -325,8 +337,10 @@ void UpdateEnemy()
                         dy = Py - NPy;
                         if (dy < 0)
                             dy *= -1;
+
                         // now lets compare
                         if (dx > dy)
+                        {
                             if (Py > NPy - Enemies[NPCnum].Radius && Py < NPy + Enemies[NPCnum].Radius && Enemies[NPCnum].Status != 3)
                             {
                                 if (Px < NPx && Px + Enemies[NPCnum].Radius > NPx)
@@ -334,7 +348,10 @@ void UpdateEnemy()
                                 if (Px > NPx && Px - Enemies[NPCnum].Radius < NPx)
                                     l = false;
                             }
+                        }
+
                         if (dy > dx)
+                        {
                             if (Px > NPx - Enemies[NPCnum].Radius && Px < NPx + Enemies[NPCnum].Radius && Enemies[NPCnum].Status != 3)
                             {
                                 if (Py < NPy && Py + Enemies[NPCnum].Radius > NPy)
@@ -342,6 +359,7 @@ void UpdateEnemy()
                                 if (Py > NPy && Py - Enemies[NPCnum].Radius < NPy)
                                     u = false;
                             }
+                        }
                     }
                 }
             }

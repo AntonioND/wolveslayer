@@ -82,263 +82,261 @@ static void PreCalcWater(void)
         for (int xx = 0; xx < MapGetWr(); xx++)
         {
             if (WaterKey != (0 | BIT(15)) && WaterKey != 0)
+            {
                 if (MapGroundGetRGB(xx, yy) == WaterKey)
-                    Precalcdata[xx][yy] |= (1 << B_Water);
+                    Precalcdata[xx][yy] |= 1 << B_Water;
+            }
         }
     }
 }
 
 static void PreCalcAGround(void)
 {
-    u32 Gnd;
-    bool UGnd, LGnd, RGnd, DGnd;
-    bool ULGnd, DLGnd, URGnd, DRGnd;
-
-    u32 Obj;
-    int texturecounter = 0;
-    int choose2 __attribute__((unused)), texturecounter2;
-
     for (int yy = 0; yy < MapGetHr(); yy++)
     {
         for (int xx = 0; xx < MapGetWr(); xx++)
         {
-            choose2 = -1;
+            int choose2 __attribute__((unused)) = -1;
 
-            Gnd = 0; // char[7] value for compare colorkeys
-            Obj = 0; // char[7] value for compare colorkeys
+            u32 Gnd = 0; // char[7] value for compare colorkeys
+            u32 Obj = 0; // char[7] value for compare colorkeys
             // Ground
             if (xx >= 0 && yy >= 0)
+            {
                 if (xx < MapGetWr() && yy < MapGetHr()) // Gnd hold now the hexavalue of current ground
                     Gnd = MapGroundGetRGB(xx, yy);
+            }
 
             // Objekt check (needed to determinate if there is a wall so we dont render ground)
             Obj = MapObjectGetRGB(xx, yy);
-            for (texturecounter2 = 0; texturecounter2 < Object_Max; texturecounter2++)
+            for (int texturecounter2 = 0; texturecounter2 < Object_Max; texturecounter2++)
+            {
                 if (Obj == Objects[texturecounter2].ColorKey)
                     choose2 = texturecounter2;
+            }
 
             TexAGround[xx][yy] = -1;
             SetAGround[xx][yy] = -1;
 
             // Here we look which texture to use
-            for (texturecounter = 0; texturecounter < 4; texturecounter++)
+            for (int texturecounter = 0; texturecounter < 4; texturecounter++)
             {
-                if (Gnd == Autotile[texturecounter].ColorKeyMaster)
+                if (Gnd != Autotile[texturecounter].ColorKeyMaster)
+                    continue;
+
+                SetAGround[xx][yy] = texturecounter;
+
+                bool LGnd  = false;
+                bool RGnd  = false;
+                bool UGnd  = false;
+                bool DGnd  = false;
+                bool ULGnd = false;
+                bool DLGnd = false;
+                bool URGnd = false;
+                bool DRGnd = false;
+
+                // Compare neighbours with master color
+                if (MapGroundGetRGB(xx - 1, yy) != Autotile[texturecounter].ColorKeyMaster)
+                    LGnd = true;
+                if (MapGroundGetRGB(xx + 1, yy) != Autotile[texturecounter].ColorKeyMaster)
+                    RGnd = true;
+                if (MapGroundGetRGB(xx, yy - 1) != Autotile[texturecounter].ColorKeyMaster)
+                    UGnd = true;
+                if (MapGroundGetRGB(xx, yy + 1) != Autotile[texturecounter].ColorKeyMaster)
+                    DGnd = true;
+                if (MapGroundGetRGB(xx - 1, yy - 1) != Autotile[texturecounter].ColorKeyMaster)
+                    ULGnd = true;
+                if (MapGroundGetRGB(xx + 1, yy - 1) != Autotile[texturecounter].ColorKeyMaster)
+                    URGnd = true;
+                if (MapGroundGetRGB(xx - 1, yy + 1) != Autotile[texturecounter].ColorKeyMaster)
+                    DLGnd = true;
+                if (MapGroundGetRGB(xx + 1, yy + 1) != Autotile[texturecounter].ColorKeyMaster)
+                    DRGnd = true;
+
+                // Compare neighbours with ignore colors
+                for (int ign = 0; ign <= Autotile[texturecounter].IgnorecolorsNum; ign++)
                 {
-                    SetAGround[xx][yy] = texturecounter;
-
-                    LGnd  = false;
-                    RGnd  = false;
-                    UGnd  = false;
-                    DGnd  = false;
-                    ULGnd = false;
-                    DLGnd = false;
-                    URGnd = false;
-                    DRGnd = false;
-
-                    // Compare neighbours with master color
-                    if (MapGroundGetRGB(xx - 1, yy) != Autotile[texturecounter].ColorKeyMaster)
-                        LGnd = true;
-                    if (MapGroundGetRGB(xx + 1, yy) != Autotile[texturecounter].ColorKeyMaster)
-                        RGnd = true;
-                    if (MapGroundGetRGB(xx, yy - 1) != Autotile[texturecounter].ColorKeyMaster)
-                        UGnd = true;
-                    if (MapGroundGetRGB(xx, yy + 1) != Autotile[texturecounter].ColorKeyMaster)
-                        DGnd = true;
-                    if (MapGroundGetRGB(xx - 1, yy - 1) != Autotile[texturecounter].ColorKeyMaster)
-                        ULGnd = true;
-                    if (MapGroundGetRGB(xx + 1, yy - 1) != Autotile[texturecounter].ColorKeyMaster)
-                        URGnd = true;
-                    if (MapGroundGetRGB(xx - 1, yy + 1) != Autotile[texturecounter].ColorKeyMaster)
-                        DLGnd = true;
-                    if (MapGroundGetRGB(xx + 1, yy + 1) != Autotile[texturecounter].ColorKeyMaster)
-                        DRGnd = true;
-
-                    // Compare neighbours with ignore colors
-                    for (int ign = 0; ign <= Autotile[texturecounter].IgnorecolorsNum; ign++)
-                    {
-                        if (MapGroundGetRGB(xx - 1, yy) == Autotile[texturecounter].Ignorecolors[ign])
-                            LGnd = false;
-                        if (MapGroundGetRGB(xx + 1, yy) == Autotile[texturecounter].Ignorecolors[ign])
-                            RGnd = false;
-                        if (MapGroundGetRGB(xx, yy - 1) == Autotile[texturecounter].Ignorecolors[ign])
-                            UGnd = false;
-                        if (MapGroundGetRGB(xx, yy + 1) == Autotile[texturecounter].Ignorecolors[ign])
-                            DGnd = false;
-                        if (MapGroundGetRGB(xx - 1, yy - 1) == Autotile[texturecounter].Ignorecolors[ign])
-                            ULGnd = false;
-                        if (MapGroundGetRGB(xx + 1, yy - 1) == Autotile[texturecounter].Ignorecolors[ign])
-                            URGnd = false;
-                        if (MapGroundGetRGB(xx - 1, yy + 1) == Autotile[texturecounter].Ignorecolors[ign])
-                            DLGnd = false;
-                        if (MapGroundGetRGB(xx + 1, yy + 1) == Autotile[texturecounter].Ignorecolors[ign])
-                            DRGnd = false;
-                    }
-
-                    // Texture alone
-                    if ((LGnd == true) && (RGnd == true) && (UGnd == true) && (DGnd == true))
-                        TexAGround[xx][yy] = 31;
-
-                    // Texture surounded by others
-                    if ((LGnd == false) && (RGnd == false) && (UGnd == false) && (DGnd == false))
-                    {
-                        if (ULGnd == false && URGnd == false && DLGnd == false && DRGnd == false)
-                            TexAGround[xx][yy] = 9; // no diagonal oponents
-
-                        if (ULGnd == true && URGnd == false && DLGnd == false && DRGnd == false)
-                            TexAGround[xx][yy] = 16; // one oponent
-                        if (ULGnd == false && URGnd == false && DLGnd == true && DRGnd == false)
-                            TexAGround[xx][yy] = 20; // one oponent
-                        if (ULGnd == false && URGnd == true && DLGnd == false && DRGnd == false)
-                            TexAGround[xx][yy] = 24; // one oponent
-                        if (ULGnd == false && URGnd == false && DLGnd == false && DRGnd == true)
-                            TexAGround[xx][yy] = 28; // one oponent
-
-                        if (ULGnd == true && URGnd == true && DLGnd == false && DRGnd == false)
-                            TexAGround[xx][yy] = 17; // two oponents
-                        if (ULGnd == false && URGnd == false && DLGnd == true && DRGnd == true)
-                            TexAGround[xx][yy] = 21; // two oponents
-                        if (ULGnd == false && URGnd == true && DLGnd == false && DRGnd == true)
-                            TexAGround[xx][yy] = 25; // two oponents
-                        if (ULGnd == true && URGnd == false && DLGnd == true && DRGnd == false)
-                            TexAGround[xx][yy] = 29; // two oponents
-                        if (ULGnd == false && URGnd == true && DLGnd == true && DRGnd == false)
-                            TexAGround[xx][yy] = 18; // two oponents
-                        if (ULGnd == true && URGnd == false && DLGnd == false && DRGnd == true)
-                            TexAGround[xx][yy] = 22; // two oponents
-
-                        if (ULGnd == true && URGnd == true && DLGnd == false && DRGnd == true)
-                            TexAGround[xx][yy] = 26; // 3 oponents
-                        if (ULGnd == true && URGnd == true && DLGnd == true && DRGnd == false)
-                            TexAGround[xx][yy] = 30; // 3 oponents
-                        if (ULGnd == false && URGnd == true && DLGnd == true && DRGnd == true)
-                            TexAGround[xx][yy] = 19; // 3 oponents
-                        if (ULGnd == true && URGnd == false && DLGnd == true && DRGnd == true)
-                            TexAGround[xx][yy] = 23; // 3 oponents
-
-                        if (ULGnd == true && URGnd == true && DLGnd == true && DRGnd == true)
-                            TexAGround[xx][yy] = 27; // 4 oponents
-                    }
-
-                    // Texture with border over it
-                    if ((LGnd == false) && (RGnd == false) && (UGnd == true) && (DGnd == false))
-                    {
-                        if (DLGnd == false && DRGnd == false)
-                            TexAGround[xx][yy] = 5;
-
-                        if (DLGnd == false && DRGnd == true)
-                            TexAGround[xx][yy] = 33;
-                        if (DLGnd == true && DRGnd == false)
-                            TexAGround[xx][yy] = 37;
-                        if (DLGnd == true && DRGnd == true)
-                            TexAGround[xx][yy] = 41;
-                    }
-
-                    // Texture with border under it
-                    if ((LGnd == false) && (RGnd == false) && (UGnd == false) && (DGnd == true))
-                    {
-                        if (ULGnd == false && URGnd == false)
-                            TexAGround[xx][yy] = 13;
-
-                        if (ULGnd == false && URGnd == true)
-                            TexAGround[xx][yy] = 45;
-                        if (ULGnd == true && URGnd == false)
-                            TexAGround[xx][yy] = 34;
-                        if (ULGnd == true && URGnd == true)
-                            TexAGround[xx][yy] = 38;
-                    }
-
-                    // Texture border on the right
-                    if ((LGnd == true) && (RGnd == false) && (UGnd == false) && (DGnd == false))
-                    {
-                        if (URGnd == false && DRGnd == false)
-                            TexAGround[xx][yy] = 8;
-
-                        if (URGnd == true && DRGnd == false)
-                            TexAGround[xx][yy] = 42;
-                        if (URGnd == false && DRGnd == true)
-                            TexAGround[xx][yy] = 46;
-                        if (URGnd == true && DRGnd == true)
-                            TexAGround[xx][yy] = 35;
-                    }
-
-                    // Texture with border on the left
-                    if ((LGnd == false) && (RGnd == true) && (UGnd == false) && (DGnd == false))
-                    {
-                        if (ULGnd == false && DLGnd == false)
-                            TexAGround[xx][yy] = 10;
-
-                        if (ULGnd == true && DLGnd == false)
-                            TexAGround[xx][yy] = 39;
-                        if (ULGnd == false && DLGnd == true)
-                            TexAGround[xx][yy] = 43;
-                        if (ULGnd == true && DLGnd == true)
-                            TexAGround[xx][yy] = 47;
-                    }
-
-                    // Texture with border up/left
-                    if ((LGnd == true) && (RGnd == false) && (UGnd == true) && (DGnd == false))
-                    {
-                        if (DRGnd == false)
-                            TexAGround[xx][yy] = 4;
-                        else
-                            TexAGround[xx][yy] = 32;
-                    }
-
-                    // Texture with border up/right
-                    if ((LGnd == false) && (RGnd == true) && (UGnd == true) && (DGnd == false))
-                    {
-                        if (DLGnd == false)
-                            TexAGround[xx][yy] = 6;
-                        else
-                            TexAGround[xx][yy] = 36;
-                    }
-
-                    // Texture with border down/left
-                    if ((LGnd == true) && (RGnd == false) && (UGnd == false) && (DGnd == true))
-                    {
-                        if (URGnd == false)
-                            TexAGround[xx][yy] = 12;
-                        else
-                            TexAGround[xx][yy] = 40;
-                    }
-
-                    // Texture with border down/right
-                    if ((LGnd == false) && (RGnd == true) && (UGnd == false) && (DGnd == true))
-                    {
-                        if (ULGnd == false)
-                            TexAGround[xx][yy] = 14;
-                        else
-                            TexAGround[xx][yy] = 44;
-                    }
-
-                    // Texture with border up/down
-                    if ((LGnd == false) && (RGnd == false) && (UGnd == true) && (DGnd == true))
-                        TexAGround[xx][yy] = 1;
-
-                    // Texture with border left/down/up
-                    if ((LGnd == true) && (RGnd == false) && (UGnd == true) && (DGnd == true))
-                        TexAGround[xx][yy] = 3;
-
-                    // Texture with border right/down/up
-                    if ((LGnd == false) && (RGnd == true) && (UGnd == true) && (DGnd == true))
-                        TexAGround[xx][yy] = 15;
-
-                    // Texture with border left/right
-                    if ((LGnd == true) && (RGnd == true) && (UGnd == false) && (DGnd == false))
-                        TexAGround[xx][yy] = 2;
-
-                    // Texture with border left/right/up
-                    if ((LGnd == true) && (RGnd == true) && (UGnd == true) && (DGnd == false))
-                        TexAGround[xx][yy] = 11;
-
-                    // Texture with border Left/right/down
-                    if ((LGnd == true) && (RGnd == true) && (UGnd == false) && (DGnd == true))
-                        TexAGround[xx][yy] = 7;
-
-                    if (MapGroundGetRGB(xx, yy) == (0 | BIT(15)) || MapGroundGetRGB(xx, yy) == 0)
-                        TexAGround[xx][yy] = -1;
+                    if (MapGroundGetRGB(xx - 1, yy) == Autotile[texturecounter].Ignorecolors[ign])
+                        LGnd = false;
+                    if (MapGroundGetRGB(xx + 1, yy) == Autotile[texturecounter].Ignorecolors[ign])
+                        RGnd = false;
+                    if (MapGroundGetRGB(xx, yy - 1) == Autotile[texturecounter].Ignorecolors[ign])
+                        UGnd = false;
+                    if (MapGroundGetRGB(xx, yy + 1) == Autotile[texturecounter].Ignorecolors[ign])
+                        DGnd = false;
+                    if (MapGroundGetRGB(xx - 1, yy - 1) == Autotile[texturecounter].Ignorecolors[ign])
+                        ULGnd = false;
+                    if (MapGroundGetRGB(xx + 1, yy - 1) == Autotile[texturecounter].Ignorecolors[ign])
+                        URGnd = false;
+                    if (MapGroundGetRGB(xx - 1, yy + 1) == Autotile[texturecounter].Ignorecolors[ign])
+                        DLGnd = false;
+                    if (MapGroundGetRGB(xx + 1, yy + 1) == Autotile[texturecounter].Ignorecolors[ign])
+                        DRGnd = false;
                 }
+
+                // Texture alone
+                if ((LGnd == true) && (RGnd == true) && (UGnd == true) && (DGnd == true))
+                    TexAGround[xx][yy] = 31;
+
+                // Texture surounded by others
+                if ((LGnd == false) && (RGnd == false) && (UGnd == false) && (DGnd == false))
+                {
+                    if (ULGnd == false && URGnd == false && DLGnd == false && DRGnd == false)
+                        TexAGround[xx][yy] = 9; // no diagonal oponents
+
+                    if (ULGnd == true && URGnd == false && DLGnd == false && DRGnd == false)
+                        TexAGround[xx][yy] = 16; // one oponent
+                    if (ULGnd == false && URGnd == false && DLGnd == true && DRGnd == false)
+                        TexAGround[xx][yy] = 20; // one oponent
+                    if (ULGnd == false && URGnd == true && DLGnd == false && DRGnd == false)
+                        TexAGround[xx][yy] = 24; // one oponent
+                    if (ULGnd == false && URGnd == false && DLGnd == false && DRGnd == true)
+                        TexAGround[xx][yy] = 28; // one oponent
+
+                    if (ULGnd == true && URGnd == true && DLGnd == false && DRGnd == false)
+                        TexAGround[xx][yy] = 17; // two oponents
+                    if (ULGnd == false && URGnd == false && DLGnd == true && DRGnd == true)
+                        TexAGround[xx][yy] = 21; // two oponents
+                    if (ULGnd == false && URGnd == true && DLGnd == false && DRGnd == true)
+                        TexAGround[xx][yy] = 25; // two oponents
+                    if (ULGnd == true && URGnd == false && DLGnd == true && DRGnd == false)
+                        TexAGround[xx][yy] = 29; // two oponents
+                    if (ULGnd == false && URGnd == true && DLGnd == true && DRGnd == false)
+                        TexAGround[xx][yy] = 18; // two oponents
+                    if (ULGnd == true && URGnd == false && DLGnd == false && DRGnd == true)
+                        TexAGround[xx][yy] = 22; // two oponents
+
+                    if (ULGnd == true && URGnd == true && DLGnd == false && DRGnd == true)
+                        TexAGround[xx][yy] = 26; // 3 oponents
+                    if (ULGnd == true && URGnd == true && DLGnd == true && DRGnd == false)
+                        TexAGround[xx][yy] = 30; // 3 oponents
+                    if (ULGnd == false && URGnd == true && DLGnd == true && DRGnd == true)
+                        TexAGround[xx][yy] = 19; // 3 oponents
+                    if (ULGnd == true && URGnd == false && DLGnd == true && DRGnd == true)
+                        TexAGround[xx][yy] = 23; // 3 oponents
+
+                    if (ULGnd == true && URGnd == true && DLGnd == true && DRGnd == true)
+                        TexAGround[xx][yy] = 27; // 4 oponents
+                }
+
+                // Texture with border over it
+                if ((LGnd == false) && (RGnd == false) && (UGnd == true) && (DGnd == false))
+                {
+                    if (DLGnd == false && DRGnd == false)
+                        TexAGround[xx][yy] = 5;
+
+                    if (DLGnd == false && DRGnd == true)
+                        TexAGround[xx][yy] = 33;
+                    if (DLGnd == true && DRGnd == false)
+                        TexAGround[xx][yy] = 37;
+                    if (DLGnd == true && DRGnd == true)
+                        TexAGround[xx][yy] = 41;
+                }
+
+                // Texture with border under it
+                if ((LGnd == false) && (RGnd == false) && (UGnd == false) && (DGnd == true))
+                {
+                    if (ULGnd == false && URGnd == false)
+                        TexAGround[xx][yy] = 13;
+
+                    if (ULGnd == false && URGnd == true)
+                        TexAGround[xx][yy] = 45;
+                    if (ULGnd == true && URGnd == false)
+                        TexAGround[xx][yy] = 34;
+                    if (ULGnd == true && URGnd == true)
+                        TexAGround[xx][yy] = 38;
+                }
+
+                // Texture border on the right
+                if ((LGnd == true) && (RGnd == false) && (UGnd == false) && (DGnd == false))
+                {
+                    if (URGnd == false && DRGnd == false)
+                        TexAGround[xx][yy] = 8;
+
+                    if (URGnd == true && DRGnd == false)
+                        TexAGround[xx][yy] = 42;
+                    if (URGnd == false && DRGnd == true)
+                        TexAGround[xx][yy] = 46;
+                    if (URGnd == true && DRGnd == true)
+                        TexAGround[xx][yy] = 35;
+                }
+
+                // Texture with border on the left
+                if ((LGnd == false) && (RGnd == true) && (UGnd == false) && (DGnd == false))
+                {
+                    if (ULGnd == false && DLGnd == false)
+                        TexAGround[xx][yy] = 10;
+
+                    if (ULGnd == true && DLGnd == false)
+                        TexAGround[xx][yy] = 39;
+                    if (ULGnd == false && DLGnd == true)
+                        TexAGround[xx][yy] = 43;
+                    if (ULGnd == true && DLGnd == true)
+                        TexAGround[xx][yy] = 47;
+                }
+
+                // Texture with border up/left
+                if ((LGnd == true) && (RGnd == false) && (UGnd == true) && (DGnd == false))
+                {
+                    if (DRGnd == false)
+                        TexAGround[xx][yy] = 4;
+                    else
+                        TexAGround[xx][yy] = 32;
+                }
+
+                // Texture with border up/right
+                if ((LGnd == false) && (RGnd == true) && (UGnd == true) && (DGnd == false))
+                {
+                    if (DLGnd == false)
+                        TexAGround[xx][yy] = 6;
+                    else
+                        TexAGround[xx][yy] = 36;
+                }
+
+                // Texture with border down/left
+                if ((LGnd == true) && (RGnd == false) && (UGnd == false) && (DGnd == true))
+                {
+                    if (URGnd == false)
+                        TexAGround[xx][yy] = 12;
+                    else
+                        TexAGround[xx][yy] = 40;
+                }
+
+                // Texture with border down/right
+                if ((LGnd == false) && (RGnd == true) && (UGnd == false) && (DGnd == true))
+                {
+                    if (ULGnd == false)
+                        TexAGround[xx][yy] = 14;
+                    else
+                        TexAGround[xx][yy] = 44;
+                }
+
+                // Texture with border up/down
+                if ((LGnd == false) && (RGnd == false) && (UGnd == true) && (DGnd == true))
+                    TexAGround[xx][yy] = 1;
+
+                // Texture with border left/down/up
+                if ((LGnd == true) && (RGnd == false) && (UGnd == true) && (DGnd == true))
+                    TexAGround[xx][yy] = 3;
+
+                // Texture with border right/down/up
+                if ((LGnd == false) && (RGnd == true) && (UGnd == true) && (DGnd == true))
+                    TexAGround[xx][yy] = 15;
+
+                // Texture with border left/right
+                if ((LGnd == true) && (RGnd == true) && (UGnd == false) && (DGnd == false))
+                    TexAGround[xx][yy] = 2;
+
+                // Texture with border left/right/up
+                if ((LGnd == true) && (RGnd == true) && (UGnd == true) && (DGnd == false))
+                    TexAGround[xx][yy] = 11;
+
+                // Texture with border Left/right/down
+                if ((LGnd == true) && (RGnd == true) && (UGnd == false) && (DGnd == true))
+                    TexAGround[xx][yy] = 7;
+
+                if (MapGroundGetRGB(xx, yy) == (0 | BIT(15)) || MapGroundGetRGB(xx, yy) == 0)
+                    TexAGround[xx][yy] = -1;
             }
         }
     }
@@ -366,8 +364,11 @@ static void PreCalcObj(void)
 
             // Here we look which texture to use
             for (texturecounter = 0; texturecounter < Object_Max; texturecounter++)
+            {
                 if (Obj == Objects[texturecounter].ColorKey)
                     choose = texturecounter;
+            }
+
             TexObj[xx][yy]   = choose;
             ShapeObj[xx][yy] = -1;
             DirObj[xx][yy]   = 0;
@@ -620,8 +621,10 @@ static void PreCalcObj(void)
                     if ((ObjL && ObjR) || (ObjU && ObjD))
                         ShapeObj[xx][yy] = Obj_WallBor;
                     if (walldoor)
+                    {
                         if ((ObjL && ObjR) || (ObjU && ObjD))
                             ShapeObj[xx][yy] = Obj_WallDoor;
+                    }
 
                     if (ObjL && ObjR)
                     {
@@ -678,31 +681,42 @@ static void PrecalcTerrain(void)
 
             // horizontal/vertikal
             if (xx > 0)
+            {
                 GetRGBfromMap(x - 3, y, lr, lg, lb);
+            }
             else
             {
                 lr = 0;
                 lg = 0;
                 lb = 0;
             }
+
             if (xx < MapGetWr())
+            {
                 GetRGBfromMap(x + 3, y, rr, rg, rb);
+            }
             else
             {
                 rr = 0;
                 rg = 0;
                 rb = 0;
             }
+
             if (yy > 0)
+            {
                 GetRGBfromMap(x, y - 3, ur, ug, ub);
+            }
             else
             {
                 ur = 0;
                 ug = 0;
                 ub = 0;
             }
+
             if (yy < MapGetHr())
+            {
                 GetRGBfromMap(x, y + 3, dr, dg, db);
+            }
             else
             {
                 dr = 0;
@@ -712,31 +726,42 @@ static void PrecalcTerrain(void)
 
             // diagonal
             if (xx > 0 && yy > 0)
+            {
                 GetRGBfromMap(x - 3, y - 3, ulr, ulg, ulb);
+            }
             else
             {
                 ulr = 0;
                 ulg = 0;
                 ulb = 0;
             }
+
             if (yy > 0 && xx < MapGetWr())
+            {
                 GetRGBfromMap(x + 3, y - 3, urr, urg, urb);
+            }
             else
             {
                 urr = 0;
                 urg = 0;
                 urb = 0;
             }
+
             if (xx > 0 && yy < MapGetHr())
+            {
                 GetRGBfromMap(x - 3, y + 3, dlr, dlg, dlb);
+            }
             else
             {
                 dlr = 0;
                 dlg = 0;
                 dlb = 0;
             }
+
             if (xx < MapGetWr() && yy < MapGetHr())
+            {
                 GetRGBfromMap(x + 3, y + 3, drr, drg, drb);
+            }
             else
             {
                 drr = 0;
@@ -756,47 +781,71 @@ static void PrecalcTerrain(void)
                 // Oneway-directional
                 Terrain[xx][yy].v[0] = f32tov16(GetHeight(xx, yy));
                 if (ug == 0xB || ub == 0xB)
+                {
                     if (f32tov16(GetHeight(xx, yy - 1)) > Terrain[xx][yy].v[0])
                         Terrain[xx][yy].v[0] = f32tov16(GetHeight(xx, yy - 1));
+                }
                 if (lg == 0xB || lb == 0xB)
+                {
                     if (f32tov16(GetHeight(xx - 1, yy)) > Terrain[xx][yy].v[0])
                         Terrain[xx][yy].v[0] = f32tov16(GetHeight(xx - 1, yy));
+                }
                 if (ulg == 0xB || ulb == 0xB)
+                {
                     if (f32tov16(GetHeight(xx - 1, yy - 1)) > Terrain[xx][yy].v[0])
                         Terrain[xx][yy].v[0] = f32tov16(GetHeight(xx - 1, yy - 1));
+                }
 
                 Terrain[xx][yy].v[1] = f32tov16(GetHeight(xx + 1, yy));
                 if (ug == 0xB || ub == 0xB)
+                {
                     if (f32tov16(GetHeight(xx, yy - 1)) > Terrain[xx][yy].v[1])
                         Terrain[xx][yy].v[1] = f32tov16(GetHeight(xx, yy - 1));
+                }
                 if (rg == 0xB || rb == 0xB)
+                {
                     if (f32tov16(GetHeight(xx + 1, yy)) > Terrain[xx][yy].v[1])
                         Terrain[xx][yy].v[1] = f32tov16(GetHeight(xx + 1, yy));
+                }
                 if (urg == 0xB || urb == 0xB)
+                {
                     if (f32tov16(GetHeight(xx + 1, yy - 1)) > Terrain[xx][yy].v[1])
                         Terrain[xx][yy].v[1] = f32tov16(GetHeight(xx + 1, yy - 1));
+                }
 
                 Terrain[xx][yy].v[2] = f32tov16(GetHeight(xx, yy + 1));
                 if (dg == 0xB || db == 0xB)
+                {
                     if (f32tov16(GetHeight(xx, yy + 1)) > Terrain[xx][yy].v[2])
                         Terrain[xx][yy].v[2] = f32tov16(GetHeight(xx, yy + 1));
+                }
                 if (lg == 0xB || lb == 0xB)
+                {
                     if (f32tov16(GetHeight(xx - 1, yy)) > Terrain[xx][yy].v[2])
                         Terrain[xx][yy].v[2] = f32tov16(GetHeight(xx - 1, yy));
+                }
                 if (dlg == 0xB || dlb == 0xB)
+                {
                     if (f32tov16(GetHeight(xx - 1, yy + 1)) > Terrain[xx][yy].v[2])
                         Terrain[xx][yy].v[2] = f32tov16(GetHeight(xx - 1, yy + 1));
+                }
 
                 Terrain[xx][yy].v[3] = f32tov16(GetHeight(xx + 1, yy + 1));
                 if (dg == 0xB || db == 0xB)
+                {
                     if (f32tov16(GetHeight(xx, yy + 1)) > Terrain[xx][yy].v[3])
                         Terrain[xx][yy].v[3] = f32tov16(GetHeight(xx, yy + 1));
+                }
                 if (rg == 0xB || rb == 0xB)
+                {
                     if (f32tov16(GetHeight(xx + 1, yy)) > Terrain[xx][yy].v[3])
                         Terrain[xx][yy].v[3] = f32tov16(GetHeight(xx + 1, yy));
+                }
                 if (drg == 0xB || drb == 0xB)
+                {
                     if (f32tov16(GetHeight(xx + 1, yy + 1)) > Terrain[xx][yy].v[3])
                         Terrain[xx][yy].v[3] = f32tov16(GetHeight(xx + 1, yy + 1));
+                }
             }
         }
     }
@@ -963,8 +1012,10 @@ static void PrecalcMirror(void)
                     if (mx >= 0 && my >= 0)
                     {
                         if (TexGround[mx][my] > -1)
+                        {
                             if (Ground[TexGround[mx][my]].TransEnable && GetHeight(mx, my) == 0)
                                 Precalcdata[xx][yy] |= (1 << B_Mirrorable);
+                        }
 
                         if (Precalcdata[xx][yy] & (1 << B_Water))
                             Precalcdata[xx][yy] |= (1 << B_Mirrorable);
@@ -1145,9 +1196,7 @@ static void PrecalcObjectRot(void)
             const char *type = Objects[TexObj[xx][yy]].Type;
 
             if (strncmp(type, "MODEL", 5) == 0)
-            {
                 DirObj[xx][yy] = MapObjGetRot(xx, yy);
-            }
         }
     }
 }

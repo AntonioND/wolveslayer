@@ -94,57 +94,113 @@ void TurnVillager(int a, bool l, bool r, bool u, bool d)
 
 void UpdateVillagers()
 {
-    if (screenmode < ScreenModeItem)
+    if (screenmode >= ScreenModeItem)
+        return;
+
+    for (int a = 0; a <= VillagerCount; a++)
     {
-        for (int a = 0; a <= VillagerCount; a++)
+        bool l = true;
+        bool r = true;
+        bool u = true;
+        bool d = true;
+
+        float sx = Villager[a].SX * 10;
+        float sy = Villager[a].SY * 10;
+
+        for (int b = 2; b < 8; b++)
         {
-            bool l = true;
-            bool r = true;
-            bool u = true;
-            bool d = true;
+            if (Passable(Villager[a].X, Villager[a].Y, sx + b, sy) == false)
+                u = false;
+            if (Passable(Villager[a].X, Villager[a].Y, sx + b, sy + 8) == false)
+                d = false;
+            if (Passable(Villager[a].X, Villager[a].Y, sx + 1, sy - 1 + b) == false)
+                l = false;
+            if (Passable(Villager[a].X, Villager[a].Y, sx + 8, sy - 1 + b) == false)
+                r = false;
+        }
 
-            float sx = Villager[a].SX * 10;
-            float sy = Villager[a].SY * 10;
+        // Prevent crash with player
 
-            for (int b = 2; b < 8; b++)
+        float NPx = GetPX() + (PlPosSX + .5); // its playerpos here...
+        float NPy = GetPY() + (PlPosSY + .5); // why? copy/paste/change a bit...easy
+
+        float Px = Villager[a].X;
+        float Py = Villager[a].Y;
+        if (Villager[a].SY >= -.5)
+            Py++;
+        if (Villager[a].SY <= .5)
+            Py--;
+        if (Villager[a].SX >= -.5)
+            Px++;
+        if (Villager[a].SX <= .5)
+            Px--;
+        Px += Villager[a].SX + .5;
+        Py += Villager[a].SY + .5;
+        // Wow strange code....but should work to compare those positions right
+        // first check distance
+        float dx = Px - NPx;
+        if (dx < 0)
+            dx *= -1;
+        float dy = Py - NPy;
+        if (dy < 0)
+            dy *= -1;
+
+        // now lets compare
+        if (dx > dy)
+        {
+            if (Py > NPy - .6 && Py < NPy + .6)
             {
-                if (Passable(Villager[a].X, Villager[a].Y, sx + b, sy) == false)
-                    u = false;
-                if (Passable(Villager[a].X, Villager[a].Y, sx + b, sy + 8) == false)
-                    d = false;
-                if (Passable(Villager[a].X, Villager[a].Y, sx + 1, sy - 1 + b) == false)
-                    l = false;
-                if (Passable(Villager[a].X, Villager[a].Y, sx + 8, sy - 1 + b) == false)
+                if (Px < NPx && Px + .6 > NPx)
                     r = false;
+                if (Px > NPx && Px - .6 < NPx)
+                    l = false;
             }
+        }
+        if (dy > dx)
+        {
+            if (Px > NPx - .6 && Px < NPx + .6)
+            {
+                if (Py < NPy && Py + .6 > NPy)
+                    d = false;
+                if (Py > NPy && Py - .6 < NPy)
+                    u = false;
+            }
+        }
 
-            // Prevent crash with player
+        // Prevent crashes with other NPCs
 
-            float NPx = GetPX() + (PlPosSX + .5); // its playerpos here...
-            float NPy = GetPY() + (PlPosSY + .5); // why? copy/paste/change a bit...easy
+        int NPCnum;
+        // NPx = GetPX() + (PlPosSX + .5); // its playerpos here...
+        // NPy = GetPY() + (PlPosSY + .5); // why? copy/paste/change a bit...easy
+        NPx = Villager[a].X;
+        NPy = Villager[a].Y;
 
-            float Px = Villager[a].X;
-            float Py = Villager[a].Y;
-            if (Villager[a].SY >= -.5)
+        for (NPCnum = 0; NPCnum <= VillagerCount; NPCnum++)
+        {
+            if (NPCnum == a)
+                continue;
+
+            Px = Villager[NPCnum].X;
+            Py = Villager[NPCnum].Y;
+            if (Villager[NPCnum].SY >= -.5)
                 Py++;
-            if (Villager[a].SY <= .5)
+            if (Villager[NPCnum].SY <= .5)
                 Py--;
-            if (Villager[a].SX >= -.5)
+            if (Villager[NPCnum].SX >= -.5)
                 Px++;
-            if (Villager[a].SX <= .5)
+            if (Villager[NPCnum].SX <= .5)
                 Px--;
-            Px += Villager[a].SX + .5;
-            Py += Villager[a].SY + .5;
+            Px += Villager[NPCnum].SX + .5;
+            Py += Villager[NPCnum].SY + .5;
             // Wow strange code....but should work to compare those positions right
             // first check distance
-            float dx = Px - NPx;
+            dx = Px - NPx;
             if (dx < 0)
                 dx *= -1;
-            float dy = Py - NPy;
+            dy = Py - NPy;
             if (dy < 0)
                 dy *= -1;
-
-            // now lets compare
+            // now lets compace
             if (dx > dy)
             {
                 if (Py > NPy - .6 && Py < NPy + .6)
@@ -165,111 +221,60 @@ void UpdateVillagers()
                         u = false;
                 }
             }
+        }
 
-            // Prevent crashes with other NPCs
+        // Movement
+        if (screenmode != ScreenModeTextBox || a != npctalk) // talking NPCs cant move
+        {
+            // Direction change
+            bool change = false;
+            if ((Villager[a].Direction == 0 || Villager[a].Direction == 1 || Villager[a].Direction == 7) && d == false)
+                change = true;
+            if ((Villager[a].Direction == 1 || Villager[a].Direction == 2 || Villager[a].Direction == 3) && l == false)
+                change = true;
+            if ((Villager[a].Direction == 6 || Villager[a].Direction == 5 || Villager[a].Direction == 7) && r == false)
+                change = true;
+            if ((Villager[a].Direction == 4 || Villager[a].Direction == 3 || Villager[a].Direction == 5) && u == false)
+                change = true;
+            if (rand() % 60 == 0)
+                change = true;
 
-            int NPCnum;
-            // NPx = GetPX() + (PlPosSX + .5); // its playerpos here...
-            // NPy = GetPY() + (PlPosSY + .5); // why? copy/paste/change a bit...easy
-            NPx = Villager[a].X;
-            NPy = Villager[a].Y;
+            if (change)
+                TurnVillager(a, l, r, u, d);
 
-            for (NPCnum = 0; NPCnum <= VillagerCount; NPCnum++)
+            // Horizontal
+            if ((Villager[a].Direction == 6 || Villager[a].Direction == 5 || Villager[a].Direction == 7) && r)
+                Villager[a].SX += .025;
+            if (Villager[a].SX > .5)
             {
-                if (NPCnum != a)
-                {
-                    Px = Villager[NPCnum].X;
-                    Py = Villager[NPCnum].Y;
-                    if (Villager[NPCnum].SY >= -.5)
-                        Py++;
-                    if (Villager[NPCnum].SY <= .5)
-                        Py--;
-                    if (Villager[NPCnum].SX >= -.5)
-                        Px++;
-                    if (Villager[NPCnum].SX <= .5)
-                        Px--;
-                    Px += Villager[NPCnum].SX + .5;
-                    Py += Villager[NPCnum].SY + .5;
-                    // Wow strange code....but should work to compare those positions right
-                    // first check distance
-                    dx = Px - NPx;
-                    if (dx < 0)
-                        dx *= -1;
-                    dy = Py - NPy;
-                    if (dy < 0)
-                        dy *= -1;
-                    // now lets compace
-                    if (dx > dy)
-                        if (Py > NPy - .6 && Py < NPy + .6)
-                        {
-                            if (Px < NPx && Px + .6 > NPx)
-                                r = false;
-                            if (Px > NPx && Px - .6 < NPx)
-                                l = false;
-                        }
-                    if (dy > dx)
-                        if (Px > NPx - .6 && Px < NPx + .6)
-                        {
-                            if (Py < NPy && Py + .6 > NPy)
-                                d = false;
-                            if (Py > NPy && Py - .6 < NPy)
-                                u = false;
-                        }
-                }
+                Villager[a].X += 1;
+                Villager[a].SX -= 1;
             }
-
-            // Movement
-            if (screenmode != ScreenModeTextBox || a != npctalk)
-            { // talking NPCs cant move
-                // Direction change
-                bool change = false;
-                if ((Villager[a].Direction == 0 || Villager[a].Direction == 1 || Villager[a].Direction == 7) && d == false)
-                    change = true;
-                if ((Villager[a].Direction == 1 || Villager[a].Direction == 2 || Villager[a].Direction == 3) && l == false)
-                    change = true;
-                if ((Villager[a].Direction == 6 || Villager[a].Direction == 5 || Villager[a].Direction == 7) && r == false)
-                    change = true;
-                if ((Villager[a].Direction == 4 || Villager[a].Direction == 3 || Villager[a].Direction == 5) && u == false)
-                    change = true;
-                if (rand() % 60 == 0)
-                    change = true;
-
-                if (change)
-                    TurnVillager(a, l, r, u, d);
-
-                // Horizontal
-                if ((Villager[a].Direction == 6 || Villager[a].Direction == 5 || Villager[a].Direction == 7) && r)
-                    Villager[a].SX += .025;
-                if (Villager[a].SX > .5)
-                {
-                    Villager[a].X += 1;
-                    Villager[a].SX -= 1;
-                }
-                if ((Villager[a].Direction == 1 || Villager[a].Direction == 2 || Villager[a].Direction == 3) && l)
-                    Villager[a].SX -= .025;
-                if (Villager[a].SX < -.5)
-                {
-                    Villager[a].X -= 1;
-                    Villager[a].SX += 1;
-                }
-                // Vertikal
-                if ((Villager[a].Direction == 0 || Villager[a].Direction == 1 || Villager[a].Direction == 7) && d)
-                    Villager[a].SY += .025;
-                if (Villager[a].SY > .5)
-                {
-                    Villager[a].Y += 1;
-                    Villager[a].SY -= 1;
-                }
-                if ((Villager[a].Direction == 4 || Villager[a].Direction == 3 || Villager[a].Direction == 5) && u)
-                    Villager[a].SY -= .025;
-                if (Villager[a].SY < -.5)
-                {
-                    Villager[a].Y -= 1;
-                    Villager[a].SY += 1;
-                }
+            if ((Villager[a].Direction == 1 || Villager[a].Direction == 2 || Villager[a].Direction == 3) && l)
+                Villager[a].SX -= .025;
+            if (Villager[a].SX < -.5)
+            {
+                Villager[a].X -= 1;
+                Villager[a].SX += 1;
+            }
+            // Vertikal
+            if ((Villager[a].Direction == 0 || Villager[a].Direction == 1 || Villager[a].Direction == 7) && d)
+                Villager[a].SY += .025;
+            if (Villager[a].SY > .5)
+            {
+                Villager[a].Y += 1;
+                Villager[a].SY -= 1;
+            }
+            if ((Villager[a].Direction == 4 || Villager[a].Direction == 3 || Villager[a].Direction == 5) && u)
+                Villager[a].SY -= .025;
+            if (Villager[a].SY < -.5)
+            {
+                Villager[a].Y -= 1;
+                Villager[a].SY += 1;
             }
         }
     }
+
 }
 
 void LoadSpriteTexture(char filename[], char palname[], int *Target, int num)

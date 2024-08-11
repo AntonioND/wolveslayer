@@ -274,7 +274,6 @@ void UpdateVillagers()
             }
         }
     }
-
 }
 
 void LoadSpriteTexture(char filename[], char palname[], int *Target, int num)

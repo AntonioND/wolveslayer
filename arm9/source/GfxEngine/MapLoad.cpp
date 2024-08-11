@@ -403,8 +403,10 @@ void LoadMap(char *filename)
             u32 r = *pic++;
 
             if (q >= 0 && q < 256)
+            {
                 if (i >= 0 && i < 256)
                     MapImage[q][i] = (r) | (g << 8) | (b << 16) | (0 << 24);
+            }
 
             if (q % 3 == 0 && i % 3 == 0)
             {

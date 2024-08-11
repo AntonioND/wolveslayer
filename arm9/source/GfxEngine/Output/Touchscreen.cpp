@@ -78,19 +78,19 @@ void ScreenMode(void)
 
 void ScreenModeHandler(void)
 {
-    if (screenmode == ScreenModeTextBox)
-    {
-        if ((keysDown() & (KEY_A | KEY_B)) && CurWord == wordnum && nextpage == false)
-        {
-            npctalk = -1;
-            ScreenMode();
-            CurWord = -1;
-            wordnum = -1;
-        }
+    if (screenmode != ScreenModeTextBox)
+        return;
 
-        if ((keysDown() & (KEY_A | KEY_B)) && nextpage == true)
-            ShownextPage();
+    if ((keysDown() & (KEY_A | KEY_B)) && CurWord == wordnum && nextpage == false)
+    {
+        npctalk = -1;
+        ScreenMode();
+        CurWord = -1;
+        wordnum = -1;
     }
+
+    if ((keysDown() & (KEY_A | KEY_B)) && nextpage == true)
+        ShownextPage();
 }
 
 void Print(const char *Text, int x, int y)
@@ -105,33 +105,48 @@ void Print(const char *Text, int x, int y)
     {
         Char = Text[Counter] - 32;
         for (int xx = Char * sw; xx <= Char * sw + (sw - 1); xx++)
+        {
             for (int yy = 0; yy <= sh; yy++)
             {
+                // Writes Font in black
                 if (Font1[xx + yy * 668] == 0)
                 {
                     i = x + xx - Char * sw + Counter * (sw + 1);
                     j = y + yy;
                     if (i < 256 && j < 192)
+                    {
                         if (i > -1 && j > -1)
                             BG_GFX_SUB[i + (j * 256)] = RGB15(31, 31, 31) | BIT(15);
-                } // Writes Font in black
+                    }
+                }
 
+                // Restores BG
                 if (Font1[xx + yy * 668] == 1)
                 {
                     i = x + xx - Char * sw + Counter * (sw + 1);
                     j = y + yy;
 
                     if (screenmode == ScreenModeNormal)
+                    {
                         if (i < 256 && j < 192)
+                        {
                             if (i > -1 && j > -1)
                                 BG_GFX_SUB[i + (j * 256)] = ((u16 *)touch_bin)[i + (j * 256)] | BIT(15);
+                        }
+                    }
 
                     if (screenmode == ScreenModeLoading)
+                    {
                         if (i < 256 && j < 192)
+                        {
                             if (i > -1 && j > -1)
                                 BG_GFX_SUB[i + (j * 256)] = ((u16 *)scrL_bin)[i + (j * 256)] | BIT(15);
-                } // Restores BG
+                        }
+                    }
+                }
             }
+        }
+
         if (Text[Counter + 1] == '\0')
             Counter = 255;
     }
@@ -145,8 +160,10 @@ void PrintOUT(const char *Text, int x, int y, bool color, int n)
     {
         char Char = Text[Counter] - 32;
         for (int xx = Char * sw; xx <= Char * sw + (sw - 1); xx++)
+        {
             for (int yy = 0; yy <= sh; yy++)
             {
+                // Writes Font in black
                 if (Font1[xx + yy * 668] == 0)
                 {
                     int i = x + xx - Char * sw + Counter * (sw + 1);
@@ -158,8 +175,9 @@ void PrintOUT(const char *Text, int x, int y, bool color, int n)
                         else
                             BG_GFX_SUB[i + (j * 256)] = RGB15(0, 0, 0) | BIT(15);
                     }
-                } // Writes Font in black
+                }
             }
+        }
         if (Text[Counter + 1] == '\0')
             Counter = 255;
     }

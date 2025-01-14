@@ -15,6 +15,8 @@
 
 int main(int argc, char *argv[])
 {
+    defaultExceptionHandler();
+
     // consoleDebugInit(DebugDevice_NOCASH);
 
     E3D_Init();

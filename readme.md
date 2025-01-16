@@ -38,9 +38,13 @@ watch it [here](https://www.youtube.com/watch?v=q-SZ4lWB1Qs).
 
 ## Build instructions
 
-Install [BlocksDS](https://blocksds.github.io/docs/).
+Install [BlocksDS](https://blocksds.skylyrac.net/docs/).
 
-Run `make` in the root of this repository.
+Run this in the root of this repository:
+
+```bash
+make -j`nproc`
+```
 
 ## Unused content
 

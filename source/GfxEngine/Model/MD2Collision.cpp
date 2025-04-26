@@ -3,7 +3,7 @@
 // Copyright (C) 2007 Christian Hoffmann (Payk)
 // Copyright (C) 2024 Antonio Niño Díaz
 
-#include <math.h>
+#include <cmath>
 
 #include "GfxEngine/Model/MD2Models.h"
 

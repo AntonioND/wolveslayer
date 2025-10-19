@@ -313,7 +313,7 @@ void E3D_StartRender()
               0, 1, 0);                                                           // Up
 
     // Move away from the camera
-    glTranslate3f32(0, 0, floattov16(-0.1));
+    glTranslatef32(0, 0, floattov16(-0.1));
 }
 
 void E3D_Render()
